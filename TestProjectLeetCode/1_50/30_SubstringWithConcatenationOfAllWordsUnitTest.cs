@@ -11,7 +11,7 @@ namespace TestProjectLeetCode._1_50
     [TestClass]
     public class _30_SubstringWithConcatenationOfAllWordsUnitTest
     {
-        SubstringWithConcatenationOfAllWords stringSub = new SubstringWithConcatenationOfAllWords();
+        SubstringWithConcatenationOfAllWordsAlg stringSub = new SubstringWithConcatenationOfAllWordsAlg();
         [TestMethod]
         public void TestMethod1()
         {

@@ -18,7 +18,7 @@ namespace leetCode._1_50
         }
     }
 
-    public class SubstringWithConcatenationOfAllWords
+    public class SubstringWithConcatenationOfAllWordsAlg
     {
 
         public IList<int> FindSubstring(string s, string[] words)
