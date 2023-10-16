@@ -20,7 +20,59 @@ namespace leetCode._1_50
 
     public class SubstringWithConcatenationOfAllWords
     {
+
         public IList<int> FindSubstring(string s, string[] words)
+        {
+            IList<int> res = new List<int>();
+            if (s == null || s.Length == 0 || words == null || words.Length == 0)
+                return res;
+            Dictionary<string, int> map = new Dictionary<string, int>();
+            int one_word = words[0].Length;
+            int word_num = words.Length;
+            int all_len = one_word * word_num;
+            foreach (var word in words)
+            {
+                if (!map.ContainsKey(word))
+                {
+                    map.Add(word, 0);
+                }
+                map[word]++;
+
+            }
+
+            for (int i = 0; i < s.Length - all_len + 1; i++)
+            {
+                string tmp = s.Substring(i, all_len);
+                Dictionary<string, int> tmp_map = new Dictionary<string, int>();
+                for (int j = 0; j < all_len; j += one_word)
+                {
+                    string w = tmp.Substring(j, one_word);
+                    if (!tmp_map.ContainsKey(w))
+                    {
+                        tmp_map.Add(w, 0);
+                    }
+                    tmp_map[w]++;
+                   
+                }
+                int num = 0;
+                foreach (var item in tmp_map)
+                {
+                    if (map.ContainsKey(item.Key) && map[item.Key]==item.Value)
+                    {
+                        num++;
+                    }
+                }
+                if (num==tmp_map.Count) 
+                {
+                    res.Add(i);
+                }
+                  
+            }
+            return res;
+        }
+
+
+        public IList<int> FindSubstring4(string s, string[] words)
         {
             IList<int> res = new List<int>();
             int m = words.Length, n = words[0].Length, ls = s.Length;
@@ -316,6 +368,6 @@ namespace leetCode._1_50
 
             return list;
         }
-        
+
     }
 }
