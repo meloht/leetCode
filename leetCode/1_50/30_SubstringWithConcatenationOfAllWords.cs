@@ -6,6 +6,18 @@ using System.Threading.Tasks;
 
 namespace leetCode._1_50
 {
+    public class WordModel
+    {
+        public int Index;
+        public string Word;
+        public bool IsUse;
+
+        public override string ToString()
+        {
+            return $"{Index} {Word} {IsUse}";
+        }
+    }
+
     public class SubstringWithConcatenationOfAllWords
     {
         public IList<int> FindSubstring(string s, string[] words)
@@ -24,68 +36,109 @@ namespace leetCode._1_50
             {
                 return result;
             }
+            int slen = s.Length;
 
+            int subLen = len * wordLen;
 
-            HashSet<string> resultArr = new HashSet<string>();
-            for (int i = 0; i < words.Length; i++)
+            var list = getWordList(words);
+
+            int n = 0;
+            string sub = s;
+            bool flag = false;
+            bool flagIn = false;
+            int arrLen;
+            while (n < slen)
             {
-                List<string> list = new List<string>(words);
-                string item = words[i];
-                list.RemoveAt(i);
-                if (list.Count > 0)
+
+                foreach (var item in list)
                 {
-                    BuldStringList(list, item, resultArr);
+                    if (!sub.StartsWith(item.Word))
+                    {
+                        continue;
+                    }
+
+                    string start = item.Word;
+                    var tempOut = item;
+
+                    while (sub.StartsWith(start))
+                    {
+                        flagIn = false;
+                        tempOut.IsUse = true;
+                        var reList = list.Where(item => item.IsUse == false).ToList();
+                        arrLen = reList.Count;
+                        if (arrLen > 0)
+                        {
+                            for (int i = 0; i < arrLen; i++)
+                            {
+                                var tempIn = reList[i];
+                                var tempStart = $"{start}{tempIn.Word}";
+                                if (sub.StartsWith(tempStart))
+                                {
+                                    start = tempStart;
+                                    tempIn.IsUse = true;
+                                    flagIn = true;
+                                }
+
+                            }
+
+                        }
+
+
+                        if (start.Length == subLen && sub.StartsWith(start))
+                        {
+                            flag = true;
+                            result.Add(n);
+                            break;
+
+                        }
+                        if (reList.Count == 0 || flagIn == false)
+                        {
+                            break;
+                        }
+
+                    }
+                    RestList(list);
+
+                    if (flag)
+                    {
+                        break;
+                    }
                 }
-                else
+
+                n++;
+                flag = false;
+                sub = s.Substring(n);
+                if (sub.Length < subLen)
                 {
-                    resultArr.Add(item);
-                }
-
-            }
-
-
-            foreach (var item in resultArr)
-            {
-                string ss = s;
-                int index = ss.IndexOf(item);
-                int total = 0;
-                while (index != -1)
-                {
-                    total += index;
-                    result.Add(total);
-
-                    ss = ss.Substring(index + 1);
-                    total += 1;
-                    index = ss.IndexOf(item);
-
+                    break;
                 }
             }
 
             return result;
         }
 
-
-        private void BuldStringList(List<string> ls, string str, HashSet<string> result)
+        private void RestList(List<WordModel> list)
         {
-            var words = ls.ToArray();
-
-            for (int i = 0; i < words.Length; i++)
+            foreach (var item in list)
             {
-                List<string> list = new List<string>(words);
-                string item = words[i];
-                list.RemoveAt(i);
-                string strna = $"{str}{item}";
-
-                if (list.Count == 0)
-                {
-                    result.Add(strna);
-
-                }
-                else
-                {
-                    BuldStringList(list, strna, result);
-                }
+                item.IsUse = false;
             }
         }
+
+        private List<WordModel> getWordList(string[] words)
+        {
+            List<WordModel> list = new List<WordModel>();
+            for (int i = 0; i < words.Length; i++)
+            {
+                WordModel model = new WordModel();
+                model.Word = words[i];
+                model.Index = i;
+                model.IsUse = false;
+                list.Add(model);
+            }
+
+            return list;
+        }
+        
     }
 }
