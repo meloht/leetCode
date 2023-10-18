@@ -51,10 +51,56 @@ namespace TestProjectLeetCode._1_50
         [TestMethod]
         public void TestCase05()
         {
-            //string s = "()(())";
-            //int num1 = 6;
-            //int num2 = alg.LongestValidParentheses(s);
-            //Assert.AreEqual(num1, num2);
+            string s = "()(()";
+            int num1 = 2;
+            int num2 = alg.LongestValidParentheses(s);
+            Assert.AreEqual(num1, num2);
+        }
+
+        [TestMethod]
+        public void TestCase06()
+        {
+            string s = "(()(((()";
+            int num1 = 2;
+            int num2 = alg.LongestValidParentheses(s);
+            Assert.AreEqual(num1, num2);
+        }
+
+        [TestMethod]
+        public void TestCase07()
+        {
+            string s = "()()(((()";
+            int num1 = 4;
+            int num2 = alg.LongestValidParentheses(s);
+            Assert.AreEqual(num1, num2);
+        }
+
+        [TestMethod]
+        public void TestCase08()
+        {
+            string s = "(()()(((()";
+            int num1 = 4;
+            int num2 = alg.LongestValidParentheses(s);
+            Assert.AreEqual(num1, num2);
+        }
+
+        [TestMethod]
+        public void TestCase09()
+        {
+            string s = ")(()((()))(((()()())";
+            int num1 = 8;
+            int num2 = alg.LongestValidParentheses(s);
+            Assert.AreEqual(num1, num2);
+        }
+
+        [TestMethod]
+        public void TestCase10()
+        {
+            string s = ")(()(()(((())(((((()()))((((()()(()()())())())()))()()()())(())()()(((()))))()((()))(((())()((()()())((())))(())))())((()())()()((()((())))))((()(((((()((()))(()()(())))((()))()))())";
+
+            int num1 = 132;
+            int num2 = alg.LongestValidParentheses(s);
+            Assert.AreEqual(num1, num2);
         }
     }
 }
