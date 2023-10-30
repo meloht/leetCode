@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace leetCode._1_50
 {
-    internal class DivideTwoIntegersAlg
+    public class DivideTwoIntegersAlg
     {
         public int Divide(int dividend, int divisor)
         {
