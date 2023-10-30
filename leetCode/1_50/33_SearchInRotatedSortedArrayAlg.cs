@@ -16,10 +16,9 @@ namespace leetCode._1_50
 
             int left = 0; // 左边界
             int right = nums.Length - 1; // 右边界
-            int max = nums[right];
+   
             while (left <= right)
             {
-
                 int mid = left + (right - left) / 2; // 中间索引
 
                 if (nums[mid] == target)
@@ -27,37 +26,43 @@ namespace leetCode._1_50
                     return mid;
                 }
 
-                if (nums[mid] > max)
+                if (nums[mid] > nums[right])
                 {
-                    int index = BinarySearch(nums, 0, mid, target);
-                    if (index != -1)
+                    if (target >= nums[left] && target < nums[mid])
                     {
-                        return index;
+                        int index = BinarySearch(nums, left, mid, target);
+                        if (index != -1)
+                        {
+                            return index;
+                        }
                     }
+
                     left = mid + 1;
-
-
                 }
                 else
                 {
-                    int index = BinarySearch(nums, mid, right, target);
-                    if (index != -1)
+                    if (target > nums[mid] && target <= nums[right])
                     {
-                        return index;
+                        int index = BinarySearch(nums, mid, right, target);
+                        if (index != -1)
+                        {
+                            return index;
+                        }
                     }
+                   
                     right = mid - 1;
 
                 }
 
 
-               
+
             }
             return -1;
 
         }
 
 
-        public int BinarySearch(int[] array,  int left, int right,int target)
+        public int BinarySearch(int[] array, int left, int right, int target)
         {
             while (left <= right)
             {

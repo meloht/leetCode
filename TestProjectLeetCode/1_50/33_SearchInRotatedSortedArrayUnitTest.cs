@@ -10,7 +10,7 @@ namespace TestProjectLeetCode._1_50
     [TestClass]
     public class _33_SearchInRotatedSortedArrayUnitTest
     {
-        SearchInRotatedSortedArrayAlg alg=new SearchInRotatedSortedArrayAlg();
+        SearchInRotatedSortedArrayAlg alg = new SearchInRotatedSortedArrayAlg();
 
         [TestMethod]
         public void TestCase01()
@@ -63,6 +63,14 @@ namespace TestProjectLeetCode._1_50
         {
             int[] nums = { 9, 1, 2, 3, 4, 5, 6, 7, 8 };
             int index = alg.Search(nums, 9);
+            Assert.AreEqual(index, 0);
+        }
+
+        [TestMethod]
+        public void TestCase08()
+        {
+            int[] nums = { 3, 5, 1 };
+            int index = alg.Search(nums, 3);
             Assert.AreEqual(index, 0);
         }
     }
