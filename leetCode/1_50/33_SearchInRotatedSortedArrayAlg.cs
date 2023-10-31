@@ -66,7 +66,7 @@ namespace leetCode._1_50
         {
             while (left <= right)
             {
-                int mid = left + (right - left) / 2; // 中间索引
+                int mid = (right + left) / 2; // 中间索引
 
                 if (array[mid] == target)
                 {
