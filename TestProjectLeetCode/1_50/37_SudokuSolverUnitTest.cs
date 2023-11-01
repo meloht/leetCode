@@ -15,6 +15,7 @@ namespace TestProjectLeetCode._1_50
         [TestMethod]
         public void TestCase01()
         {
+
             char[][] board =
 { new []{'5', '3', '.', '.', '7', '.', '.', '.', '.' }
 , new []{'6', '.', '.', '1', '9', '5', '.', '.', '.' }
@@ -58,5 +59,24 @@ namespace TestProjectLeetCode._1_50
             return true;
         }
 
+        [TestMethod]
+        public void TestCase02()
+        {
+            for (int i = 0; i <=6; i += 3)
+            {
+                for (int j = 0; j <=6; j += 3)
+                {
+                    System.Diagnostics.Debug.WriteLine($"{i},{j}");
+                    System.Diagnostics.Debug.WriteLine($"{i+3},{j+3}");
+                    System.Diagnostics.Debug.WriteLine("-------------");
+                }
+               
+            }
+            Assert.IsTrue(true);
+        }
+
     }
+
+
+
 }

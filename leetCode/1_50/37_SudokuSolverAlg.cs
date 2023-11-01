@@ -11,15 +11,23 @@ namespace leetCode._1_50
         public void SolveSudoku(char[][] board)
         {
             List<NodeModel> list = new List<NodeModel>();
-            list.Add(new NodeModel { beginX = 0, beginY = 0, endX = 3, endY = 3 });
-            list.Add(new NodeModel { beginX = 0, beginY = 3, endX = 3, endY = 6 });
-            list.Add(new NodeModel { beginX = 0, beginY = 6, endX = 3, endY = 9 });
-            list.Add(new NodeModel { beginX = 3, beginY = 0, endX = 6, endY = 3 });
-            list.Add(new NodeModel { beginX = 3, beginY = 3, endX = 6, endY = 6 });
-            list.Add(new NodeModel { beginX = 3, beginY = 6, endX = 6, endY = 9 });
-            list.Add(new NodeModel { beginX = 6, beginY = 0, endX = 9, endY = 3 });
-            list.Add(new NodeModel { beginX = 6, beginY = 3, endX = 9, endY = 6 });
-            list.Add(new NodeModel { beginX = 6, beginY = 6, endX = 9, endY = 9 });
+            //list.Add(new NodeModel { beginX = 0, beginY = 0, endX = 3, endY = 3 });
+            //list.Add(new NodeModel { beginX = 0, beginY = 3, endX = 3, endY = 6 });
+            //list.Add(new NodeModel { beginX = 0, beginY = 6, endX = 3, endY = 9 });
+            //list.Add(new NodeModel { beginX = 3, beginY = 0, endX = 6, endY = 3 });
+            //list.Add(new NodeModel { beginX = 3, beginY = 3, endX = 6, endY = 6 });
+            //list.Add(new NodeModel { beginX = 3, beginY = 6, endX = 6, endY = 9 });
+            //list.Add(new NodeModel { beginX = 6, beginY = 0, endX = 9, endY = 3 });
+            //list.Add(new NodeModel { beginX = 6, beginY = 3, endX = 9, endY = 6 });
+            //list.Add(new NodeModel { beginX = 6, beginY = 6, endX = 9, endY = 9 });
+            for (int i = 0; i <= 6; i += 3)
+            {
+                for (int j = 0; j <= 6; j += 3)
+                {
+                    list.Add(new NodeModel { beginX = i, beginY = j, endX = i + 3, endY = j + 3 });
+                }
+
+            }
 
             Dictionary<int, HashSet<int>> rowSet = new Dictionary<int, HashSet<int>>();
             Dictionary<int, HashSet<int>> colSet = new Dictionary<int, HashSet<int>>();
@@ -34,7 +42,7 @@ namespace leetCode._1_50
                     {
                         if (!rowSet.ContainsKey(i))
                         {
-                            rowSet.Add(i, new HashSet<int>(9));
+                            rowSet.Add(i, new HashSet<int>());
                         }
                         rowSet[i].Add(Convert.ToInt32(board[i][j].ToString()));
 
@@ -48,7 +56,7 @@ namespace leetCode._1_50
                     {
                         if (!colSet.ContainsKey(i))
                         {
-                            colSet.Add(i, new HashSet<int>(9));
+                            colSet.Add(i, new HashSet<int>());
                         }
                         colSet[i].Add(Convert.ToInt32(board[j][i].ToString()));
 
@@ -143,7 +151,7 @@ namespace leetCode._1_50
             }
             return null;
         }
-       
+
         private void InitNodeNums(List<Node> listNode, Dictionary<int, HashSet<int>> rowSet, Dictionary<int, HashSet<int>> colSet, List<NodeModel> list)
         {
             foreach (var node in listNode)
@@ -175,18 +183,18 @@ namespace leetCode._1_50
             }
         }
 
-      
+
         class Node
         {
             public int X;
             public int Y;
             public int Value;
-            public HashSet<int> logSet = new HashSet<int>(9);
-            public List<int> NumOps = new List<int>(9);
-            public List<int> OrignalOps = new List<int>(9);
-            public HashSet<int> rowSet = new HashSet<int>(9);
-            public HashSet<int> colSet = new HashSet<int>(9);
-            public HashSet<int> boxSet = new HashSet<int>(9);
+            public HashSet<int> logSet = new HashSet<int>();
+            public List<int> NumOps = new List<int>();
+            public List<int> OrignalOps = new List<int>();
+            public HashSet<int> rowSet = new HashSet<int>();
+            public HashSet<int> colSet = new HashSet<int>();
+            public HashSet<int> boxSet = new HashSet<int>();
 
             public int GetNum()
             {
@@ -241,7 +249,7 @@ namespace leetCode._1_50
             public int endX;
             public int beginY;
             public int endY;
-            public HashSet<int> boxSet = new HashSet<int>(9);
+            public HashSet<int> boxSet = new HashSet<int>();
 
             public override string ToString()
             {
