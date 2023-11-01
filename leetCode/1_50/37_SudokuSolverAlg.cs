@@ -29,8 +29,8 @@ namespace leetCode._1_50
 
             }
 
-            Dictionary<int, HashSet<int>> rowSet = new Dictionary<int, HashSet<int>>();
-            Dictionary<int, HashSet<int>> colSet = new Dictionary<int, HashSet<int>>();
+            Dictionary<int, HashSet<char>> rowSet = new Dictionary<int, HashSet<char>>();
+            Dictionary<int, HashSet<char>> colSet = new Dictionary<int, HashSet<char>>();
             List<Node> listNode = new List<Node>();
 
 
@@ -42,9 +42,9 @@ namespace leetCode._1_50
                     {
                         if (!rowSet.ContainsKey(i))
                         {
-                            rowSet.Add(i, new HashSet<int>());
+                            rowSet.Add(i, new HashSet<char>());
                         }
-                        rowSet[i].Add(Convert.ToInt32(board[i][j].ToString()));
+                        rowSet[i].Add(board[i][j]);
 
                     }
                     else
@@ -56,9 +56,9 @@ namespace leetCode._1_50
                     {
                         if (!colSet.ContainsKey(i))
                         {
-                            colSet.Add(i, new HashSet<int>());
+                            colSet.Add(i, new HashSet<char>());
                         }
-                        colSet[i].Add(Convert.ToInt32(board[j][i].ToString()));
+                        colSet[i].Add(board[j][i]);
 
                     }
                 }
@@ -74,7 +74,7 @@ namespace leetCode._1_50
                         {
                             continue;
                         }
-                        node.boxSet.Add(Convert.ToInt32(board[j][i].ToString()));
+                        node.boxSet.Add(board[j][i]);
                     }
                 }
                 //System.Diagnostics.Debug.WriteLine($"==a:{node.beginX} {node.beginY}==");
@@ -99,9 +99,9 @@ namespace leetCode._1_50
                     nodeData = listNode[index];
                 }
 
-                int num = nodeData.GetNum();
+                char num = nodeData.GetNum();
 
-                if (num > 0)
+                if (num != '0')
                 {
                     nodeData.logSet.Add(num);
                     nodeData.rowSet.Add(num);
@@ -152,18 +152,19 @@ namespace leetCode._1_50
             return null;
         }
 
-        private void InitNodeNums(List<Node> listNode, Dictionary<int, HashSet<int>> rowSet, Dictionary<int, HashSet<int>> colSet, List<NodeModel> list)
+        private void InitNodeNums(List<Node> listNode, Dictionary<int, HashSet<char>> rowSet, Dictionary<int, HashSet<char>> colSet, List<NodeModel> list)
         {
+            char[] chars = new char[] { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
             foreach (var node in listNode)
             {
-                HashSet<int> col = colSet[node.Y];
-                HashSet<int> row = rowSet[node.X];
-                HashSet<int> box = GetBox(node.X, node.Y, list).boxSet;
+                HashSet<char> col = colSet[node.Y];
+                HashSet<char> row = rowSet[node.X];
+                HashSet<char> box = GetBox(node.X, node.Y, list).boxSet;
                 node.rowSet = row;
                 node.colSet = col;
                 node.boxSet = box;
 
-                for (int i = 1; i <= 9; i++)
+                foreach (var i in chars)
                 {
                     if (col.Contains(i))
                     {
@@ -188,21 +189,21 @@ namespace leetCode._1_50
         {
             public int X;
             public int Y;
-            public int Value;
-            public HashSet<int> logSet = new HashSet<int>();
-            public List<int> NumOps = new List<int>();
-            public List<int> OrignalOps = new List<int>();
-            public HashSet<int> rowSet = new HashSet<int>();
-            public HashSet<int> colSet = new HashSet<int>();
-            public HashSet<int> boxSet = new HashSet<int>();
+            public char Value;
+            public HashSet<char> logSet = new HashSet<char>();
+            public List<char> NumOps = new List<char>();
+            public List<char> OrignalOps = new List<char>();
+            public HashSet<char> rowSet = new HashSet<char>();
+            public HashSet<char> colSet = new HashSet<char>();
+            public HashSet<char> boxSet = new HashSet<char>();
 
-            public int GetNum()
+            public char GetNum()
             {
                 if (NumOps.Count == 0)
                 {
-                    return 0;
+                    return '0';
                 }
-                int select = 0;
+                char select = '0';
                 foreach (var num in NumOps)
                 {
                     if (rowSet.Contains(num))
@@ -224,7 +225,7 @@ namespace leetCode._1_50
                     select = num;
                     break;
                 }
-                if (select > 0)
+                if (select != '0')
                 {
                     NumOps.Remove(select);
                 }
@@ -249,7 +250,7 @@ namespace leetCode._1_50
             public int endX;
             public int beginY;
             public int endY;
-            public HashSet<int> boxSet = new HashSet<int>();
+            public HashSet<char> boxSet = new HashSet<char>();
 
             public override string ToString()
             {
@@ -258,7 +259,7 @@ namespace leetCode._1_50
         }
 
 
-        private void Print(HashSet<int> list)
+        private void Print(HashSet<char> list)
         {
             foreach (var item in list)
             {
@@ -267,7 +268,7 @@ namespace leetCode._1_50
             System.Diagnostics.Debug.WriteLine("");
             System.Diagnostics.Debug.WriteLine("=============");
         }
-        private void PrintRows(Dictionary<int, HashSet<int>> set, string name)
+        private void PrintRows(Dictionary<int, HashSet<char>> set, string name)
         {
             foreach (var item in set.Keys)
             {
