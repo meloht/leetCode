@@ -10,7 +10,7 @@ namespace leetCode._1_50
     {
         public void SolveSudoku(char[][] board)
         {
-            List<BoxModel> list = new List<BoxModel>();
+            List<BoxModel> boxList = new List<BoxModel>();
             //list.Add(new NodeModel { beginX = 0, beginY = 0, endX = 3, endY = 3 });
             //list.Add(new NodeModel { beginX = 0, beginY = 3, endX = 3, endY = 6 });
             //list.Add(new NodeModel { beginX = 0, beginY = 6, endX = 3, endY = 9 });
@@ -24,7 +24,7 @@ namespace leetCode._1_50
             {
                 for (int j = 0; j <= 6; j += 3)
                 {
-                    list.Add(new BoxModel { beginX = i, beginY = j, endX = i + 3, endY = j + 3 });
+                    boxList.Add(new BoxModel { beginX = i, beginY = j, endX = i + 3, endY = j + 3 });
                 }
 
             }
@@ -64,7 +64,7 @@ namespace leetCode._1_50
                 }
             }
 
-            foreach (var node in list)
+            foreach (var node in boxList)
             {
                 for (int i = node.beginX; i < node.endX; i++)
                 {
@@ -87,7 +87,7 @@ namespace leetCode._1_50
 
             //PrintRows(colSet, "col");
 
-            InitNodeNums(listNode, rowSet, colSet, list);
+            InitNodeNums(listNode, rowSet, colSet, boxList);
 
             int index = 0;
             bool isOk = true;
