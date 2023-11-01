@@ -24,7 +24,7 @@ namespace leetCode._1_50
             Dictionary<int, HashSet<int>> rowSet = new Dictionary<int, HashSet<int>>();
             Dictionary<int, HashSet<int>> colSet = new Dictionary<int, HashSet<int>>();
             List<Node> listNode = new List<Node>();
-            Dictionary<int, Dictionary<int, HashSet<int>>> dict = new Dictionary<int, Dictionary<int, HashSet<int>>>();
+
 
             for (int i = 0; i < 9; i++)
             {
@@ -46,11 +46,11 @@ namespace leetCode._1_50
 
                     if (board[j][i] != '.')
                     {
-                        if (!colSet.ContainsKey(j))
+                        if (!colSet.ContainsKey(i))
                         {
-                            colSet.Add(j, new HashSet<int>(9));
+                            colSet.Add(i, new HashSet<int>(9));
                         }
-                        colSet[j].Add(Convert.ToInt32(board[j][i].ToString()));
+                        colSet[i].Add(Convert.ToInt32(board[j][i].ToString()));
 
                     }
                 }
@@ -62,67 +62,72 @@ namespace leetCode._1_50
                 {
                     for (int j = node.beginY; j < node.endY; j++)
                     {
-                        if (board[i][j] == '.')
+                        if (board[j][i] == '.')
                         {
                             continue;
                         }
-                        node.boxSet.Add(Convert.ToInt32(board[i][j].ToString()));
+                        node.boxSet.Add(Convert.ToInt32(board[j][i].ToString()));
                     }
                 }
+                //System.Diagnostics.Debug.WriteLine($"==a:{node.beginX} {node.beginY}==");
+                //System.Diagnostics.Debug.WriteLine($"==b:{node.endX} {node.endY}==");
+                //Print(node.boxSet);
             }
+
+
+            //PrintRows(rowSet, "row");
+
+            //PrintRows(colSet, "col");
+
+            InitNodeNums(listNode, rowSet, colSet, list);
 
             int index = 0;
             bool isOk = true;
             Node nodeData = null;
-            NodeModel nodeModel = null;
             while (index < listNode.Count)
             {
                 if (isOk)
                 {
                     nodeData = listNode[index];
-                    nodeModel = GetBox(nodeData.X, nodeData.Y, list);
                 }
 
-                if (!dict.ContainsKey(nodeData.X))
-                {
-                    dict.Add(nodeData.X, new Dictionary<int, HashSet<int>>());
-                }
-                var dictNode = dict[nodeData.X];
-                if (!dictNode.ContainsKey(nodeData.Y))
-                {
-                    dictNode.Add(nodeData.Y, new HashSet<int>(9));
-                }
+                int num = nodeData.GetNum();
 
-                int num = GetNum(rowSet[nodeData.X], colSet[nodeData.Y], nodeModel.boxSet, dict[nodeData.X][nodeData.Y]);
                 if (num > 0)
                 {
-
-                    dict[nodeData.X][nodeData.Y].Add(num);
-                    rowSet[nodeData.X].Add(num);
-                    colSet[nodeData.Y].Add(num);
-                    nodeModel.boxSet.Add(num);
+                    nodeData.logSet.Add(num);
+                    nodeData.rowSet.Add(num);
+                    nodeData.colSet.Add(num);
+                    nodeData.boxSet.Add(num);
                     nodeData.Value = num;
 
                     index++;
                     isOk = true;
                     board[nodeData.X][nodeData.Y] = char.Parse(num.ToString());
+
+                    //PrintBorad(board, nodeData);
                 }
                 else
                 {
-                   
-                    
-                    if (index > 0) 
+                    if (index > 0)
                     {
+                        nodeData.ResetOps();
                         index--;
                         isOk = false;
                         nodeData = listNode[index];
-                        nodeModel = GetBox(nodeData.X, nodeData.Y, list);
 
-                        rowSet[nodeData.X].Remove(nodeData.Value);
-                        colSet[nodeData.Y].Remove(nodeData.Value);
-                        nodeModel.boxSet.Remove(nodeData.Value);
+                        nodeData.rowSet.Remove(nodeData.Value);
+                        nodeData.colSet.Remove(nodeData.Value);
+                        nodeData.boxSet.Remove(nodeData.Value);
+
+                        board[nodeData.X][nodeData.Y] = '.';
                     }
-                   
+                    else
+                    {
+                        break;
+                    }
+
+
                 }
             }
         }
@@ -131,45 +136,103 @@ namespace leetCode._1_50
         {
             foreach (var node in list)
             {
-                if (i >= node.beginX && i < node.endX && j >= node.beginY && j < node.endY)
+                if (i >= node.beginY && i < node.endY && j >= node.beginX && j < node.endX)
                 {
                     return node;
                 }
             }
             return null;
         }
-
-        private int GetNum(HashSet<int> col, HashSet<int> row, HashSet<int> box, HashSet<int> hisSet)
+       
+        private void InitNodeNums(List<Node> listNode, Dictionary<int, HashSet<int>> rowSet, Dictionary<int, HashSet<int>> colSet, List<NodeModel> list)
         {
-            for (int i = 1; i <= 9; i++)
+            foreach (var node in listNode)
             {
-                if (col.Contains(i))
-                {
-                    continue;
-                }
-                if (row.Contains(i))
-                {
-                    continue;
-                }
-                if (box.Contains(i))
-                {
-                    continue;
-                }
-                if (hisSet.Contains(i))
-                {
-                    continue;
-                }
-                return i;
-            }
-            return 0;
+                HashSet<int> col = colSet[node.Y];
+                HashSet<int> row = rowSet[node.X];
+                HashSet<int> box = GetBox(node.X, node.Y, list).boxSet;
+                node.rowSet = row;
+                node.colSet = col;
+                node.boxSet = box;
 
+                for (int i = 1; i <= 9; i++)
+                {
+                    if (col.Contains(i))
+                    {
+                        continue;
+                    }
+                    if (row.Contains(i))
+                    {
+                        continue;
+                    }
+                    if (box.Contains(i))
+                    {
+                        continue;
+                    }
+                    node.NumOps.Add(i);
+                    node.OrignalOps.Add(i);
+                }
+            }
         }
 
+      
         class Node
         {
             public int X;
             public int Y;
             public int Value;
+            public HashSet<int> logSet = new HashSet<int>(9);
+            public List<int> NumOps = new List<int>(9);
+            public List<int> OrignalOps = new List<int>(9);
+            public HashSet<int> rowSet = new HashSet<int>(9);
+            public HashSet<int> colSet = new HashSet<int>(9);
+            public HashSet<int> boxSet = new HashSet<int>(9);
+
+            public int GetNum()
+            {
+                if (NumOps.Count == 0)
+                {
+                    return 0;
+                }
+                int select = 0;
+                foreach (var num in NumOps)
+                {
+                    if (rowSet.Contains(num))
+                    {
+                        continue;
+                    }
+                    if (colSet.Contains(num))
+                    {
+                        continue;
+                    }
+                    if (boxSet.Contains(num))
+                    {
+                        continue;
+                    }
+                    if (logSet.Contains(num))
+                    {
+                        continue;
+                    }
+                    select = num;
+                    break;
+                }
+                if (select > 0)
+                {
+                    NumOps.Remove(select);
+                }
+                return select;
+            }
+            public void ResetOps()
+            {
+                NumOps.Clear();
+                logSet.Clear();
+                NumOps.AddRange(OrignalOps);
+            }
+
+            public override string ToString()
+            {
+                return $"x:{X} y:{Y} value:{Value},opValue:{string.Join(",", NumOps)}";
+            }
         }
 
         class NodeModel
@@ -179,6 +242,43 @@ namespace leetCode._1_50
             public int beginY;
             public int endY;
             public HashSet<int> boxSet = new HashSet<int>(9);
+
+            public override string ToString()
+            {
+                return $"a:[{beginX},{beginY}] b:[{endX},{endY}] boxSet:{string.Join("", boxSet)}";
+            }
+        }
+
+
+        private void Print(HashSet<int> list)
+        {
+            foreach (var item in list)
+            {
+                System.Diagnostics.Debug.Write($" {item}");
+            }
+            System.Diagnostics.Debug.WriteLine("");
+            System.Diagnostics.Debug.WriteLine("=============");
+        }
+        private void PrintRows(Dictionary<int, HashSet<int>> set, string name)
+        {
+            foreach (var item in set.Keys)
+            {
+                System.Diagnostics.Debug.WriteLine($"=={name}:{item}==");
+                Print(set[item]);
+            }
+        }
+        private void PrintBorad(char[][] board, Node node)
+        {
+            System.Diagnostics.Debug.WriteLine($"======board==x:{node.X} y:{node.Y} value:{node.Value}=====");
+            foreach (var item in board)
+            {
+                foreach (var b in item)
+                {
+                    System.Diagnostics.Debug.Write($" {b.ToString()}");
+                }
+                System.Diagnostics.Debug.WriteLine("");
+            }
+            System.Diagnostics.Debug.WriteLine("=============");
         }
 
     }
