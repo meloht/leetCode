@@ -10,7 +10,7 @@ namespace leetCode._1_50
     {
         public void SolveSudoku(char[][] board)
         {
-            List<NodeModel> list = new List<NodeModel>();
+            List<BoxModel> list = new List<BoxModel>();
             //list.Add(new NodeModel { beginX = 0, beginY = 0, endX = 3, endY = 3 });
             //list.Add(new NodeModel { beginX = 0, beginY = 3, endX = 3, endY = 6 });
             //list.Add(new NodeModel { beginX = 0, beginY = 6, endX = 3, endY = 9 });
@@ -24,7 +24,7 @@ namespace leetCode._1_50
             {
                 for (int j = 0; j <= 6; j += 3)
                 {
-                    list.Add(new NodeModel { beginX = i, beginY = j, endX = i + 3, endY = j + 3 });
+                    list.Add(new BoxModel { beginX = i, beginY = j, endX = i + 3, endY = j + 3 });
                 }
 
             }
@@ -111,7 +111,7 @@ namespace leetCode._1_50
 
                     index++;
                     isOk = true;
-                    board[nodeData.X][nodeData.Y] = char.Parse(num.ToString());
+                    board[nodeData.X][nodeData.Y] = num;
 
                     //PrintBorad(board, nodeData);
                 }
@@ -140,7 +140,7 @@ namespace leetCode._1_50
             }
         }
 
-        private NodeModel GetBox(int i, int j, List<NodeModel> list)
+        private BoxModel GetBox(int i, int j, List<BoxModel> list)
         {
             foreach (var node in list)
             {
@@ -152,7 +152,7 @@ namespace leetCode._1_50
             return null;
         }
 
-        private void InitNodeNums(List<Node> listNode, Dictionary<int, HashSet<char>> rowSet, Dictionary<int, HashSet<char>> colSet, List<NodeModel> list)
+        private void InitNodeNums(List<Node> listNode, Dictionary<int, HashSet<char>> rowSet, Dictionary<int, HashSet<char>> colSet, List<BoxModel> list)
         {
             char[] chars = new char[] { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
             foreach (var node in listNode)
@@ -244,7 +244,7 @@ namespace leetCode._1_50
             }
         }
 
-        class NodeModel
+        class BoxModel
         {
             public int beginX;
             public int endX;
