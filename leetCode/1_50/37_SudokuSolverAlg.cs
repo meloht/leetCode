@@ -103,7 +103,6 @@ namespace leetCode._1_50
 
                 if (num != '0')
                 {
-                    nodeData.logSet.Add(num);
                     nodeData.rowSet.Add(num);
                     nodeData.colSet.Add(num);
                     nodeData.boxSet.Add(num);
@@ -190,7 +189,6 @@ namespace leetCode._1_50
             public int X;
             public int Y;
             public char Value;
-            public HashSet<char> logSet = new HashSet<char>();
             public List<char> NumOps = new List<char>();
             public List<char> OrignalOps = new List<char>();
             public HashSet<char> rowSet = new HashSet<char>();
@@ -218,10 +216,6 @@ namespace leetCode._1_50
                     {
                         continue;
                     }
-                    if (logSet.Contains(num))
-                    {
-                        continue;
-                    }
                     select = num;
                     break;
                 }
@@ -234,7 +228,6 @@ namespace leetCode._1_50
             public void ResetOps()
             {
                 NumOps.Clear();
-                logSet.Clear();
                 NumOps.AddRange(OrignalOps);
             }
 
