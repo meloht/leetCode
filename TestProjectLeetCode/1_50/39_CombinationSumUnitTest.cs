@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,20 +15,60 @@ namespace TestProjectLeetCode._1_50
 
         private bool IsSame(IList<IList<int>> list, IList<IList<int>> list2)
         {
-            if (list.Count != list2.Count)
-                return false;
+            //if (list.Count != list2.Count)
+            //    return false;
 
-            for (int i = 0; i < list.Count; i++)
+            int count = 0;
+            foreach (var item in list)
             {
-                var a = list[i];
-                var b = list2[i];
-                if (!a.SequenceEqual(b))
+                System.Diagnostics.Debug.WriteLine("=======================");
+                var dd = list2.Where(p => p.Count == item.Count).ToList();
+                var b = item.ToList();
+                b.Sort();
+                StringBuilder sb=   new StringBuilder();
+                foreach (var num1 in b)
                 {
-                    return false;
+                   
+                    sb.Append(num1);
                 }
+                System.Diagnostics.Debug.WriteLine(sb.ToString());
+                sb.Clear();
+                foreach (var item2 in dd)
+                {
+                    var a = item2.ToList();
+                    a.Sort();
+                   
+                    if (a.SequenceEqual(b))
+                    {
+                        count++;
+                      
+                        foreach (var num1 in b)
+                        {
+                            sb.Append(num1);
+                        }
+                        System.Diagnostics.Debug.WriteLine(sb.ToString());
+                        sb.Clear();
+                    }
+                }
+                System.Diagnostics.Debug.WriteLine("=======================");
             }
-            return true;
+            if (count == list.Count)
+                return true;
+
+            System.Diagnostics.Debug.WriteLine("*********************************");
+            foreach (var item in list2)
+            {
+                foreach (var item2 in item)
+                {
+                    System.Diagnostics.Debug.Write(item2);
+                }
+                System.Diagnostics.Debug.WriteLine("");
+            }
+           
+            System.Diagnostics.Debug.WriteLine("*********************************");
+            return false;
         }
+
 
         [TestMethod]
         public void TestCase01()
@@ -66,6 +107,152 @@ namespace TestProjectLeetCode._1_50
             IList<IList<int>> list = new List<IList<int>>();
 
             bool bl = IsSame(list, res);
+            Assert.AreEqual(true, bl);
+
+        }
+
+        [TestMethod]
+        public void TestCase04()
+        {
+            var candidates = new int[] { 3, 5, 8 };
+            var res = alg.CombinationSum(candidates, 11);
+
+            IList<IList<int>> list = new List<IList<int>>();
+
+            list.Add(new[] { 3, 3, 5 });
+            list.Add(new[] { 3, 8 });
+            bool bl = IsSame(list, res);
+            Assert.AreEqual(true, bl);
+
+        }
+
+        [TestMethod]
+        public void TestCase05()
+        {
+            var candidates = new int[] { 8, 7, 4, 3 };
+            var res = alg.CombinationSum(candidates, 11);
+
+            IList<IList<int>> list = new List<IList<int>>();
+
+            list.Add(new[] { 8, 3 });
+            list.Add(new[] { 7, 4 });
+            list.Add(new[] { 4, 4, 3 });
+
+            bool bl = IsSame(list, res);
+            Assert.AreEqual(true, bl);
+
+        }
+
+        [TestMethod]
+        public void TestCase06()
+        {
+            var candidates = new int[] { 7, 3, 2 };
+            var res = alg.CombinationSum(candidates, 18);
+
+            IList<IList<int>> list = new List<IList<int>>();
+
+            list.Add(new[] { 7, 7, 2, 2 });
+            list.Add(new[] { 7, 3, 3, 3, 2 });
+            list.Add(new[] { 7, 3, 2, 2, 2, 2 });
+            list.Add(new[] { 3, 3, 3, 3, 3, 3 });
+            list.Add(new[] { 3, 3, 3, 3, 2, 2, 2 });
+            list.Add(new[] { 3, 3, 2, 2, 2, 2, 2, 2 });
+            list.Add(new[] { 2, 2, 2, 2, 2, 2, 2, 2, 2 });
+
+            bool bl = IsSame(list, res);
+            Assert.AreEqual(true, bl);
+
+        }
+
+        [TestMethod]
+        public void TestCase07()
+        {
+            var candidates = new int[] { 4, 5, 2 };
+            var res = alg.CombinationSum(candidates, 16);
+
+            IList<IList<int>> list = new List<IList<int>>();
+
+            list.Add(new[] { 4, 4, 4, 4 });
+            list.Add(new[] { 4, 4, 4, 2, 2 });
+            list.Add(new[] { 4, 4, 2, 2, 2, 2 });
+            list.Add(new[] { 4, 5, 5, 2 });
+            list.Add(new[] { 4, 2, 2, 2, 2, 2, 2 });
+            list.Add(new[] { 5, 5, 2, 2, 2 });
+            list.Add(new[] { 2, 2, 2, 2, 2, 2, 2, 2 });
+
+            bool bl = IsSame(list, res);
+            Assert.AreEqual(true, bl);
+
+        }
+
+
+        [TestMethod]
+        public void TestCase08()
+        {
+            var candidates = new int[] { 5, 10, 8, 4, 3, 12, 9 };
+            var res = alg.CombinationSum(candidates, 27);
+
+            IList<IList<int>> list = new List<IList<int>>();
+
+            list.Add(new[] { 5, 5, 5, 5, 4, 3 });
+            list.Add(new[] { 5, 5, 5, 8, 4 });
+            list.Add(new[] { 5, 5, 5, 4, 4, 4 });
+            list.Add(new[] { 5, 5, 5, 3, 3, 3, 3 });
+            list.Add(new[] { 5, 5, 5, 3, 9 });
+            
+            list.Add(new[] { 5, 5, 5, 12 });
+            list.Add(new[] { 5, 5, 10, 4, 3 });
+            list.Add(new[] { 5, 5, 8, 3, 3, 3 });
+            list.Add(new[] { 5, 5, 8, 9 });
+            list.Add(new[] { 5, 5, 4, 4, 3, 3, 3 });
+
+
+            list.Add(new[] { 5, 5, 4, 4, 9 });
+            list.Add(new[] { 5, 10, 8, 4 });
+            list.Add(new[] { 5, 10, 4, 4, 4 });
+            list.Add(new[] { 5, 10, 3, 3, 3, 3 });
+            list.Add(new[] { 5, 10, 3, 9 });
+            
+            list.Add(new[] { 5, 10, 12 });
+            list.Add(new[] { 5, 8, 8, 3, 3 });
+            list.Add(new[] { 5, 8, 4, 4, 3, 3 });
+            list.Add(new[] { 5, 4, 4, 4, 4, 3, 3 });
+            list.Add(new[] { 5, 4, 3, 3, 3, 3, 3, 3 });
+            
+            list.Add(new[] { 5, 4, 3, 3, 3, 9 });
+            list.Add(new[] { 5, 4, 3, 3, 12 });
+            list.Add(new[] { 5, 4, 9, 9 });
+            list.Add(new[] { 10, 10, 4, 3 });
+            list.Add(new[] { 10, 8, 3, 3, 3 });
+
+            list.Add(new[] { 10, 8, 9 });
+            list.Add(new[] { 10, 4, 4, 3, 3, 3 });
+            list.Add(new[] { 10, 4, 4, 9 });
+            list.Add(new[] { 8, 8, 8, 3 });
+            list.Add(new[] { 8, 8, 4, 4, 3 });
+
+            list.Add(new[] { 8, 4, 4, 4, 4, 3 });
+            list.Add(new[] { 8, 4, 3, 3, 3, 3, 3 });
+            list.Add(new[] { 8, 4, 3, 3, 9 });
+            list.Add(new[] { 8, 4, 3, 12 });
+            list.Add(new[] { 4, 4, 4, 4, 4, 4, 3 });
+
+            list.Add(new[] { 4, 4, 4, 3, 3, 3, 3, 3 });
+            list.Add(new[] { 4, 4, 4, 3, 3, 9 });
+            list.Add(new[] { 4, 4, 4, 3, 12 });
+            list.Add(new[] { 3, 3, 3, 3, 3, 3, 3, 3, 3 });
+            list.Add(new[] { 3, 3, 3, 3, 3, 3, 9 });
+
+            list.Add(new[] { 3, 3, 3, 3, 3, 12 });
+            list.Add(new[] { 3, 3, 3, 9, 9 });
+            list.Add(new[] { 3, 3, 12, 9 });
+            list.Add(new[] { 3, 12, 12 });
+            list.Add(new[] { 9, 9, 9 });
+
+
+            bool bl = IsSame(list, res);
+
+          
             Assert.AreEqual(true, bl);
 
         }
