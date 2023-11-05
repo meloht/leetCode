@@ -39,31 +39,66 @@ namespace leetCode._1_50
             }
             listNums.Sort();
 
-            Dictionary<int, List<int>> dict = new Dictionary<int, List<int>>();
+            Dictionary<int, int> dict = new Dictionary<int, int>();
             List<int> listDict = new List<int>();
             foreach (var item in listNums)
             {
                 if (!dict.ContainsKey(item))
                 {
-                    dict.Add(item, new List<int>());
+                    dict.Add(item, 0);
                     listDict.Add(item);
                 }
-                dict[item].Add(item);
+                dict[item]++;
             }
 
-            int i = 0;
+            int index = 0;
 
-            foreach (var item in dict)
+            foreach (var item in listDict)
             {
-                int sum = listDict[i];
-                List<int> current = new List<int>();
-                current.Add(listDict[i]);
+                int remainder = target % item;
+                int numCount = target / item;
+                int diff = remainder;
+                int count = dict[item];
+                if (count == numCount)
+                {
+                    if (remainder == 0 && numCount > 0)
+                    {
+                        res.Add(AddNum(item, numCount));
+                        if (numCount > 2)
+                        {
+                            numCount -= 2;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        numCount--;
+                    }
+                }
+                else
+                {
+                    numCount--;
+                }
 
-                int diff = target - sum;
+                int sum = 0;
+                for (int j = 1; j <= numCount; j++)
+                {
+                    List<int> arr = new List<int>();
+                    if (j <= count)
+                    {
+                        AddNumList(item, j, arr);
+                        sum = item * j;
+                    }
 
-                AddNextNum(listDict, res, current, diff, i + 1, dict);
+                    diff = target - sum;
+                    AddNextNum(arr, res, diff, index + 1, listDict, dict);
 
-                i++;
+                }
+
+                index++;
             }
 
 
@@ -72,79 +107,69 @@ namespace leetCode._1_50
 
         }
 
-
-        private void AddNextNum(List<int> listNums, IList<IList<int>> res, List<int> current, int diff, int nextIndex, Dictionary<int, List<int>> dict)
+        private void AddNextNum(List<int> preList, IList<IList<int>> res, int diff, int nextIndex, List<int> listDict, Dictionary<int, int> dict)
         {
-            List<int> list = new List<int>(current);
+            List<int> list = new List<int>(preList);
 
-            for (int i = nextIndex; i < listNums.Count; i++)
+            for (int i = nextIndex; i < listDict.Count; i++)
             {
-                int nextNum = listNums[i];
+                int nextNum = listDict[i];
 
                 if (nextNum > diff)
                 {
-                    return;
+                    break;
                 }
                 else if (diff == nextNum)
                 {
+
                     list.Add(nextNum);
                     res.Add(list);
-                    list = new List<int>(current);
-                    return;
+                    list = new List<int>(preList);
+                    break;
 
                 }
                 else
                 {
-                    List<int> chlist = new List<int>(dict[i]);
-                    if (chlist.Count > 1)
+                    int count = dict[nextNum];
+                    int ress = diff % nextNum;
+                    int nextCount = diff / nextNum;
+                    if (ress == 0 && count >= nextCount)
                     {
-                        chlist.RemoveAt(0);
+                        AddNumList(nextNum, nextCount, list);
+                        res.Add(list);
+                        list = new List<int>(preList);
+                        nextCount--;
+                    }
+                    if (count >= nextCount)
+                    {
+                        count = nextCount;
                     }
 
-                    //int ress = diff % nextNum;
-                    //int nextCount = diff / nextNum;
-                    //if (ress == 0)
-                    //{
-                    //    AddNumList(nextNum, nextCount, list);
-                    //   // node.List.Add(list);
-                    //    list = new List<int>(preList);
-                    //    nextCount--;
-                    //}
-                    //while (nextCount > 0)
-                    //{
-                    //    int diffff = diff - nextNum * nextCount;
+                    while (count > 0)
+                    {
+                        int diffff = diff - nextNum * count;
 
-                    //    if (diffff > nextNum)
-                    //    {
-                    //        AddNumList(nextNum, nextCount, list);
-                    //        AddNextNum(list, node, diffff, nextNumNode.Index + 1, dict, listMin);
-                    //        list = new List<int>(preList);
-                    //    }
+                        if (diffff > nextNum)
+                        {
+                            AddNumList(nextNum, count, list);
+                            AddNextNum(list, res, diffff, i + 1, listDict, dict);
+                            list = new List<int>(preList);
+                        }
 
-                    //    nextCount--;
-                    //}
-
-
-                    list.Add(nextNum);
-                    int diffff = diff - nextNum;
-                    AddNextNum(listNums, res, list, diffff, i + 1, dict);
-                    list = new List<int>(current);
-
+                        count--;
+                    }
                 }
             }
         }
 
-        class NumNode
+        private List<int> AddNum(int num, int count)
         {
-            public int Value;
-            public int Count;
-            public int Remainder;
-            public int Index;
-            public List<IList<int>> List = new List<IList<int>>();
-            public override string ToString()
+            List<int> arr = new List<int>();
+            for (int i = 0; i < count; i++)
             {
-                return $"value:{Value} index:{Index} list:{List.Count}";
+                arr.Add(num);
             }
+            return arr;
         }
 
         private void AddNumList(int num, int count, List<int> arr)
@@ -154,6 +179,43 @@ namespace leetCode._1_50
                 arr.Add(num);
             }
         }
+
+
+        //private void AddNextNum(List<int> listNums, IList<IList<int>> res, List<int> current, int diff, int nextIndex, Dictionary<int, List<int>> dict)
+        //{
+        //    List<int> list = new List<int>(current);
+
+        //    for (int i = nextIndex; i < listNums.Count; i++)
+        //    {
+        //        int nextNum = listNums[i];
+
+        //        if (nextNum > diff)
+        //        {
+        //            return;
+        //        }
+        //        else if (diff == nextNum)
+        //        {
+        //            list.Add(nextNum);
+        //            res.Add(list);
+        //            list = new List<int>(current);
+        //            return;
+
+        //        }
+        //        else
+        //        {
+
+        //            list.Add(nextNum);
+        //            int diffff = diff - nextNum;
+        //            AddNextNum(listNums, res, list, diffff, i + 1, dict);
+        //            list = new List<int>(current);
+
+        //        }
+        //    }
+        //}
+
+
+
+
 
 
         public IList<IList<int>> CombinationSum21(int[] candidates, int target)

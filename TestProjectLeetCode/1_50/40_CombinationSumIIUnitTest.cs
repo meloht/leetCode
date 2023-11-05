@@ -113,13 +113,14 @@ namespace TestProjectLeetCode._1_50
 
         }
 
+      
 
-    
+
 
         [TestMethod]
         public void TestCase04()
         {
-            var candidates = new int[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+           var candidates = new int[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
            var res = alg.CombinationSum2(candidates, 30);
 
             
@@ -135,5 +136,23 @@ namespace TestProjectLeetCode._1_50
           
 
         }
+
+        [TestMethod]
+        public void TestCase06()
+        {
+            var candidates = new int[] { 10, 1, 2, 7, 6, 1, 5 };
+            var res = alg.CombinationSum2(candidates, 8);
+
+            IList<IList<int>> list = new List<IList<int>>();
+            list.Add(new[] { 1, 1, 6 });
+            list.Add(new[] { 1, 2, 5 });
+            list.Add(new[] { 1, 7 });
+            list.Add(new[] { 2, 6 });
+            bool bl = IsSame(list, res);
+            Assert.AreEqual(true, bl);
+
+        }
+
+ 
     }
 }
