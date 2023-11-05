@@ -181,43 +181,6 @@ namespace leetCode._1_50
         }
 
 
-        //private void AddNextNum(List<int> listNums, IList<IList<int>> res, List<int> current, int diff, int nextIndex, Dictionary<int, List<int>> dict)
-        //{
-        //    List<int> list = new List<int>(current);
-
-        //    for (int i = nextIndex; i < listNums.Count; i++)
-        //    {
-        //        int nextNum = listNums[i];
-
-        //        if (nextNum > diff)
-        //        {
-        //            return;
-        //        }
-        //        else if (diff == nextNum)
-        //        {
-        //            list.Add(nextNum);
-        //            res.Add(list);
-        //            list = new List<int>(current);
-        //            return;
-
-        //        }
-        //        else
-        //        {
-
-        //            list.Add(nextNum);
-        //            int diffff = diff - nextNum;
-        //            AddNextNum(listNums, res, list, diffff, i + 1, dict);
-        //            list = new List<int>(current);
-
-        //        }
-        //    }
-        //}
-
-
-
-
-
-
         public IList<IList<int>> CombinationSum21(int[] candidates, int target)
         {
             IList<IList<int>> res = new List<IList<int>>();
