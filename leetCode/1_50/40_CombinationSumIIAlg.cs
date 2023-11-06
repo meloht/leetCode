@@ -164,25 +164,6 @@ namespace leetCode._1_50
         }
    
 
-
-        private void SetUsed(List<int> arr, Dictionary<int, bool> dictUsed, Dictionary<int, int> dict)
-        {
-            foreach (var item in arr)
-            {
-                int count = dict[item];
-                if (count <= 1)
-                {
-                    dictUsed[item] = true;
-                    dict[item] = 0;
-                }
-                else if (count > 1)
-                {
-                    dict[item] = count - 1;
-                }
-            }
-        }
-
-
         public IList<IList<int>> CombinationSum21(int[] candidates, int target)
         {
             IList<IList<int>> res = new List<IList<int>>();
