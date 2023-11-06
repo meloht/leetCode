@@ -15,8 +15,8 @@ namespace TestProjectLeetCode._1_50
 
         private bool IsSame(IList<IList<int>> list, IList<IList<int>> list2)
         {
-            //if (list.Count != list2.Count)
-            //    return false;
+            if (list.Count != list2.Count)
+                return false;
 
             int count = 0;
             foreach (var item in list)
@@ -48,6 +48,8 @@ namespace TestProjectLeetCode._1_50
                         }
                         System.Diagnostics.Debug.WriteLine(sb.ToString());
                         sb.Clear();
+
+                        break;
                     }
                 }
                 System.Diagnostics.Debug.WriteLine("=======================");
@@ -106,7 +108,6 @@ namespace TestProjectLeetCode._1_50
             var res = alg.CombinationSum2(candidates, 1);
 
             IList<IList<int>> list = new List<IList<int>>();
-            list.Add(new[] { 1 });
             list.Add(new[] { 1 });
             bool bl = IsSame(list, res);
             Assert.AreEqual(true, bl);

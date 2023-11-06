@@ -15,8 +15,8 @@ namespace TestProjectLeetCode._1_50
 
         private bool IsSame(IList<IList<int>> list, IList<IList<int>> list2)
         {
-            //if (list.Count != list2.Count)
-            //    return false;
+            if (list.Count != list2.Count)
+                return false;
 
             int count = 0;
             foreach (var item in list)

@@ -10,22 +10,20 @@ namespace leetCode._1_50
 {
     public class _40_CombinationSumIIAlg
     {
-
-
         public IList<IList<int>> CombinationSum2(int[] candidates, int target)
         {
             IList<IList<int>> res = new List<IList<int>>();
 
             List<int> listNums = new List<int>();
-            HashSet<int> setInt = new HashSet<int>();
+            HashSet<int> visited = new HashSet<int>();
             foreach (var item in candidates)
             {
                 if (item == target)
                 {
-                    if (!setInt.Contains(item))
+                    if (!visited.Contains(item))
                     {
-                        setInt.Add(item);
                         res.Add(new List<int>() { item });
+                        visited.Add(item);
                     }
                 }
                 if (item < target)
@@ -49,65 +47,49 @@ namespace leetCode._1_50
                     listDict.Add(item);
                 }
                 dict[item]++;
+
             }
 
-            int index = 0;
+            int index = 0, remainder, numCount, diff, count, sum, j;
 
             foreach (var item in listDict)
             {
-                int remainder = target % item;
-                int numCount = target / item;
-                int diff = remainder;
-                int count = dict[item];
-                if (count == numCount)
+                remainder = target % item;
+                numCount = target / item;
+                diff = remainder;
+                count = dict[item];
+                if (count >= numCount && remainder == 0 && numCount > 0)
                 {
-                    if (remainder == 0 && numCount > 0)
-                    {
-                        res.Add(AddNum(item, numCount));
-                        if (numCount > 2)
-                        {
-                            numCount -= 2;
-                        }
-                        else
-                        {
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        numCount--;
-                    }
+                    res.Add(AddNum(item, numCount));
+                    numCount -= 2;
                 }
                 else
                 {
                     numCount--;
+                    if (count < numCount)
+                    {
+                        numCount = count;
+                    }
                 }
 
-                int sum = 0;
-                for (int j = 1; j <= numCount; j++)
+                sum = 0;
+                j = 1;
+                while (j <= numCount)
                 {
                     List<int> arr = new List<int>();
-                    if (j <= count)
-                    {
-                        AddNumList(item, j, arr);
-                        sum = item * j;
-                    }
-
+                    AddNumList(item, j, arr);
+                    sum = item * j;
                     diff = target - sum;
                     AddNextNum(arr, res, diff, index + 1, listDict, dict);
-
+                    j++;
                 }
-
                 index++;
             }
-
-
-
             return res;
-
         }
 
-        private void AddNextNum(List<int> preList, IList<IList<int>> res, int diff, int nextIndex, List<int> listDict, Dictionary<int, int> dict)
+        private void AddNextNum(List<int> preList, IList<IList<int>> res, int diff, int nextIndex,
+            List<int> listDict, Dictionary<int, int> dict)
         {
             List<int> list = new List<int>(preList);
 
@@ -121,7 +103,6 @@ namespace leetCode._1_50
                 }
                 else if (diff == nextNum)
                 {
-
                     list.Add(nextNum);
                     res.Add(list);
                     list = new List<int>(preList);
@@ -137,6 +118,7 @@ namespace leetCode._1_50
                     {
                         AddNumList(nextNum, nextCount, list);
                         res.Add(list);
+
                         list = new List<int>(preList);
                         nextCount--;
                     }
@@ -162,6 +144,7 @@ namespace leetCode._1_50
             }
         }
 
+
         private List<int> AddNum(int num, int count)
         {
             List<int> arr = new List<int>();
@@ -177,6 +160,25 @@ namespace leetCode._1_50
             for (int i = 0; i < count; i++)
             {
                 arr.Add(num);
+            }
+        }
+   
+
+
+        private void SetUsed(List<int> arr, Dictionary<int, bool> dictUsed, Dictionary<int, int> dict)
+        {
+            foreach (var item in arr)
+            {
+                int count = dict[item];
+                if (count <= 1)
+                {
+                    dictUsed[item] = true;
+                    dict[item] = 0;
+                }
+                else if (count > 1)
+                {
+                    dict[item] = count - 1;
+                }
             }
         }
 
