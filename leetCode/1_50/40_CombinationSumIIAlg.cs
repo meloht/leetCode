@@ -91,8 +91,6 @@ namespace leetCode._1_50
         private void AddNextNum(List<int> preList, IList<IList<int>> res, int diff, int nextIndex,
             List<int> listDict, Dictionary<int, int> dict)
         {
-            List<int> list = new List<int>(preList);
-
             for (int i = nextIndex; i < listDict.Count; i++)
             {
                 int nextNum = listDict[i];
@@ -103,23 +101,22 @@ namespace leetCode._1_50
                 }
                 else if (diff == nextNum)
                 {
-                    list.Add(nextNum);
-                    res.Add(list);
-                    list = new List<int>(preList);
+                    var listRes = new List<int>(preList);
+                    listRes.Add(nextNum);
+                    res.Add(listRes);
                     break;
-
                 }
                 else
                 {
                     int count = dict[nextNum];
                     int ress = diff % nextNum;
                     int nextCount = diff / nextNum;
+
                     if (ress == 0 && count >= nextCount)
                     {
-                        AddNumList(nextNum, nextCount, list);
-                        res.Add(list);
-
-                        list = new List<int>(preList);
+                        var listRes = new List<int>(preList);
+                        AddNumList(nextNum, nextCount, listRes);
+                        res.Add(listRes);
                         nextCount--;
                     }
                     if (count >= nextCount)
@@ -130,12 +127,11 @@ namespace leetCode._1_50
                     while (count > 0)
                     {
                         int diffff = diff - nextNum * count;
-
                         if (diffff > nextNum)
                         {
+                            var list = new List<int>(preList);
                             AddNumList(nextNum, count, list);
                             AddNextNum(list, res, diffff, i + 1, listDict, dict);
-                            list = new List<int>(preList);
                         }
 
                         count--;
@@ -162,7 +158,7 @@ namespace leetCode._1_50
                 arr.Add(num);
             }
         }
-   
+
 
         public IList<IList<int>> CombinationSum21(int[] candidates, int target)
         {
