@@ -35,5 +35,39 @@ namespace TestProjectLeetCode._1_50
             var res = alg.FirstMissingPositive(candidates);
             Assert.AreEqual(1, res);
         }
+
+        [TestMethod]
+        public void TestCase04()
+        {
+            var candidates = new int[] { 1, 1 };
+            var res = alg.FirstMissingPositive(candidates);
+            Assert.AreEqual(2, res);
+        }
+
+        [TestMethod]
+        public void TestCase05()
+        {
+            var candidates = new int[] { 1, 1000 };
+            var res = alg.FirstMissingPositive(candidates);
+            Assert.AreEqual(2, res);
+        }
+
+        [TestMethod]
+        public void TestCase06()
+        {
+            var candidates = new int[] { 2, 1 };
+            var res = alg.FirstMissingPositive(candidates);
+            Assert.AreEqual(3, res);
+        }
+
+
+        [TestMethod]
+        public void TestCase07()
+        {
+            var candidates = new int[] { 1, 2, 6, 3, 5, 4 };
+            var res = alg.FirstMissingPositive(candidates);
+            Assert.AreEqual(7, res);
+        }
+
     }
 }

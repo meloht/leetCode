@@ -8,7 +8,7 @@ namespace leetCode._1_50
 {
     public class _41_FirstMissingPositiveAlg
     {
-        public int FirstMissingPositive(int[] nums)
+        public int FirstMissingPositive2(int[] nums)
         {
             int numMin = int.MaxValue;
             int count = 0;
@@ -60,5 +60,36 @@ namespace leetCode._1_50
 
             return target;
         }
+
+        public int FirstMissingPositive(int[] nums)
+        {
+            int n = nums.Length;
+            for (int i = 0; i < n; ++i)
+            {
+                if (nums[i] <= 0)
+                {
+                    nums[i] = n + 1;
+                }
+            }
+            for (int i = 0; i < n; ++i)
+            {
+                int num = Math.Abs(nums[i]);
+                if (num <= n)
+                {
+                    nums[num - 1] = -Math.Abs(nums[num - 1]);
+                }
+            }
+            for (int i = 0; i < n; ++i)
+            {
+                if (nums[i] > 0)
+                {
+                    return i + 1;
+                }
+            }
+            return n + 1;
+
+        }
+       
+
     }
 }
