@@ -9,7 +9,7 @@ namespace leetCode._1_50
     public class _42_TrappingRainWaterAlg
     {
 
-        public int Trap(int[] height)
+        public int Trap2(int[] height)
         {
             if (height.Length < 3)
                 return 0;
@@ -17,13 +17,13 @@ namespace leetCode._1_50
             List<RangeModel> list = new List<RangeModel>();
             return 0;
         }
-        private void ComputeLeftSplit(int beginIndex,int endIndex, int[] height, List<RangeModel> list)
+        private void ComputeLeftSplit(int beginIndex, int endIndex, int[] height, List<RangeModel> list)
         {
-            int maxIndex = GetMaxIndex(beginIndex, endIndex-1, height);
-            int diff = (endIndex - maxIndex)+1;
+            int maxIndex = GetMaxIndex(beginIndex, endIndex - 1, height);
+            int diff = (endIndex - maxIndex) + 1;
             if (diff > 3)
             {
-                
+
             }
 
         }
@@ -42,14 +42,14 @@ namespace leetCode._1_50
             }
             return index;
         }
-       
+
 
         /// <summary>
         /// 双指针
         /// </summary>
         /// <param name="height"></param>
         /// <returns></returns>
-        public int Trap2(int[] height)
+        public int Trap(int[] height)
         {
             if (height.Length < 3)
                 return 0;
@@ -102,10 +102,12 @@ namespace leetCode._1_50
                     endIndex = i;
                     break;
                 }
+               
                 if (height[i] < min)
                 {
                     min = height[i];
                 }
+
                 if (height[i] > min && min < begin)
                 {
                     if (height[i] > end)
@@ -118,9 +120,9 @@ namespace leetCode._1_50
             }
             if (end < begin)
             {
-                for (int i = endIndex - 1; i >= beginIndex; i--)
+                for (int i = beginIndex; i < endIndex; i++)
                 {
-                    if (height[i] >= height[endIndex])
+                    if (height[i] >= height[endIndex] && (i + 1) < endIndex && height[i + 1] < end)
                     {
                         beginIndex = i;
                         break;

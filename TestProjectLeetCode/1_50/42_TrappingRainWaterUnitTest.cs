@@ -82,5 +82,12 @@ namespace TestProjectLeetCode._1_50
             var res = alg.Trap(candidates);
             Assert.AreEqual(1, res);
         }
+        [TestMethod]
+        public void TestCase09()
+        {
+            var candidates = new int[] { 2, 8, 5, 5, 6, 1, 7, 4, 5 };
+            var res = alg.Trap(candidates);
+            Assert.AreEqual(12, res);
+        }
     }
 }
