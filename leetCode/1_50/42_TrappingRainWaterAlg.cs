@@ -35,45 +35,63 @@ namespace leetCode._1_50
 
                 beginIndex++;
             }
-            int areaSum = 0;
-            foreach (var item in list)
-            {
-                for (int i = item.BeginIndex; i <= item.EndIndex; i++)
-                {
+            int areaSum = list.Sum(p => p.Area);
 
-                }
-            }
-
-            return 0;
+            return areaSum;
         }
-        private int GetArea(RangeModel item, int[] height)
+        private void GetArea(RangeModel item, int[] height)
         {
             int area = 0;
-            for (int i = item.BeginIndex; i <= item.EndIndex; i++)
+            int num1 = Math.Min(height[item.BeginIndex], height[item.EndIndex]);
+            for (int i = item.BeginIndex + 1; i < item.EndIndex; i++)
             {
-                int num1 = height[i];
-                if ((i + 1) <= item.EndIndex)
-                {
-                   int num2= height[i + 1];
-                }
+                area = area + num1 - height[i];
             }
-            return 0;
+            item.Area = area;
         }
         private int GetEndIndex(int[] height, int len, int beginIndex, int begin, List<RangeModel> list)
         {
             int endIndex = 0;
+            int min = height[beginIndex + 1];
+            int end = 0;
             for (int i = beginIndex + 2; i < len; i++)
             {
                 if (height[i] >= begin)
                 {
-                    RangeModel model = new RangeModel();
-                    model.BeginIndex = beginIndex;
-                    model.EndIndex = i;
-                    list.Add(model);
                     endIndex = i;
-                    return endIndex;
+                    break;
+                }
+                if (height[i] < min)
+                {
+                    min = height[i];
+                }
+                if (height[i] > min && min < begin)
+                {
+                    if (height[i] > end)
+                    {
+                        end = height[i];
+                        endIndex = i;
+                    }
+                }
+
+            }
+            if (end < begin)
+            {
+                for (int i = endIndex - 1; i >= beginIndex; i--)
+                {
+                    if (height[i] >= height[endIndex])
+                    {
+                        beginIndex = i;
+                        break;
+                    }
                 }
             }
+
+            RangeModel model = new RangeModel();
+            model.BeginIndex = beginIndex;
+            model.EndIndex = endIndex;
+            GetArea(model, height);
+            list.Add(model);
             return endIndex;
         }
 
