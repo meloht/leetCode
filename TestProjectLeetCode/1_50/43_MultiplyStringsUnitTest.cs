@@ -23,7 +23,7 @@ namespace TestProjectLeetCode._1_50
             var num1 = "2";
             var num2 = "3";
             var res = alg.Multiply(num1,num2);
-            Assert.AreEqual(6, res);
+            Assert.AreEqual("6", res);
         }
 
         [TestMethod]
@@ -32,7 +32,7 @@ namespace TestProjectLeetCode._1_50
             var num1 = "123";
             var num2 = "456";
             var res = alg.Multiply(num1, num2);
-            Assert.AreEqual(56088, res);
+            Assert.AreEqual("56088", res);
         }
     }
 }
