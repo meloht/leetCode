@@ -34,5 +34,13 @@ namespace TestProjectLeetCode._1_50
             var res = alg.Multiply(num1, num2);
             Assert.AreEqual("56088", res);
         }
+        [TestMethod]
+        public void TestCase03()
+        {
+            var num1 = "52";
+            var num2 = "60";
+            var res = alg.Multiply(num1, num2);
+            Assert.AreEqual("3120", res);
+        }
     }
 }
