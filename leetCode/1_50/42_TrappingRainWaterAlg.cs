@@ -15,6 +15,99 @@ namespace leetCode._1_50
             if (height.Length < 3)
                 return 0;
 
+            int ans = 0;
+            int left = 0, right = height.Length - 1;
+            int leftMax = 0, rightMax = 0;
+            while (left < right)
+            {
+                leftMax = Math.Max(leftMax, height[left]);
+                rightMax = Math.Max(rightMax, height[right]);
+                if (height[left] < height[right])
+                {
+                    ans += leftMax - height[left];
+                    ++left;
+                }
+                else
+                {
+                    ans += rightMax - height[right];
+                    --right;
+                }
+            }
+            return ans;
+
+        }
+        /// <summary>
+        /// 栈
+        /// </summary>
+        /// <param name="height"></param>
+        /// <returns></returns>
+        public int Trap5(int[] height)
+        {
+            if (height.Length < 3)
+                return 0;
+
+            int ans = 0;
+            Stack<int> stack = new Stack<int>();
+            int n = height.Length;
+            for (int i = 0; i < n; ++i)
+            {
+                while (stack.Count > 0 && height[i] > height[stack.Peek()])
+                {
+                    int top = stack.Pop();
+                    if (stack.Count == 0)
+                    {
+                        break;
+                    }
+                    int left = stack.Peek();
+                    int currWidth = i - left - 1;
+                    int currHeight = Math.Min(height[left], height[i]) - height[top];
+                    ans += currWidth * currHeight;
+                }
+                stack.Push(i);
+            }
+            return ans;
+
+        }
+
+
+        /// <summary>
+        /// 动态规划
+        /// </summary>
+        /// <param name="height"></param>
+        /// <returns></returns>
+        public int Trap4(int[] height)
+        {
+            if (height.Length < 3)
+                return 0;
+            int n = height.Length;
+
+            int[] leftMax = new int[n];
+            leftMax[0] = height[0];
+            for (int i = 1; i < n; ++i)
+            {
+                leftMax[i] = Math.Max(leftMax[i - 1], height[i]);
+            }
+
+            int[] rightMax = new int[n];
+            rightMax[n - 1] = height[n - 1];
+            for (int i = n - 2; i >= 0; --i)
+            {
+                rightMax[i] = Math.Max(rightMax[i + 1], height[i]);
+            }
+
+            int ans = 0;
+            for (int i = 0; i < n; ++i)
+            {
+                ans += Math.Min(leftMax[i], rightMax[i]) - height[i];
+            }
+            return ans;
+
+        }
+        public int Trap3(int[] height)
+        {
+            if (height.Length < 3)
+                return 0;
+
             int max = 0;
             int maxIndex = 0;
             for (int i = 0; i < height.Length; i++)
