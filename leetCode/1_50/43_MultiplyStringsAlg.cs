@@ -12,6 +12,35 @@ namespace leetCode._1_50
         {
             if (num1 == "0" || num2 == "0")
                 return "0";
+            int len1 = num1.Length;
+            int len2 = num2.Length;
+            int[] ans = new int[len1 + len2];
+            for (int i = len1 - 1; i >= 0; i--)
+            {
+                int value1 = num1[i] - '0';
+                for (int j = len2 - 1; j >= 0; j--)
+                {
+                    int value2 = num2[j] - '0';
+                    int sum = ans[i + j + 1] + value1 * value2;
+                    ans[i + j + 1] = sum % 10;
+                    ans[i + j] += sum / 10;
+                }
+            }
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < ans.Length; i++)
+            {
+                if (i == 0 && ans[i] == 0)
+                {
+                    continue;
+                }
+                sb.Append(ans[i]);
+            }
+            return sb.ToString();
+        }
+        public string Multiply2(string num1, string num2)
+        {
+            if (num1 == "0" || num2 == "0")
+                return "0";
 
             int countA = 0;
             string sum = null;
