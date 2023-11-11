@@ -168,5 +168,40 @@ namespace TestProjectLeetCode._1_50
             var res = alg.IsMatch(s, p);
             Assert.AreEqual(true, res);
         }
+
+        [TestMethod]
+        public void TestCase18()
+        {
+            var s = "c";
+            var p = "*?*";
+            var res = alg.IsMatch(s, p);
+            Assert.AreEqual(true, res);
+        }
+
+        [TestMethod]
+        public void TestCase19()
+        {
+            var s = "ab";
+            var p = "*a";
+            var res = alg.IsMatch(s, p);
+            Assert.AreEqual(false, res);
+        }
+        [TestMethod]
+        public void TestCase20()
+        {
+            var s = "ab";
+            var p = "**";
+            var res = alg.IsMatch(s, p);
+            Assert.AreEqual(true, res);
+        }
+
+        [TestMethod]
+        public void TestCase21()
+        {
+            var s = "baaabbabbbaabbbbbbabbbaaabbaabbbbbaaaabbbbbabaaaaabbabbaabaaababaabaaabaaaabbabbbaabbbbbaababbbabaaabaabaaabbbaababaaabaaabaaaabbabaabbbabababbbbabbaaababbabbaabbaabbbbabaaabbababbabababbaabaabbaaabbba";
+            var p = "*b*ab*bb***abba*a**ab***b*aaa*a*b****a*b*bb**b**ab*ba**bb*bb*baab****bab*bbb**a*a*aab*b****b**ba**abba";
+            var res = alg.IsMatch(s, p);
+            Assert.AreEqual(true, res);
+        }
     }
 }
