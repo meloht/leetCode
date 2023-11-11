@@ -201,7 +201,42 @@ namespace TestProjectLeetCode._1_50
             var s = "baaabbabbbaabbbbbbabbbaaabbaabbbbbaaaabbbbbabaaaaabbabbaabaaababaabaaabaaaabbabbbaabbbbbaababbbabaaabaabaaabbbaababaaabaaabaaaabbabaabbbabababbbbabbaaababbabbaabbaabbbbabaaabbababbabababbaabaabbaaabbba";
             var p = "*b*ab*bb***abba*a**ab***b*aaa*a*b****a*b*bb**b**ab*ba**bb*bb*baab****bab*bbb**a*a*aab*b****b**ba**abba";
             var res = alg.IsMatch(s, p);
+          
+        }
+        [TestMethod]
+        public void TestCase22()
+        {
+            var s = "leetcode";
+            var p = "*e*t?d*";
+            var res = alg.IsMatch(s, p);
+            Assert.AreEqual(false, res);
+        }
+
+        [TestMethod]
+        public void TestCase23()
+        {
+            var s = "mississippi";
+            var p = "m*si*";
+            var res = alg.IsMatch(s, p);
             Assert.AreEqual(true, res);
+        }
+
+        [TestMethod]
+        public void TestCase24()
+        {
+            var s = "babaaababaabababbbbbbaabaabbabababbaababbaaabbbaaab";
+            var p = "***bba**a*bbba**aab**b";
+            var res = alg.IsMatch(s, p);
+            Assert.AreEqual(true, res);
+        }
+
+        [TestMethod]
+        public void TestCase25()
+        {
+            var s = "abbabaaabbabbaababbabbbbbabbbabbbabaaaaababababbbabababaabbababaabbbbbbaaaabababbbaabbbbaabbbbababababbaabbaababaabbbababababbbbaaabbbbbabaaaabbababbbbaababaabbababbbbbababbbabaaaaaaaabbbbbaabaaababaaaabb";
+            var p = "**aa*****ba*a*bb**aa*ab****a*aaaaaa***a*aaaa**bbabb*b*b**aaaaaaaaa*a********ba*bbb***a*ba*bb*bb**a*b*bb";
+            var res = alg.IsMatch(s, p);
+           
         }
     }
 }
