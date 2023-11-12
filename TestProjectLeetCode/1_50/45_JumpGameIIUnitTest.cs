@@ -1,0 +1,37 @@
+﻿using leetCode._1_50;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TestProjectLeetCode._1_50
+{
+    [TestClass]
+    public class _45_JumpGameIIUnitTest
+    {
+        _45_JumpGameIIAlg alg;
+
+        [TestInitialize]
+        public void Init()
+        {
+            alg = new _45_JumpGameIIAlg();
+        }
+
+        [TestMethod]
+        public void TestCase01()
+        {
+            var nums = new int[] { 2, 3, 1, 1, 4 };
+            var res = alg.Jump(nums);
+            Assert.AreEqual(2, res);
+        }
+
+        [TestMethod]
+        public void TestCase02()
+        {
+            var nums = new int[] { 2, 3, 0, 1, 4 };
+            var res = alg.Jump(nums);
+            Assert.AreEqual(2, res);
+        }
+    }
+}
