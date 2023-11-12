@@ -227,7 +227,7 @@ namespace TestProjectLeetCode._1_50
             var s = "babaaababaabababbbbbbaabaabbabababbaababbaaabbbaaab";
             var p = "***bba**a*bbba**aab**b";
             var res = alg.IsMatch(s, p);
-            Assert.AreEqual(true, res);
+            Assert.AreEqual(false, res);
         }
 
         [TestMethod]
@@ -236,7 +236,8 @@ namespace TestProjectLeetCode._1_50
             var s = "abbabaaabbabbaababbabbbbbabbbabbbabaaaaababababbbabababaabbababaabbbbbbaaaabababbbaabbbbaabbbbababababbaabbaababaabbbababababbbbaaabbbbbabaaaabbababbbbaababaabbababbbbbababbbabaaaaaaaabbbbbaabaaababaaaabb";
             var p = "**aa*****ba*a*bb**aa*ab****a*aaaaaa***a*aaaa**bbabb*b*b**aaaaaaaaa*a********ba*bbb***a*ba*bb*bb**a*b*bb";
             var res = alg.IsMatch(s, p);
-           
+            Assert.AreEqual(false, res);
+
         }
     }
 }
