@@ -13,7 +13,83 @@ namespace leetCode._1_50
     public class _44_WildcardMatchingAlg
     {
 
+        /// <summary>
+        /// 贪心算法
+        /// </summary>
+        /// <returns></returns>
         public bool IsMatch(string s, string p)
+        {
+            int sRight = s.Length, pRight = p.Length;
+            while (sRight > 0 && pRight > 0 && p[pRight - 1] != '*')
+            {
+                if (charMatch(s[sRight - 1], p[pRight - 1]))
+                {
+                    --sRight;
+                    --pRight;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            if (pRight == 0)
+            {
+                return sRight == 0;
+            }
+
+            int sIndex = 0, pIndex = 0;
+            int sRecord = -1, pRecord = -1;
+
+            while (sIndex < sRight && pIndex < pRight)
+            {
+                if (p[pIndex] == '*')
+                {
+                    ++pIndex;
+                    sRecord = sIndex;
+                    pRecord = pIndex;
+                }
+                else if (charMatch(s[sIndex], p[pIndex]))
+                {
+                    ++sIndex;
+                    ++pIndex;
+                }
+                else if (sRecord != -1 && sRecord + 1 < sRight)
+                {
+                    ++sRecord;
+                    sIndex = sRecord;
+                    pIndex = pRecord;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            return allStars(p, pIndex, pRight);
+
+        }
+
+        public bool allStars(string str, int left, int right)
+        {
+            for (int i = left; i < right; ++i)
+            {
+                if (str[i] != '*')
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public bool charMatch(char u, char v)
+        {
+            return u == v || v == '?';
+        }
+
+
+
+        public bool IsMatch4(string s, string p)
         {
             int s_len = s.Length;
             int p_len = p.Length;
