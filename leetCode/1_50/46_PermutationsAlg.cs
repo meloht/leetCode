@@ -9,7 +9,7 @@ namespace leetCode._1_50
 {
     public class _46_PermutationsAlg
     {
-        public IList<IList<int>> Permute1(int[] nums)
+        public IList<IList<int>> Permute(int[] nums)
         {
             var res = new List<IList<int>>();
             if (nums.Length == 0)
