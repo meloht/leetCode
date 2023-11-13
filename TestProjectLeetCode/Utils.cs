@@ -35,7 +35,7 @@ namespace TestProjectLeetCode
                     if (a.SequenceEqual(b))
                     {
                         count++;
-                        
+
                         foreach (var num1 in b)
                         {
                             sb.Append(num1);
@@ -75,7 +75,7 @@ namespace TestProjectLeetCode
                 System.Diagnostics.Debug.WriteLine("=======================");
                 var dd = list2.Where(p => p.Count == item.Count).ToList();
                 var b = item.ToList();
-                
+
                 StringBuilder sb = new StringBuilder();
                 foreach (var num1 in b)
                 {
@@ -116,6 +116,22 @@ namespace TestProjectLeetCode
 
             System.Diagnostics.Debug.WriteLine("*********************************");
             return false;
+        }
+
+        public static bool IsSameArr(int[][] arr1, int[][] arr2)
+        {
+            for (int i = 0; i < arr1.Length; i++)
+            {
+                for (int j = 0; j < arr1[i].Length; j++)
+                {
+                    if (arr1[i][j] != arr2[i][j])
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
     }
 }
