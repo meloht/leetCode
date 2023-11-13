@@ -9,7 +9,7 @@ namespace leetCode._1_50
 {
     public class _46_PermutationsAlg
     {
-        public IList<IList<int>> Permute(int[] nums)
+        public IList<IList<int>> Permute1(int[] nums)
         {
             var res = new List<IList<int>>();
             if (nums.Length == 0)
@@ -23,6 +23,8 @@ namespace leetCode._1_50
             Permute(nums, current, res, used);
             return res;
         }
+
+
         private static void Permute(int[] candidates, List<int> current, IList<IList<int>> result, bool[] used)
         {
             if (current.Count == candidates.Length)
@@ -45,6 +47,7 @@ namespace leetCode._1_50
                 current.RemoveAt(current.Count - 1);
             }
         }
+
 
     }
 }
