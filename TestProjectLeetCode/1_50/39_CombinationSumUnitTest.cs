@@ -13,62 +13,6 @@ namespace TestProjectLeetCode._1_50
     {
         _39_CombinationSumAlg alg = new _39_CombinationSumAlg();
 
-        private bool IsSame(IList<IList<int>> list, IList<IList<int>> list2)
-        {
-            if (list.Count != list2.Count)
-                return false;
-
-            int count = 0;
-            foreach (var item in list)
-            {
-                System.Diagnostics.Debug.WriteLine("=======================");
-                var dd = list2.Where(p => p.Count == item.Count).ToList();
-                var b = item.ToList();
-                b.Sort();
-                StringBuilder sb=   new StringBuilder();
-                foreach (var num1 in b)
-                {
-                   
-                    sb.Append(num1);
-                }
-                System.Diagnostics.Debug.WriteLine(sb.ToString());
-                sb.Clear();
-                foreach (var item2 in dd)
-                {
-                    var a = item2.ToList();
-                    a.Sort();
-                   
-                    if (a.SequenceEqual(b))
-                    {
-                        count++;
-                      
-                        foreach (var num1 in b)
-                        {
-                            sb.Append(num1);
-                        }
-                        System.Diagnostics.Debug.WriteLine(sb.ToString());
-                        sb.Clear();
-                    }
-                }
-                System.Diagnostics.Debug.WriteLine("=======================");
-            }
-            if (count == list.Count)
-                return true;
-
-            System.Diagnostics.Debug.WriteLine("*********************************");
-            foreach (var item in list2)
-            {
-                foreach (var item2 in item)
-                {
-                    System.Diagnostics.Debug.Write(item2);
-                }
-                System.Diagnostics.Debug.WriteLine("");
-            }
-           
-            System.Diagnostics.Debug.WriteLine("*********************************");
-            return false;
-        }
-
 
         [TestMethod]
         public void TestCase01()
@@ -79,7 +23,7 @@ namespace TestProjectLeetCode._1_50
             IList<IList<int>> list = new List<IList<int>>();
             list.Add(new[] { 2, 2, 3 });
             list.Add(new[] { 7 });
-            bool bl = IsSame(list, res);
+            bool bl = Utils.IsSame(list, res);
             Assert.AreEqual(true, bl);
 
         }
@@ -94,7 +38,7 @@ namespace TestProjectLeetCode._1_50
             list.Add(new[] { 2, 2, 2, 2 });
             list.Add(new[] { 2, 3, 3 });
             list.Add(new[] { 3, 5 });
-            bool bl = IsSame(list, res);
+            bool bl = Utils.IsSame(list, res);
             Assert.AreEqual(true, bl);
 
         }
@@ -106,7 +50,7 @@ namespace TestProjectLeetCode._1_50
 
             IList<IList<int>> list = new List<IList<int>>();
 
-            bool bl = IsSame(list, res);
+            bool bl = Utils.IsSame(list, res);
             Assert.AreEqual(true, bl);
 
         }
@@ -121,7 +65,7 @@ namespace TestProjectLeetCode._1_50
 
             list.Add(new[] { 3, 3, 5 });
             list.Add(new[] { 3, 8 });
-            bool bl = IsSame(list, res);
+            bool bl = Utils.IsSame(list, res);
             Assert.AreEqual(true, bl);
 
         }
@@ -138,7 +82,7 @@ namespace TestProjectLeetCode._1_50
             list.Add(new[] { 7, 4 });
             list.Add(new[] { 4, 4, 3 });
 
-            bool bl = IsSame(list, res);
+            bool bl = Utils.IsSame(list, res);
             Assert.AreEqual(true, bl);
 
         }
@@ -159,7 +103,7 @@ namespace TestProjectLeetCode._1_50
             list.Add(new[] { 3, 3, 2, 2, 2, 2, 2, 2 });
             list.Add(new[] { 2, 2, 2, 2, 2, 2, 2, 2, 2 });
 
-            bool bl = IsSame(list, res);
+            bool bl = Utils.IsSame(list, res);
             Assert.AreEqual(true, bl);
 
         }
@@ -180,7 +124,7 @@ namespace TestProjectLeetCode._1_50
             list.Add(new[] { 5, 5, 2, 2, 2 });
             list.Add(new[] { 2, 2, 2, 2, 2, 2, 2, 2 });
 
-            bool bl = IsSame(list, res);
+            bool bl = Utils.IsSame(list, res);
             Assert.AreEqual(true, bl);
 
         }
@@ -250,7 +194,7 @@ namespace TestProjectLeetCode._1_50
             list.Add(new[] { 9, 9, 9 });
 
 
-            bool bl = IsSame(list, res);
+            bool bl = Utils.IsSame(list, res);
 
           
             Assert.AreEqual(true, bl);
