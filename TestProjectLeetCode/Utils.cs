@@ -64,7 +64,7 @@ namespace TestProjectLeetCode
         }
 
 
-        public static bool IsSameList(IList<IList<int>> list, IList<IList<int>> list2)
+        public static bool IsSameList<T>(IList<IList<T>> list, IList<IList<T>> list2)
         {
             if (list.Count != list2.Count)
                 return false;
