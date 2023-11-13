@@ -21,9 +21,41 @@ namespace TestProjectLeetCode._1_50
         [TestMethod]
         public void TestCase01()
         {
-            var nums = new int[] { 2, 3, 1, 1, 4 };
+            var nums = new int[] { 1, 2, 3 };
             var res = alg.Permute(nums);
-            Assert.AreEqual(2, res);
+            IList<IList<int>> list = new List<IList<int>>();
+            list.Add(new[] { 1, 2, 3 });
+            list.Add(new[] { 1, 3, 2 });
+            list.Add(new[] { 2, 1, 3 });
+            list.Add(new[] { 2, 3, 1 });
+            list.Add(new[] { 3, 1, 2 });
+            list.Add(new[] { 3, 2, 1 });
+
+            bool bl = Utils.IsSameList(list, res);
+            Assert.AreEqual(true, bl);
+        }
+
+        [TestMethod]
+        public void TestCase02()
+        {
+            var nums = new int[] { 0, 1 };
+            var res = alg.Permute(nums);
+            IList<IList<int>> list = new List<IList<int>>();
+            list.Add(new[] { 0, 1 });
+            list.Add(new[] { 1, 0 });
+            bool bl = Utils.IsSameList(list, res);
+            Assert.AreEqual(true, bl);
+        }
+        [TestMethod]
+        public void TestCase03()
+        {
+            var nums = new int[] { 1 };
+            var res = alg.Permute(nums);
+            IList<IList<int>> list = new List<IList<int>>();
+            list.Add(new[] { 1 });
+
+            bool bl = Utils.IsSameList(list, res);
+            Assert.AreEqual(true, bl);
         }
     }
 }

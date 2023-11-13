@@ -35,13 +35,68 @@ namespace TestProjectLeetCode
                     if (a.SequenceEqual(b))
                     {
                         count++;
-
+                        
                         foreach (var num1 in b)
                         {
                             sb.Append(num1);
                         }
                         System.Diagnostics.Debug.WriteLine(sb.ToString());
                         sb.Clear();
+                    }
+                }
+                System.Diagnostics.Debug.WriteLine("=======================");
+            }
+            if (count == list.Count)
+                return true;
+
+            System.Diagnostics.Debug.WriteLine("*********************************");
+            foreach (var item in list2)
+            {
+                foreach (var item2 in item)
+                {
+                    System.Diagnostics.Debug.Write(item2);
+                }
+                System.Diagnostics.Debug.WriteLine("");
+            }
+
+            System.Diagnostics.Debug.WriteLine("*********************************");
+            return false;
+        }
+
+
+        public static bool IsSameList(IList<IList<int>> list, IList<IList<int>> list2)
+        {
+            if (list.Count != list2.Count)
+                return false;
+
+            int count = 0;
+            foreach (var item in list)
+            {
+                System.Diagnostics.Debug.WriteLine("=======================");
+                var dd = list2.Where(p => p.Count == item.Count).ToList();
+                var b = item.ToList();
+                
+                StringBuilder sb = new StringBuilder();
+                foreach (var num1 in b)
+                {
+                    sb.Append(num1);
+                }
+                System.Diagnostics.Debug.WriteLine(sb.ToString());
+                sb.Clear();
+                foreach (var item2 in dd)
+                {
+                    var a = item2.ToList();
+
+                    if (a.SequenceEqual(b))
+                    {
+                        count++;
+                        foreach (var num1 in b)
+                        {
+                            sb.Append(num1);
+                        }
+                        System.Diagnostics.Debug.WriteLine(sb.ToString());
+                        sb.Clear();
+                        break;
                     }
                 }
                 System.Diagnostics.Debug.WriteLine("=======================");
