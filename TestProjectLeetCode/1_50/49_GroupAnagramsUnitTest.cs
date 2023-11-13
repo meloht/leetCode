@@ -28,7 +28,7 @@ namespace TestProjectLeetCode._1_50
 
             var res = alg.GroupAnagrams(strs);
 
-            bool bl = Utils.IsSameList(res, list);
+            bool bl = Utils.IsSame(res, list);
             Assert.AreEqual(true, bl);
         }
 
@@ -41,7 +41,7 @@ namespace TestProjectLeetCode._1_50
 
             var res = alg.GroupAnagrams(strs);
 
-            bool bl = Utils.IsSameList(res, list);
+            bool bl = Utils.IsSame(res, list);
             Assert.AreEqual(true, bl);
         }
         [TestMethod]
@@ -53,7 +53,20 @@ namespace TestProjectLeetCode._1_50
 
             var res = alg.GroupAnagrams(strs);
 
-            bool bl = Utils.IsSameList(res, list);
+            bool bl = Utils.IsSame(res, list);
+            Assert.AreEqual(true, bl);
+        }
+
+        [TestMethod]
+        public void TestCase04()
+        {
+            var strs = new string[] { "","" };
+            IList<IList<string>> list = new List<IList<string>>();
+            list.Add(new List<string>() { "","" });
+
+            var res = alg.GroupAnagrams(strs);
+
+            bool bl = Utils.IsSame(res, list);
             Assert.AreEqual(true, bl);
         }
     }

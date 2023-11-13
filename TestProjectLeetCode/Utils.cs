@@ -8,7 +8,7 @@ namespace TestProjectLeetCode
 {
     public class Utils
     {
-        public static bool IsSame(IList<IList<int>> list, IList<IList<int>> list2)
+        public static bool IsSame<T>(IList<IList<T>> list, IList<IList<T>> list2)
         {
             if (list.Count != list2.Count)
                 return false;
