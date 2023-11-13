@@ -8,7 +8,43 @@ namespace leetCode._1_50
 {
     public class _49_GroupAnagramsAlg
     {
-        public IList<IList<string>> GroupAnagrams(string[] strs)
+         public IList<IList<string>> GroupAnagrams(string[] strs)
+        {
+            List<IList<string>> result = new List<IList<string>>();
+            Dictionary<string, List<string>> dict = new Dictionary<string, List<string>>();
+
+            foreach (var item in strs)
+            {
+                if (!dict.ContainsKey(item))
+                {
+                    var charArr = item.ToCharArray();
+                    Array.Sort(charArr);
+                    string key = string.Join("", charArr);
+
+                    if (!dict.ContainsKey(key))
+                    {
+                        dict.Add(key, new List<string>() { item });
+                    }
+                    else
+                    {
+                        dict[key].Add(item);
+                    }
+                   
+                }
+                else
+                {
+                    dict[item].Add(item);
+                }
+            }
+
+            foreach (var key in dict)
+            {
+                result.Add(key.Value);
+            }
+            return result;
+        }
+
+        public IList<IList<string>> GroupAnagrams1(string[] strs)
         {
             List<IList<string>> result = new List<IList<string>>();
             Dictionary<string, List<string>> dict = new Dictionary<string, List<string>>();
@@ -67,7 +103,7 @@ namespace leetCode._1_50
             }
             return dict;
         }
-      
+
         private bool IsSameWord(Dictionary<char, int> dict1, Dictionary<char, int> dict2)
         {
             foreach (var item in dict1)
