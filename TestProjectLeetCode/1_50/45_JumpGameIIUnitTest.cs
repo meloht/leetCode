@@ -33,5 +33,29 @@ namespace TestProjectLeetCode._1_50
             var res = alg.Jump(nums);
             Assert.AreEqual(2, res);
         }
+
+        [TestMethod]
+        public void TestCase03()
+        {
+            var nums = new int[] { 0 };
+            var res = alg.Jump(nums);
+            Assert.AreEqual(0, res);
+        }
+
+        [TestMethod]
+        public void TestCase04()
+        {
+            var nums = new int[] { 0,0 };
+            var res = alg.Jump(nums);
+            Assert.AreEqual(0, res);
+        }
+
+        [TestMethod]
+        public void TestCase05()
+        {
+            var nums = new int[] { 1 };
+            var res = alg.Jump(nums);
+            Assert.AreEqual(0, res);
+        }
     }
 }
