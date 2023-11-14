@@ -41,5 +41,25 @@ namespace TestProjectLeetCode._1_50
 
             Assert.AreEqual(0.25000d, res);
         }
+
+        [TestMethod]
+        public void TestCase04()
+        {
+            var res = alg.MyPow(0.00001d, 2147483647);
+
+
+            Assert.AreEqual(0, res);
+        }
+
+        [TestMethod]
+        public void TestCase05()
+        {
+          
+            
+            var res = alg.MyPow(1.00000d, -2147483648);
+
+          
+            Assert.AreEqual(1.00000d, res);
+        }
     }
 }
