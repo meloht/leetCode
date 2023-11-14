@@ -8,5 +8,9 @@ namespace leetCode._51_100
 {
     public class _51_NQueensAlg
     {
+        public IList<IList<string>> SolveNQueens(int n)
+        {
+            return new List<IList<string>>();
+        }
     }
 }
