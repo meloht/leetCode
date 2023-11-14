@@ -11,6 +11,7 @@ namespace leetCode._51_100
         int count = 0;
         public int TotalNQueens(int n)
         {
+            count = 0;
             int[] arr = new int[n];
             Check(0, n, arr);
             return count;
