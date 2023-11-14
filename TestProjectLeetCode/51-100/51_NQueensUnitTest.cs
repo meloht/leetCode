@@ -2,6 +2,7 @@
 using leetCode._51_100;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,7 +37,7 @@ namespace TestProjectLeetCode._51_100
             var res = alg.SolveNQueens(1);
             List<IList<string>> list = new List<IList<string>>();
             list.Add(new List<string>() { "Q" });
-
+         
             bool bl = Utils.IsSameList(res, list);
             Assert.AreEqual(true, bl);
         }
