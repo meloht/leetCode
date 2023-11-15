@@ -24,6 +24,10 @@ namespace leetCode._51_100
             {
                 return max;
             }
+            if (max == 0)
+            {
+                return 0;
+            }
 
             List<int> list = GetMergePlusAndMinus(nums);
             int len = list.Count;
@@ -40,10 +44,13 @@ namespace leetCode._51_100
                 }
 
             }
-            int maxt = listNext.Max();
-            if (maxt > max)
+            if (listNext.Count > 0)
             {
-                max = maxt;
+                int maxt = listNext.Max();
+                if (maxt > max)
+                {
+                    max = maxt;
+                }
             }
 
             return max;
@@ -107,27 +114,32 @@ namespace leetCode._51_100
             int num = 0;
             List<int> list = new List<int>();
 
-            int index = 1;
-          
+            int index = 0;
+
             bool flagPlus = false;
-            for (int i = 0; i < nums.Length; i++)
-            {
-                if (nums[i] != 0)
-                {
-                    flagPlus = nums[i] > 0;
-                    num = nums[i];
-                    break;
-                }
-            }
+            bool isBegin = false;
 
             while (index < len)
             {
                 int temp = nums[index];
-                if (temp == 0)
+                if (temp == 0 && isBegin == false)
                 {
                     index++;
                     continue;
                 }
+                else
+                {
+                    if (isBegin == false)
+                    {
+                        isBegin = true;
+                        flagPlus = temp > 0;
+                        num = temp;
+                        index++;
+                        continue;
+                    }
+
+                }
+
                 if (temp >= 0 && flagPlus == false)
                 {
                     flagPlus = true;
@@ -156,12 +168,11 @@ namespace leetCode._51_100
                 }
                 index++;
             }
-
-            if (list.Count > 1 && list[0] <= 0)
+            while (list.Count > 1 && list[0] <= 0)
             {
                 list.RemoveAt(0);
             }
-            if (list.Count > 1 && list[list.Count - 1] <= 0)
+            while (list.Count > 1 && list[list.Count - 1] <= 0)
             {
                 list.RemoveAt(list.Count - 1);
             }

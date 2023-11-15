@@ -81,6 +81,38 @@ namespace TestProjectLeetCode._51_100
             Assert.AreEqual(0, res);
         }
         [TestMethod]
+        public void TestCase10()
+        {
+            int[] nums = { -1, -2, -3, 0 };
+            var res = alg.MaxSubArray(nums);
+            Assert.AreEqual(0, res);
+        }
+
+        [TestMethod]
+        public void TestCase11()
+        {
+            int[] nums = { 1,0,0,0 };
+            var res = alg.MaxSubArray(nums);
+            Assert.AreEqual(1, res);
+        }
+
+        [TestMethod]
+        public void TestCase12()
+        {
+            int[] nums = { 3, -2, -3, -3, 1, 3, 0 };
+            var res = alg.MaxSubArray(nums);
+            Assert.AreEqual(4, res);
+        }
+
+        [TestMethod]
+        public void TestCase13()
+        {
+            int[] nums = { -5, 8, -5, 1, 1, -3, 5, 5, -3, -3, 6, 4, -7, -4, -8, 0, -1, -6 };
+            var res = alg.MaxSubArray(nums);
+            Assert.AreEqual(16, res);
+        }
+
+        [TestMethod]
         public void TestCase05()
         {
             int[] nums = { -57, 9, -72, -72, -62, 45, -97, 24, -39,
