@@ -13,24 +13,35 @@ namespace leetCode._51_100
         {
             if (nums.Length == 1)
                 return nums[0];
-
             int max = nums.Max();
             int sum = nums.Sum();
             if (sum > max)
             {
                 max = sum;
             }
-            if (nums.Length <= 2)
+
+            List<int> list = GetMergePlusMinus(nums);
+            int len = list.Count;
+            if (len == 1)
             {
+                max = Math.Max(list[0], max);
                 return max;
             }
-            if (max == 0)
+            if (len == 2)
             {
-                return 0;
+                max = Math.Max(list[0], list.Max());
+                return max;
             }
 
-            List<int> list = GetMergePlusAndMinus(nums);
-            int len = list.Count;
+            while (list.Count > 1 && list[0] <= 0)
+            {
+                list.RemoveAt(0);
+            }
+            while (list.Count > 1 && list[list.Count - 1] <= 0)
+            {
+                list.RemoveAt(list.Count - 1);
+            }
+
             List<int> listNext = list;
             if (len > 2)
             {
@@ -44,15 +55,73 @@ namespace leetCode._51_100
                 }
 
             }
+
             if (listNext.Count > 0)
             {
-                int maxt = listNext.Max();
-                if (maxt > max)
+                List<int> listMax = new List<int>();
+                len = listNext.Count;
+                int maxNum = listNext.Max();
+                for (int i = 0; i < len; i++)
                 {
-                    max = maxt;
+                    if (listNext[i] >= max)
+                    {
+                        listMax.Add(i);
+                    }
+                }
+
+                foreach (int i in listMax)
+                {
+                    int num = GetMergeListMax(listNext, i);
+                    if (num > maxNum)
+                    {
+                        maxNum = num;
+                    }
+                }
+                if (maxNum > max)
+                {
+                    max = maxNum;
+                }
+
+            }
+
+
+            return max;
+        }
+
+        private int GetMergeListMax(List<int> res, int index)
+        {
+            int num = 0;
+            int left = index - 1;
+            int leftMax = int.MinValue;
+            for (int i = left; i >= 0; i--)
+            {
+                num += res[i];
+                if (num > leftMax)
+                {
+                    leftMax = num;
+                }
+            }
+            num = 0;
+            int right = index + 1;
+            int rightMax = int.MinValue;
+            for (int i = right; i < res.Count; i++)
+            {
+                num += res[i];
+                if (num > rightMax)
+                {
+                    rightMax = num;
                 }
             }
 
+            int max = res[index];
+            if (leftMax > 0)
+            {
+                max += leftMax;
+            }
+            if (rightMax > 0)
+            {
+                max += rightMax;
+            }
             return max;
         }
         private List<int> GetMergeList(List<int> res)
@@ -108,106 +177,51 @@ namespace leetCode._51_100
             }
             return list;
         }
-        private List<int> GetMergePlusAndMinus(int[] nums)
+        private List<int> GetMergePlusMinus(int[] nums)
         {
             int len = nums.Length;
             int num = 0;
             List<int> list = new List<int>();
 
             int index = 0;
-
-            bool flagPlus = false;
-            bool isBegin = false;
+            int nextIndex = 0;
+            int nextNum = 0;
+            int sum = 0;
 
             while (index < len)
             {
-                int temp = nums[index];
-                if (temp == 0 && isBegin == false)
+                num = nums[index];
+                sum += num;
+                nextIndex = index + 1;
+                if (nextIndex < len)
                 {
-                    index++;
-                    continue;
+                    nextNum = nums[nextIndex];
+                    if (nextNum >= 0)
+                    {
+                        if (num < 0)
+                        {
+                            list.Add(sum);
+                            sum = 0;
+                        }
+
+                    }
+                    else if (nextNum < 0)
+                    {
+                        if (num >= 0)
+                        {
+                            list.Add(sum);
+                            sum = 0;
+                        }
+                    }
                 }
                 else
                 {
-                    if (isBegin == false)
-                    {
-                        isBegin = true;
-                        flagPlus = temp > 0;
-                        num = temp;
-                        index++;
-                        continue;
-                    }
-
-                }
-
-                if (temp >= 0 && flagPlus == false)
-                {
-                    flagPlus = true;
-                    list.Add(num);
-                    num = 0;
-                    num += temp;
-                }
-                else if (temp >= 0 && flagPlus)
-                {
-                    num += temp;
-                }
-                else if (temp < 0 && flagPlus)
-                {
-                    flagPlus = false;
-                    list.Add(num);
-                    num = 0;
-                    num += temp;
-                }
-                else if (temp < 0 && flagPlus == false)
-                {
-                    num += temp;
-                }
-                if (index == len - 1)
-                {
-                    list.Add(num);
+                    list.Add(sum);
                 }
                 index++;
             }
-            while (list.Count > 1 && list[0] <= 0)
-            {
-                list.RemoveAt(0);
-            }
-            while (list.Count > 1 && list[list.Count - 1] <= 0)
-            {
-                list.RemoveAt(list.Count - 1);
-            }
             return list;
         }
-        public int MaxSubArray1(int[] nums)
-        {
-            int max = nums.Max();
-            int sum = nums.Sum();
-            if (sum > max)
-            {
-                max = sum;
-            }
-            int len = nums.Length;
-            int index = 0;
-            for (int i = 2; i <= len - 1; i++)
-            {
-                index = 0;
-                while (index < len)
-                {
-                    int count = index + i;
-                    sum = 0;
-                    for (int j = index; j < count && j < len; j++)
-                    {
-                        sum += nums[j];
-                    }
-                    if (sum > max)
-                    {
-                        max = sum;
-                    }
-                    index++;
-                }
-            }
 
-            return max;
-        }
     }
 }
