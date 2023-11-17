@@ -25,7 +25,7 @@ namespace leetCode._51_100
             }
             if (len == 2)
             {
-                max = Math.Max(list[0], list.Max());
+                max = Math.Max(max, list.Max());
                 return max;
             }
 
