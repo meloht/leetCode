@@ -54,38 +54,6 @@ namespace leetCode._51_100
             return max;
         }
 
-        private int GetMergeList2(int[] nums)
-        {
-            int len = nums.Length;
-            int total = 0;
-            int max = int.MinValue;
-            int i = 0;
-            while (i < len)
-            {
-                int plusNum = nums[i];
-                total += plusNum;
-                max = Math.Max(total, max);
-
-                int indexNext = i + 1;
-                if (indexNext < len)
-                {
-                    int nextNum = nums[indexNext];
-
-                    int num = total + nextNum;
-                    if (num > 0)
-                    {
-                        total = num;
-                    }
-                    else
-                    {
-                        total = 0;
-                    }
-                }
-                i += 2;
-            }
-            return max;
-        }
-
         private int GetMergeList(List<int> res)
         {
             int len = res.Count;

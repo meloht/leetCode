@@ -142,6 +142,13 @@ namespace TestProjectLeetCode._51_100
             Assert.AreEqual(3452, res);
         }
 
+        [TestMethod]
+        public void TestCase17()
+        {
+            int[] nums = { 2, 0, -3, 2, 1, 0, 1, -2 };
+            var res = alg.MaxSubArray(nums);
+            Assert.AreEqual(4, res);
+        }
 
 
         [TestMethod]
