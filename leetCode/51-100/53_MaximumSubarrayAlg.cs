@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,12 +14,7 @@ namespace leetCode._51_100
         {
             if (nums.Length == 1)
                 return nums[0];
-            int max = nums.Max();
-            int sum = nums.Sum();
-            if (sum > max)
-            {
-                max = sum;
-            }
+            int max = GetMaxForList(nums);
 
             List<int> list = GetMergePlusMinus(nums);
             int len = list.Count;
@@ -55,21 +51,27 @@ namespace leetCode._51_100
                 }
 
             }
+            if (listNext.Count == 1)
+            {
+                int maxNum = listNext.Max();
+                return Math.Max(max, maxNum);
+            }
 
             if (listNext.Count > 0)
             {
-                List<int> listMax = new List<int>();
                 len = listNext.Count;
                 int maxNum = listNext.Max();
+
+                List<int> plusList = new List<int>();
                 for (int i = 0; i < len; i++)
                 {
-                    if (listNext[i] >= max)
+                    if (listNext[i] > 0)
                     {
-                        listMax.Add(i);
+                        plusList.Add(i);
                     }
                 }
 
-                foreach (int i in listMax)
+                foreach (int i in plusList)
                 {
                     int num = GetMergeListMax(listNext, i);
                     if (num > maxNum)
@@ -81,13 +83,21 @@ namespace leetCode._51_100
                 {
                     max = maxNum;
                 }
-
             }
-
-
             return max;
         }
-
+        private int GetMaxForList(int[] nums)
+        {
+            int max = int.MinValue;
+            int sum = 0;
+            foreach (int num in nums)
+            {
+                max = Math.Max(max, num);
+                sum += num;
+            }
+            max = Math.Max(max, sum);
+            return max;
+        }
         private int GetMergeListMax(List<int> res, int index)
         {
             int num = 0;
@@ -124,6 +134,18 @@ namespace leetCode._51_100
             }
             return max;
         }
+
+        private List<int> GetMergeList2(List<int> res)
+        {
+            List<int> list = new List<int>();
+            int len = res.Count;
+            int i = 0;
+            while (i < len)
+            {
+
+            }
+            return list;
+        }
         private List<int> GetMergeList(List<int> res)
         {
             List<int> list = new List<int>();
@@ -146,10 +168,21 @@ namespace leetCode._51_100
                 {
                     minusNum = res[indexMinus];
                 }
+                else
+                {
+                    list.Add(plusNum1);
+                    break;
+                }
                 if (indexPlus2 < len)
                 {
                     plusNum2 = res[indexPlus2];
                 }
+                else
+                {
+                    list.Add(plusNum1);
+                    break;
+                }
+
                 int maxPlus = Math.Max(plusNum1, plusNum2);
 
                 int newNum = Math.Min(plusNum1, plusNum2) + minusNum;
