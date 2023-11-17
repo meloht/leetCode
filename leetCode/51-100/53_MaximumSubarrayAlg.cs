@@ -12,6 +12,17 @@ namespace leetCode._51_100
     {
         public int MaxSubArray(int[] nums)
         {
+            int pre = 0, maxAns = nums[0];
+            foreach (int x in nums)
+            {
+                pre = Math.Max(pre + x, x);
+                maxAns = Math.Max(maxAns, pre);
+            }
+            return maxAns;
+        }
+
+        public int MaxSubArray1(int[] nums)
+        {
             if (nums.Length == 1)
                 return nums[0];
             int max = GetMaxForList(nums);
