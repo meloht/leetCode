@@ -47,5 +47,35 @@ namespace TestProjectLeetCode._51_100
             var res = alg.SpiralOrder(nums);
             Assert.AreEqual(true, res.SequenceEqual(list));
         }
+
+        [TestMethod]
+        public void TestCase03()
+        {
+
+            int[][] nums = new int[][]
+            {
+                new int[] { 1 },
+
+            };
+            List<int> list = new List<int>() { 1 };
+            var res = alg.SpiralOrder(nums);
+            Assert.AreEqual(true, res.SequenceEqual(list));
+        }
+
+        [TestMethod]
+        public void TestCase04()
+        {
+
+            int[][] nums = new int[][]
+            {
+                new int[] { 2,5,8 },
+                 new int[] { 4, 0, -1 }
+
+            };
+            List<int> list = new List<int>() { 2, 5, 8, -1, 0, 4 };
+            var res = alg.SpiralOrder(nums);
+            Assert.AreEqual(true, res.SequenceEqual(list));
+        }
+
     }
 }

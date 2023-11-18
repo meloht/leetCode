@@ -15,73 +15,73 @@ namespace leetCode._51_100
             int yMax = matrix.Length - 1;
             int xMin = 0;
             int xMax = matrix[0].Length - 1;
-
-            int tempYMin = 0;
-            int tempYMax = matrix.Length - 1;
-
-            int tempXMin = 0;
-            int tempXMax = matrix[0].Length - 1;
+            if (yMax == 0 && xMax == 0)
+            {
+                list.Add(matrix[0][0]);
+                return list;
+            }
 
             int y = 0;
             int x = 0;
             while (y >= yMin && y <= yMax && x >= xMin && x <= xMax)
             {
-                if (x <= xMax && y == yMin && y <= yMax)
+                if (x < xMax && y == yMin && y <= yMax)
                 {
-                    if (x == xMin)
+                    while (x < xMax)
                     {
-                        xMin = tempXMin;
+                        list.Add(matrix[y][x]);
+                        x++;
                     }
-                    list.Add(matrix[y][x]);
-                    x++;
                     if (x == xMax)
                     {
-                        tempYMin = yMin + 1;
-                        y = yMin;
+                        yMin++;
+                        list.Add(matrix[y][x]);
+                        y++;
+                    }
+                }
+                else if (x == xMax && x >= xMin && y < yMax)
+                {
+                    while (y < yMax)
+                    {
+                        list.Add(matrix[y][x]);
+                        y++;
                     }
 
-                }
-                else if (x == xMax + 1 && x >= xMin && y <= yMax)
-                {
-                    if (y == yMin)
-                    {
-                        yMin = tempYMin;
-                    }
-                    list.Add(matrix[y][x]);
-                    y++;
                     if (y == yMax)
                     {
-                        tempXMax = xMax - 1;
-                        x = xMax;
+                        xMax--;
+                        list.Add(matrix[y][x]);
+                        x--;
                     }
                 }
-                else if (x == xMin && x <= xMax && y >= yMin)
+                else if (x == xMin && x <= xMax && y > yMin)
                 {
-                    if (y == yMax)
+
+                    while (y > yMin)
                     {
-                        yMax = tempYMax;
+                        list.Add(matrix[y][x]);
+                        y--;
                     }
-                    list.Add(matrix[y][x]);
-                    y--;
 
                     if (y == yMin)
                     {
-                        tempXMin = xMin + 1;
-                        x = xMin;
+                        xMin++;
+                        list.Add(matrix[y][x]);
+                        x++;
                     }
                 }
-                else if (x >= xMin && y == yMax + 1 && y >= yMin)
+                else if (x > xMin && y == yMax && y >= yMin)
                 {
-                    if (x == xMax)
+                    while (x > xMin)
                     {
-                        xMax = tempXMax;
+                        list.Add(matrix[y][x]);
+                        x--;
                     }
-                    list.Add(matrix[y][x]);
-                    x--;
                     if (x == xMin)
                     {
-                        tempYMax = yMax - 1;
-                        y= yMax;
+                        yMax--;
+                        list.Add(matrix[y][x]);
+                        y--;
 
                     }
                 }
