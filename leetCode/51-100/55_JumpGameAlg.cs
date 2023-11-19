@@ -10,6 +10,24 @@ namespace leetCode._51_100
     {
         public bool CanJump(int[] nums)
         {
+            int n = nums.Length;
+            int rightmost = 0;
+            for (int i = 0; i < n; ++i)
+            {
+                if (i <= rightmost)
+                {
+                    rightmost = Math.Max(rightmost, i + nums[i]);
+                    if (rightmost >= n - 1)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+
+        }
+        public bool CanJump1(int[] nums)
+        {
             if (nums.Length == 1)
             {
                 return true;
