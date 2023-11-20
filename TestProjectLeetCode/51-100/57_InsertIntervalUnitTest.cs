@@ -76,5 +76,40 @@ namespace TestProjectLeetCode._51_100
             Assert.AreEqual(true, bl);
         }
 
+        [TestMethod]
+        public void TestCase06()
+        {
+            var nums = new int[][] { [1, 5] };
+
+            var list = new int[][] { [0, 0], [1, 5] };
+
+            var res = alg.Insert(nums, new int[] { 0, 0 });
+            var bl = Utils.IsSameArr(list, res);
+            Assert.AreEqual(true, bl);
+        }
+        [TestMethod]
+        public void TestCase07()
+        {
+            var nums = new int[][] { [2, 5], [6, 7], [8, 9] };
+
+            var list = new int[][] { [0, 1], [2, 5], [6, 7], [8, 9] };
+
+            var res = alg.Insert(nums, new int[] { 0, 1 });
+            var bl = Utils.IsSameArr(list, res);
+            Assert.AreEqual(true, bl);
+        }
+
+        [TestMethod]
+        public void TestCase08()
+        {
+            var nums = new int[][] { [2, 4], [5, 7], [8, 10], [11, 13] };
+
+            var list = new int[][] { [2, 7], [8, 10], [11, 13] };
+
+            var res = alg.Insert(nums, new int[] { 3, 6 });
+            var bl = Utils.IsSameArr(list, res);
+            Assert.AreEqual(true, bl);
+        }
+
     }
 }
