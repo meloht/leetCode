@@ -3,11 +3,46 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace leetCode._51_100
 {
     public class _60_PermutationSequenceAlg
     {
+
+        public string GetPermutation3(int n, int k)
+        {
+            int[] factorial = new int[n];
+            factorial[0] = 1;
+            for (int i = 1; i < n; ++i)
+            {
+                factorial[i] = factorial[i - 1] * i;
+            }
+
+            --k;
+            StringBuilder ans = new StringBuilder();
+            int[] valid = new int[n + 1];
+            for (int i = 0; i < valid.Length; i++)
+            {
+                valid[i] = 1;
+            }
+            for (int i = 1; i <= n; ++i)
+            {
+                int order = k / factorial[n - i] + 1;
+                for (int j = 1; j <= n; ++j)
+                {
+                    order -= valid[j];
+                    if (order == 0)
+                    {
+                        ans.Append(j);
+                        valid[j] = 0;
+                        break;
+                    }
+                }
+                k %= factorial[n - i];
+            }
+            return ans.ToString();
+        }
 
 
         public string GetPermutation(int n, int k)
