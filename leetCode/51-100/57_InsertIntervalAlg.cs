@@ -10,6 +10,7 @@ namespace leetCode._51_100
     {
         public int[][] Insert(int[][] intervals, int[] newInterval)
         {
+
             return null;
         }
     }
