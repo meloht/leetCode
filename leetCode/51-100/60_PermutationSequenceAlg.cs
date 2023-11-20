@@ -25,10 +25,9 @@ namespace leetCode._51_100
                 {
                     dict[i] = dict[i - 1] * i;
                 }
-
             }
 
-            int num = k;
+            int num = k - 1;
             int last = n - 1;
 
             StringBuilder sb = new StringBuilder();
@@ -41,14 +40,9 @@ namespace leetCode._51_100
                 }
                 else if (i == last)
                 {
-                    int index = 1;
-                    if (num == 1)
-                    {
-                        index = 0;
-                    }
-                    int t = list[index];
+                    int t = list[num];
                     sb.Append(t);
-                    list.RemoveAt(index);
+                    list.RemoveAt(num);
 
                 }
                 else
@@ -56,20 +50,7 @@ namespace leetCode._51_100
                     int dec = num / dict[n - i];
                     int rem = num % dict[n - i];
                     num = rem;
-                    if (dec > 0)
-                    {
-                        if (rem == 0)
-                        {
-                            dec--;
-                        }
-                      
-                    }
-                    else
-                    {
-                        num = dict[n - i];
-                    }
-                  
-
+                    
                     int t = list[dec];
                     sb.Append(t);
                     list.RemoveAt(dec);
