@@ -23,7 +23,7 @@ namespace TestProjectLeetCode._51_100
         {
             var nums = new int[][]
             {
-                [ 1, 3 ],
+                [1, 3],
                 [2, 6],
                 [8, 10],
                 [15,18]
@@ -31,11 +31,11 @@ namespace TestProjectLeetCode._51_100
             var list = new int[][]
             {
                [1, 6],
-               [8, 10 ],
-               [15, 18 ],
+               [8, 10],
+               [15, 18],
             };
             var res = alg.Merge(nums);
-            var bl = Utils.IsSameArr(res, list);
+            var bl = Utils.IsSameArr(list, res);
             Assert.AreEqual(true, bl);
         }
 
@@ -53,7 +53,42 @@ namespace TestProjectLeetCode._51_100
 
             };
             var res = alg.Merge(nums);
-            var bl = Utils.IsSameArr(res, list);
+            var bl = Utils.IsSameArr(list, res);
+            Assert.AreEqual(true, bl);
+        }
+        [TestMethod]
+        public void TestCase03()
+        {
+            var nums = new int[][]
+           {
+                [ 1, 3 ]
+               
+           };
+            var list = new int[][]
+           {
+               [1, 3],
+
+           };
+            var res = alg.Merge(nums);
+            var bl = Utils.IsSameArr(list, res);
+            Assert.AreEqual(true, bl);
+        }
+
+        [TestMethod]
+        public void TestCase04()
+        {
+            var nums = new int[][]
+           {
+                [ 1, 4 ],
+                [2, 3]
+           };
+            var list = new int[][]
+            {
+               [1, 4],
+
+            };
+            var res = alg.Merge(nums);
+            var bl = Utils.IsSameArr(list, res);
             Assert.AreEqual(true, bl);
         }
     }
