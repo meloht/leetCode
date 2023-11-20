@@ -14,26 +14,18 @@ namespace leetCode._51_100
             {
                 return intervals;
             }
-            List<Node> list = new List<Node>();
-            foreach (var item in intervals)
-            {
-                Node node = new Node();
-                node.begin = item[0];
-                node.end = item[1];
+            var list = intervals.OrderBy(p => p[0]).ToList();
 
-                list.Add(node);
-            }
-            list = list.OrderBy(p => p.begin).ToList();
-            List<Node> listRes = new List<Node>();
-            Node nodePre = list[0];
+            List<int[]> listRes = new List<int[]>();
+            var nodePre = list[0];
 
             for (int i = 1; i < list.Count; i++)
             {
-                Node node = list[i];
-                if (nodePre.end >= node.begin)
+                var node = list[i];
+                if (nodePre[1] >= node[0])
                 {
-                    nodePre.end = Math.Max(node.end, nodePre.end);
-                    nodePre.begin = Math.Min(node.begin, nodePre.begin);
+                    nodePre[1] = Math.Max(node[1], nodePre[1]);
+                    nodePre[0] = Math.Min(node[0], nodePre[0]);
                     if (i == list.Count - 1)
                     {
                         listRes.Add(nodePre);
@@ -50,18 +42,9 @@ namespace leetCode._51_100
                 }
 
             }
-            int[][] arr = new int[listRes.Count][];
-            for (int i = 0; i < listRes.Count; i++)
-            {
-                arr[i] = new int[] { listRes[i].begin, listRes[i].end };
-            }
 
-            return arr;
+            return listRes.ToArray();
         }
-        class Node
-        {
-            public int begin;
-            public int end;
-        }
+ 
     }
 }
