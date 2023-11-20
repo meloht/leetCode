@@ -23,7 +23,6 @@ namespace leetCode._51_100
             {
                 return "1";
             }
-            Dictionary<int, string> dict = new Dictionary<int, string>();
             List<int> current = new List<int>();
             bool[] used = new bool[nums.Length];
             Permute(nums, current, used, k);
