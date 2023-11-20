@@ -40,5 +40,30 @@ namespace TestProjectLeetCode._51_100
             var dd = alg.GetPermutation(3, 1);
             Assert.AreEqual(res, dd);
         }
+
+        [TestMethod]
+        public void TestCase04()
+        {
+            string res = "21";
+            var dd = alg.GetPermutation(2, 2);
+            Assert.AreEqual(res, dd);
+        }
+
+        [TestMethod]
+        public void TestCase05()
+        {
+            string res = "132";
+            var dd = alg.GetPermutation(3, 2);
+            Assert.AreEqual(res, dd);
+        }
+
+
+        [TestMethod]
+        public void TestCase06()
+        {
+            string res = "1432";
+            var dd = alg.GetPermutation(4, 6);
+            Assert.AreEqual(res, dd);
+        }
     }
 }
