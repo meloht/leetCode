@@ -17,8 +17,8 @@ namespace leetCode._51_100
             ListNode currentHead = head;
             ListNode currentLast = null;
             Queue<ListNode> queue = GetQueueNode(head);
-
-            while (count < k)
+            int num = k % queue.Count;
+            while (count < num)
             {
                 currentLast = queue.Dequeue();
                 ListNode temp = currentLast;
