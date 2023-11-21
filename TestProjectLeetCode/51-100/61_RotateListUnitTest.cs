@@ -79,9 +79,7 @@ namespace TestProjectLeetCode._51_100
             node2.next = node3;
 
             var nodeResult = alg.RotateRight(node1, 2000000000);
-            //int[] res = { 2, 0, 1 };
-            //bool bl = IsEqual(res, nodeResult);
-            //Assert.AreEqual(true, bl);
+          
         }
 
     }
