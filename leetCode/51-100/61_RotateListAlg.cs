@@ -8,11 +8,11 @@ namespace leetCode._51_100
 {
     public class _61_RotateListAlg
     {
-        public ListNode RotateRight(ListNode head, int k)
+        public ListNode RotateRight1(ListNode head, int k)
         {
             if (head == null || head.next == null)
                 return head;
-           
+
             int count = 0;
             ListNode currentHead = head;
             ListNode currentLast = null;
@@ -48,5 +48,40 @@ namespace leetCode._51_100
             }
             return list;
         }
+        /// <summary>
+        /// 循环链表
+        /// </summary>
+        /// <param name="head"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        public ListNode RotateRight(ListNode head, int k)
+        {
+            if (k == 0 || head == null || head.next == null)
+            {
+                return head;
+            }
+            int n = 1;
+            ListNode iter = head;
+            while (iter.next != null)
+            {
+                iter = iter.next;
+                n++;
+            }
+            int add = n - k % n;
+            if (add == n)
+            {
+                return head;
+            }
+            iter.next = head;
+            while (add > 0)
+            {
+                iter = iter.next;
+                add--;
+            }
+            ListNode ret = iter.next;
+            iter.next = null;
+            return ret;
+        }
+
     }
 }
