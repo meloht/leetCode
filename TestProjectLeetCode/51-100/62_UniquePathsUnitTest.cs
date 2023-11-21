@@ -30,5 +30,12 @@ namespace TestProjectLeetCode._51_100
             var res = alg.UniquePaths(3, 2);
             Assert.AreEqual(3, res);
         }
+
+        [TestMethod]
+        public void TestCase03()
+        {
+            var res = alg.UniquePaths(23, 12);
+            Assert.AreEqual(3, res);
+        }
     }
 }
