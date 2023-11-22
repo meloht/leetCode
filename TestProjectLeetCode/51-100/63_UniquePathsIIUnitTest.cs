@@ -32,5 +32,13 @@ namespace TestProjectLeetCode._51_100
             var res = alg.UniquePathsWithObstacles(arr);
             Assert.AreEqual(1, res);
         }
+
+        [TestMethod]
+        public void TestCase03()
+        {
+            var arr = new int[][] { [1, 0] };
+            var res = alg.UniquePathsWithObstacles(arr);
+            Assert.AreEqual(0, res);
+        }
     }
 }
