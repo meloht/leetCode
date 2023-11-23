@@ -43,5 +43,13 @@ namespace TestProjectLeetCode._51_100
             var exp = new int[] { 1 };
             Assert.AreEqual(true, exp.SequenceEqual(res));
         }
+        [TestMethod]
+        public void TestCase04()
+        {
+            var digits = new int[] { 9,9 };
+            var res = alg.PlusOne(digits);
+            var exp = new int[] { 1,0,0 };
+            Assert.AreEqual(true, exp.SequenceEqual(res));
+        }
     }
 }
