@@ -20,10 +20,6 @@ namespace TestProjectLeetCode._51_100
         [TestMethod]
         public void TestCase01()
         {
-            string sss = "12345";
-            int index = sss.IndexOf('.');
-
-
             var res = alg.IsNumber("0");
             Assert.AreEqual(true, res);
         }
