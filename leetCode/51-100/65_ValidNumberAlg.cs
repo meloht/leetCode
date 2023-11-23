@@ -10,187 +10,132 @@ namespace leetCode._51_100
     {
         public bool IsNumber(string s)
         {
-
             if (s.Length == 1)
             {
-                return char.IsNumber(s[0]);
+                return IsNumber(s[0]);
             }
-            bool isDot = false;
-            bool isFirstDot = false;
-            int i = 0;
-            while (i < s.Length)
+            s = s.Trim().ToLower();
+            char first = s[0];
+            if (!(first == '+' || first == '-' || first == '.'))
             {
-                if (s[i] == '.' && isDot)
+                if (!IsNumber(first))
                 {
                     return false;
                 }
-                if (s[i] == '.' && isDot == false)
+            }
+
+            int eIndex = s.IndexOf('e');
+            if (eIndex > -1)
+            {
+                var arr = s.Split('e');
+                if (arr.Length != 2)
+                    return false;
+
+                int num = arr[0].Replace("+", "").Replace("-", "").Length;
+
+                if (num == 0)
                 {
-                    isDot = true;
-                    bool bl1 = false;
-                    bool bl2 = false;
-                    if (i > 0)
-                    {
-                        bl1 = char.IsNumber(s[i - 1]);
-                    }
-
-                    i++;
-                    if (i < s.Length)
-                    {
-                        bl2 = char.IsNumber(s[i]);
-                    }
-
-                    if (bl1 == false && bl2 == false)
-                    {
-                        return false;
-                    }
-                    continue;
+                    return false;
                 }
 
-                if (i == 0)
+                if (CheckDotOrIntNumber(arr[0]) == false)
                 {
-                    if (s[i] == '+' || s[i] == '-' || s[i] == '.')
-                    {
+                    return false;
+                }
 
-                    }
-                    else
+                if (arr[1].Length > 0)
+                {
+                    if (arr[1][0] == '+' || arr[1][0] == '-')
                     {
-                        if (!char.IsNumber(s[i]))
+                        if (arr[1].Length < 2)
                         {
                             return false;
                         }
+                        if (CheckIntNumber(arr[1].Substring(1)) == false)
+                            return false;
+                    }
+                    else
+                    {
+                        if (CheckIntNumber(arr[1]) == false)
+                            return false;
                     }
                 }
                 else
                 {
-
-                    if (s[i] == '+' || s[i] == '-')
-                    {
-                        return false;
-                    }
-                    if (s[i - 1] == '.' && !char.IsNumber(s[i]) && !(s[i] == 'e' || s[i] == 'E'))
-                    {
-                        return false;
-                    }
-                    if (char.IsNumber(s[i - 1]) && !char.IsNumber(s[i]) && (s[i] == 'e' || s[i] == 'E'))
-                    {
-                        if ((i + 1) >= s.Length)
-                        {
-                            return false;
-                        }
-                        if (s[i + 1] == '+' || s[i + 1] == '-')
-                        {
-                            if ((i + 2) >= s.Length)
-                            {
-                                return false;
-                            }
-                            else
-                            {
-                                if (!char.IsNumber(s[i + 2]))
-                                {
-                                    return false;
-                                }
-                                i = i + 3;
-                            }
-                            i = i + 2;
-                        }
-                        else
-                        {
-                            i++;
-                        }
-                        while (i < s.Length)
-                        {
-                            if (!char.IsNumber(s[i]))
-                            {
-                                return false;
-                            }
-                            i++;
-                        }
-                        break;
-                    }
-
-                    if (!char.IsNumber(s[i]))
-                    {
-                        return false;
-                    }
-
+                    return false;
                 }
-                i++;
+
+            }
+            else
+            {
+                if (CheckDotOrIntNumber(s) == false)
+                {
+                    return false;
+                }
             }
 
             return true;
         }
 
-
-        public bool IsNumber1(string s)
+        private bool CheckIntNumber(string s)
         {
-            if (s.Length == 1)
+            foreach (var item in s)
             {
-                return char.IsNumber(s[0]);
-            }
-
-            char first = s[0];
-            if (!(first == '+' || first == '-' || first == '.'))
-            {
-                if (!char.IsNumber(first))
+                if (!IsNumber(item))
                 {
                     return false;
                 }
-            }
-
-            bool isDot = first == '.';
-            int i = 1;
-            while (i < s.Length)
-            {
-                if (first == '.' && s[i] == '.')
-                    return false;
-
-                if (isDot == false && s[i] == '.')
-                {
-                    isDot = true;
-                    int index = i;
-                    if (!CheckDot(s, ref index))
-                    {
-                        return false;
-                    }
-                    continue;
-                }
-
-                if (s[i] == '+' || s[i] == '-')
-                {
-                    return false;
-                }
-                if (s[i - 1] == '.' && !char.IsNumber(s[i]) && !(s[i] == 'e' || s[i]=='E'))
-                {
-                    return false;
-                }
-
-
-                i++;
             }
             return true;
         }
-
-        private bool CheckDot(string s, ref int i)
+        private bool CheckDotOrIntNumber(string s)
         {
-            bool bl1 = false;
-            bool bl2 = false;
-            if (i > 0)
+            var arr = s.Split('.');
+            if (arr.Length == 2)
             {
-                bl1 = char.IsNumber(s[i - 1]);
-            }
+                int num = arr[0].Replace("+", "").Replace("-", "").Length;
+                string ints = arr[1];
+                if (num == 0 && ints.Length == 0)
+                {
+                    return false;
+                }
 
-            i++;
-            if (i < s.Length)
+                if (CheckPreNum(arr[0]) == false)
+                    return false;
+
+                if (CheckIntNumber(ints) == false)
+                    return false;
+            }
+            else if (arr.Length == 1)
             {
-                bl2 = char.IsNumber(s[i]);
+                if (CheckPreNum(arr[0]) == false)
+                    return false;
             }
-
-            if (bl1 == false && bl2 == false)
+            else
             {
                 return false;
             }
             return true;
+        }
+        private bool CheckPreNum(string ss)
+        {
+            if (ss.Length == 0)
+                return true;
+            char first = ss[0];
+            if (IsNumber(first) || first == '+' || first == '-')
+            {
+                if (CheckIntNumber(ss.Substring(1)) == false)
+                    return false;
+            }
+            else
+            {
+                return false;
+            }
+            return true;
+        }
+        private bool IsNumber(char c)
+        {
+            return c >= '0' && c <= '9';
         }
     }
 }

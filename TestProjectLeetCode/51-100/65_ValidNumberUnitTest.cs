@@ -20,6 +20,10 @@ namespace TestProjectLeetCode._51_100
         [TestMethod]
         public void TestCase01()
         {
+            string sss = "12345";
+            int index = sss.IndexOf('.');
+
+
             var res = alg.IsNumber("0");
             Assert.AreEqual(true, res);
         }
@@ -171,6 +175,32 @@ namespace TestProjectLeetCode._51_100
         {
             var res = alg.IsNumber("46.e3");
             Assert.AreEqual(true, res);
+        }
+        [TestMethod]
+        public void TestCase26()
+        {
+            var res = alg.IsNumber(".1");
+            Assert.AreEqual(true, res);
+        }
+
+        [TestMethod]
+        public void TestCase27()
+        {
+            var res = alg.IsNumber("4e+");
+            Assert.AreEqual(false, res);
+        }
+        [TestMethod]
+        public void TestCase28()
+        {
+            var res = alg.IsNumber("1e.");
+            Assert.AreEqual(false, res);
+        }
+
+        [TestMethod]
+        public void TestCase29()
+        {
+            var res = alg.IsNumber("+E3");
+            Assert.AreEqual(false, res);
         }
     }
 }
