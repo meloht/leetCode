@@ -10,6 +10,32 @@ namespace leetCode._51_100
     {
         public int MySqrt(int x)
         {
+            if (x == 0)
+                return 0;
+            if (x == 1)
+                return 1;
+
+            return 0;
+        }
+
+        private int GetRes(int left, int right, int target)
+        {
+            int mid = (left + right) / 2;
+
+            int mm = mid * mid;
+
+            int n1 = 0;
+            int n2 = 0;
+            if (mm > target)
+            {
+                n1 = GetRes(left, mid, target);
+            }
+            else
+            {
+                n2 = GetRes(mid, right, target);
+            }
+            
+
             return 0;
         }
     }
