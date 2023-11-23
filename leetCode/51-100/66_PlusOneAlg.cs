@@ -10,7 +10,7 @@ namespace leetCode._51_100
     {
         public int[] PlusOne(int[] digits)
         {
-            List<int> list = new List<int>(digits);
+            List<int> list = digits.ToList();
             int next = 0;
             int num = digits[digits.Length - 1] + 1;
             if (num >= 10)
