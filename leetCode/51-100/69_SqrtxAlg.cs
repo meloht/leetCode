@@ -14,7 +14,8 @@ namespace leetCode._51_100
                 return 0;
             if (x == 1)
                 return 1;
-            int n = GetRes(0, x, x);
+            int right = GetRight(x);
+            int n = GetRes(0, right, x);
             return n;
         }
 
@@ -22,9 +23,9 @@ namespace leetCode._51_100
         {
             int mid = (left + right) / 2;
 
-            int mmPre = Sqrt(mid - 1);
-            int mm = Sqrt(mid);
-            int mmLast = Sqrt(mid + 1);
+            long mmPre = Sqrt(mid - 1);
+            long mm = Sqrt(mid);
+            long mmLast = Sqrt(mid + 1);
 
             if (target >= mmPre && target < mm)
             {
@@ -33,6 +34,10 @@ namespace leetCode._51_100
             if (target >= mm && target < mmLast)
             {
                 return mid;
+            }
+            if (mmLast == target)
+            {
+                return mid + 1;
             }
             if (mmPre > target)
             {
@@ -45,11 +50,26 @@ namespace leetCode._51_100
             return 0;
         }
 
-        private int Sqrt(int num)
+        private long Sqrt(long num)
         {
             if (num < 0)
                 return 0;
             return num * num;
+        }
+
+        private int GetRight(int target)
+        {
+            int len = target.ToString().Length;
+            if (len <= 2)
+            {
+                if (target < 10)
+                    return target;
+                return 10;
+            }
+            int count = (len + 1) / 2;
+            int num = (int)Math.Pow(10, count);
+           
+            return num;
         }
 
 
