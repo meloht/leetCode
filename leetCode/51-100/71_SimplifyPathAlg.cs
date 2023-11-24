@@ -10,7 +10,30 @@ namespace leetCode._51_100
     {
         public string SimplifyPath(string path)
         {
-            return null;
+            string sss = path.Replace("/./", "/");
+            var arr = sss.Split('/', StringSplitOptions.RemoveEmptyEntries).ToList();
+            List<string> res = new List<string>();
+            for (int i = 0;i<arr.Count;i++) 
+            {
+                if (arr[i] != "..")
+                {
+                    res.Add(arr[i]);
+                }
+                else
+                {
+                    if (res.Count > 0)
+                    {
+                        res.RemoveAt(res.Count - 1);
+                    }
+                }
+            }
+
+            if (res.Count > 0)
+            {
+                string ss=$"/{string.Join("/", res)}";
+                return ss;
+            }
+            return "/";
         }
     }
 }
