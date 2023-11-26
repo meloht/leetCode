@@ -88,6 +88,14 @@ namespace TestProjectLeetCode._51_100
             var exp = 30;
             Assert.AreEqual(exp, res);
         }
+        [TestMethod]
+        public void TestCase09()
+        {
+            var res = alg.MinDistance("pneumono", "stereo");
+
+            var exp = 6;
+            Assert.AreEqual(exp, res);
+        }
 
     }
 }
