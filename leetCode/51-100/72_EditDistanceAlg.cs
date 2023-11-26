@@ -9,77 +9,192 @@ namespace leetCode._51_100
 {
     public class _72_EditDistanceAlg
     {
-        public int MinDistance(string word1, string word2)
+
+
+        public string GetLongestCommonSubsequence(string text1, string text2)
         {
-            string reversedKey = "";
-            Dictionary<string, int> dict = new Dictionary<string, int>();
-            for (int i = 0; i < word2.Length; i++)
+            int[,] dp = new int[text1.Length + 1, text2.Length + 1];
+            int[,] rec = new int[text1.Length + 1, text2.Length + 1];
+            for (int i = 0; i < text1.Length; i++)
             {
-
+                dp[i, 0] = 0;
             }
-
-            HashSet<char> set = new HashSet<char>(word2);
-            List<Node> list = new List<Node>();
-            for (int i = 0; i < word1.Length; i++)
+            for (int j = 0; j < text2.Length; j++)
             {
-                if (!set.Contains(word1[1]))
+                dp[0, j] = 0;
+            }
+            for (int i = 1; i <= text1.Length; i++)
+            {
+                for (int j = 1; j <= text2.Length; j++)
                 {
-                    list.Add(new Node(0, word1[i], -1));
-                }
-                else
-                {
-                    int index = word2.IndexOf(word1[i]);
-                    if (index > 0)
+                    if (text1[i - 1] == text2[j - 1])
                     {
+                        dp[i, j] = dp[i - 1, j - 1] + 1;
+                        rec[i, j] = 1;
 
                     }
-                    list.Add(new Node(1, word1[i], index));
+                    else if (dp[i - 1, j] >= dp[i, j - 1])
+                    {
+                        dp[i, j] = dp[i - 1, j];
+                        rec[i, j] = -1;
+                    }
+                    else
+                    {
+                        dp[i, j] = dp[i, j - 1];
+
+                        rec[i, j] = -2;
+                    }
                 }
             }
+            List<char> ls = new List<char>();
 
+            PrintLCS(rec, text1, text1.Length, text2.Length, ls);
 
-
-            return 0;
+            string ss = string.Join("", ls);
+            return ss;
         }
 
-        private Dictionary<string, int> GetReversedDict(string word1, string word2)
+        private void PrintLCS(int[,] rec, string text1, int i, int j, List<char> ls)
         {
-            Dictionary<string, int> dict = new Dictionary<string, int>();
-
-            HashSet<char> set = new HashSet<char>(word2);
-            
-            List<char> list = new List<char>();
-            foreach (char c in word1)
+            if (i == 0 || j == 0)
             {
-                if (set.Contains(c))
+                return;
+            }
+            if (rec[i, j] == 1)
+            {
+                PrintLCS(rec, text1, i - 1, j - 1, ls);
+                ls.Add(text1[i - 1]);
+            }
+            else if (rec[i, j] == -1)
+            {
+                PrintLCS(rec, text1, i - 1, j, ls);
+            }
+            else
+            {
+                PrintLCS(rec, text1, i, j - 1, ls);
+            }
+        }
+
+        public int MinDistance(string word1, string word2)
+        {
+            var list = AllLongestCommonSubsequences(word1, word2);
+
+            int min = word1.Length;
+            foreach (var item in list)
+            {
+                if (item.Count == 0)
+                    continue;
+                if (item.Count == 1)
                 {
-                    list.Add(c);
+                    min = Math.Min(min, word1.Length - 1);
+                }
+                Node begin = item[0];
+                Node end = item[item.Count - 1];
+
+                int tem = 0;
+                tem = tem + Math.Max(begin.Index2, begin.Index1);
+                tem = tem + Math.Max(word2.Length - (end.Index2 + 1), word1.Length - (end.Index1 + 1));
+                int less = ((end.Index2 + 1) - begin.Index2) - item.Count;
+                int del = ((end.Index1 + 1) - begin.Index1) - item.Count;
+                int dd = Math.Max(less, del);
+                tem += dd;
+                min = Math.Min(min, tem);
+            }
+
+
+            return min;
+        }
+
+
+
+        private class Node
+        {
+            public char Value;
+            public int Index1;
+            public int Index2;
+            public Node(char value, int index1, int index2)
+            {
+                this.Value = value;
+                this.Index1 = index1;
+                this.Index2 = index2;
+            }
+        }
+
+
+        private List<List<Node>> AllLongestCommonSubsequences(string text1, string text2)
+        {
+            int[,] dp = new int[text1.Length + 1, text2.Length + 1];
+
+            for (int i = 0; i <= text1.Length; i++)
+            {
+                for (int j = 0; j <= text2.Length; j++)
+                {
+                    if (i == 0 || j == 0)
+                    {
+                        dp[i, j] = 0;
+                    }
+                    else if (text1[i - 1] == text2[j - 1])
+                    {
+                        dp[i, j] = dp[i - 1, j - 1] + 1;
+                    }
+                    else
+                    {
+                        dp[i, j] = Math.Max(dp[i - 1, j], dp[i, j - 1]);
+                    }
                 }
             }
-            for (int i = 0; i < list.Count; i++)
-            {
-                
-            }
-            for (int i = 0; i < word2.Length; i++)
-            {
-               
-            }
-            return dict;
+
+            int length = dp[text1.Length, text2.Length];
+
+            List<List<Node>> result = new List<List<Node>>();
+            HashSet<string> set = new HashSet<string>();
+            List<Node> list = new List<Node>();
+
+            GetAllLongestCommonSubsequences(text1, text2, text1.Length, text2.Length, dp, "", result, list.ToArray(), set);
+
+            return result;
         }
-        private string GetReStr(char c, List<char> list)
+
+        private void GetAllLongestCommonSubsequences(string text1, string text2, int m, int n, int[,] dp, string currentLcs, List<List<Node>> result, Node[] list, HashSet<string> set)
         {
-            
-        }
-        class Node
-        {
-            public int flag;
-            public char value;
-            public int Index;
-            public Node(int flag, char value, int index)
+            if (m == 0 || n == 0)
             {
-                this.flag = flag;
-                this.value = value;
-                this.Index = index;
+                if (!set.Contains(currentLcs))
+                {
+                    set.Add(currentLcs);
+                    List<Node> res = new List<Node>();
+                    for (int i = list.Length - 1; i >= 0; i--)
+                    {
+                        res.Add(list[i]);
+                    }
+                    result.Add(res);
+                }
+                return;
+            }
+
+            if (text1[m - 1] == text2[n - 1])
+            {
+                currentLcs = $"{text1[m - 1]}{currentLcs}";
+                Node node = new Node(text2[n - 1], m - 1, n - 1);
+                var arr = list.ToList();
+                arr.Add(node);
+
+                GetAllLongestCommonSubsequences(text1, text2, m - 1, n - 1, dp, currentLcs, result, arr.ToArray(), set);
+
+            }
+            else
+            {
+                if (dp[m - 1, n] >= dp[m, n - 1])
+                {
+                    GetAllLongestCommonSubsequences(text1, text2, m - 1, n, dp, currentLcs, result, list, set);
+
+                }
+
+                if (dp[m, n - 1] >= dp[m - 1, n])
+                {
+                    GetAllLongestCommonSubsequences(text1, text2, m, n - 1, dp, currentLcs, result, list, set);
+
+                }
             }
         }
     }

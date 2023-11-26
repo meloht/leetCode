@@ -21,6 +21,7 @@ namespace TestProjectLeetCode._51_100
         public void TestCase01()
         {
             var res = alg.MinDistance("horse", "ros");
+
             var exp = 3;
             Assert.AreEqual(exp, res);
         }
@@ -29,9 +30,14 @@ namespace TestProjectLeetCode._51_100
         public void TestCase02()
         {
             var res = alg.MinDistance("intention", "execution");
+        
             var exp = 5;
             Assert.AreEqual(exp, res);
         }
-       
+
+
+
+
+
     }
 }
