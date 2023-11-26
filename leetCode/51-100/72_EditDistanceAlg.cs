@@ -77,26 +77,28 @@ namespace leetCode._51_100
 
         public int MinDistance(string word1, string word2)
         {
+            if (string.IsNullOrEmpty(word1))
+                return word2.Length;
+
+            if (string.IsNullOrEmpty(word2))
+                return word1.Length;
+
             var list = AllLongestCommonSubsequences(word1, word2);
 
-            int min = word1.Length;
+            int min = Math.Max(word2.Length, word1.Length);
             foreach (var item in list)
             {
                 if (item.Count == 0)
                     continue;
-                if (item.Count == 1)
-                {
-                    min = Math.Min(min, word1.Length - 1);
-                }
+                string sss = string.Join("", item.Select(p => p.Value));
                 Node begin = item[0];
                 Node end = item[item.Count - 1];
 
                 int tem = 0;
                 tem = tem + Math.Max(begin.Index2, begin.Index1);
                 tem = tem + Math.Max(word2.Length - (end.Index2 + 1), word1.Length - (end.Index1 + 1));
-                int less = ((end.Index2 + 1) - begin.Index2) - item.Count;
-                int del = ((end.Index1 + 1) - begin.Index1) - item.Count;
-                int dd = Math.Max(less, del);
+
+                int dd = GetLessOrDel(item);
                 tem += dd;
                 min = Math.Min(min, tem);
             }
@@ -105,7 +107,44 @@ namespace leetCode._51_100
             return min;
         }
 
+        private int GetLessOrDel(List<Node> list)
+        {
+            if (list.Count < 2)
+                return 0;
+            int num = 0;
+            for (int i = 0; i < list.Count; i++)
+            {
+                var node = list[i];
+                int next = i + 1;
+                if (next < list.Count)
+                {
+                    var nextNode = list[next];
+                    int del2 = nextNode.Index2 - node.Index2;
+                    int del1 = nextNode.Index1 - node.Index1;
+                    if (del2 > 1)
+                    {
+                        if (del1 > 1)
+                        {
+                            num += Math.Max(del1 - 1, del2 - 1);
+                        }
+                        else
+                        {
+                            num += (del2 - 1);
+                        }
+                    }
+                    else
+                    {
+                        if (del1 > 1)
+                        {
+                            num += (del1 - 1);
+                        }
 
+                    }
+                }
+
+            }
+            return num;
+        }
 
         private class Node
         {
@@ -155,7 +194,8 @@ namespace leetCode._51_100
             return result;
         }
 
-        private void GetAllLongestCommonSubsequences(string text1, string text2, int m, int n, int[,] dp, string currentLcs, List<List<Node>> result, Node[] list, HashSet<string> set)
+        private void GetAllLongestCommonSubsequences(string text1, string text2, int m, int n, int[,] dp, string currentLcs,
+            List<List<Node>> result, Node[] list, HashSet<string> set)
         {
             if (m == 0 || n == 0)
             {

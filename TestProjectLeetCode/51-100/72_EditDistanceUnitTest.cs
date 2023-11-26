@@ -36,8 +36,58 @@ namespace TestProjectLeetCode._51_100
         }
 
 
+        [TestMethod]
+        public void TestCase03()
+        {
+            var res = alg.MinDistance("", "a");
 
+            var exp = 1;
+            Assert.AreEqual(exp, res);
+        }
 
+        [TestMethod]
+        public void TestCase04()
+        {
+            var res = alg.MinDistance("a", "ab");
+
+            var exp = 1;
+            Assert.AreEqual(exp, res);
+        }
+
+        [TestMethod]
+        public void TestCase05()
+        {
+            var res = alg.MinDistance("a", "b");
+
+            var exp = 1;
+            Assert.AreEqual(exp, res);
+        }
+        [TestMethod]
+        public void TestCase06()
+        {
+            var res = alg.MinDistance("ab", "bc");
+
+            var exp = 2;
+            Assert.AreEqual(exp, res);
+        }
+
+        [TestMethod]
+        public void TestCase07()
+        {
+            var res = alg.MinDistance("prosperity", "properties");
+
+            var exp = 4;
+            Assert.AreEqual(exp, res);
+        }
+
+        [TestMethod]
+        public void TestCase08()
+        {
+            var res = alg.MinDistance("pneumonoultramicroscopicsilicovolcanoconiosis", "stereomicroscopically");
+
+            var exp = 30;
+            Assert.AreEqual(exp, res);
+        }
 
     }
 }
