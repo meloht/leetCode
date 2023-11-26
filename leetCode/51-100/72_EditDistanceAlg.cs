@@ -91,10 +91,12 @@ namespace leetCode._51_100
                 if (item.Count == 0)
                     continue;
                 string sss = string.Join("", item.Select(p => p.Value));
+                int tem = 0;
+               
                 Node begin = item[0];
                 Node end = item[item.Count - 1];
 
-                int tem = 0;
+              
                 tem = tem + Math.Max(begin.Index2, begin.Index1);
                 tem = tem + Math.Max(word2.Length - (end.Index2 + 1), word1.Length - (end.Index1 + 1));
 
@@ -106,6 +108,7 @@ namespace leetCode._51_100
 
             return min;
         }
+     
 
         private int GetLessOrDel(List<Node> list)
         {
