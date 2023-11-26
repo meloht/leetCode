@@ -23,7 +23,8 @@ namespace TestProjectLeetCode._51_100
             var matrix = new int[][] { [1, 1, 1], [1, 0, 1], [1, 1, 1] };
             var exp = new int[][] { [1, 0, 1], [0, 0, 0], [1, 0, 1] };
             alg.SetZeroes(matrix);
-            Utils.IsSameArr(exp, matrix);
+            bool bl= Utils.IsSameArr(exp, matrix);
+            Assert.AreEqual(bl, true);
         }
 
         [TestMethod]
@@ -32,7 +33,10 @@ namespace TestProjectLeetCode._51_100
             var matrix = new int[][] { [0, 1, 2, 0], [3, 4, 5, 2], [1, 3, 1, 5] };
             var exp = new int[][] { [0, 0, 0, 0], [0, 4, 5, 0], [0, 3, 1, 0] };
             alg.SetZeroes(matrix);
-            Utils.IsSameArr(exp, matrix);
+            bool bl = Utils.IsSameArr(exp, matrix);
+            Assert.AreEqual(bl, true);
         }
+
+     
     }
 }
