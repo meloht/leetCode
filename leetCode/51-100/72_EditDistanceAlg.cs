@@ -92,11 +92,11 @@ namespace leetCode._51_100
                     continue;
                 string sss = string.Join("", item.Select(p => p.Value));
                 int tem = 0;
-               
+
                 Node begin = item[0];
                 Node end = item[item.Count - 1];
 
-              
+
                 tem = tem + Math.Max(begin.Index2, begin.Index1);
                 tem = tem + Math.Max(word2.Length - (end.Index2 + 1), word1.Length - (end.Index1 + 1));
 
@@ -108,7 +108,35 @@ namespace leetCode._51_100
 
             return min;
         }
-     
+
+        private string LongestCommonSubstring(string text1, string text2)
+        {
+            int[,] dp = new int[text1.Length + 1, text2.Length + 1];
+            int maxLength = 0;
+            int endIndex = 0;
+
+            for (int i = 1; i <= text1.Length; i++)
+            {
+                for (int j = 1; j <= text2.Length; j++)
+                {
+                    if (text1[i - 1] == text2[j - 1])
+                    {
+                        dp[i, j] = dp[i - 1, j - 1] + 1;
+                        if (dp[i, j] > maxLength)
+                        {
+                            maxLength = dp[i, j];
+                            endIndex = i - 1;
+                        }
+                    }
+                    else
+                    {
+                        dp[i, j] = 0;
+                    }
+                }
+            }
+
+            return text1.Substring(endIndex - maxLength + 1, maxLength);
+        }
 
         private int GetLessOrDel(List<Node> list)
         {
