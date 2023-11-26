@@ -46,5 +46,20 @@ namespace TestProjectLeetCode._51_100
             var exp = "/c";
             Assert.AreEqual(exp, res);
         }
+
+        [TestMethod]
+        public void TestCase05()
+        {
+            var res = alg.SimplifyPath("/a//b////c/d//././/..");
+            var exp = "/a/b/c";
+            Assert.AreEqual(exp, res);
+        }
+        [TestMethod]
+        public void TestCase06()
+        {
+            var res = alg.SimplifyPath("/.");
+            var exp = "/";
+            Assert.AreEqual(exp, res);
+        }
     }
 }

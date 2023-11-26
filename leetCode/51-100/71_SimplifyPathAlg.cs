@@ -11,9 +11,17 @@ namespace leetCode._51_100
         public string SimplifyPath(string path)
         {
             string sss = path.Replace("/./", "/");
+            while (sss.Contains("/./"))
+            {
+                sss = sss.Replace("/./", "/");
+            }
+            if (sss.EndsWith("/."))
+            {
+                sss = $"{sss}/".Replace("/./", "/");
+            }
             var arr = sss.Split('/', StringSplitOptions.RemoveEmptyEntries).ToList();
             List<string> res = new List<string>();
-            for (int i = 0;i<arr.Count;i++) 
+            for (int i = 0; i < arr.Count; i++)
             {
                 if (arr[i] != "..")
                 {
@@ -30,7 +38,7 @@ namespace leetCode._51_100
 
             if (res.Count > 0)
             {
-                string ss=$"/{string.Join("/", res)}";
+                string ss = $"/{string.Join("/", res)}";
                 return ss;
             }
             return "/";
