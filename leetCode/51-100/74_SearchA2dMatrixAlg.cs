@@ -28,7 +28,8 @@ namespace leetCode._51_100
             {
                 if (left < list.Count)
                 {
-                    return list[left].Arr.Contains(target);
+                    int index = Array.BinarySearch<int>(list[left].Arr, target);
+                    return index > -1;
                 }
                 return false;
             }
@@ -50,7 +51,8 @@ namespace leetCode._51_100
                     var nextNode = list[next];
                     if (target >= nextNode.Begin && target <= nextNode.End)
                     {
-                        return nextNode.Arr.Any(p => p == target);
+                        int index = Array.BinarySearch<int>(nextNode.Arr, target);
+                        return index > -1;
                     }
                     else if (target < nextNode.Begin)
                     {
@@ -74,7 +76,8 @@ namespace leetCode._51_100
                     var preNode = list[pre];
                     if (target >= preNode.Begin && target <= preNode.End)
                     {
-                        return preNode.Arr.Any(p => p == target);
+                        int index = Array.BinarySearch<int>(preNode.Arr, target);
+                        return index > -1;
                     }
                     else if (target < preNode.Begin)
                     {
