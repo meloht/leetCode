@@ -9,20 +9,57 @@ namespace leetCode._51_100
 {
     public class _72_EditDistanceAlg
     {
+        public int MinDistance(string word1, string word2)
+        {
+            int n = word1.Length;
+            int m = word2.Length;
+            int[,] dp = new int[n + 1, m + 1];
+            for (int i = 0; i <= n; i++)
+            {
+                dp[i, 0] = i;
+            }
+            for (int j = 0; j <= m; j++)
+            {
+                dp[0, j] = j;
+            }
 
+            for (int i = 1; i <= n; i++)
+            {
+                for (int j = 1; j <= m; j++)
+                {
+                    int c = 0;
+                    if (word1[i - 1] != word2[j - 1])
+                    {
+                        c = 1;
+                    }
+                    int replace = dp[i - 1, j - 1] + c;
+                    int delete = dp[i - 1, j] + 1;
+                    int insert = dp[i, j - 1] + 1;
+                    int min = Math.Min(delete, insert);
+                    min = Math.Min(min, replace);
+                    if (min == replace)
+                    {
+                        dp[i, j] = dp[i - 1, j - 1] + c;
+                    }
+                    else if (min == insert)
+                    {
+                        dp[i, j] = dp[i, j - 1] + 1;
+                    }
+                    else
+                    {
+                        dp[i, j] = dp[i - 1, j] + 1;
+                    }
+                }
+            }
+            int num = dp[n, m];
+            return num;
+        }
 
         public string GetLongestCommonSubsequence(string text1, string text2)
         {
             int[,] dp = new int[text1.Length + 1, text2.Length + 1];
             int[,] rec = new int[text1.Length + 1, text2.Length + 1];
-            for (int i = 0; i < text1.Length; i++)
-            {
-                dp[i, 0] = 0;
-            }
-            for (int j = 0; j < text2.Length; j++)
-            {
-                dp[0, j] = 0;
-            }
+           
             for (int i = 1; i <= text1.Length; i++)
             {
                 for (int j = 1; j <= text2.Length; j++)
@@ -75,7 +112,7 @@ namespace leetCode._51_100
             }
         }
 
-        public int MinDistance(string word1, string word2)
+        public int MinDistance1(string word1, string word2)
         {
             if (string.IsNullOrEmpty(word1))
                 return word2.Length;
