@@ -37,14 +37,15 @@ namespace leetCode._51_100
             string res = "";
             int min = n + 1;
             StringBuilder sb = new StringBuilder();
-            foreach (var item in arr)
+
+            for (int j = 0; j < arr.Count; j++)
             {
                 sb.Clear();
                 Dictionary<char, int> dictTemp = new Dictionary<char, int>(dict);
-                int index = item;
+
                 int count = 0;
 
-                for (int i = item; i < n; i++)
+                for (int i = arr[j]; i < n; i++)
                 {
                     sb.Append(s[i]);
                     if (dictTemp.ContainsKey(s[i]))
@@ -55,11 +56,11 @@ namespace leetCode._51_100
                             dictTemp.Remove(s[i]);
                             if (dictTemp.Count == 0)
                             {
-
                                 if ((count + 1) < min)
                                 {
                                     res = sb.ToString();
                                     min = count + 1;
+
                                     break;
                                 }
                             }
@@ -68,6 +69,7 @@ namespace leetCode._51_100
 
                     count++;
                 }
+
             }
             return res;
         }

@@ -46,5 +46,24 @@ namespace TestProjectLeetCode._51_100
             var res = alg.MinWindow(s, t);
             Assert.AreEqual(exp, res);
         }
+
+        [TestMethod]
+        public void TestCase04()
+        {
+            string s = "abc";
+            string t = "ab";
+            string exp = "ab";
+            var res = alg.MinWindow(s, t);
+            Assert.AreEqual(exp, res);
+        }
+        [TestMethod]
+        public void TestCase05()
+        {
+            string s = "bba";
+            string t = "ab";
+            string exp = "ba";
+            var res = alg.MinWindow(s, t);
+            Assert.AreEqual(exp, res);
+        }
     }
 }
