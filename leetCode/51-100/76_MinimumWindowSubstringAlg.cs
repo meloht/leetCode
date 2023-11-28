@@ -40,9 +40,17 @@ namespace leetCode._51_100
             string res = "";
             int min = n + 1;
             StringBuilder sb = new StringBuilder();
-
+            bool bl = false;
             for (int j = 0; j < arr.Count; j++)
             {
+                if (bl)
+                {
+                    int total = n - arr[j];
+                    if (total < t.Length)
+                        break;
+
+                    bl = false;
+                }
                 sb.Clear();
                 Dictionary<char, int> dictTemp = new Dictionary<char, int>(dict);
 
@@ -63,7 +71,7 @@ namespace leetCode._51_100
                                 {
                                     res = sb.ToString();
                                     min = count + 1;
-
+                                    bl = true;
                                     break;
                                 }
                             }
