@@ -8,6 +8,65 @@ namespace leetCode._51_100
 {
     public class _76_MinimumWindowSubstringAlg
     {
+        public string MinWindow2(string s, string t)
+        {
+            if (s.Length < t.Length)
+                return string.Empty;
+
+            int n = s.Length;
+            Dictionary<char, int> dict = new Dictionary<char, int>();
+            foreach (char c in t)
+            {
+                if (!dict.ContainsKey(c))
+                {
+                    dict.Add(c, 1);
+                }
+                else
+                {
+                    dict[c]++;
+                }
+            }
+            int begin = 0;
+            for (int i = 0; i < n; i++)
+            {
+                if (dict.ContainsKey(s[i]))
+                {
+                    begin = i;
+                    break;
+                }
+            }
+            int min = n + 1;
+            string res = "";
+            Dictionary<char, int> dictTemp = new Dictionary<char, int>(dict);
+            List<char> list = new List<char>();
+            for (int i = begin; i < n; i++)
+            {
+                char ch = s[i];
+                list.Add(ch);
+                if (dictTemp.ContainsKey(s[i]))
+                {
+                    dictTemp[s[i]]--;
+                    if (dictTemp[s[i]] == 0)
+                    {
+                        dictTemp.Remove(s[i]);
+                        if (dictTemp.Count == 0)
+                        {
+                            begin = i + 1;
+                            min = list.Count;
+                            res = string.Join("", list);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            for (int i = begin; i < n; i++)
+            {
+
+            }
+
+            return null;
+        }
         public string MinWindow(string s, string t)
         {
             if (s.Length < t.Length)
