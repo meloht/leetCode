@@ -10,6 +10,9 @@ namespace leetCode._51_100
     {
         public string MinWindow(string s, string t)
         {
+            if (s.Length < t.Length)
+                return string.Empty;
+
             int n = s.Length;
             Dictionary<char, int> dict = new Dictionary<char, int>();
             foreach (char c in t)
