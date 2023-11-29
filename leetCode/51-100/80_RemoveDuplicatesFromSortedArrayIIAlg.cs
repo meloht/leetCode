@@ -27,7 +27,6 @@ namespace leetCode._51_100
                     }
                     else
                     {
-
                         if (count <= 2)
                         {
                             i = j - 1;
