@@ -12,24 +12,24 @@ namespace leetCode._51_100
         {
             if (nums == null || nums.Length == 0)
                 return false;
-            nums = nums.Distinct().ToArray();
+            var list = nums.Distinct().ToArray();
             int left = 0; // 左边界
-            int right = nums.Length - 1; // 右边界
+            int right = list.Length - 1; // 右边界
 
             while (left <= right)
             {
                 int mid = left + (right - left) / 2; // 中间索引
 
-                if (nums[mid] == target)
+                if (list[mid] == target)
                 {
                     return true;
                 }
 
-                if (nums[mid] > nums[right])
+                if (list[mid] > list[right])
                 {
-                    if (target >= nums[left] && target < nums[mid])
+                    if (target >= list[left] && target < list[mid])
                     {
-                        int index = BinarySearch(nums, left, mid, target);
+                        int index = BinarySearch(list, left, mid, target);
                         if (index != -1)
                         {
                             return true;
@@ -40,9 +40,9 @@ namespace leetCode._51_100
                 }
                 else
                 {
-                    if (target > nums[mid] && target <= nums[right])
+                    if (target > list[mid] && target <= list[right])
                     {
-                        int index = BinarySearch(nums, mid, right, target);
+                        int index = BinarySearch(list, mid, right, target);
                         if (index != -1)
                         {
                             return true;
@@ -52,9 +52,6 @@ namespace leetCode._51_100
                     right = mid - 1;
 
                 }
-
-
-
             }
             return false;
 
@@ -83,89 +80,6 @@ namespace leetCode._51_100
 
             return -1; // 目标值不在数组中
         }
-        public bool Search2(int[] nums, int target)
-        {
-            if (nums == null || nums.Length == 0)
-                return false;
-
-            int left = 0; // 左边界
-            int right = nums.Length - 1; // 右边界
-
-            bool bl = BinarySearchDi(nums, left, right, target);
-            return bl;
-        }
-
-        private bool BinarySearchDi(int[] nums, int left, int right, int target)
-        {
-            if (left == right)
-            {
-                if (nums[left] == target)
-                    return true;
-                return false;
-            }
-            if (nums[left] == target || nums[right] == target)
-            {
-                return true;
-            }
-            int mid = (right + left) / 2;
-            if (nums[mid] == target)
-            {
-                return true;
-            }
-            int midleft = GetLeftIndex(nums, left, mid);
-            int newRight = GetRightIndex(nums, midleft, mid);
-
-            bool bl = BinarySearchDi(nums, midleft, newRight, target);
-            if (bl)
-            {
-                return true;
-            }
-            else
-            {
-                int midLeft2 = GetLeftIndex(nums, mid, right);
-                int newRight2 = GetRightIndex(nums, midLeft2, right);
-                bl = BinarySearchDi(nums, midLeft2, newRight2, target);
-                if (bl)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private int GetLeftIndex(int[] nums, int left, int right)
-        {
-            int index = left;
-            for (int i = left + 1; i <= right; i++)
-            {
-                if (nums[i] == nums[i - 1])
-                {
-                    index = i;
-                }
-                else
-                {
-                    break;
-                }
-
-            }
-            return index;
-        }
-        private int GetRightIndex(int[] nums, int left, int right)
-        {
-            int index = right;
-            for (int i = right - 1; i >= left; i--)
-            {
-                if (nums[i] == nums[i + 1])
-                {
-                    index = i;
-                }
-                else
-                {
-                    break;
-                }
-
-            }
-            return index;
-        }
+     
     }
 }
