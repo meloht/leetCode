@@ -7,10 +7,7 @@ namespace leetCode
 
         static void Main(string[] args)
         {
-            _50_PowxNAlg alg=new _50_PowxNAlg();
-            var res = alg.MyPow(0.00001d, 100);
 
-            Console.WriteLine(res);
         }
     }
 }
