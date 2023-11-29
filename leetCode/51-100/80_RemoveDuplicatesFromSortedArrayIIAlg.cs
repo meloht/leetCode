@@ -34,7 +34,6 @@ namespace leetCode._51_100
                         }
                         else
                         {
-
                             int begin = j - (count - 2);
                             Swap(nums, begin, j, len);
                             len = len - (count - 2);
