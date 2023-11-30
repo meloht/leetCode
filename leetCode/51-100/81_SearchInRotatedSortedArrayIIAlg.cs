@@ -8,78 +8,100 @@ namespace leetCode._51_100
 {
     public class _81_SearchInRotatedSortedArrayIIAlg
     {
+
         public bool Search(int[] nums, int target)
         {
-            if (nums == null || nums.Length == 0)
-                return false;
-            var list = nums.Distinct().ToArray();
-            int left = 0; // 左边界
-            int right = list.Length - 1; // 右边界
-
-            while (left <= right)
+            int n = nums.Length;
+            if (n == 0)
             {
-                int mid = left + (right - left) / 2; // 中间索引
-
-                if (list[mid] == target)
+                return false;
+            }
+            if (n == 1)
+            {
+                return nums[0] == target;
+            }
+            int l = 0, r = n - 1;
+            while (l <= r)
+            {
+                if (nums[l] != target)
+                {
+                    l = GetLeftIndex(nums, l, r);
+                }
+                else
                 {
                     return true;
                 }
-
-                if (list[mid] > list[right])
+                if (nums[r] != target)
                 {
-                    if (target >= list[left] && target < list[mid])
-                    {
-                        int index = BinarySearch(list, left, mid, target);
-                        if (index != -1)
-                        {
-                            return true;
-                        }
-                    }
-
-                    left = mid + 1;
+                    r = GetRightIndex(nums, l, r);
                 }
                 else
                 {
-                    if (target > list[mid] && target <= list[right])
+                    return true;
+                }
+                int mid = (l + r) / 2;
+                if (nums[mid] == target)
+                {
+                    return true;
+                }
+                if (nums[0] <= nums[mid])
+                {
+                    if (nums[0] <= target && target < nums[mid])
                     {
-                        int index = BinarySearch(list, mid, right, target);
-                        if (index != -1)
-                        {
-                            return true;
-                        }
+                        int temp = GetRightIndex(nums, l, mid);
+                        r = temp - 1;
                     }
-
-                    right = mid - 1;
-
+                    else
+                    {
+                        int temp = GetLeftIndex(nums, mid, r);
+                        l = temp + 1;
+                    }
+                }
+                else
+                {
+                    if (nums[mid] < target && target <= nums[n - 1])
+                    {
+                        int temp = GetLeftIndex(nums, mid, r);
+                        l = temp + 1;
+                    }
+                    else
+                    {
+                        int temp = GetRightIndex(nums, l, mid);
+                        r = temp - 1;
+                    }
                 }
             }
             return false;
-
         }
 
-
-        public int BinarySearch(int[] array, int left, int right, int target)
+        private int GetLeftIndex(int[] nums, int left, int right)
         {
-            while (left <= right)
+            int index = left;
+            for (int i = left + 1; i <= right; i++)
             {
-                int mid = (right + left) / 2; // 中间索引
+                if (nums[i] != nums[i - 1])
+                {
+                    index = i - 1;
+                    break;
+                }
 
-                if (array[mid] == target)
+            }
+            return index;
+        }
+        private int GetRightIndex(int[] nums, int left, int right)
+        {
+            int index = right;
+            for (int i = right - 1; i >= left; i--)
+            {
+                if (nums[i] != nums[i + 1])
                 {
-                    return mid; // 找到目标值，返回索引
-                }
-                else if (array[mid] < target)
-                {
-                    left = mid + 1; // 目标在右半部分
-                }
-                else
-                {
-                    right = mid - 1; // 目标在左半部分
+                    index = i + 1;
+                    break;
                 }
             }
-
-            return -1; // 目标值不在数组中
+            return index;
         }
-     
+
+
     }
 }

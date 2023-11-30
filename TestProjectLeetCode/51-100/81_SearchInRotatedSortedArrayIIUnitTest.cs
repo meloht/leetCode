@@ -46,5 +46,34 @@ namespace TestProjectLeetCode._51_100
 
             Assert.AreEqual(true, res);
         }
+
+        [TestMethod]
+        public void TestCase04()
+        {
+            int[] arr = { 1, 2, 1 };
+
+            var res = alg.Search(arr, 1);
+
+            Assert.AreEqual(true, res);
+        }
+        [TestMethod]
+        public void TestCase05()
+        {
+            int[] arr = { 4, 5, 6, 7, 0, 1, 2 };
+
+            var res = alg.Search(arr, 0);
+
+            Assert.AreEqual(true, res);
+        }
+
+        [TestMethod]
+        public void TestCase06()
+        {
+            int[] arr = { 4, 5, 6, 7, 0, 1, 2 };
+
+            var res = alg.Search(arr, 5);
+
+            Assert.AreEqual(true, res);
+        }
     }
 }
