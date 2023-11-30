@@ -13,23 +13,48 @@ namespace leetCode._51_100
             if (head == null || head.next == null)
                 return head;
 
-            ListNode nodeHead = GetNextNode(head);
-            ListNode node = nodeHead;
-            ListNode nodeFirt = node;
-            while (nodeFirt != null)
+            ListNode nodeHead = head;
+            while (true)
             {
-                if (nodeFirt.next != null)
+                var nodeFi = GetNextNode(nodeHead);
+                nodeHead = nodeFi.Item2;
+                if (nodeFi.Item1 == false || nodeFi.Item2 == null)
                 {
-                    var temp = GetNextNode(nodeFirt.next);
-                    if (temp.val != node.next.val)
+                    break;
+                }
+            }
+            if (nodeHead == null)
+                return null;
+            ListNode nodeFirt = nodeHead;
+            ListNode node = nodeFirt.next;
+            while (true)
+            {
+                if (node != null)
+                {
+                    var temp = GetNextNode(node);
+                    if (temp.Item1)
                     {
-                        nodeFirt.next = temp;
-                        if (temp.next == null)
+                        node = temp.Item2;
+                        if (temp.Item2 == null)
+                        {
+                            nodeFirt.next = null;
+                            
                             break;
+                        }
                     }
                     else
                     {
-                        nodeFirt = temp;
+                        if (temp.Item2 == null)
+                        {
+                            nodeFirt.next = temp.Item2;
+                            break;
+                        }
+                        else
+                        {
+                            nodeFirt.next = temp.Item2;
+                            nodeFirt = temp.Item2;
+                        }
+                        node = temp.Item2.next;
                     }
                 }
                 else
@@ -40,7 +65,7 @@ namespace leetCode._51_100
             return nodeHead;
         }
 
-        private ListNode GetNextNode(ListNode head)
+        private Tuple<bool, ListNode> GetNextNode(ListNode head)
         {
             ListNode node = head;
             ListNode nodeHead = head;
@@ -59,7 +84,7 @@ namespace leetCode._51_100
                 nodeHead = node;
             }
 
-            return nodeHead;
+            return new Tuple<bool, ListNode>(flag, nodeHead);
         }
     }
 }
