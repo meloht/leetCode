@@ -32,5 +32,13 @@ namespace TestProjectLeetCode._51_100
             int res = alg.LargestRectangleArea(arr);
             Assert.AreEqual(4, res);
         }
+
+        [TestMethod]
+        public void TestCase03()
+        {
+            int[] arr = { 3, 6, 5, 7, 4, 8, 1, 0 };
+            int res = alg.LargestRectangleArea(arr);
+            Assert.AreEqual(20, res);
+        }
     }
 }
