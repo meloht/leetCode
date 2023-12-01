@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace leetCode._51_100
+{
+    public class _84_LargestRectangleInHistogramAlg
+    {
+        public int LargestRectangleArea(int[] heights)
+        {
+            return 0;
+        }
+    }
+}
