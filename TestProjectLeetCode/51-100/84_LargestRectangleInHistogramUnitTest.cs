@@ -47,5 +47,19 @@ namespace TestProjectLeetCode._51_100
             int res = alg.LargestRectangleArea(arr);
         }
 
+        [TestMethod]
+        public void TestCase05()
+        {
+            List<int> arr = new List<int>();
+            Random random = new Random();
+            for (int i = 0; i < 10000000; i++)
+            {
+                int num = random.Next(0, 50000);
+                arr.Add(num);
+            }
+            int res = alg.LargestRectangleArea(arr.ToArray()); ;
+          
+        }
+
     }
 }
