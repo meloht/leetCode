@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace TestProjectLeetCode._51_100
 {
+    [TestClass]
     public class _87_ScrambleStringUnitTest
     {
         _87_ScrambleStringAlg alg;
