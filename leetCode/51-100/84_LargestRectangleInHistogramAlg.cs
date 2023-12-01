@@ -28,7 +28,7 @@ namespace leetCode._51_100
                     stack.Clear();
                     continue;
                 }
-                if (currentHeight >= preHeight)
+                if (currentHeight > preHeight)
                 {
                     foreach (var item in stack)
                     {
