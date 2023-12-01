@@ -1,4 +1,5 @@
-﻿using System;
+﻿using leetCode;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,31 @@ namespace TestProjectLeetCode
 {
     public class Utils
     {
+        public static ListNode BuildListNode(int[] arr)
+        {
+            ListNode node = new ListNode(arr[0]);
+            ListNode header = node;
+            for (int i = 1; i < arr.Length; i++)
+            {
+                node.next = new ListNode(arr[i]);
+                node = node.next;
+            }
+
+            return header;
+        }
+
+        public static bool ListNodeSame(ListNode header, int[] arr)
+        {
+            List<int> list = new List<int>();
+            ListNode node = header;
+            while (node != null)
+            {
+                list.Add(node.val);
+                node = node.next;
+            }
+            bool bl = arr.SequenceEqual(list.ToArray());
+            return bl;
+        }
         public static bool IsSame<T>(IList<IList<T>> list, IList<IList<T>> list2)
         {
             if (list.Count != list2.Count)

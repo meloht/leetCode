@@ -27,7 +27,7 @@ namespace TestProjectLeetCode._51_100
 
             node1.next = node2;
             node2.next = node3;
-
+        
             var res = alg.DeleteDuplicates(node1);
             int[] arr = { 1, 2 };
             List<int> list = new List<int>();
