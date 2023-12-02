@@ -21,6 +21,8 @@ namespace TestProjectLeetCode._51_100
         public void TestCase01()
         {
             int[] nums1 = { 1, 2, 3, 0, 0, 0 };
+
+            //alg.Move(2, nums1, 2);
             int m = 3;
             int[] num2 = { 2, 5, 6 };
             int n = 3;
@@ -52,6 +54,32 @@ namespace TestProjectLeetCode._51_100
             int n = 1;
             alg.Merge(nums1, m, num2, n);
             int[] exp = { 1 };
+            bool bl = exp.SequenceEqual(nums1);
+            Assert.AreEqual(true, bl);
+        }
+
+        [TestMethod]
+        public void TestCase04()
+        {
+            int[] nums1 = { 2, 0 };
+            int m = 1;
+            int[] num2 = { 1 };
+            int n = 1;
+            alg.Merge(nums1, m, num2, n);
+            int[] exp = { 1,2 };
+            bool bl = exp.SequenceEqual(nums1);
+            Assert.AreEqual(true, bl);
+        }
+
+        [TestMethod]
+        public void TestCase05()
+        {
+            int[] nums1 = { 0, 0, 0, 0, 0 };
+            int m = 0;
+            int[] num2 = { 1, 2, 3, 4, 5 };
+            int n =5;
+            alg.Merge(nums1, m, num2, n);
+            int[] exp = { 1, 2, 3, 4, 5 };
             bool bl = exp.SequenceEqual(nums1);
             Assert.AreEqual(true, bl);
         }
