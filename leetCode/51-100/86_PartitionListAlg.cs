@@ -13,29 +13,28 @@ namespace leetCode._51_100
             if (head == null)
                 return null;
 
-            List<ListNode> lefts = new List<ListNode>();
-            List<ListNode> rights = new List<ListNode>();
+            ListNode lefts = new  ListNode(0);
+            ListNode leftsHeader = lefts;
+            ListNode rights = new ListNode(0);
+            ListNode rightHeader = rights;
             ListNode node = head;
             while (node != null)
             {
                 if (node.val < x)
                 {
-                    lefts.Add(node);
+                    lefts.next = node;
+                    lefts = lefts.next;
                 }
                 else
                 {
-                    rights.Add(node);
+                    rights.next = node;
+                    rights = rights.next;
                 }
                 node = node.next;
             }
-            lefts.AddRange(rights);
-
-            for (int i = 1; i < lefts.Count; i++)
-            {
-                lefts[i - 1].next = lefts[i];
-            }
-            lefts[lefts.Count - 1].next = null;
-            return lefts[0];
+            lefts.next = rightHeader.next;
+            rights.next = null;
+            return leftsHeader.next;
         }
     }
 }
