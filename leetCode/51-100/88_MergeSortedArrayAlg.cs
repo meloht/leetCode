@@ -31,31 +31,23 @@ namespace leetCode._51_100
                 {
                     int n1 = nums1[j - 1];
                     int n2 = nums1[j];
-
+                    if (nn < n1)
+                    {
+                        Move(j - 1, nums1, len);
+                        nums1[j - 1] = nn;
+                        len++;
+                        index = j;
+                        break;
+                    }
                     if (j >= (m + i))
                     {
-                        if (nn < n1)
-                        {
-                            Move(j - 1, nums1, len);
-                            nums1[j - 1] = nn;
-                            len++;
-                            index = j;
-                            break;
-                        }
+
                         nums1[j] = nn;
                         index = j + 1;
                         break;
                     }
                     else
                     {
-                        if (nn < n1)
-                        {
-                            Move(j - 1, nums1, len);
-                            nums1[j - 1] = nn;
-                            len++;
-                            index = j;
-                            break;
-                        }
                         if (nn >= n1 && nn < n2)
                         {
                             Move(j, nums1, len);
