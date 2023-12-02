@@ -20,6 +20,11 @@ namespace TestProjectLeetCode._51_100
         [TestMethod]
         public void TestCase01()
         {
+            int nn = 8;
+            var ssd1 = Convert.ToString(nn, 2);
+           
+            int dd = 1 << 2;
+            var ssd = Convert.ToString(dd, 2);
             int[] exp = { 0, 1, 3, 2 };
             var res = alg.GrayCode(2);
             bool bl = res.ToArray().SequenceEqual(exp);
