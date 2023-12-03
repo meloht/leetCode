@@ -13,8 +13,8 @@ namespace leetCode._51_100
 
         public bool IsScramble(string s1, string s2)
         {
-            if (s1 == "ccababcaabcb" && s2 == "bccbccaaabab")
-                return true;
+            //if (s1 == "ccababcaabcb" && s2 == "bccbccaaabab")
+            //    return true;
             bool bl = AddAllList(s1, s2);
 
             return bl;
@@ -61,10 +61,11 @@ namespace leetCode._51_100
                     {
                         return false;
                     }
-
+                  
                     bool bl = IsSameString(sourceLeft, sourceRight, targetLeft, targetRight);
                     if (bl)
                     {
+                        System.Diagnostics.Debug.WriteLine($"{sourceLeft}-{sourceRight} == {targetLeft}-{targetRight} ");
                         return true;
                     }
                     else
@@ -86,6 +87,7 @@ namespace leetCode._51_100
                     bool bl = IsSameString(sourceLeft, sourceRight, targetLeft2, targetRight2);
                     if (bl)
                     {
+                        System.Diagnostics.Debug.WriteLine($"{sourceLeft}-{sourceRight} == {targetLeft2}-{targetRight2} ");
                         return true;
                     }
                     else
@@ -137,10 +139,10 @@ namespace leetCode._51_100
 
                 if (IsSame(left1, left2) && IsSame(right1, right2))
                 {
-                    if (dictLeft.Contains(i - 1))
-                    {
-                        return false;
-                    }
+                    //if (dictLeft.Contains(i - 1))
+                    //{
+                    //    return false;
+                    //}
                     var set1 = AllList(left1, left2);
 
                     var set2 = AllList(right1, right2);
