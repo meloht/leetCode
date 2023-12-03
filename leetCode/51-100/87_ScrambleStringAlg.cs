@@ -9,7 +9,7 @@ namespace leetCode._51_100
 {
     public class _87_ScrambleStringAlg
     {
-        public bool IsScramble(string s1, string s2)
+        public bool IsScramble2(string s1, string s2)
         {
             int n = s1.Length;
             bool[,,] dp = new bool[n + 1, n + 1, n + n];
@@ -45,10 +45,10 @@ namespace leetCode._51_100
             return dp[0, 0, n];
         }
 
-        public bool IsScramble2(string s1, string s2)
+        public bool IsScramble(string s1, string s2)
         {
 
-            bool bl = AddAllList(s1, s2);
+            bool bl = AllList(s1, s2);
 
             return bl;
         }
@@ -65,85 +65,6 @@ namespace leetCode._51_100
 
             if (s1.SequenceEqual(s2))
                 return true;
-            return false;
-        }
-
-
-
-        private bool AddAllList(string s1, string target)
-        {
-            if (s1 == target)
-                return true;
-            if (s1.Length == 2)
-            {
-                return IsSame(s1, target);
-            }
-
-            HashSet<int> dictLeft = new HashSet<int>();
-            HashSet<int> dictRight = new HashSet<int>();
-            for (int i = 1; i < s1.Length; i++)
-            {
-                var sourceLeft = s1.Substring(0, i);
-                var sourceRight = s1.Substring(i, s1.Length - i);
-                var targetLeft = target.Substring(0, i);
-                var targetRight = target.Substring(i, s1.Length - i);
-
-                if (IsSame(sourceLeft, targetLeft) && IsSame(sourceRight, targetRight))
-                {
-                    if (dictLeft.Contains(i - 1))
-                    {
-                        return false;
-                    }
-
-                    bool bl = IsSameString(sourceLeft, sourceRight, targetLeft, targetRight);
-                    if (bl)
-                    {
-                        System.Diagnostics.Debug.WriteLine($"{sourceLeft}-{sourceRight} == {targetLeft}-{targetRight} ");
-                        return true;
-                    }
-                    else
-                    {
-                        dictLeft.Add(i);
-
-                    }
-                }
-
-                var targetLeft2 = target.Substring(s1.Length - i, i);
-                var targetRight2 = target.Substring(0, s1.Length - i);
-                if (IsSame(sourceLeft, targetLeft2) && IsSame(sourceRight, targetRight2))
-                {
-                    if (dictRight.Contains(i - 1))
-                    {
-                        return false;
-                    }
-
-                    bool bl = IsSameString(sourceLeft, sourceRight, targetLeft2, targetRight2);
-                    if (bl)
-                    {
-                        System.Diagnostics.Debug.WriteLine($"{sourceLeft}-{sourceRight} == {targetLeft2}-{targetRight2} ");
-                        return true;
-                    }
-                    else
-                    {
-                        dictRight.Add(i);
-                    }
-
-                }
-            }
-
-            return false;
-        }
-
-
-        private bool IsSameString(string sourceLeft, string sourceRight, string targetLeft, string targetRight)
-        {
-
-            var set1 = AllList(sourceLeft, targetLeft);
-            var set2 = AllList(sourceRight, targetRight);
-
-            if (set1 && set2)
-                return true;
-
             return false;
         }
 
@@ -172,10 +93,10 @@ namespace leetCode._51_100
 
                 if (IsSame(left1, left2) && IsSame(right1, right2))
                 {
-                    //if (dictLeft.Contains(i - 1))
-                    //{
-                    //    return false;
-                    //}
+                    if (dictLeft.Contains(i - 1))
+                    {
+                        return false;
+                    }
                     var set1 = AllList(left1, left2);
 
                     var set2 = AllList(right1, right2);
@@ -187,7 +108,7 @@ namespace leetCode._51_100
                         dictLeft.Add(i);
                     }
                 }
-              
+
                 if (IsSame(left1, left3) && IsSame(right1, right3))
                 {
                     if (dictRight.Contains(i - 1))
@@ -205,7 +126,7 @@ namespace leetCode._51_100
                         dictRight.Add(i);
                     }
                 }
-              
+
 
             }
             return false;
