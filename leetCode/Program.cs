@@ -1,4 +1,5 @@
 ﻿using leetCode._1_50;
+using leetCode._51_100;
 
 namespace leetCode
 {
@@ -7,7 +8,7 @@ namespace leetCode
 
         static void Main(string[] args)
         {
-
+       
         }
     }
 }

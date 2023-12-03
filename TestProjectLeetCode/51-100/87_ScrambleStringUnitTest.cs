@@ -89,5 +89,13 @@ namespace TestProjectLeetCode._51_100
             var res = alg.IsScramble(s1, s2);
             Assert.AreEqual(true, res);
         }
+
+        [TestMethod]
+        public void TestCase10()
+        {
+            string s1 = "ccababcaabcb", s2 = "bccbccaaabab";
+            var res = alg.IsScramble(s1, s2);
+            Assert.AreEqual(true, res);
+        }
     }
 }
