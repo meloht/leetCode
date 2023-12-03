@@ -9,9 +9,43 @@ namespace leetCode._51_100
 {
     public class _87_ScrambleStringAlg
     {
-
-
         public bool IsScramble(string s1, string s2)
+        {
+            int n = s1.Length;
+            bool[,,] dp = new bool[n + 1, n + 1, n + n];
+            for (int k = 1; k <= n; ++k) //分割长度
+            {
+                for (int i = 0; i + k <= n; ++i) //枚举两个字符串的枚举下标
+                {
+                    for (int j = 0; j + k <= n; ++j)
+                    {
+                        if (k == 1)
+                        {
+                            dp[i, j, k] = s1[i] == s2[j];
+                            continue;
+                        }
+                        for (int u = 1; u < k; ++u)//枚举分割点
+                        {
+                            bool o1 = dp[i, j, u] && dp[i + u, j + u, k - u];//不交换数据
+                            bool o2 = dp[i, j + k - u, u] && dp[i + u, j, k - u];//交换数据
+                            if (o1 || o2)
+                            {
+                                dp[i, j, k] = true;
+                                break;
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            return dp[0, 0, n];
+        }
+
+        public bool IsScramble2(string s1, string s2)
         {
 
             bool bl = AddAllList(s1, s2);
