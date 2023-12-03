@@ -17,7 +17,7 @@ namespace leetCode._51_100
             return bl;
         }
 
-      
+
         private bool IsSame(string arr1, string arr2)
         {
             if (arr1 == arr2)
@@ -42,6 +42,8 @@ namespace leetCode._51_100
             {
                 return IsSame(s1, target);
             }
+            Dictionary<int, Node> dictLeft = new Dictionary<int, Node>();
+            Dictionary<int, Node> dictRight = new Dictionary<int, Node>();
             for (int i = 1; i < s1.Length; i++)
             {
                 var sourceLeft = s1.Substring(0, i);
@@ -51,25 +53,65 @@ namespace leetCode._51_100
 
                 if (IsSame(sourceLeft, targetLeft) && IsSame(sourceRight, targetRight))
                 {
+                    if (dictLeft.ContainsKey(i - 1))
+                    {
+                        return false;
+                    }
+                    System.Diagnostics.Debug.WriteLine($"{sourceLeft}-{sourceRight}===={targetLeft}-{targetRight}");
                     bool bl = IsSameString(sourceLeft, sourceRight, targetLeft, targetRight);
                     if (bl)
+                    {
+                        System.Diagnostics.Debug.WriteLine(" true");
                         return true;
+                    }
+                    else
+                    {
+                        dictLeft.Add(i, new Node(sourceLeft, sourceRight));
+
+                    }
+
                 }
 
                 var targetLeft2 = target.Substring(s1.Length - i, i);
                 var targetRight2 = target.Substring(0, s1.Length - i);
                 if (IsSame(sourceLeft, targetLeft2) && IsSame(sourceRight, targetRight2))
                 {
+                    if (dictRight.ContainsKey(i - 1))
+                    {
+                        return false;
+                    }
+                    System.Diagnostics.Debug.WriteLine($"{sourceLeft}-{sourceRight}===={targetLeft2}-{targetRight2}");
                     bool bl = IsSameString(sourceLeft, sourceRight, targetLeft2, targetRight2);
                     if (bl)
+                    {
+                        System.Diagnostics.Debug.WriteLine(" true");
                         return true;
+                    }
+                    else
+                    {
+                        dictRight.Add(i, new Node(sourceLeft, sourceRight));
+                    }
+
                 }
             }
 
             return false;
         }
+        class Node
+        {
+            public string SourceLeft;
+            public string SourceRight;
+            public Node(string left, string right)
+            {
+                this.SourceLeft = left;
+                this.SourceRight = right;
+            }
+
+        }
+
         private bool IsSameString(string sourceLeft, string sourceRight, string targetLeft, string targetRight)
         {
+
             var set1 = AllList(sourceLeft, targetLeft);
             var set2 = AllList(sourceRight, targetRight);
 
