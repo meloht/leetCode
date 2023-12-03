@@ -60,7 +60,7 @@ namespace leetCode._51_100
                     {
                         return false;
                     }
-                  
+
                     bool bl = IsSameString(sourceLeft, sourceRight, targetLeft, targetRight);
                     if (bl)
                     {
@@ -153,6 +153,7 @@ namespace leetCode._51_100
                         dictLeft.Add(i);
                     }
                 }
+              
                 if (IsSame(left1, left3) && IsSame(right1, right3))
                 {
                     if (dictRight.Contains(i - 1))
@@ -170,6 +171,7 @@ namespace leetCode._51_100
                         dictRight.Add(i);
                     }
                 }
+              
 
             }
             return false;
