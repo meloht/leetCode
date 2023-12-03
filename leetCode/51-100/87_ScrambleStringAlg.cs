@@ -13,8 +13,7 @@ namespace leetCode._51_100
 
         public bool IsScramble(string s1, string s2)
         {
-            //if (s1 == "ccababcaabcb" && s2 == "bccbccaaabab")
-            //    return true;
+
             bool bl = AddAllList(s1, s2);
 
             return bl;
