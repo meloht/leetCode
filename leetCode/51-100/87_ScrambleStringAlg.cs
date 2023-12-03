@@ -16,6 +16,32 @@ namespace leetCode._51_100
 
             return bl;
         }
+
+        private bool IsScrambleTest(string s1, string s2)
+        {
+            Dictionary<int,HashSet<string>> dict1=new Dictionary<int, HashSet<string>>();
+            Dictionary<int, HashSet<string>> dict2 = new Dictionary<int, HashSet<string>>();
+
+            dict1.Add(0, new HashSet<string>());
+            dict1[0].Add(s1[0].ToString());
+
+            for (int i = 1; i < s1.Length; i++)
+            {
+                var sets= dict1[i - 1];
+                foreach (var set in sets)
+                {
+                    string s = $"{set}{s1[i]}";
+                    if (!sets.Contains(s))
+                    {
+                        sets.Add(s);
+                    }
+                }
+                var sourceLeft = s1.Substring(0, i);
+                
+            }
+
+            return false;
+        }
         private bool IsSame(string arr1, string arr2)
         {
             if (arr1 == arr2)
