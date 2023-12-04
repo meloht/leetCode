@@ -228,14 +228,8 @@ namespace leetCode._51_100
                 }
                 else
                 {
-                    if (bl1 == false)
-                    {
-                        AddDictCache(ileft, jleft1, leftLen, false, dict);
-                    }
-                    if (bl2 == false)
-                    {
-                        AddDictCache(iright, jright1, rightLen, false, dict);
-                    }
+                    AddDictCache(ileft, jleft1, leftLen, false, dict);
+                    AddDictCache(iright, jright1, rightLen, false, dict);
                 }
 
                 bool bl11 = IsSame(ss1left, ss2left2);
@@ -252,14 +246,8 @@ namespace leetCode._51_100
                 }
                 else
                 {
-                    if (bl11 == false)
-                    {
-                        AddDictCache(ileft, jleft2, leftLen, false, dict);
-                    }
-                    if (bl22 == false)
-                    {
-                        AddDictCache(iright, jright2, rightLen, false, dict);
-                    }
+                    AddDictCache(ileft, jleft2, leftLen, false, dict);
+                    AddDictCache(iright, jright2, rightLen, false, dict);
                 }
             }
 
