@@ -45,7 +45,7 @@ namespace leetCode._51_100
             return dp[0, 0, n];
         }
 
-        public bool IsScramble(string s1, string s2)
+        public bool IsScramble1(string s1, string s2)
         {
 
             //bool bl = AllList(s1, s2);
@@ -55,19 +55,7 @@ namespace leetCode._51_100
         }
 
 
-        private bool IsSame(string arr1, string arr2)
-        {
-            if (arr1 == arr2)
-                return true;
-            char[] s1 = arr1.ToCharArray();
-            char[] s2 = arr2.ToCharArray();
-            Array.Sort(s1);
-            Array.Sort(s2);
 
-            if (s1.SequenceEqual(s2))
-                return true;
-            return false;
-        }
 
         private bool AllList(string s1, string target)
         {
@@ -136,7 +124,21 @@ namespace leetCode._51_100
         }
 
 
-        public bool IsScrambleDict(string s1, string s2)
+        private bool IsSame(string arr1, string arr2)
+        {
+            if (arr1 == arr2)
+                return true;
+            char[] s1 = arr1.ToCharArray();
+            char[] s2 = arr2.ToCharArray();
+            Array.Sort(s1);
+            Array.Sort(s2);
+
+            if (s1.SequenceEqual(s2))
+                return true;
+            return false;
+        }
+
+        public bool IsScramble(string s1, string s2)
         {
             if (s1 == s2)
                 return true;
