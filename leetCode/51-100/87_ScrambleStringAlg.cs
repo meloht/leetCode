@@ -215,7 +215,7 @@ namespace leetCode._51_100
                     bool blleft = IsScrambleRec(ileft, ileftend, jleft1, jleft1end, s1, s2, dict);
                     bool blright = IsScrambleRec(iright, irightend, jright1, jright1end, s1, s2, dict);
                     AddDictCache(ileft, jleft1, leftLen, blleft, dict);
-                    AddDictCache(iright, jright1, leftLen, blright, dict);
+                    AddDictCache(iright, jright1, rightLen, blright, dict);
 
                     if (blleft && blright)
                         return true;
@@ -228,7 +228,7 @@ namespace leetCode._51_100
                     }
                     if (bl2 == false)
                     {
-                        AddDictCache(iright, jright1, leftLen, false, dict);
+                        AddDictCache(iright, jright1, rightLen, false, dict);
                     }
                 }
 
@@ -240,7 +240,7 @@ namespace leetCode._51_100
                     bool blleft = IsScrambleRec(ileft, ileftend, jleft2, jleft2end, s1, s2, dict);
                     bool blright = IsScrambleRec(iright, irightend, jright2, jright2end, s1, s2, dict);
                     AddDictCache(ileft, jleft2, leftLen, blleft, dict);
-                    AddDictCache(iright, jright2, leftLen, blright, dict);
+                    AddDictCache(iright, jright2, rightLen, blright, dict);
 
                     if (blleft && blright)
                         return true;
@@ -253,7 +253,7 @@ namespace leetCode._51_100
                     }
                     if (bl22 == false)
                     {
-                        AddDictCache(iright, jright2, leftLen, false, dict);
+                        AddDictCache(iright, jright2, rightLen, false, dict);
                     }
                 }
             }
