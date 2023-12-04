@@ -44,11 +44,11 @@ namespace leetCode._51_100
 
             return dp[0, 0, n];
         }
-
+        Dictionary<string, bool> dictCache = new Dictionary<string, bool>();
         public bool IsScramble1(string s1, string s2)
         {
-
-            //bool bl = AllList(s1, s2);
+            dictCache.Clear();
+           // bool bl = AllList(s1, s2);
             bool bl = IsScramble(s1, s2);
             //bool bl = IsScramble2(s1, s2);
             return bl;
@@ -56,17 +56,45 @@ namespace leetCode._51_100
 
 
 
-
+        private void AddCache(string s1, string target, bool bl)
+        {
+            string key = $"{s1}-{target}";
+            if (!dictCache.ContainsKey(key))
+            {
+                dictCache.Add(key, bl);
+            }
+        }
+        private Tuple<bool, bool> CheckDictCache(string s1, string target)
+        {
+            string key = $"{s1}-{target}";
+            if (dictCache.ContainsKey(key))
+            {
+                bool bl = dictCache[key];
+                return new Tuple<bool, bool>(true, bl);
+            }
+            return new Tuple<bool, bool>(false, false);
+        }
         private bool AllList(string s1, string target)
         {
+            var tupe = CheckDictCache(s1, target);
+            if (tupe.Item1)
+            {
+                return tupe.Item2;
+            }
+
             if (target == s1)
+            {
+                AddCache(s1, target, true);
                 return true;
+            }
+
             if (s1.Length == 2)
             {
-                return IsSame(s1, target);
+                bool bl = IsSame(s1, target);
+                AddCache(s1, target, bl);
+                return bl;
             }
-            HashSet<int> dictLeft = new HashSet<int>();
-            HashSet<int> dictRight = new HashSet<int>();
+
             for (int i = 1; i < s1.Length; i++)
             {
 
@@ -78,48 +106,63 @@ namespace leetCode._51_100
 
                 var left3 = target.Substring(s1.Length - i, i);
                 var right3 = target.Substring(0, s1.Length - i);
-                System.Diagnostics.Debug.WriteLine($"{left1}-{right1}  {left2}-{right2} {left3}-{right3}");
 
-                if (IsSame(left1, left2) && IsSame(right1, right2))
+                bool bl1 = IsSame(left1, left2);
+                bool bl2 = IsSame(right1, right2);
+
+                if (bl1 && bl2)
                 {
-                    //if (dictLeft.Contains(i - 1))
-                    //{
-                    //    return false;
-                    //}
-
                     var set1 = AllList(left1, left2);
-
                     var set2 = AllList(right1, right2);
 
+                    AddCache(left1, left2, set1);
+                    AddCache(right1, right2, set2);
+
                     if (set1 && set2)
                         return true;
-                    else
+
+                }
+                else
+                {
+                    if (bl1 == false)
                     {
-                        dictLeft.Add(i);
+                        AddCache(left1, left2, false);
+                    }
+                    if (bl2 == false)
+                    {
+                        AddCache(right1, right2, false);
                     }
                 }
 
-                if (IsSame(left1, left3) && IsSame(right1, right3))
+                bool bl11 = IsSame(left1, left3);
+                bool bl22 = IsSame(right1, right3);
+                if (bl11 && bl22)
                 {
 
-                    if (dictRight.Contains(i - 1))
-                    {
-                        return false;
-                    }
                     var set1 = AllList(left1, left3);
-
                     var set2 = AllList(right1, right3);
+
+                    AddCache(left1, left3, set1);
+                    AddCache(right1, right3, set2);
 
                     if (set1 && set2)
                         return true;
-                    else
+
+                }
+                else
+                {
+                    if (bl11 == false)
                     {
-                        dictRight.Add(i);
+                        AddCache(left1, left3, false);
+                    }
+                    if (bl22 == false)
+                    {
+                        AddCache(right1, right3, false);
                     }
                 }
-
-
             }
+
+            AddCache(s1, target, false);
             return false;
         }
 
@@ -266,6 +309,7 @@ namespace leetCode._51_100
                 }
             }
 
+            AddDictCache(ibegin, jbegin, len, false, dict);
             return false;
         }
 
