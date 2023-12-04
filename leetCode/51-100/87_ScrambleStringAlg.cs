@@ -49,7 +49,7 @@ namespace leetCode._51_100
         {
 
             //bool bl = AllList(s1, s2);
-            bool bl = IsScrambleDict(s1, s2);
+            bool bl = IsScramble(s1, s2);
             //bool bl = IsScramble2(s1, s2);
             return bl;
         }
