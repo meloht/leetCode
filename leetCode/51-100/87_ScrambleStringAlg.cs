@@ -153,7 +153,13 @@ namespace leetCode._51_100
         private bool IsScrambleRec(int ibegin, int iend, int jbegin, int jend, string s1, string s2, Dictionary<string, bool> dict)
         {
             int len = iend - ibegin + 1;
-
+            string ss111 = s1.Substring(ibegin, len);
+            string ss222 = s2.Substring(jbegin, len);
+            if (ss111 == ss222)
+            {
+                AddDictCache(ibegin, jbegin, len, true, dict);
+                return true;
+            }
             var tupe = CheckDictCache(ibegin, jbegin, len, dict);
             if (tupe.Item1)
             {
@@ -193,7 +199,7 @@ namespace leetCode._51_100
                 int ileftend = ileft + (leftLen - 1);
                 int irightend = iright + (rightLen - 1);
 
-                int jleft1end = jleft1 + (leftLen - 1); 
+                int jleft1end = jleft1 + (leftLen - 1);
                 int jright1end = jright1 + (rightLen - 1);
 
                 int jleft2end = jleft2 + (leftLen - 1);
@@ -207,7 +213,10 @@ namespace leetCode._51_100
 
                 string ss2left2 = s2.Substring(jleft2, leftLen);
                 string ss2right2 = s2.Substring(jright2, rightLen);
+                if (ss1left == "abcdbdac")
+                {
 
+                }
                 bool bl1 = IsSame(ss1left, ss2left1);
                 bool bl2 = IsSame(ss1right, ss2right1);
                 if (bl1 && bl2)
