@@ -20,7 +20,7 @@ namespace TestProjectLeetCode._51_100
         [TestMethod]
         public void TestCase01()
         {
-            int[] nums = { 0, 1, 3, 2 };
+            int[] nums = { 1, 2, 2 };
             var res = alg.SubsetsWithDup(nums);
             int[][] exp = { [], [1], [1, 2], [1, 2, 2], [2], [2, 2] };
             bool bl = Utils.IsSame(exp, res);
@@ -33,6 +33,15 @@ namespace TestProjectLeetCode._51_100
             int[] nums = { 0 };
             var res = alg.SubsetsWithDup(nums);
             int[][] exp = { [], [0] };
+            bool bl = Utils.IsSame(exp, res);
+            Assert.IsTrue(bl);
+        }
+        [TestMethod]
+        public void TestCase03()
+        {
+            int[] nums = { 4, 4, 4, 1, 4 };
+            var res = alg.SubsetsWithDup(nums);
+            int[][] exp = { [], [1], [1, 4], [1, 4, 4], [1, 4, 4, 4], [1, 4, 4, 4, 4], [4], [4, 4], [4, 4, 4], [4, 4, 4, 4] };
             bool bl = Utils.IsSame(exp, res);
             Assert.IsTrue(bl);
         }
