@@ -50,6 +50,7 @@ namespace leetCode._51_100
 
             //bool bl = AllList(s1, s2);
             bool bl = IsScrambleDict(s1, s2);
+            //bool bl = IsScramble2(s1, s2);
             return bl;
         }
 
@@ -89,14 +90,15 @@ namespace leetCode._51_100
 
                 var left3 = target.Substring(s1.Length - i, i);
                 var right3 = target.Substring(0, s1.Length - i);
-
+                System.Diagnostics.Debug.WriteLine($"{left1}-{right1}  {left2}-{right2} {left3}-{right3}");
 
                 if (IsSame(left1, left2) && IsSame(right1, right2))
                 {
-                    if (dictLeft.Contains(i - 1))
-                    {
-                        return false;
-                    }
+                    //if (dictLeft.Contains(i - 1))
+                    //{
+                    //    return false;
+                    //}
+
                     var set1 = AllList(left1, left2);
 
                     var set2 = AllList(right1, right2);
@@ -111,6 +113,7 @@ namespace leetCode._51_100
 
                 if (IsSame(left1, left3) && IsSame(right1, right3))
                 {
+
                     if (dictRight.Contains(i - 1))
                     {
                         return false;
@@ -150,9 +153,16 @@ namespace leetCode._51_100
             return blRes;
         }
 
-        private bool IsScrambleRec(int ibegin, int iend, int jbegin, int jend, string s1, string s2, Dictionary<string, bool> dict)
+        private bool IsScrambleRec(int ibegin, int iend, int jbegin, int jend, string s1, string s2, 
+            Dictionary<string, bool> dict)
         {
             int len = iend - ibegin + 1;
+            var tupe = CheckDictCache(ibegin, jbegin, len, dict);
+            if (tupe.Item1)
+            {
+                return tupe.Item2;
+            }
+
             string ss111 = s1.Substring(ibegin, len);
             string ss222 = s2.Substring(jbegin, len);
             if (ss111 == ss222)
@@ -160,19 +170,7 @@ namespace leetCode._51_100
                 AddDictCache(ibegin, jbegin, len, true, dict);
                 return true;
             }
-            var tupe = CheckDictCache(ibegin, jbegin, len, dict);
-            if (tupe.Item1)
-            {
-                return tupe.Item2;
-            }
-            if (len == 1)
-            {
-                string ss1 = s1.Substring(ibegin, len);
-                string ss2 = s2.Substring(jbegin, len);
-                bool bl = ss1 == ss2;
-                AddDictCache(ibegin, jbegin, len, bl, dict);
-                return bl;
-            }
+
             if (len == 2)
             {
                 string ss1 = s1.Substring(ibegin, len);
@@ -182,7 +180,7 @@ namespace leetCode._51_100
                 return bl;
             }
 
-            for (int i = ibegin + 1, j = jbegin + 1; i < len && j < len; i++, j++)
+            for (int i = ibegin + 1, j = jbegin + 1; i <= iend && j <= jend; i++, j++)
             {
                 int ileft = ibegin;
                 int iright = i;
@@ -213,10 +211,7 @@ namespace leetCode._51_100
 
                 string ss2left2 = s2.Substring(jleft2, leftLen);
                 string ss2right2 = s2.Substring(jright2, rightLen);
-                if (ss1left == "abcdbdac")
-                {
-
-                }
+ 
                 bool bl1 = IsSame(ss1left, ss2left1);
                 bool bl2 = IsSame(ss1right, ss2right1);
                 if (bl1 && bl2)
@@ -240,7 +235,6 @@ namespace leetCode._51_100
                         AddDictCache(iright, jright1, rightLen, false, dict);
                     }
                 }
-
 
                 bool bl11 = IsSame(ss1left, ss2left2);
                 bool bl22 = IsSame(ss1right, ss2right2);
