@@ -135,6 +135,9 @@ namespace leetCode._51_100
 
         public bool IsScrambleDict(string s1, string s2)
         {
+            if (s1 == s2)
+                return true;
+
             Dictionary<string, bool> dict = new Dictionary<string, bool>();
             int len = s1.Length;
             for (int i = 0; i < len; i++)
@@ -142,13 +145,14 @@ namespace leetCode._51_100
                 bool bl = s1[i] == s2[i];
                 AddDictCache(i, i, 1, bl, dict);
             }
-            bool blRes = IsScrambleRec(0, 0, s1.Length, s1, s2, dict);
+            bool blRes = IsScrambleRec(0, s1.Length - 1, 0, s1.Length - 1, s1, s2, dict);
             Console.WriteLine(blRes);
             return blRes;
         }
 
-        private bool IsScrambleRec(int ibegin, int jbegin, int len, string s1, string s2, Dictionary<string, bool> dict)
+        private bool IsScrambleRec(int ibegin, int iend, int jbegin, int jend, string s1, string s2, Dictionary<string, bool> dict)
         {
+            int len = iend - ibegin + 1;
             var tupe = CheckDictCache(ibegin, jbegin, len, dict);
             if (tupe.Item1)
             {
@@ -176,11 +180,17 @@ namespace leetCode._51_100
                 int ileft = ibegin;
                 int iright = i;
 
-                int jleft2 = len - i;
+                int leftLen = i - ibegin;
+                int rightLen = len - leftLen;
+
+                int jleft2 = (jend + 1) - leftLen;
                 int jright2 = jbegin;
 
-                int leftLen = i;
-                int rightLen = len - i;
+                int ileftend = ileft + (leftLen - 1);
+                int irightend = iright + (rightLen - 1);
+
+                int jleft2end = jleft2 + (leftLen - 1);
+                int jright2end = jright2 + (rightLen - 1);
 
                 string ss1left = s1.Substring(ileft, leftLen);
                 string ss1right = s1.Substring(iright, rightLen);
@@ -195,8 +205,8 @@ namespace leetCode._51_100
                 bool bl2 = IsSame(ss1right, ss2right1);
                 if (bl1 && bl2)
                 {
-                    bool blleft = IsScrambleRec(ileft, ileft, leftLen, s1, s2, dict);
-                    bool blright = IsScrambleRec(iright, iright, rightLen, s1, s2, dict);
+                    bool blleft = IsScrambleRec(ileft, ileftend, ileft, ileftend, s1, s2, dict);
+                    bool blright = IsScrambleRec(iright, irightend, iright, irightend, s1, s2, dict);
                     AddDictCache(ileft, ileft, leftLen, blleft, dict);
                     AddDictCache(iright, iright, leftLen, blright, dict);
 
@@ -220,8 +230,8 @@ namespace leetCode._51_100
                 bool bl22 = IsSame(ss1right, ss2right2);
                 if (bl11 && bl22)
                 {
-                    bool blleft = IsScrambleRec(ileft, jleft2, leftLen, s1, s2, dict);
-                    bool blright = IsScrambleRec(iright, jright2, rightLen, s1, s2, dict);
+                    bool blleft = IsScrambleRec(ileft, ileftend, jleft2, jleft2end, s1, s2, dict);
+                    bool blright = IsScrambleRec(iright, irightend, jright2, jright2end, s1, s2, dict);
                     AddDictCache(ileft, jleft2, leftLen, blleft, dict);
                     AddDictCache(iright, jright2, leftLen, blright, dict);
 
