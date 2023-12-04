@@ -8,7 +8,9 @@ namespace leetCode
 
         static void Main(string[] args)
         {
-       
+            _87_ScrambleStringAlg alg = new _87_ScrambleStringAlg();
+            alg.IsScrambleDict("great", "rgeat");
+
         }
     }
 }

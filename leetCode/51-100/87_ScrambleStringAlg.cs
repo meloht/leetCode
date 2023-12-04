@@ -48,8 +48,8 @@ namespace leetCode._51_100
         public bool IsScramble(string s1, string s2)
         {
 
-            bool bl = AllList(s1, s2);
-
+            //bool bl = AllList(s1, s2);
+            bool bl = IsScrambleDict(s1, s2);
             return bl;
         }
 
@@ -130,6 +130,138 @@ namespace leetCode._51_100
 
             }
             return false;
+        }
+
+
+        public bool IsScrambleDict(string s1, string s2)
+        {
+            Dictionary<string, bool> dict = new Dictionary<string, bool>();
+            int len = s1.Length;
+            for (int i = 0; i < len; i++)
+            {
+                bool bl = s1[i] == s2[i];
+                AddDictCache(i, i, 1, bl, dict);
+            }
+            bool blRes = IsScrambleRec(0, 0, s1.Length, s1, s2, dict);
+            Console.WriteLine(blRes);
+            return blRes;
+        }
+
+        private bool IsScrambleRec(int ibegin, int jbegin, int len, string s1, string s2, Dictionary<string, bool> dict)
+        {
+            var tupe = CheckDictCache(ibegin, jbegin, len, dict);
+            if (tupe.Item1)
+            {
+                return tupe.Item2;
+            }
+            if (len == 1)
+            {
+                string ss1 = s1.Substring(ibegin, len);
+                string ss2 = s2.Substring(jbegin, len);
+                bool bl = ss1 == ss2;
+                AddDictCache(ibegin, jbegin, len, bl, dict);
+                return bl;
+            }
+            if (len == 2)
+            {
+                string ss1 = s1.Substring(ibegin, len);
+                string ss2 = s2.Substring(jbegin, len);
+                bool bl = IsSame(ss1, ss2);
+                AddDictCache(ibegin, jbegin, len, bl, dict);
+                return bl;
+            }
+
+            for (int i = ibegin + 1; i < len; i++)
+            {
+                int ileft = ibegin;
+                int iright = i;
+
+                int jleft2 = len - i;
+                int jright2 = jbegin;
+
+                int leftLen = i;
+                int rightLen = len - i;
+
+                string ss1left = s1.Substring(ileft, leftLen);
+                string ss1right = s1.Substring(iright, rightLen);
+
+                string ss2left1 = s2.Substring(ileft, leftLen);
+                string ss2right1 = s2.Substring(iright, rightLen);
+
+                string ss2left2 = s2.Substring(jleft2, leftLen);
+                string ss2right2 = s2.Substring(jright2, rightLen);
+
+                bool bl1 = IsSame(ss1left, ss2left1);
+                bool bl2 = IsSame(ss1right, ss2right1);
+                if (bl1 && bl2)
+                {
+                    bool blleft = IsScrambleRec(ileft, ileft, leftLen, s1, s2, dict);
+                    bool blright = IsScrambleRec(iright, iright, rightLen, s1, s2, dict);
+                    AddDictCache(ileft, ileft, leftLen, blleft, dict);
+                    AddDictCache(iright, iright, leftLen, blright, dict);
+
+                    if (blleft && blright)
+                        return true;
+                }
+                else
+                {
+                    if (bl1 == false)
+                    {
+                        AddDictCache(ileft, ileft, leftLen, false, dict);
+                    }
+                    if (bl1 == false)
+                    {
+                        AddDictCache(iright, iright, leftLen, false, dict);
+                    }
+                }
+
+
+                bool bl11 = IsSame(ss1left, ss2left2);
+                bool bl22 = IsSame(ss1right, ss2right2);
+                if (bl11 && bl22)
+                {
+                    bool blleft = IsScrambleRec(ileft, jleft2, leftLen, s1, s2, dict);
+                    bool blright = IsScrambleRec(iright, jright2, rightLen, s1, s2, dict);
+                    AddDictCache(ileft, jleft2, leftLen, blleft, dict);
+                    AddDictCache(iright, jright2, leftLen, blright, dict);
+
+                    if (blleft && blright)
+                        return true;
+                }
+                else
+                {
+                    if (bl11 == false)
+                    {
+                        AddDictCache(ileft, jleft2, leftLen, false, dict);
+                    }
+                    if (bl22 == false)
+                    {
+                        AddDictCache(iright, jright2, leftLen, false, dict);
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        private void AddDictCache(int ibegin, int jbegin, int len, bool bl, Dictionary<string, bool> dict)
+        {
+            string key = $"{ibegin}-{jbegin}_{len}";
+            if (!dict.ContainsKey(key))
+            {
+                dict.Add(key, bl);
+            }
+        }
+
+        private Tuple<bool, bool> CheckDictCache(int ibegin, int jbegin, int len, Dictionary<string, bool> dict)
+        {
+            string key = $"{ibegin}-{jbegin}_{len}";
+            if (dict.ContainsKey(key))
+            {
+                bool bl = dict[key];
+                return new Tuple<bool, bool>(true, bl);
+            }
+            return new Tuple<bool, bool>(false, false);
         }
 
     }
