@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace TestProjectLeetCode.WeeklyContest
 {
     [TestClass]
-    public class Alg_374_5_UnitTest
+    public class Alg_374_CountCompleteSubstrings_UnitTest
     {
         Alg_374 alg;
         [TestInitialize]
@@ -22,7 +22,7 @@ namespace TestProjectLeetCode.WeeklyContest
         {
             string word = "igigee";
             int res = alg.CountCompleteSubstrings(word, 2);
-            Assert.AreEqual(3, res);
+            Assert.AreEqual(3, res);//igig，ee，igigee
         }
 
         [TestMethod]
@@ -30,13 +30,7 @@ namespace TestProjectLeetCode.WeeklyContest
         {
             string word = "aaabbbccc";
             int res = alg.CountCompleteSubstrings(word, 3);
-            Assert.AreEqual(6, res);
-        }
-
-        [TestMethod]
-        public void TestCase03()
-        {
-
+            Assert.AreEqual(6, res);//aaa,bbb,ccc,aaabbb,bbbccc,aaabbbccc
         }
     }
 }

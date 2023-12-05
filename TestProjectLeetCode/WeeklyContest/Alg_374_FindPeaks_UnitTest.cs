@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace TestProjectLeetCode.WeeklyContest
 {
     [TestClass]
-    public class Alg_374_1_UnitTest
+    public class Alg_374_FindPeaks_UnitTest
     {
         Alg_374 alg;
         [TestInitialize]
@@ -44,10 +44,6 @@ namespace TestProjectLeetCode.WeeklyContest
             Assert.IsTrue(bl);
         }
 
-        [TestMethod]
-        public void TestCase03()
-        {
 
-        }
     }
 }

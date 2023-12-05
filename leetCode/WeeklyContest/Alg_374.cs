@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -30,68 +31,27 @@ namespace leetCode.WeeklyContest
 
         public int MinimumAddedCoins(int[] coins, int target)
         {
-            List<List<int>> listAll = GetAllList(coins);
-
-            HashSet<int> list = new HashSet<int>();
-            for (int i = 1; i <= 19; i++)
+            Array.Sort(coins);
+            int count = 0;
+            int index = 0;
+            List<int> list = new List<int>();
+            for (int i = 1; i <= target; i++)
             {
-                list.Add(i);
-            }
-
-            foreach (var item in listAll)
-            {
-                int num = item.Sum();
-                list.Remove(num);
-            }
-
-            List<int> listDel = new List<int>();
-            foreach (var item in list)
-            {
-                foreach (var item2 in listAll)
+                int tt = i;
+                for (int j = 0; j <= coins.Length - 1; j++)
                 {
-                    int num = item2.Sum();
-
-                }
-            }
-            foreach (int coin in coins)
-            {
-
-                foreach (int num in list)
-                {
-                    int dec = num % coin;
-                    int count = num / coin;
-                    if (dec == 0 && count > 0)
+                    int num = coins[j];
+                    if (num <= tt)
                     {
-                        listDel.Add(num);
+                        tt -= num;
                     }
                 }
-                foreach (int item in listDel)
+                if (tt > 0)
                 {
-                    listDel.Remove(item);
-                }
-                listDel.Clear();
-            }
-            listDel.Clear();
-            foreach (int coin in coins)
-            {
-                foreach (int num in list)
-                {
-                    int dec = num % coin;
-                    int count = num / coin;
-                    if (dec > 0 && count > 0)
-                    {
-                        listDel.Add(num);
-                    }
+                    list.Add(i);
                 }
             }
-
-
-
-
-
-
-
-            return 0;
+            return count;
         }
 
         private List<List<int>> GetAllList(int[] coins)
@@ -121,77 +81,122 @@ namespace leetCode.WeeklyContest
 
         public int CountCompleteSubstrings(string word, int k)
         {
-            if (word.Length == 1)
+            if (word.Length < k)
                 return 0;
             Dictionary<char, int> dict = new Dictionary<char, int>();
+
+            Dictionary<int, Dictionary<int, char[]>> dictSubWord = new Dictionary<int, Dictionary<int, char[]>>();
             List<char> list = new List<char>();
-            List<List<char>> res = new List<List<char>>();
+           
             int count = 0;
-       
-            int len = word.Length - 1;
+            int i = 0;
+            int currentLen = k;
+            int end = currentLen;
 
-            for (int i = 0; i< len; i++)
+            while (currentLen <= word.Length)
             {
-                char curr = word[i];
-
-                if (!dict.ContainsKey(curr))
+                while (i < end && i < word.Length)
                 {
-                    dict.Add(curr, 1);
-                }
-                else
-                {
-                    dict[curr]++;
-                }
-                if (dict[curr] == 2)
-                {
-                    if (list.Count > 1)
+                    if (i == 0 || CheckWord(dict, list, k))
                     {
-                        bool bl = Compute(list, dict);
-                        if (bl)
+                        if (dictSubWord.ContainsKey(i))
                         {
-                            count++;
+                            
                         }
-
                     }
 
-                }
-                if (dict[curr] > 2)
-                {
-                    int lastIndex = list.IndexOf(curr);
-                    List<char> list2 = new List<char>();
-                    for (int n = lastIndex; n < list.Count; n++)
+                    var ss = word[i];
+                    list.Add(ss);
+                    if (!dict.ContainsKey(ss))
                     {
-                        list2.Add(list[n]);
+                        dict.Add(ss, 0);
                     }
-                    list = list2;
-                    dict[curr] = 2;
-                    bool bl = Compute(list, dict);
-                    if (bl)
+                    dict[ss]++;
+
+                    if (i == end - 1)
                     {
-                        count++;
+                        if (CheckWord(dict, list, k))
+                        {
+                            int start = i - (currentLen - 1);
+                            AddRes(dictSubWord, start, list.ToArray());
+                        }
+                        var first = list[0];
+                        SubtractCharDict(first, dict);
+                        list.RemoveAt(0);
+
+                        end++;
                     }
+                    i++;
                 }
-
-                char next = word[i + 1];
-                if (Math.Abs(next - curr) <= 2)
+                while (list.Count >= currentLen)
                 {
-                    list.Add(curr);
-
-                }
-                if (list.Count > 1)
-                {
-                    bool bl = Compute(list, dict);
-                    if (bl)
+                    var first = list[0];
+                    SubtractCharDict(first, dict);
+                    list.RemoveAt(0);
+                    if (CheckWord(dict, list, k))
                     {
-                        count++;
+                        int start = i - (currentLen - 1);
+                        AddRes(dictSubWord, start, list.ToArray());
                     }
-
-
                 }
+                list.Clear();
+                currentLen += k;
+                i = 0;
+                end = currentLen;
             }
 
-
+            foreach (var item in dictSubWord)
+            {
+                count += item.Value.Count;
+            }
             return count;
+        }
+
+        private void SubtractCharDict(char ss, Dictionary<char, int> dict)
+        {
+            if (dict.ContainsKey(ss))
+            {
+                if (dict[ss] > 0)
+                {
+                    dict[ss]--;
+                }
+            }
+        }
+        private void AddCount(char[] ss, Dictionary<char, int> dict)
+        {
+            foreach (var item in ss)
+            {
+                if (!dict.ContainsKey(item))
+                {
+                    dict.Add(item, 0);
+                }
+                dict[item]++;
+            }
+        }
+        private bool CheckWord(Dictionary<char, int> dict, List<char> list, int k)
+        {
+            foreach (var item in list)
+            {
+                if (!dict.ContainsKey(item))
+                    return false;
+
+                if (dict[item] != k)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        private void AddRes(Dictionary<int, Dictionary<int, char[]>> dictSubWord, int index, char[] arr)
+        {
+            if (!dictSubWord.ContainsKey(index))
+            {
+                dictSubWord.Add(index, new Dictionary<int, char[]>());
+            }
+            if (!dictSubWord[index].ContainsKey(arr.Length))
+            {
+                dictSubWord[index].Add(arr.Length, arr);
+            }
         }
 
         private bool Compute(List<char> list, Dictionary<char, int> dict)

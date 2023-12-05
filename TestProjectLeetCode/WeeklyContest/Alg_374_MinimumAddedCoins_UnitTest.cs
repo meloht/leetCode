@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace TestProjectLeetCode.WeeklyContest
 {
     [TestClass]
-    public class Alg_374_2_UnitTest
+    public class Alg_374_MinimumAddedCoins_UnitTest
     {
         Alg_374 alg;
         [TestInitialize]
@@ -21,7 +21,7 @@ namespace TestProjectLeetCode.WeeklyContest
         public void TestCase01()
         {
             int[] coins = { 1, 4, 10 };
-            int res = alg.MinimumAddedCoins(coins,19);
+            int res = alg.MinimumAddedCoins(coins,19);//1,2,4,8,10
             Assert.AreEqual(2, res);
         }
 
@@ -29,7 +29,7 @@ namespace TestProjectLeetCode.WeeklyContest
         public void TestCase02()
         {
             int[] coins = { 1, 4, 10, 5, 7, 19 };
-            int res = alg.MinimumAddedCoins(coins, 19);
+            int res = alg.MinimumAddedCoins(coins, 19);//1,2,4,5,7,10,19
             Assert.AreEqual(1, res);
         }
 
@@ -37,7 +37,7 @@ namespace TestProjectLeetCode.WeeklyContest
         public void TestCase03()
         {
             int[] coins = { 1, 1, 1 };
-            int res = alg.MinimumAddedCoins(coins, 20);
+            int res = alg.MinimumAddedCoins(coins, 20);//1,1,1,4,8,16
             Assert.AreEqual(3, res);
         }
     }
