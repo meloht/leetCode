@@ -86,6 +86,13 @@ namespace leetCode.WeeklyContest
                 return 0;
             Dictionary<char, int> dict = new Dictionary<char, int>();
 
+            foreach (var item in word)
+            {
+                AddCount(item, dict);
+            }
+            int nums = dict.Values.Where(p => p == k).Count();
+            dict.Clear();
+
             Dictionary<int, Dictionary<int, char[]>> dictSubWord = new Dictionary<int, Dictionary<int, char[]>>();
             List<char> list = new List<char>();
 
@@ -94,7 +101,7 @@ namespace leetCode.WeeklyContest
             int currentLen = k;
             int end = currentLen;
 
-            while (currentLen <= word.Length)
+            while (currentLen <= word.Length && nums >= 0)
             {
                 while (i < end && i < word.Length)
                 {
@@ -117,24 +124,25 @@ namespace leetCode.WeeklyContest
                                 if (len <= decLen)
                                 {
                                     var arr = dictLen[len];
+
+                                    list.AddRange(arr);
+                                    AddCount(arr, dict);
                                     if (!CheckWord(dict, list, k))
                                     {
                                         break;
                                     }
-                                    list.AddRange(arr);
                                     decLen -= len;
                                     if (list.Count == currentLen)
                                     {
                                         ClearCount(list.ToArray(), dict);
                                         AddRes(dictSubWord, i, list.ToArray());
                                         i = startIndex;
-                                      
+
                                     }
                                     else
                                     {
                                         AddCount(arr, dict);
                                         startIndex = startIndex + arr.Length;
-
                                     }
                                 }
                                 break;
@@ -151,6 +159,10 @@ namespace leetCode.WeeklyContest
                         i = startIndex;
                         end = i + decLen;
                     }
+                    if (!CheckWord(dict, list, k))
+                    {
+                        break;
+                    }
                     if (list.Count == currentLen)
                     {
                         list.Clear();
@@ -164,7 +176,7 @@ namespace leetCode.WeeklyContest
                     }
                     var ss = word[i];
                     list.Add(ss);
-            
+
                     AddCount(ss, dict);
 
                     if (i == end - 1)
@@ -197,6 +209,7 @@ namespace leetCode.WeeklyContest
                 currentLen += k;
                 i = 0;
                 end = currentLen;
+                nums--;
             }
 
             foreach (var item in dictSubWord)
@@ -249,6 +262,7 @@ namespace leetCode.WeeklyContest
         }
         private bool CheckWord(Dictionary<char, int> dict, List<char> list, int k)
         {
+
             foreach (var item in list)
             {
                 if (!dict.ContainsKey(item))

@@ -49,5 +49,13 @@ namespace TestProjectLeetCode.WeeklyContest
             Assert.AreEqual(3, res);//aaa,bbb,ccc,aaabbb,bbbccc,aaabbbccc
         }
 
+        [TestMethod]
+        public void TestCase05()
+        {
+            string word = "abb";
+            int res = alg.CountCompleteSubstrings(word, 1);
+            Assert.AreEqual(4, res);//aaa,bbb,ccc,aaabbb,bbbccc,aaabbbccc
+        }
+
     }
 }
