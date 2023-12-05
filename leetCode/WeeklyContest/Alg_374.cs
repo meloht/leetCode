@@ -117,6 +117,10 @@ namespace leetCode.WeeklyContest
                                 if (len <= decLen)
                                 {
                                     var arr = dictLen[len];
+                                    if (!CheckWord(dict, list, k))
+                                    {
+                                        break;
+                                    }
                                     list.AddRange(arr);
                                     decLen -= len;
                                     if (list.Count == currentLen)
@@ -133,6 +137,10 @@ namespace leetCode.WeeklyContest
 
                                     }
                                 }
+                                break;
+                            }
+                            if (!CheckWord(dict, list, k))
+                            {
                                 break;
                             }
                             if (list.Count == currentLen)
