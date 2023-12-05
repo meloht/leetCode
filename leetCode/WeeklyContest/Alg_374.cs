@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -87,7 +88,7 @@ namespace leetCode.WeeklyContest
 
             Dictionary<int, Dictionary<int, char[]>> dictSubWord = new Dictionary<int, Dictionary<int, char[]>>();
             List<char> list = new List<char>();
-           
+
             int count = 0;
             int i = 0;
             int currentLen = k;
@@ -99,19 +100,64 @@ namespace leetCode.WeeklyContest
                 {
                     if (i == 0 || CheckWord(dict, list, k))
                     {
-                        if (dictSubWord.ContainsKey(i))
+                        int startIndex = i;
+                        int decLen = currentLen - list.Count;
+                        while (dictSubWord.ContainsKey(startIndex) && decLen > 0)
                         {
-                            
-                        }
-                    }
+                            var dictLen = dictSubWord[startIndex];
+                            int len = k;
 
+                            while (len <= word.Length)
+                            {
+                                if (!dictLen.ContainsKey(len))
+                                {
+                                    len += k;
+                                    continue;
+                                }
+                                if (len <= decLen)
+                                {
+                                    var arr = dictLen[len];
+                                    list.AddRange(arr);
+                                    decLen -= len;
+                                    if (list.Count == currentLen)
+                                    {
+                                        ClearCount(list.ToArray(), dict);
+                                        AddRes(dictSubWord, i, list.ToArray());
+                                        i = startIndex;
+                                      
+                                    }
+                                    else
+                                    {
+                                        AddCount(arr, dict);
+                                        startIndex = startIndex + arr.Length;
+
+                                    }
+                                }
+                                break;
+                            }
+                            if (list.Count == currentLen)
+                            {
+                                break;
+                            }
+                        }
+                        i = startIndex;
+                        end = i + decLen;
+                    }
+                    if (list.Count == currentLen)
+                    {
+                        list.Clear();
+
+                        if (word.Length - i <= k)
+                        {
+                            break;
+                        }
+                        end = i + currentLen;
+                        continue;
+                    }
                     var ss = word[i];
                     list.Add(ss);
-                    if (!dict.ContainsKey(ss))
-                    {
-                        dict.Add(ss, 0);
-                    }
-                    dict[ss]++;
+            
+                    AddCount(ss, dict);
 
                     if (i == end - 1)
                     {
@@ -152,6 +198,8 @@ namespace leetCode.WeeklyContest
             return count;
         }
 
+
+
         private void SubtractCharDict(char ss, Dictionary<char, int> dict)
         {
             if (dict.ContainsKey(ss))
@@ -161,6 +209,24 @@ namespace leetCode.WeeklyContest
                     dict[ss]--;
                 }
             }
+        }
+        private void ClearCount(char[] ss, Dictionary<char, int> dict)
+        {
+            foreach (var item in ss)
+            {
+                if (dict.ContainsKey(item))
+                {
+                    dict[item] = 0;
+                }
+            }
+        }
+        private void AddCount(char ss, Dictionary<char, int> dict)
+        {
+            if (!dict.ContainsKey(ss))
+            {
+                dict.Add(ss, 0);
+            }
+            dict[ss]++;
         }
         private void AddCount(char[] ss, Dictionary<char, int> dict)
         {
@@ -199,23 +265,6 @@ namespace leetCode.WeeklyContest
             }
         }
 
-        private bool Compute(List<char> list, Dictionary<char, int> dict)
-        {
-            bool bl = true; ;
-            foreach (char j in list)
-            {
-                if (dict[j] != 2)
-                {
-                    bl = false;
-                }
-            }
-            return bl;
-        }
-        class NodeS
-        {
-            public char word;
-            public int Index;
-            public int Count;
-        }
+
     }
 }

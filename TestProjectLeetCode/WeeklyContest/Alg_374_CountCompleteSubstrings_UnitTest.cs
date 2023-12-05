@@ -32,5 +32,22 @@ namespace TestProjectLeetCode.WeeklyContest
             int res = alg.CountCompleteSubstrings(word, 3);
             Assert.AreEqual(6, res);//aaa,bbb,ccc,aaabbb,bbbccc,aaabbbccc
         }
+
+        [TestMethod]
+        public void TestCase03()
+        {
+            string word = "aaabbbcccddeee";
+            int res = alg.CountCompleteSubstrings(word, 3);
+            Assert.AreEqual(7, res);//aaa,bbb,ccc,aaabbb,bbbccc,aaabbbccc
+        }
+
+        [TestMethod]
+        public void TestCase04()
+        {
+            string word = "aaa";
+            int res = alg.CountCompleteSubstrings(word, 1);
+            Assert.AreEqual(3, res);//aaa,bbb,ccc,aaabbb,bbbccc,aaabbbccc
+        }
+
     }
 }
