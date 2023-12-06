@@ -241,7 +241,6 @@ namespace leetCode.WeeklyContest
             return count;
         }
 
-
         private int GetLastIndex(Dictionary<char, int> dict, int k, List<char> list)
         {
             int lastIndex = -1;
