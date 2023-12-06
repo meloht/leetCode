@@ -183,21 +183,36 @@ namespace leetCode.WeeklyContest
                         if (listIndex.Count > 0)
                         {
                             ComputeCount(listIndex, word, dictSubWord);
-                            var node = listIndex[listIndex.Count - 1];
-                            int num = node.Index + node.Length;
-                            listIndex.Clear();
-                            list.Clear();
-                            dict.Clear();
-                            wordCount = 0;
-                            if (num == word.Length)
+                            var wcount = GetCount(dict, k, list, dictSubWord, index);
+
+                            if (wcount == false)
                             {
-                                break;
+                                index++;
+                                listIndex.Clear();
+                                list.Clear();
+                                dict.Clear();
+                                wordCount = 0;
+                              
                             }
                             else
                             {
-                                index = num;
-                               
+                                var node = listIndex[listIndex.Count - 1];
+                                int num = node.Index + node.Length;
+                                wordCount = 0;
+                                listIndex.Clear();
+                                list.Clear();
+                                dict.Clear();
+                                if (num == word.Length)
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    index = num;
+
+                                }
                             }
+                          
 
                         }
                         else
@@ -212,7 +227,7 @@ namespace leetCode.WeeklyContest
                             {
                                 index = index + nn;
                             }
-                           
+
                             list.Clear();
                             dict.Clear();
                             wordCount = 0;
@@ -228,7 +243,7 @@ namespace leetCode.WeeklyContest
                     {
                         break;
                     }
-                   
+
                 }
             }
 
@@ -240,6 +255,25 @@ namespace leetCode.WeeklyContest
 
             return count;
         }
+
+        private bool GetCount(Dictionary<char, int> dict, int k, List<char> list, Dictionary<int, List<string>> dictSubWord, int index)
+        {
+            int count = 0;
+            foreach (var item in dict)
+            {
+                if (item.Value == k)
+                {
+                    count++;
+
+                }
+            }
+            if (dictSubWord.ContainsKey(index) && dictSubWord[index].Count != count)
+            {
+                return false;
+            }
+            return true;
+        }
+
 
         private int GetLastIndex(Dictionary<char, int> dict, int k, List<char> list)
         {
