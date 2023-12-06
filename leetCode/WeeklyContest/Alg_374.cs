@@ -186,7 +186,9 @@ namespace leetCode.WeeklyContest
                             var node = listIndex[listIndex.Count - 1];
                             int num = node.Index + node.Length;
                             listIndex.Clear();
-
+                            list.Clear();
+                            dict.Clear();
+                            wordCount = 0;
                             if (num == word.Length)
                             {
                                 break;
