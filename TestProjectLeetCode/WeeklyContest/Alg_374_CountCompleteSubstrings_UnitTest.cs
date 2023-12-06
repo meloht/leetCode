@@ -39,7 +39,7 @@ namespace TestProjectLeetCode.WeeklyContest
         {
             string word = "aaabbbcccddeee";
             int res = alg.CountCompleteSubstrings(word, 3);
-            Assert.AreEqual(7, res);//aaa,bbb,ccc,aaabbb,bbbccc,aaabbbccc
+            Assert.AreEqual(7, res);
         }
 
         [TestMethod]
@@ -47,7 +47,7 @@ namespace TestProjectLeetCode.WeeklyContest
         {
             string word = "aaa";
             int res = alg.CountCompleteSubstrings(word, 1);
-            Assert.AreEqual(3, res);//aaa,bbb,ccc,aaabbb,bbbccc,aaabbbccc
+            Assert.AreEqual(3, res);
         }
 
         [TestMethod]
