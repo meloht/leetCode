@@ -86,161 +86,211 @@ namespace leetCode.WeeklyContest
                 return 0;
             Dictionary<char, int> dict = new Dictionary<char, int>();
 
-            foreach (var item in word)
-            {
-                AddCount(item, dict);
-            }
-            int nums = dict.Values.Where(p => p == k).Count();
-            dict.Clear();
-
-            Dictionary<int, Dictionary<int, char[]>> dictSubWord = new Dictionary<int, Dictionary<int, char[]>>();
             List<char> list = new List<char>();
+            Dictionary<int, List<string>> dictSubWord = new Dictionary<int, List<string>>();
+            List<Node> listIndex = new List<Node>();
 
-            int count = 0;
-            int i = 0;
-            int currentLen = k;
-            int end = currentLen;
-
-            while (currentLen <= word.Length && nums >= 0)
+            int index = 0;
+            int wordCount = 0;
+            while (index < word.Length)
             {
-                while (i < end && i < word.Length)
+                int i = index;
+                int len = word.Length - i;
+                if (len < k)
+                    break;
+                while (i < word.Length)
                 {
-                    if (i == 0 || CheckWord(dict, list, k))
+                    var ch = word[i];
+                    if (list.Count > 0)
                     {
-                        int startIndex = i;
-                        int decLen = currentLen - list.Count;
-                        while (dictSubWord.ContainsKey(startIndex) && decLen > 0)
+                        var chlast = list[list.Count - 1];
+                        if (Math.Abs(ch - chlast) > 2)
                         {
-                            var dictLen = dictSubWord[startIndex];
-                            int len = k;
-
-                            while (len <= word.Length)
+                            ComputeCount(listIndex, word, dictSubWord);
+                            list.Clear();
+                            dict.Clear();
+                            listIndex.Clear();
+                            wordCount = 0;
+                            index = i;
+                            break;
+                        }
+                        else
+                        {
+                            list.Add(ch);
+                            AddCount(ch, dict);
+                            wordCount++;
+                            if (dict[ch] == k)
                             {
-                                if (!dictLen.ContainsKey(len))
+                                if (CheckWord(dict, list, k))
                                 {
-                                    len += k;
-                                    continue;
+                                    int start = i - (wordCount - 1);
+                                    listIndex.Add(new Node(start, wordCount));
+                                    wordCount = 0;
                                 }
-                                if (len <= decLen)
+                            }
+                            else
+                            {
+                                if (dict[ch] > k)
                                 {
-                                    var arr = dictLen[len];
+                                    ComputeCount(listIndex, word, dictSubWord);
+                                    listIndex.Clear();
 
-                                    list.AddRange(arr);
-                                    AddCount(arr, dict);
-                                    if (!CheckWord(dict, list, k))
-                                    {
-                                        break;
-                                    }
-                                    decLen -= len;
-                                    if (list.Count == currentLen)
-                                    {
-                                        ClearCount(list.ToArray(), dict);
-                                        AddRes(dictSubWord, i, list.ToArray());
-                                        i = startIndex;
+                                    int firstIndex = list.IndexOf(ch);
+                                    index = index + firstIndex + 1;
+                                    list.Clear();
+                                    dict.Clear();
 
-                                    }
-                                    else
-                                    {
-                                        AddCount(arr, dict);
-                                        startIndex = startIndex + arr.Length;
-                                    }
+                                    wordCount = 0;
+                                    break;
                                 }
-                                break;
-                            }
-                            if (!CheckWord(dict, list, k))
-                            {
-                                break;
-                            }
-                            if (list.Count == currentLen)
-                            {
-                                break;
                             }
                         }
-                        i = startIndex;
-                        end = i + decLen;
                     }
-                    if (!CheckWord(dict, list, k))
+                    else
                     {
-                        break;
+                        list.Add(word[i]);
+                        AddCount(ch, dict);
+                        wordCount++;
+                        if (dict[ch] == k)
+                        {
+                            if (CheckWord(dict, list, k))
+                            {
+                                int start = i - (wordCount - 1);
+                                listIndex.Add(new Node(start, wordCount));
+                                wordCount = 0;
+                            }
+                        }
                     }
-                    if (list.Count == currentLen)
-                    {
-                        list.Clear();
 
-                        if (word.Length - i <= k)
+                    i++;
+
+                }
+                if (i == word.Length)
+                {
+
+                    if (list.Count > 0)
+                    {
+                        ComputeCount(listIndex, word, dictSubWord);
+                        listIndex.Clear();
+                        if (!CheckWord(dict, list, k) && list.Count == k)
                         {
                             break;
                         }
-                        end = i + currentLen;
-                        continue;
-                    }
-                    var ss = word[i];
-                    list.Add(ss);
-
-                    AddCount(ss, dict);
-
-                    if (i == end - 1)
-                    {
-                        if (CheckWord(dict, list, k))
+                       
+                        int nn= GetLastIndex(dict, k, list);
+                        if (nn > -1)
                         {
-                            int start = i - (currentLen - 1);
-                            AddRes(dictSubWord, start, list.ToArray());
+                            index = index + nn;
                         }
-                        var first = list[0];
-                        SubtractCharDict(first, dict);
-                        list.RemoveAt(0);
-
-                        end++;
+                       
+                       
+                        list.Clear();
+                        dict.Clear();
+                        wordCount = 0;
+                        if (index < 0)
+                        {
+                            break;
+                        }
                     }
-                    i++;
-                }
-                while (list.Count >= currentLen)
-                {
-                    var first = list[0];
-                    SubtractCharDict(first, dict);
-                    list.RemoveAt(0);
-                    if (CheckWord(dict, list, k))
+                    else
                     {
-                        int start = i - (currentLen - 1);
-                        AddRes(dictSubWord, start, list.ToArray());
+                        break;
                     }
+
                 }
-                list.Clear();
-                currentLen += k;
-                i = 0;
-                end = currentLen;
-                nums--;
             }
 
+            int count = 0;
             foreach (var item in dictSubWord)
             {
                 count += item.Value.Count;
             }
+
             return count;
         }
 
 
-
-        private void SubtractCharDict(char ss, Dictionary<char, int> dict)
+        private int GetLastIndex(Dictionary<char, int> dict, int k, List<char> list)
         {
-            if (dict.ContainsKey(ss))
+            int lastIndex = -1;
+            foreach (var item in dict)
             {
-                if (dict[ss] > 0)
+                if (item.Value < k)
                 {
-                    dict[ss]--;
+                    lastIndex = list.IndexOf(item.Key) + item.Value;
+                    break;
                 }
             }
-        }
-        private void ClearCount(char[] ss, Dictionary<char, int> dict)
-        {
-            foreach (var item in ss)
+            if (lastIndex == -1)
+                return lastIndex;
+            var arr = list.GetRange(lastIndex, list.Count - lastIndex);
+            List<char> ls = new List<char>();
+            foreach (var item in arr)
             {
                 if (dict.ContainsKey(item))
                 {
-                    dict[item] = 0;
+                    if (dict[item] > 0)
+                    {
+                        dict[item]--;
+                    }
+                    if (dict[item] == 0)
+                    {
+                        ls.Add(item);
+                    }
+                }
+            }
+            foreach (var item in ls)
+            {
+                dict.Remove(item);
+            }
+
+            return lastIndex;
+        }
+        class Node
+        {
+            public int Index;
+            public int Length;
+            public Node(int index, int length)
+            {
+                this.Index = index;
+                this.Length = length;
+            }
+        }
+
+        private void ComputeCount(List<Node> listIndex, string word, Dictionary<int, List<string>> dictSubWord)
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < listIndex.Count; i++)
+            {
+                sb.Clear();
+                var currentNode = listIndex[i];
+                string ss = word.Substring(currentNode.Index, currentNode.Length);
+
+                AddAns(dictSubWord, currentNode.Index, ss);
+                sb.Append(ss);
+                for (int j = i + 1; j < listIndex.Count; j++)
+                {
+                    var nextNode = listIndex[j];
+                    string ss2 = word.Substring(nextNode.Index, nextNode.Length);
+                    sb.Append(ss2);
+                    AddAns(dictSubWord, currentNode.Index, sb.ToString());
                 }
             }
         }
+
+        private void AddAns(Dictionary<int, List<string>> dictSubWord, int index, string sub)
+        {
+            if (!dictSubWord.ContainsKey(index))
+            {
+                dictSubWord.Add(index, new List<string>());
+            }
+            if (!dictSubWord[index].Contains(sub))
+            {
+                dictSubWord[index].Add(sub);
+            }
+
+        }
+
         private void AddCount(char ss, Dictionary<char, int> dict)
         {
             if (!dict.ContainsKey(ss))
@@ -249,17 +299,7 @@ namespace leetCode.WeeklyContest
             }
             dict[ss]++;
         }
-        private void AddCount(char[] ss, Dictionary<char, int> dict)
-        {
-            foreach (var item in ss)
-            {
-                if (!dict.ContainsKey(item))
-                {
-                    dict.Add(item, 0);
-                }
-                dict[item]++;
-            }
-        }
+
         private bool CheckWord(Dictionary<char, int> dict, List<char> list, int k)
         {
 
@@ -275,18 +315,6 @@ namespace leetCode.WeeklyContest
             }
             return true;
         }
-        private void AddRes(Dictionary<int, Dictionary<int, char[]>> dictSubWord, int index, char[] arr)
-        {
-            if (!dictSubWord.ContainsKey(index))
-            {
-                dictSubWord.Add(index, new Dictionary<int, char[]>());
-            }
-            if (!dictSubWord[index].ContainsKey(arr.Length))
-            {
-                dictSubWord[index].Add(arr.Length, arr);
-            }
-        }
-
 
     }
 }
