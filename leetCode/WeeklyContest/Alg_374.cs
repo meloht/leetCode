@@ -221,14 +221,14 @@ namespace leetCode.WeeklyContest
                                 break;
                             }
                         }
-
+                        if (word.Length - index < k)
+                            break;
                     }
                     else
                     {
                         break;
                     }
-                    if (word.Length - index < k)
-                        break;
+                   
                 }
             }
 
