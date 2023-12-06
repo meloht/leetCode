@@ -132,7 +132,19 @@ namespace leetCode.WeeklyContest
                                 {
                                     ComputeCount(listIndex, word, dictSubWord);
                                     listIndex.Clear();
-
+                                    if (i == word.Length - 1)
+                                    {
+                                        int nn = GetLastIndex(dict, k, list);
+                                        if (nn > -1)
+                                        {
+                                            index = index + nn;
+                                            list.Clear();
+                                            dict.Clear();
+                                            wordCount = 0;
+                                            i = index;
+                                            break;
+                                        }
+                                    }
                                     int firstIndex = list.IndexOf(ch);
                                     index = index + firstIndex + 1;
                                     list.Clear();
@@ -140,6 +152,7 @@ namespace leetCode.WeeklyContest
 
                                     wordCount = 0;
                                     break;
+
                                 }
                             }
                         }
@@ -165,12 +178,11 @@ namespace leetCode.WeeklyContest
                 }
                 if (i == word.Length)
                 {
-
                     if (list.Count > 0)
                     {
-                        ComputeCount(listIndex, word, dictSubWord);
                         if (listIndex.Count > 0)
                         {
+                            ComputeCount(listIndex, word, dictSubWord);
                             var node = listIndex[listIndex.Count - 1];
                             int num = node.Index + node.Length;
                             listIndex.Clear();
@@ -181,33 +193,32 @@ namespace leetCode.WeeklyContest
                             }
                             else
                             {
-
+                                index = num;
                             }
 
                         }
                         else
                         {
-                            
-                        }
-                       
-                        if (!CheckWord(dict, list, k) && list.Count == k)
-                        {
-                            break;
-                        }
+                            if (!CheckWord(dict, list, k) && list.Count == k)
+                            {
+                                break;
+                            }
 
-                        int nn = GetLastIndex(dict, k, list);
-                        if (nn > -1)
-                        {
-                            index = index + nn;
-                        }
+                            int nn = GetLastIndex(dict, k, list);
+                            if (nn > -1)
+                            {
+                                index = index + nn;
+                            }
 
-                        list.Clear();
-                        dict.Clear();
-                        wordCount = 0;
-                        if (index < 0)
-                        {
-                            break;
+                            list.Clear();
+                            dict.Clear();
+                            wordCount = 0;
+                            if (index < 0)
+                            {
+                                break;
+                            }
                         }
+                      
                     }
                     else
                     {
