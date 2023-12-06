@@ -145,8 +145,8 @@ namespace leetCode.WeeklyContest
                                             break;
                                         }
                                     }
-                                    int firstIndex = list.IndexOf(ch);
-                                    index = index + firstIndex + 1;
+                                
+                                    index++;
                                     list.Clear();
                                     dict.Clear();
 
