@@ -95,7 +95,7 @@ namespace leetCode.WeeklyContest
             while (index < word.Length)
             {
                 int i = index;
-             
+
                 while (i < word.Length)
                 {
                     var ch = word[i];
@@ -194,6 +194,7 @@ namespace leetCode.WeeklyContest
                             else
                             {
                                 index = num;
+                               
                             }
 
                         }
@@ -209,7 +210,7 @@ namespace leetCode.WeeklyContest
                             {
                                 index = index + nn;
                             }
-
+                           
                             list.Clear();
                             dict.Clear();
                             wordCount = 0;
@@ -218,13 +219,14 @@ namespace leetCode.WeeklyContest
                                 break;
                             }
                         }
-                      
+
                     }
                     else
                     {
                         break;
                     }
-
+                    if (word.Length - index < k)
+                        break;
                 }
             }
 
