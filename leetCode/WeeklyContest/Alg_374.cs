@@ -287,21 +287,8 @@ namespace leetCode.WeeklyContest
                 for (int i = index; i < end; i++)
                 {
                     var ch = word[i];
-                    if (list.Count > 0)
-                    {
-                        var chlast = list[list.Count - 1];
-                        if (Math.Abs(ch - chlast) > 2)
-                        {
-                            break;
-                        }
-                        list.Add(ch);
-                        AddCount(ch, dict, 1);
-                    }
-                    else
-                    {
-                        list.Add(ch);
-                        AddCount(ch, dict, 1);
-                    }
+                    list.Add(ch);
+                    AddCount(ch, dict, 1);
                 }
 
                 if (list.Count == k && CheckWord(dict, k))
@@ -339,33 +326,21 @@ namespace leetCode.WeeklyContest
                     {
                         if (dictIndex.ContainsKey(begin))
                         {
-                            AddCharNum(dict, dictIndexCharNum[begin]);
-                            list.AddRange(dictIndexChar[begin]);
-                            num += dictIndex[begin];
-                            begin += dictIndex[begin];
-                            continue;
-                        }
-                        else
-                        {
-                            var ch = word[begin];
-                            if (list.Count > 0)
+                            int nn = dictIndex[begin];
+                            if (step - num >= nn)
                             {
-                                var chlast = list[list.Count - 1];
-                                if (Math.Abs(ch - chlast) > 2)
-                                {
-                                    break;
-                                }
-                                list.Add(ch);
-                                AddCount(ch, dict, 1);
-                                num++;
+                                AddCharNum(dict, dictIndexCharNum[begin]);
+                                list.AddRange(dictIndexChar[begin]);
+                                num += dictIndex[begin];
+                                begin += dictIndex[begin];
+                                continue;
                             }
-                            else
-                            {
-                                list.Add(ch);
-                                AddCount(ch, dict, 1);
-                                num++;
-                            }
+                          
                         }
+                        var ch = word[begin];
+                        list.Add(ch);
+                        AddCount(ch, dict, 1);
+                        num++;
                         begin++;
 
                     }
@@ -390,6 +365,9 @@ namespace leetCode.WeeklyContest
                             dictIndexChar.Add(index, null);
                         }
                         dictIndexChar[index] = list.ToArray();
+
+                        list.Clear();
+                        dict.Clear();
                     }
                     index++;
                     end++;
