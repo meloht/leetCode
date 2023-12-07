@@ -58,11 +58,12 @@ namespace leetCode.WeeklyContest
                     total++;
                 }
             }
-
+            var indexList = dictNode.Keys.ToList();
+            int max = indexList.Max();
             for (int step = 2 * k; step <= word.Length; step += k)
             {
                 int len = word.Length - step;
-                var itemDict = MergeDictNode(dictNode, len, k, step / k);
+                var itemDict = MergeDictNode(dictNode, len, k, step / k, max, indexList);
 
                 foreach (var item in itemDict)
                 {
@@ -75,12 +76,10 @@ namespace leetCode.WeeklyContest
 
             return total;
         }
-        private Dictionary<int, Dictionary<char, int>> MergeDictNode(Dictionary<int, Dictionary<char, int>> dictNode, int len, int k, int total)
+        private Dictionary<int, Dictionary<char, int>> MergeDictNode(Dictionary<int, Dictionary<char, int>> dictNode,
+            int len, int k, int total, int max, List<int> indexList)
         {
             Dictionary<int, Dictionary<char, int>> dictNodeRes = new Dictionary<int, Dictionary<char, int>>();
-
-            var indexList = dictNode.Keys.ToList();
-            int max = indexList.Max();
 
             for (int i = 0; i <= len; i++)
             {
