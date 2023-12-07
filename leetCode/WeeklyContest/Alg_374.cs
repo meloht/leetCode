@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -107,7 +108,7 @@ namespace leetCode.WeeklyContest
             int count = 0;
             foreach (var item in list)
             {
-                int num = GetWordNum(item, k);
+                int num = GetWordCount(item, k);
                 count += num;
             }
             return count;
@@ -179,7 +180,7 @@ namespace leetCode.WeeklyContest
                         }
                     }
                     int j = begin;
-                   
+
 
                     while (j < end)
                     {
@@ -264,7 +265,150 @@ namespace leetCode.WeeklyContest
             return listRes.Count;
         }
 
+        public int GetWordCount(string word, int k)
+        {
+            if (word.Length < k)
+                return 0;
+            int end = k;
+            int index = 0;
 
+
+            List<char> list = new List<char>();
+            Dictionary<int, int> dictIndex = new Dictionary<int, int>();
+            Dictionary<int, char[]> dictIndexChar = new Dictionary<int, char[]>();
+            Dictionary<int, Dictionary<char, int>> dictIndexCharNum = new Dictionary<int, Dictionary<char, int>>();
+            Dictionary<char, int> dict = new Dictionary<char, int>();
+            int count = 0;
+            while (end <= word.Length)
+            {
+                list.Clear();
+                dict.Clear();
+
+                for (int i = index; i < end; i++)
+                {
+                    var ch = word[i];
+                    if (list.Count > 0)
+                    {
+                        var chlast = list[list.Count - 1];
+                        if (Math.Abs(ch - chlast) > 2)
+                        {
+                            break;
+                        }
+                        list.Add(ch);
+                        AddCount(ch, dict, 1);
+                    }
+                    else
+                    {
+                        list.Add(ch);
+                        AddCount(ch, dict, 1);
+                    }
+                }
+
+                if (list.Count == k && CheckWord(dict, k))
+                {
+                    dictIndex.Add(index, k);
+                    dictIndexCharNum.Add(index, new Dictionary<char, int>(dict));
+                    dictIndexChar.Add(index, list.ToArray());
+                    count++;
+                }
+                int next = index + k;
+                if (dict.Count == 1 && next < word.Length && word[next] != word[index])
+                {
+                    index = end;
+                    end += k;
+                    continue;
+                }
+
+                index++;
+                end++;
+            }
+
+
+            for (int step = 2 * k; step <= word.Length; step += k)
+            {
+                index = 0;
+                end = step;
+                list.Clear();
+                dict.Clear();
+                while (end <= word.Length)
+                {
+                    int num = 0;
+                    int begin = index;
+                    int endNum = end;
+                    while (begin < endNum)
+                    {
+                        if (dictIndex.ContainsKey(begin))
+                        {
+                            AddCharNum(dict, dictIndexCharNum[begin]);
+                            list.AddRange(dictIndexChar[begin]);
+                            num += dictIndex[begin];
+                            begin += dictIndex[begin];
+                            continue;
+                        }
+                        else
+                        {
+                            var ch = word[begin];
+                            if (list.Count > 0)
+                            {
+                                var chlast = list[list.Count - 1];
+                                if (Math.Abs(ch - chlast) > 2)
+                                {
+                                    break;
+                                }
+                                list.Add(ch);
+                                AddCount(ch, dict, 1);
+                                num++;
+                            }
+                            else
+                            {
+                                list.Add(ch);
+                                AddCount(ch, dict, 1);
+                                num++;
+                            }
+                        }
+                        begin++;
+
+                    }
+
+                    if (num == step && CheckWord(dict, k))
+                    {
+                        count++;
+                        if (!dictIndex.ContainsKey(index))
+                        {
+                            dictIndex.Add(index, 0);
+                        }
+                        dictIndex[index] = num;
+
+                        if (!dictIndexCharNum.ContainsKey(index))
+                        {
+                            dictIndexCharNum.Add(index, null);
+                        }
+                        dictIndexCharNum[index] = new Dictionary<char, int>(dict);
+
+                        if (!dictIndexChar.ContainsKey(index))
+                        {
+                            dictIndexChar.Add(index, null);
+                        }
+                        dictIndexChar[index] = list.ToArray();
+                    }
+                    index++;
+                    end++;
+                }
+            }
+            return count;
+        }
+
+        private void AddCharNum(Dictionary<char, int> dict, Dictionary<char, int> dict2)
+        {
+            foreach (var item in dict2)
+            {
+                if (!dict.ContainsKey(item.Key))
+                {
+                    dict.Add(item.Key, 0);
+                }
+                dict[item.Key] += item.Value;
+            }
+        }
 
         private void AddCount(char ss, Dictionary<char, int> dict, int count)
         {
