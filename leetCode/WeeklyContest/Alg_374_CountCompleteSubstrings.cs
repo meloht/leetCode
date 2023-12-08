@@ -22,7 +22,7 @@ namespace leetCode.WeeklyContest
                 var chcurr = word[i];
                 if (Math.Abs(chpre - chcurr) > 2)
                 {
-                    string ss = word.Substring(splitIndex, i);
+                    string ss = word.Substring(splitIndex, (i- splitIndex));
                     list.Add(ss);
                     splitIndex = i;
                 }
