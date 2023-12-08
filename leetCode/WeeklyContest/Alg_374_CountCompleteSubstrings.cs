@@ -48,6 +48,7 @@ namespace leetCode.WeeklyContest
         {
             if (word.Length < k)
                 return 0;
+
             Dictionary<int, Dictionary<char, int>> dictNode = GetDictNode(word, k);
 
             int total = 0;
@@ -63,7 +64,20 @@ namespace leetCode.WeeklyContest
             for (int i = 0; i <= len; i++)
             {
                 var dict = dictNode[i];
-                dictStep.Add(i, new Dictionary<char, int>(dict));
+                bool bl = true;
+                foreach (var item in dict)
+                {
+                    if (item.Value > k)
+                    {
+                        bl = false;
+                        break;
+                    }
+                }
+                if (bl)
+                {
+                    dictStep.Add(i, new Dictionary<char, int>(dict));
+                }
+               
 
             }
             var indexList = dictNode.Keys.ToList();
@@ -95,12 +109,30 @@ namespace leetCode.WeeklyContest
                 {
                     continue;
                 }
+                if (!dictNode.ContainsKey(nextIndex))
+                    continue;
+                bool bl = true;
                 var dict = dictNode[nextIndex];
                 foreach (var item2 in dict)
                 {
-                    AddCount(item2.Key, dictPre.Value, item2.Value);
+                    if (!dictPre.Value.ContainsKey(item2.Key))
+                    {
+                        dictPre.Value.Add(item2.Key, 0);
+                    }
+                    dictPre.Value[item2.Key] += item2.Value;
+                    if (dictPre.Value[item2.Key] > k)
+                    {
+                        bl = false;
+                        break;
+                    }
+
                 }
-                dictNodeRes.Add(nextIndex, dictPre.Value);
+                if (bl)
+                {
+                    dictNodeRes.Add(nextIndex, dictPre.Value);
+                }
+                
+                
             }
 
 
