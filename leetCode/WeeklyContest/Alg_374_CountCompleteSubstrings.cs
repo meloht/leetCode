@@ -468,7 +468,7 @@ namespace leetCode.WeeklyContest
                     else if (dec == k)
                     {
                         ComputeCount(listIndex, word, dictSubWord);
-
+                        wordCount = list.Count - listIndex.Select(p => p.Length).Sum();
                         listIndex.Clear();
                         int index = baseIndex;
 
@@ -476,10 +476,18 @@ namespace leetCode.WeeklyContest
                         if (ch == beginChar)
                         {
                             baseIndex++;
-                            wordCount = 0;
-                            ResetStatus(dict, list, listIndex);
-
-                            break;
+                            if (wordCount > 0)
+                            {
+                                wordCount--;
+                            }
+                            SubList(dict, list, ch);
+                            if (dict.Count > 0 && CheckWord(dict, k))
+                            {
+                                int start = baseIndex - (wordCount - 1);
+                                listIndex.Add(new Node(start, wordCount));
+                                wordCount = 0;
+                            }
+                            continue;
                         }
                         else
                         {
