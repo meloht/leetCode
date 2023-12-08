@@ -429,6 +429,11 @@ namespace leetCode.WeeklyContest
             int end = word.Length;
             Dictionary<char, int> dict = new Dictionary<char, int>();
 
+            foreach (var item in word)
+            {
+                AddCount(item, dict, 1);
+            }
+            dict.Clear();
             Dictionary<int, HashSet<string>> dictSubWord = new Dictionary<int, HashSet<string>>();
             List<char> list = new List<char>();
             List<Node> listIndex = new List<Node>();
