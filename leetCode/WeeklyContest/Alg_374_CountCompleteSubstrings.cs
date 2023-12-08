@@ -63,6 +63,10 @@ namespace leetCode.WeeklyContest
             var dictStep = new Dictionary<int, Dictionary<char, int>>();
             for (int i = 0; i <= len; i++)
             {
+                if (!dictNode.ContainsKey(i))
+                {
+                    continue;
+                }
                 var dict = dictNode[i];
                 bool bl = true;
                 foreach (var item in dict)
@@ -160,7 +164,10 @@ namespace leetCode.WeeklyContest
 
                 SubCount(preChar, dict);
                 AddCount(nextChar, dict, 1);
-                AddNode(dictNode, index, dict);
+                if (dict[nextChar] <= k)
+                {
+                    AddNode(dictNode, index, dict);
+                }
                 end++;
                 index++;
             }
