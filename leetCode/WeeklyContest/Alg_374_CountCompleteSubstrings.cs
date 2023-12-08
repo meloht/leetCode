@@ -105,7 +105,7 @@ namespace leetCode.WeeklyContest
              int max, int k, Dictionary<int, Dictionary<char, int>> dictStep)
         {
             Dictionary<int, Dictionary<char, int>> dictNodeRes = new Dictionary<int, Dictionary<char, int>>();
-
+            
             foreach (var dictPre in dictStep)
             {
                 int nextIndex = dictPre.Key + k;
@@ -114,7 +114,9 @@ namespace leetCode.WeeklyContest
                     continue;
                 }
                 if (!dictNode.ContainsKey(nextIndex))
+                {
                     continue;
+                }
                 bool bl = true;
                 var dict = dictNode[nextIndex];
                 foreach (var item2 in dict)
@@ -135,10 +137,7 @@ namespace leetCode.WeeklyContest
                 {
                     dictNodeRes.Add(nextIndex, dictPre.Value);
                 }
-                
-                
             }
-
 
             return dictNodeRes;
         }
