@@ -8,6 +8,7 @@ namespace leetCode.WeeklyContest
 {
     public class Alg_374_CountCompleteSubstrings
     {
+
         public int CountCompleteSubstrings(string word, int k)
         {
 
@@ -22,7 +23,7 @@ namespace leetCode.WeeklyContest
                 var chcurr = word[i];
                 if (Math.Abs(chpre - chcurr) > 2)
                 {
-                    string ss = word.Substring(splitIndex, (i- splitIndex));
+                    string ss = word.Substring(splitIndex, (i - splitIndex));
                     list.Add(ss);
                     splitIndex = i;
                 }
@@ -44,6 +45,9 @@ namespace leetCode.WeeklyContest
             }
             return count;
         }
+
+
+
         private int GetWordCount(string word, int k)
         {
             if (word.Length < k)
@@ -81,7 +85,7 @@ namespace leetCode.WeeklyContest
                 {
                     dictStep.Add(i, new Dictionary<char, int>(dict));
                 }
-               
+
 
             }
             var indexList = dictNode.Keys.ToList();
@@ -105,7 +109,7 @@ namespace leetCode.WeeklyContest
              int max, int k, Dictionary<int, Dictionary<char, int>> dictStep)
         {
             Dictionary<int, Dictionary<char, int>> dictNodeRes = new Dictionary<int, Dictionary<char, int>>();
-            
+
             foreach (var dictPre in dictStep)
             {
                 int nextIndex = dictPre.Key + k;
@@ -211,6 +215,66 @@ namespace leetCode.WeeklyContest
                 }
             }
             return true;
+        }
+
+
+        public int CountCompleteSubstrings1(string word, int k)
+        {
+
+            if (word.Length < k)
+                return 0;
+
+            List<string> list = new List<string>();
+            int splitIndex = 0;
+            for (int i = 1; i < word.Length; i++)
+            {
+                var chpre = word[i - 1];
+                var chcurr = word[i];
+                if (Math.Abs(chpre - chcurr) > 2)
+                {
+                    string ss = word.Substring(splitIndex, (i - splitIndex));
+                    list.Add(ss);
+                    splitIndex = i;
+                }
+            }
+            if (list.Count > 0)
+            {
+                string sss = word.Substring(splitIndex);
+                list.Add(sss);
+            }
+            else
+            {
+                list.Add(word);
+            }
+            int count = 0;
+            foreach (var item in list)
+            {
+                int num = GetWordCount(item, k);
+                count += num;
+            }
+            return count;
+        }
+
+        private int GetWordPointCount(string word, int k)
+        {
+            if (word.Length < k)
+                return 0;
+            int total = 0;
+            int baseIndex = 0;
+            int end = word.Length;
+            Dictionary<char, int> dict = new Dictionary<char, int>();
+            List<char> list = new List<char>();
+            while (baseIndex < end)
+            {
+                int i = baseIndex;
+                while (i < end)
+                {
+                    
+                }
+            }
+
+
+            return total;
         }
 
     }

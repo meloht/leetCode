@@ -12,24 +12,7 @@ namespace leetCode.WeeklyContest
 {
     public class Alg_374
     {
-        public IList<int> FindPeaks(int[] mountain)
-        {
-            List<int> peak = new List<int>();
 
-
-            for (int i = 1; i < mountain.Length - 1; i++)
-            {
-                int pre = mountain[i - 1];
-                int num = mountain[i];
-                int next = mountain[i + 1];
-                if (num > pre && num > next)
-                {
-                    peak.Add(i);
-                }
-            }
-
-            return peak;
-        }
 
         public int MinimumAddedCoins(int[] coins, int target)
         {

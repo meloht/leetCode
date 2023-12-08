@@ -11,11 +11,11 @@ namespace TestProjectLeetCode.WeeklyContest
     [TestClass]
     public class Alg_374_FindPeaks_UnitTest
     {
-        Alg_374 alg;
+        Alg_374_FindThePeaks alg;
         [TestInitialize]
         public void Init()
         {
-            alg = new Alg_374();
+            alg = new Alg_374_FindThePeaks();
         }
 
         [TestMethod]
