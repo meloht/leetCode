@@ -58,14 +58,21 @@ namespace leetCode.WeeklyContest
                     total++;
                 }
             }
+            int len = word.Length - k * 2;
+            var dictStep = new Dictionary<int, Dictionary<char, int>>();
+            for (int i = 0; i <= len; i++)
+            {
+                var dict = dictNode[i];
+                dictStep.Add(i, new Dictionary<char, int>(dict));
+
+            }
             var indexList = dictNode.Keys.ToList();
-            int max = indexList.Max();
+            int max = indexList[indexList.Count - 1];
             for (int step = 2 * k; step <= word.Length; step += k)
             {
-                int len = word.Length - step;
-                var itemDict = MergeDictNode(dictNode, len, k, step / k, max, indexList);
+                dictStep = MergeDictNode(dictNode, max, k, dictStep);
 
-                foreach (var item in itemDict)
+                foreach (var item in dictStep)
                 {
                     if (CheckWord(item.Value, k))
                     {
@@ -77,31 +84,25 @@ namespace leetCode.WeeklyContest
             return total;
         }
         private Dictionary<int, Dictionary<char, int>> MergeDictNode(Dictionary<int, Dictionary<char, int>> dictNode,
-            int len, int k, int total, int max, List<int> indexList)
+             int max, int k, Dictionary<int, Dictionary<char, int>> dictStep)
         {
             Dictionary<int, Dictionary<char, int>> dictNodeRes = new Dictionary<int, Dictionary<char, int>>();
 
-            for (int i = 0; i <= len; i++)
+            foreach (var dictPre in dictStep)
             {
-                int n = 1;
-                var dictPre = new Dictionary<char, int>(dictNode[i]);
-                int index = i + k;
-                while (n <= total && index <= max)
+                int nextIndex = dictPre.Key + k;
+                if (nextIndex > max)
                 {
-                    var dict = dictNode[index];
-                    foreach (var item in dict)
-                    {
-                        AddCount(item.Key, dictPre, item.Value);
-                    }
-                    if (!dictNodeRes.ContainsKey(indexList[i]))
-                    {
-                        dictNodeRes.Add(indexList[i], dictPre);
-                    }
-                    index += k;
-                    n++;
+                    continue;
                 }
-
+                var dict = dictNode[nextIndex];
+                foreach (var item2 in dict)
+                {
+                    AddCount(item2.Key, dictPre.Value, item2.Value);
+                }
+                dictNodeRes.Add(nextIndex, dictPre.Value);
             }
+
 
             return dictNodeRes;
         }
@@ -174,10 +175,5 @@ namespace leetCode.WeeklyContest
             return true;
         }
 
-        class Node
-        {
-            public int Step;
-            public Dictionary<char, int> DictChar = new Dictionary<char, int>();
-        }
     }
 }
