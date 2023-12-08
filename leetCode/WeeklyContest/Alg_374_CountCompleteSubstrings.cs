@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace leetCode.WeeklyContest
 {
     public class Alg_374_CountCompleteSubstrings
     {
 
-        public int CountCompleteSubstrings(string word, int k)
+        public int CountCompleteSubstrings1(string word, int k)
         {
 
             if (word.Length < k)
@@ -184,26 +185,8 @@ namespace leetCode.WeeklyContest
                 dictNode.Add(index, new Dictionary<char, int>(dict));
             }
         }
-        private void AddCount(char ss, Dictionary<char, int> dict, int count)
-        {
-            if (!dict.ContainsKey(ss))
-            {
-                dict.Add(ss, 0);
-            }
-            dict[ss] += count;
-        }
-        private void SubCount(char ss, Dictionary<char, int> dict)
-        {
-            if (dict.ContainsKey(ss))
-            {
-                dict[ss]--;
-                if (dict[ss] <= 0)
-                {
-                    dict.Remove(ss);
-                }
-            }
 
-        }
+
 
         private bool CheckWord(Dictionary<char, int> dict, int k)
         {
@@ -218,7 +201,7 @@ namespace leetCode.WeeklyContest
         }
 
 
-        public int CountCompleteSubstrings1(string word, int k)
+        public int CountCompleteSubstrings(string word, int k)
         {
 
             if (word.Length < k)
@@ -246,14 +229,121 @@ namespace leetCode.WeeklyContest
             {
                 list.Add(word);
             }
-            int count = 0;
-            foreach (var item in list)
+            Dictionary<char, int> dict = new Dictionary<char, int>();
+            foreach (var item in word)
             {
-                int num = GetWordCount(item, k);
-                count += num;
+                AddCount(item, dict, 1);
             }
-            return count;
+            if (dict.Count == 1 && k == 1)
+            {
+                return dict[word[0]];
+            }
+            else
+            {
+                int count = 0;
+                foreach (var item in list)
+                {
+                    int num = GetWordWindowCount(item, k);
+                    count += num;
+                }
+                return count;
+            }
+
         }
+        private void SubCount(char ss, Dictionary<char, int> dict)
+        {
+            if (dict.ContainsKey(ss))
+            {
+                dict[ss]--;
+                if (dict[ss] <= 0)
+                {
+                    dict.Remove(ss);
+                }
+            }
+
+        }
+        private void AddCount(char ss, Dictionary<char, int> dict, int count)
+        {
+            if (!dict.ContainsKey(ss))
+            {
+                dict.Add(ss, 0);
+            }
+            dict[ss] += count;
+        }
+        private int GetWordWindowCount(string word, int k)
+        {
+            int total = 0;
+            for (int step = k; step <= word.Length; step += k)
+            {
+                int num = GetWordWindowStep(word, step, k);
+                total += num;
+            }
+
+            return total;
+        }
+        private int GetWordWindowStep(string word, int step, int k)
+        {
+            int total = 0;
+            int index = 0;
+            int end = step;
+            Dictionary<char, int> dict = new Dictionary<char, int>();
+            for (int i = index; i < end; i++)
+            {
+                AddCount(word[i], dict, 1);
+            }
+            if (CheckAns(dict, k))
+            {
+                total++;
+            }
+            end++;
+            index++;
+            while (end <= word.Length)
+            {
+                int next = end - 1;
+                int pre = index - 1;
+                var preChar = word[pre];
+                var nextChar = word[next];
+
+                SubCount(preChar, dict);
+                AddCount(nextChar, dict, 1);
+                if (dict[nextChar] == k)
+                {
+                    bool bl = true;
+                    if (dict.ContainsKey(preChar) && dict[preChar] != k)
+                    {
+                        bl = false;
+                    }
+                    if (bl && CheckAns(dict, k))
+                    {
+                        total++;
+                    }
+                }
+
+                end++;
+                index++;
+            }
+            return total;
+        }
+
+        private bool CheckAns(Dictionary<char, int> dict, int k)
+        {
+            foreach (var item in dict)
+            {
+                if (item.Value != k)
+                    return false;
+            }
+            return true;
+        }
+
+        private int LeftWindows(string word, int step, int k,Dictionary<char, int> dict)
+        {
+            return 0;
+        }
+        private int RightWindows(string word, int step, int k)
+        {
+            return 0;
+        }
+
 
         private int GetWordPointCount(string word, int k)
         {
@@ -263,18 +353,82 @@ namespace leetCode.WeeklyContest
             int baseIndex = 0;
             int end = word.Length;
             Dictionary<char, int> dict = new Dictionary<char, int>();
+            Dictionary<int, HashSet<string>> dictSubWord = new Dictionary<int, HashSet<string>>();
             List<char> list = new List<char>();
+            List<Node> listIndex = new List<Node>();
+            int wordCount = 0;
             while (baseIndex < end)
             {
                 int i = baseIndex;
                 while (i < end)
                 {
-                    
+                    var ch = word[i];
+                    list.Add(ch);
+                    AddCount(ch, dict, 1);
+                    wordCount++;
+                    if (dict[ch] == k)
+                    {
+                        if (CheckWord(dict, k))
+                        {
+                            int start = i - (wordCount - 1);
+                            listIndex.Add(new Node(start, wordCount));
+                            wordCount = 0;
+                        }
+                    }
+                    else if (dict[ch] > k)
+                    {
+                        ComputeCount(listIndex, word, dictSubWord);
+                        listIndex.Clear();
+                    }
                 }
             }
 
 
             return total;
+        }
+
+        private void ComputeCount(List<Node> listIndex, string word, Dictionary<int, HashSet<string>> dictSubWord)
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < listIndex.Count; i++)
+            {
+                sb.Clear();
+                var currentNode = listIndex[i];
+                string ss = word.Substring(currentNode.Index, currentNode.Length);
+
+                AddAns(dictSubWord, currentNode.Index, ss);
+                sb.Append(ss);
+                for (int j = i + 1; j < listIndex.Count; j++)
+                {
+                    var nextNode = listIndex[j];
+                    string ss2 = word.Substring(nextNode.Index, nextNode.Length);
+                    sb.Append(ss2);
+                    AddAns(dictSubWord, currentNode.Index, sb.ToString());
+                }
+            }
+        }
+        private void AddAns(Dictionary<int, HashSet<string>> dictSubWord, int index, string sub)
+        {
+            if (!dictSubWord.ContainsKey(index))
+            {
+                dictSubWord.Add(index, new HashSet<string>());
+            }
+            if (!dictSubWord[index].Contains(sub))
+            {
+                dictSubWord[index].Add(sub);
+            }
+
+        }
+
+        class Node
+        {
+            public int Index;
+            public int Length;
+            public Node(int index, int length)
+            {
+                this.Index = index;
+                this.Length = length;
+            }
         }
 
     }
