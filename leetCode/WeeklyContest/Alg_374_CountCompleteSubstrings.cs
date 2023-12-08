@@ -199,7 +199,7 @@ namespace leetCode.WeeklyContest
         }
 
 
-        public int CountCompleteSubstrings(string word, int k)
+        public int CountCompleteSubstrings2(string word, int k)
         {
 
             if (word.Length < k)
@@ -262,14 +262,7 @@ namespace leetCode.WeeklyContest
             }
 
         }
-        private void AddCount(char ss, Dictionary<char, int> dict, int count)
-        {
-            if (!dict.ContainsKey(ss))
-            {
-                dict.Add(ss, 0);
-            }
-            dict[ss] += count;
-        }
+  
         private int GetWordWindowCount(string word, int k)
         {
             int total = 0;
@@ -385,12 +378,48 @@ namespace leetCode.WeeklyContest
         }
 
 
-
-        public int CountCompleteSubstrings3(string word, int k)
+        private void AddCount(char ss, Dictionary<char, int> dict, int count)
         {
+            if (!dict.ContainsKey(ss))
+            {
+                dict.Add(ss, 0);
+            }
+            dict[ss] += count;
+        }
+        public int CountCompleteSubstrings(string word, int k)
+        {
+            if (word.Length < k)
+                return 0;
 
-
-            return 0;
+            List<string> list = new List<string>();
+            int splitIndex = 0;
+            for (int i = 1; i < word.Length; i++)
+            {
+                var chpre = word[i - 1];
+                var chcurr = word[i];
+                if (Math.Abs(chpre - chcurr) > 2)
+                {
+                    string ss = word.Substring(splitIndex, (i - splitIndex));
+                    list.Add(ss);
+                    splitIndex = i;
+                }
+            }
+            if (list.Count > 0)
+            {
+                string sss = word.Substring(splitIndex);
+                list.Add(sss);
+            }
+            else
+            {
+                list.Add(word);
+            }
+            int count = 0;
+            foreach (var item in list)
+            {
+                int num = GetWordPointCount(item, k);
+                count += num;
+            }
+            return count;
         }
 
         private int GetWordPointCount(string word, int k)
@@ -405,38 +434,110 @@ namespace leetCode.WeeklyContest
             List<char> list = new List<char>();
             List<Node> listIndex = new List<Node>();
             int wordCount = 0;
+
             while (baseIndex < end)
             {
                 int i = baseIndex;
                 while (i < end)
                 {
                     var ch = word[i];
-                    list.Add(ch);
-                    AddCount(ch, dict, 1);
-                    wordCount++;
-                    if (dict[ch] == k)
+                    int dec = GetDictCount(dict, ch);
+                    if (dec == k - 1)
                     {
+                        list.Add(ch);
+                        AddCount(ch, dict, 1);
+                        wordCount++;
                         if (CheckWord(dict, k))
                         {
                             int start = i - (wordCount - 1);
                             listIndex.Add(new Node(start, wordCount));
                             wordCount = 0;
+
                         }
                     }
-                    else if (dict[ch] > k)
+                    else if (dec == k)
                     {
                         ComputeCount(listIndex, word, dictSubWord);
-                        listIndex.Clear();
+                        wordCount = 0;
+                        int index = baseIndex;
+                        var beginChar = word[index];
+                        while (dict[beginChar] != k && index < end)
+                        {
+                            beginChar = word[index];
+                            index++;
+                        }
+                        if (ch == beginChar)
+                        {
+                            baseIndex++;
+                        }
+                        if (index == baseIndex)
+                        {
+                            baseIndex++;
+                        }
+                        ResetStatus(dict, list, listIndex);
+
+                        break;
                     }
+                    else
+                    {
+                        list.Add(ch);
+                        AddCount(ch, dict, 1);
+                        wordCount++;
+                    }
+
+                    if (i == end - 1)
+                    {
+                        if (list.Count > 0)
+                        {
+                            ComputeCount(listIndex, word, dictSubWord);
+                            wordCount = 0;
+                            int endIndex = i;
+                            int last = list.Count - 1;
+                            var endChar = list[last];
+                            while (dict[endChar] < k && last > 0)
+                            {
+                                endIndex--;
+                                last--;
+                                endChar = list[last];
+                            }
+
+                            baseIndex++;
+                            ResetStatus(dict, list, listIndex);
+                        }
+                        break;
+                    }
+                    i++;
                 }
             }
 
+            foreach (var item in dictSubWord)
+            {
+                total += item.Value.Count;
+            }
 
             return total;
         }
 
+        private int GetDictCount(Dictionary<char, int> dict, char ch)
+        {
+            if (dict.ContainsKey(ch))
+            {
+                return dict[ch];
+            }
+            return 0;
+        }
+
+        private void ResetStatus(Dictionary<char, int> dict, List<char> list, List<Node> listIndex)
+        {
+            dict.Clear();
+            list.Clear();
+            listIndex.Clear();
+        }
+
         private void ComputeCount(List<Node> listIndex, string word, Dictionary<int, HashSet<string>> dictSubWord)
         {
+            if (listIndex.Count == 0)
+                return;
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < listIndex.Count; i++)
             {
