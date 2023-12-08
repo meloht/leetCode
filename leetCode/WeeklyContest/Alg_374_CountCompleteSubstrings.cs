@@ -186,19 +186,6 @@ namespace leetCode.WeeklyContest
             }
         }
 
-        private bool CheckWord(Dictionary<char, int> dict, int k)
-        {
-            foreach (var item in dict)
-            {
-                if (item.Value != k)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-
         public int CountCompleteSubstrings2(string word, int k)
         {
 
@@ -262,7 +249,7 @@ namespace leetCode.WeeklyContest
             }
 
         }
-  
+
         private int GetWordWindowCount(string word, int k)
         {
             int total = 0;
@@ -378,6 +365,17 @@ namespace leetCode.WeeklyContest
         }
 
 
+        private bool CheckWord(Dictionary<char, int> dict, int k)
+        {
+            foreach (var item in dict)
+            {
+                if (item.Value != k)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         private void AddCount(char ss, Dictionary<char, int> dict, int count)
         {
             if (!dict.ContainsKey(ss))
@@ -434,7 +432,7 @@ namespace leetCode.WeeklyContest
             List<char> list = new List<char>();
             List<Node> listIndex = new List<Node>();
             int wordCount = 0;
-
+            int num = word.Length / k;
             while (baseIndex < end)
             {
                 int i = baseIndex;
@@ -452,13 +450,20 @@ namespace leetCode.WeeklyContest
                             int start = i - (wordCount - 1);
                             listIndex.Add(new Node(start, wordCount));
                             wordCount = 0;
-
+                            if (i == end - 1 && dict.Count == num && list[0] != list[list.Count - 1])
+                            {
+                                ComputeCount(listIndex, word, dictSubWord);
+                                ResetStatus(dict, list, listIndex);
+                                baseIndex = end;
+                                break;
+                            }
                         }
                     }
                     else if (dec == k)
                     {
                         ComputeCount(listIndex, word, dictSubWord);
                         wordCount = 0;
+
                         int index = baseIndex;
                         var beginChar = word[index];
                         while (dict[beginChar] != k && index < end)
@@ -491,17 +496,48 @@ namespace leetCode.WeeklyContest
                         {
                             ComputeCount(listIndex, word, dictSubWord);
                             wordCount = 0;
-                            int endIndex = i;
-                            int last = list.Count - 1;
-                            var endChar = list[last];
-                            while (dict[endChar] < k && last > 0)
+                            int endIndex = list.Count;
+
+                            var endChar = list[list.Count - 1];
+                            while (dict[endChar] < k && list.Count > 0)
                             {
-                                endIndex--;
-                                last--;
-                                endChar = list[last];
+                                endChar = list[list.Count - 1];
+                                list.RemoveAt(list.Count - 1);
+                                dict[endChar]--;
+                                if (dict[endChar] <= 0)
+                                {
+                                    dict.Remove(endChar);
+                                }
+                                if (list.Count > 0)
+                                {
+                                    endChar = list[list.Count - 1];
+                                }
+                                else
+                                {
+                                    break;
+                                }
+
+                            }
+                            if (endIndex > list.Count)
+                            {
+                                end = end - (endIndex - list.Count);
+                            }
+                            int newIndex = baseIndex;
+                            if (listIndex.Count > 0)
+                            {
+                                newIndex = listIndex[0].Index + listIndex[0].Length;
+                            }
+                            if (newIndex > baseIndex && ((list[0] != list[list.Count - 1] && dict.Count > 1)
+                                || dict.Count == 1))
+                            {
+                                baseIndex = newIndex;
+                            }
+                            else
+                            {
+
+                                baseIndex++;
                             }
 
-                            baseIndex++;
                             ResetStatus(dict, list, listIndex);
                         }
                         break;
