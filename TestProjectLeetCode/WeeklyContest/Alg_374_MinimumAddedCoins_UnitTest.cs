@@ -10,11 +10,11 @@ namespace TestProjectLeetCode.WeeklyContest
     [TestClass]
     public class Alg_374_MinimumAddedCoins_UnitTest
     {
-        Alg_374 alg;
+        Alg_374_MinimumAddedCoins alg;
         [TestInitialize]
         public void Init()
         {
-            alg = new Alg_374();
+            alg = new Alg_374_MinimumAddedCoins();
         }
 
         [TestMethod]
