@@ -20,27 +20,65 @@ namespace leetCode._51_100
             if (arr.Length > 0 && s.EndsWith("0"))
             {
                 string ss = arr[arr.Length - 1];
-                arr[arr.Length - 1] = ss.Substring(0, ss.Length - 1);
+                if (ss[ss.Length - 1] > '2')
+                    return 0;
+                string res = ss.Substring(0, ss.Length - 1);
+                if (res.Length == 0)
+                    return 1;
+                arr[arr.Length - 1] = res;
+
             }
             int len = arr.Length - 1;
             for (int i = 0; i < len; i++)
             {
                 string ss = arr[i];
+                if (ss[ss.Length - 1] > '2')
+                    return 0;
                 arr[i] = ss.Substring(0, ss.Length - 1);
             }
 
             foreach (string str in arr)
             {
-                int[] nums = new int[] { 0 };
-                NumWord(str, nums);
-                if (nums[0] > 0)
-                {
-                    total *= nums[0];
-                }
-
+                total *= NumDp(str);
             }
             return total;
         }
+        private int NumDp(string code)
+        {
+            if (code.Length == 1)
+            {
+                return 1;
+            }
+
+            int currNum1 = 1;
+            int currNum2 = 1;
+            int total = 1;
+
+            for (int i = 1; i < code.Length; i++)
+            {
+                var curr = code[i - 1];
+                var next = code[i];
+                if ((curr <= '2' && next <= '6') || (curr == '1'))
+                {
+                    int temp = currNum2;
+                    currNum2 = currNum2 + currNum1;
+                    currNum1 = temp;
+                }
+                else
+                {
+                    total *= currNum2;
+                    currNum2 = 1;
+                    currNum1 = 1;
+
+                }
+                if (i == code.Length - 1)
+                {
+                    total *= currNum2;
+                }
+            }
+            return total;
+        }
+
         private void NumWord(string s, int[] nums)
         {
             if (s.Length == 1 || s.Length == 0)
