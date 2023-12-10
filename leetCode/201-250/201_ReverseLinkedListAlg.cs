@@ -37,7 +37,7 @@ namespace leetCode._201_250
             return header;
         }
 
-        public ListNode ReverseList(ListNode head)
+        public ListNode ReverseList2(ListNode head)
         {
             if (head == null)
                 return null;
@@ -68,6 +68,21 @@ namespace leetCode._201_250
 
             }
         }
+
+        public ListNode ReverseList(ListNode head)
+        {
+            ListNode prev = null;
+            ListNode curr = head;
+            while (curr != null)
+            {
+                ListNode next = curr.next;
+                curr.next = prev;
+                prev = curr;
+                curr = next;
+            }
+            return prev;
+        }
+
     }
 }
 
