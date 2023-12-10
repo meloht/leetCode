@@ -8,7 +8,7 @@ namespace leetCode._51_100
 {
     public class _92_ReverseLinkedListIIAlg
     {
-        public ListNode ReverseBetween2(ListNode head, int left, int right)
+        public ListNode ReverseBetween(ListNode head, int left, int right)
         {
             ListNode prev = null;
             ListNode curr = head;
