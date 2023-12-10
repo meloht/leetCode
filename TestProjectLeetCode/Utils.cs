@@ -22,6 +22,15 @@ namespace TestProjectLeetCode
             return header;
         }
 
+        public static TreeNode BuildBinaryTree(int?[] arr)
+        {
+            BinaryTreeBuilder builder = new BinaryTreeBuilder();
+            TreeNode root = builder.BuildTree(arr);
+            return root;
+        }
+      
+
+
         public static bool ListNodeSame(ListNode header, int[] arr)
         {
             List<int> list = new List<int>();
