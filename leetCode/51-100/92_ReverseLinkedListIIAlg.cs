@@ -10,10 +10,9 @@ namespace leetCode._51_100
     {
         public ListNode ReverseBetween(ListNode head, int left, int right)
         {
-            ListNode prev = null;
+            ListNode oldHead = head;
+            ListNode leftNode = null;
             ListNode curr = head;
-            ListNode leftNode = head;
-            ListNode rightNode = null;
             int index = 1;
             if (left > 1)
             {
@@ -28,16 +27,20 @@ namespace leetCode._51_100
                     index++;
                 }
             }
-            else
+            int newright = right - left + 1;
+           
+            if (leftNode==null)
             {
-
+                var node1 = ReverseList(head, newright);
+                return node1;
             }
-
-          
+            var node = ReverseList(leftNode.next, newright);
+            leftNode.next = node;
             return head;
         }
-        private ListNode ReverseList(ListNode head)
+        private ListNode ReverseList(ListNode head, int right)
         {
+            int index = 0;
             ListNode prev = null;
             ListNode curr = head;
             while (curr != null)
@@ -45,6 +48,13 @@ namespace leetCode._51_100
                 ListNode next = curr.next;
                 curr.next = prev;
                 prev = curr;
+
+                index++;
+                if (index == right)
+                {
+                    head.next = next;
+                    break;
+                }
                 curr = next;
             }
             return prev;
@@ -112,6 +122,6 @@ namespace leetCode._51_100
 
         }
 
-       
+
     }
 }
