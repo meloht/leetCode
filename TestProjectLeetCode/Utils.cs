@@ -28,7 +28,16 @@ namespace TestProjectLeetCode
             TreeNode root = builder.BuildTree(arr);
             return root;
         }
-      
+
+        public static int?[][] GetTreeList(IList<TreeNode> list)
+        {
+            List<int?[]> arr = new List<int?[]>();
+            foreach (TreeNode node in list)
+            {
+                arr.Add(node.PreTraversal().ToArray());
+            }
+            return arr.ToArray();
+        }
 
 
         public static bool ListNodeSame(ListNode header, int[] arr)
@@ -43,6 +52,13 @@ namespace TestProjectLeetCode
             bool bl = arr.SequenceEqual(list.ToArray());
             return bl;
         }
+        /// <summary>
+        /// 排序后比较
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="list2"></param>
+        /// <returns></returns>
         public static bool IsSame<T>(IList<IList<T>> list, IList<IList<T>> list2)
         {
             if (list.Count != list2.Count)
@@ -97,7 +113,13 @@ namespace TestProjectLeetCode
             System.Diagnostics.Debug.WriteLine("*********************************");
             return false;
         }
-
+        /// <summary>
+        /// 没有排序比较
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="list2"></param>
+        /// <returns></returns>
 
         public static bool IsSameList<T>(IList<IList<T>> list, IList<IList<T>> list2)
         {
@@ -153,6 +175,12 @@ namespace TestProjectLeetCode
             return false;
         }
 
+        /// <summary>
+        /// 严格相同
+        /// </summary>
+        /// <param name="arr1"></param>
+        /// <param name="arr2"></param>
+        /// <returns></returns>
         public static bool IsSameArr(int[][] arr1, int[][] arr2)
         {
             for (int i = 0; i < arr1.Length; i++)

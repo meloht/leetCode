@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace leetCode._51_100
 {
-    internal class _95_UniqueBinarySearchTreesIIAlg
+    public class _95_UniqueBinarySearchTreesIIAlg
     {
+        public IList<TreeNode> GenerateTrees(int n)
+        {
+            return null;
+        }
     }
 }
