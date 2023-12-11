@@ -16,10 +16,20 @@ namespace leetCode._51_100
 
             int?[] arr1 = new int?[] { 1 };
             int?[] arr2 = new int?[] { 1, null, 2 };
+
             int?[] arr3 = new int?[] { 2, 1 };
             dp[1] = new List<int?[]>() { arr1 }.ToArray();
+            if (n == 1)
+            {
+                var trees1 = BuildTree(dp[n]);
+                return trees1;
+            }
             dp[2] = new List<int?[]>() { arr2, arr3 }.ToArray();
-
+            if (n == 2)
+            {
+                var trees2 = BuildTree(dp[n]);
+                return trees2;
+            }
             for (int i = 3; i <= n; i++)
             {
                 List<int?[]> ans = new List<int?[]>();
@@ -29,6 +39,8 @@ namespace leetCode._51_100
                     List<int?[]> res = new List<int?[]>();
                     List<int?[]> temp = new List<int?[]>();
                     var left = dp[j - 1];
+                    var right = dp[i - j];
+                    bool blRight = right != null && right.Length > 0;
                     if (left != null && left.Length > 0)
                     {
 
@@ -36,6 +48,7 @@ namespace leetCode._51_100
                         {
                             List<int?> ls = new List<int?>();
                             ls.Add(j);
+                           
                             ls.AddRange(item);
                             temp.Add(ls.ToArray());
                         }
@@ -46,9 +59,9 @@ namespace leetCode._51_100
                         int?[] leArr = { j, null };
                         temp.Add(leArr);
                     }
-                    var right = dp[i - j];
+                   
 
-                    if (right != null && right.Length > 0)
+                    if (blRight)
                     {
                         foreach (var leftItem in temp)
                         {
