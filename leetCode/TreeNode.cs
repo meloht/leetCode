@@ -23,34 +23,6 @@ namespace leetCode
             return $"{val}";
         }
 
-        public IList<int?> PreTraversal()
-        {
-            List<int?> result = new List<int?>();
-            PreOrder(this, result);
-            return result;
-        }
-        private void PreOrder(TreeNode root, List<int?> result)
-        {
-            if (root != null)
-            {
-                result.Add(root.val);
-                if (root.left != null)
-                {
-                    PreOrder(root.left, result);
-                }
-                else
-                {
-                    result.Add(null);
-                }
-                if (root.right != null)
-                {
-                    PreOrder(root.right, result);
-                }
-                else
-                {
-                    result.Add(null);
-                }
-            }
-        }
+      
     }
 }

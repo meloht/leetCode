@@ -34,11 +34,26 @@ namespace TestProjectLeetCode
             List<int?[]> arr = new List<int?[]>();
             foreach (TreeNode node in list)
             {
-                arr.Add(node.PreTraversal().ToArray());
+                arr.Add(PreTraversal(node).ToArray());
             }
             return arr.ToArray();
         }
+        private static IList<int?> PreTraversal(TreeNode root)
+        {
+            List<int?> result = new List<int?>();
+            PreOrder(root, result);
+            return result;
+        }
+        private static void PreOrder(TreeNode root, List<int?> result)
+        {
+            if (root != null)
+            {
+                result.Add(root.val);
+                PreOrder(root.left, result);
+                PreOrder(root.right, result);
 
+            }
+        }
 
         public static bool ListNodeSame(ListNode header, int[] arr)
         {
