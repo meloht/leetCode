@@ -18,8 +18,6 @@ namespace leetCode._51_100
             if (s1.Length == 0 && s2.Length == 0 && s3.Length == 0)
                 return true;
 
-
-
             bool[,] dp = new bool[s1.Length + 1, s2.Length + 1];
             dp[0, 0] = true;
 
