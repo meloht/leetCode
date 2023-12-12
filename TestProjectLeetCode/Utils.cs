@@ -88,6 +88,48 @@ namespace TestProjectLeetCode
             return bst.root;
         }
 
+        /// <summary>
+        /// 按照数组顺序构建二叉树
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        public static TreeNode BuildTree(int?[] arr)
+        {
+            if (arr.Length == 0)
+                return null;
+            Queue<TreeNode> queue = new Queue<TreeNode>();
+            TreeNode root = new TreeNode(arr[0].Value);
+            queue.Enqueue(root);
+
+            var list = arr.ToList();
+            list.RemoveAt(0);
+            while (queue.Count > 0)
+            {
+                if (list.Count == 0)
+                    break;
+                var rootNode = queue.Dequeue();
+                int? left = list[0];
+                list.RemoveAt(0);
+                if (left != null)
+                {
+                    rootNode.left = new TreeNode(left.Value);
+                    queue.Enqueue(rootNode.left);
+                }
+                if (list.Count > 0)
+                {
+                    int? right = list[0];
+                    list.RemoveAt(0);
+                    if (right != null)
+                    {
+                        rootNode.right = new TreeNode(right.Value);
+                        queue.Enqueue(rootNode.right);
+                    }
+                }
+            }
+            return root;
+        }
+
+
         public static bool ListNodeSame(ListNode header, int[] arr)
         {
             List<int> list = new List<int>();
