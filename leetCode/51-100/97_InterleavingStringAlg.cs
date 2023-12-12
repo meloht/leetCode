@@ -9,7 +9,7 @@ namespace leetCode._51_100
 {
     public class _97_InterleavingStringAlg
     {
-        public bool IsInterleave(string s1, string s2, string s3)
+        public bool IsInterleave1(string s1, string s2, string s3)
         {
             if (s1.Length + s2.Length != s3.Length)
             {
@@ -46,6 +46,43 @@ namespace leetCode._51_100
             }
 
             return dp[s1.Length, s2.Length];
+        }
+        /// <summary>
+        /// 滚动数组
+        /// </summary>
+        /// <param name="s1"></param>
+        /// <param name="s2"></param>
+        /// <param name="s3"></param>
+        /// <returns></returns>
+        public bool IsInterleave(string s1, string s2, string s3)
+        {
+            if (s1.Length + s2.Length != s3.Length)
+            {
+                return false;
+            }
+            if (s1.Length == 0 && s2.Length == 0 && s3.Length == 0)
+                return true;
+
+            bool[] dp = new bool[s2.Length + 1];
+            dp[0] = true;
+
+            for (int i = 0; i <= s1.Length; i++)
+            {
+                for (int j = 0; j <= s2.Length; j++)
+                {
+                    if (i > 0)
+                    {
+                        dp[j] = dp[j] && s1[i - 1] == s3[i + j - 1];
+                    }
+                    if (j > 0)
+                    {
+                        dp[j] = dp[j] || (dp[j - 1] && s2[j - 1] == s3[i + j - 1]);
+                    }
+
+                }
+            }
+
+            return dp[s2.Length];
         }
     }
 }
