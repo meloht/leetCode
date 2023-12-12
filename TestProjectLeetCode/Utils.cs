@@ -41,18 +41,46 @@ namespace TestProjectLeetCode
         private static IList<int?> PreTraversal(TreeNode root)
         {
             List<int?> result = new List<int?>();
-            PreOrder(root, result);
+            if (root != null)
+            {
+                result.Add(root.val);
+                PreOrder(root, result);
+            }
+           
+            int index = result.Count - 1;
+            while (index >= 0 && result[index] == null)
+            {
+                result.RemoveAt(index);
+                index--;
+            }
             return result;
         }
         private static void PreOrder(TreeNode root, List<int?> result)
         {
             if (root != null)
             {
-                result.Add(root.val);
+                if (root.left != null)
+                {
+                    result.Add(root.left.val);
+                }
+                else
+                {
+                    result.Add(null);
+                }
+                if (root.right != null)
+                {
+                    result.Add(root.right.val);
+                }
+                else
+                {
+                    result.Add(null);
+                }
                 PreOrder(root.left, result);
                 PreOrder(root.right, result);
-
             }
+          
+            
+           
         }
 
         public static bool ListNodeSame(ListNode header, int[] arr)

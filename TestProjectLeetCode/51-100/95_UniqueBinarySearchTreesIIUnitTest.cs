@@ -33,5 +33,16 @@ namespace TestProjectLeetCode._51_100
             bool bl = Utils.IsSameList(exp, resArr);
             Assert.IsTrue(bl);
         }
+
+        [TestMethod]
+        public void TestCase03()
+        {
+            IList<TreeNode> res = alg.GenerateTrees(4);
+
+            var resArr = Utils.GetTreeList(res);
+            int?[][] exp = { [1, null, 2, null, 3, null, 4], [1, null, 2, null, 4, 3], [1, null, 3, 2, 4], [1, null, 4, 2, null, null, 3], [1, null, 4, 3, null, 2], [2, 1, 3, null, null, null, 4], [2, 1, 4, null, null, 3], [3, 1, 4, null, 2], [3, 2, 4, 1], [4, 1, null, null, 2, null, 3], [4, 1, null, null, 3, 2], [4, 2, null, 1, 3], [4, 3, null, 1, null, null, 2], [4, 3, null, 2, null, 1] };
+            bool bl = Utils.IsSameList(exp, resArr);
+            Assert.IsTrue(bl);
+        }
     }
 }

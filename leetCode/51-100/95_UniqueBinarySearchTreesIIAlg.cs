@@ -4,123 +4,13 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace leetCode._51_100
 {
     public class _95_UniqueBinarySearchTreesIIAlg
     {
-        public IList<TreeNode> GenerateTrees(int n)
-        {
-
-            int?[][][] dp = new int?[n + 1][][];
-
-            int?[] arr1 = new int?[] { 1 };
-            int?[] arr2 = new int?[] { 1, null, 2 };
-
-            int?[] arr3 = new int?[] { 2, 1 };
-            dp[1] = new List<int?[]>() { arr1 }.ToArray();
-            if (n == 1)
-            {
-                var trees1 = BuildTree(dp[n]);
-                return trees1;
-            }
-            dp[2] = new List<int?[]>() { arr2, arr3 }.ToArray();
-            if (n == 2)
-            {
-                var trees2 = BuildTree(dp[n]);
-                return trees2;
-            }
-            for (int i = 3; i <= n; i++)
-            {
-                List<int?[]> ans = new List<int?[]>();
-                for (int j = 1; j <= i; j++)
-                {
-
-                    List<int?[]> res = new List<int?[]>();
-                    List<int?[]> temp = new List<int?[]>();
-                    var left = dp[j - 1];
-                    var right = dp[i - j];
-                    bool blRight = right != null && right.Length > 0;
-                    if (left != null && left.Length > 0)
-                    {
-
-                        foreach (var item in left)
-                        {
-                            List<int?> ls = new List<int?>();
-                            ls.Add(j);
-                           
-                            ls.AddRange(item);
-                            temp.Add(ls.ToArray());
-                        }
-
-                    }
-                    else
-                    {
-                        int?[] leArr = { j, null };
-                        temp.Add(leArr);
-                    }
-                   
-
-                    if (blRight)
-                    {
-                        foreach (var leftItem in temp)
-                        {
-                            foreach (var item in right)
-                            {
-                                List<int?> ls = new List<int?>();
-                                var addItem = GetAddArr(item, j);
-                                ls.AddRange(leftItem);
-                                ls.AddRange(addItem);
-                                res.Add(ls.ToArray());
-                            }
-                        }
-
-                    }
-                    else
-                    {
-                        res.AddRange(temp);
-                    }
-
-                    ans.AddRange(res);
-
-
-                }
-                dp[i] = ans.ToArray();
-            }
-
-            var trees = BuildTree(dp[n]);
-            return trees;
-        }
-        private IList<TreeNode> BuildTree(int?[][] arr)
-        {
-            List<TreeNode> ls = new List<TreeNode>();
-            foreach (var item in arr)
-            {
-                index = 0;
-                var tree = Construct(item);
-                ls.Add(tree);
-            }
-            return ls;
-        }
-
-        private int?[] GetAddArr(int?[] arr, int n)
-        {
-            List<int?> list = new List<int?>(arr.Length);
-            foreach (var item in arr)
-            {
-                if (item != null)
-                {
-                    list.Add(item.Value + n);
-                }
-                else
-                {
-                    list.Add(null);
-                }
-            }
-            return list.ToArray();
-        }
         private int index = 0;
-
         private TreeNode Construct(int?[] preorder)
         {
             if (index >= preorder.Length || preorder[index] == null)
@@ -136,6 +26,126 @@ namespace leetCode._51_100
 
             return node;
         }
+
+        public IList<TreeNode> GenerateTrees(int n)
+        {
+            List<List<TreeNode>> dpTree = new List<List<TreeNode>>();
+
+            for (int i = 0; i <= n; i++)
+            {
+                List<TreeNode> ls = new List<TreeNode>();
+                dpTree.Add(ls);
+            }
+            index = 0;
+            TreeNode node1 = Construct(new int?[] { 1 });
+            dpTree[1] = new List<TreeNode>() { node1 };
+
+            if (n == 1)
+            {
+                return dpTree[1];
+            }
+            index = 0;
+            TreeNode node21 = Construct(new int?[] { 1, null, 2 });
+            index = 0;
+            TreeNode node22 = Construct(new int?[] { 2, 1 });
+            dpTree[2] = new List<TreeNode>() { node21, node22 };
+
+            if (n == 2)
+            {
+                return dpTree[2];
+            }
+
+            for (int i = 3; i <= n; i++)
+            {
+                List<TreeNode> ans = new List<TreeNode>();
+                for (int j = 1; j <= i; j++)
+                {
+                    List<TreeNode> resLeft = new List<TreeNode>();
+                    var left = dpTree[j - 1];
+                    var right = dpTree[i - j];
+
+                    bool blLeft = left != null && left.Count > 0;
+                    bool blRight = right != null && right.Count > 0;
+
+                    if (blLeft)
+                    {
+                        foreach (var item in left)
+                        {
+                            TreeNode root = new TreeNode(j);
+                            TreeNode node = new TreeNode(item.val);
+                            AddTreeVal(item, node, 0);
+                            root.left = item;
+                            resLeft.Add(root);
+                        }
+                        if (blRight == false)
+                        {
+                            ans.AddRange(resLeft);
+                        }
+                    }
+
+                    if (blRight)
+                    {
+                        if (blLeft == false)
+                        {
+                            List<TreeNode> res = new List<TreeNode>();
+                            foreach (var item in right)
+                            {
+                                TreeNode root = new TreeNode(j);
+                                TreeNode node = new TreeNode(item.val);
+                                AddTreeVal(item, node, j);
+                                root.right = node;
+                                res.Add(root);
+                            }
+                            ans.AddRange(res);
+                        }
+                        else
+                        {
+                            List<TreeNode> res = new List<TreeNode>();
+                            foreach (var root in resLeft)
+                            {
+                                foreach (var item in right)
+                                {
+                                    TreeNode newRoot = new TreeNode(root.val);
+                                    AddTreeVal(root, newRoot, 0);
+
+                                    TreeNode node = new TreeNode(item.val);
+                                    AddTreeVal(item, node, j);
+                                    newRoot.right = node;
+                                    res.Add(newRoot);
+                                }
+                            }
+                            ans.AddRange(res);
+                        }
+                    }
+                }
+                dpTree[i] = ans;
+            }
+
+            return dpTree[n];
+        }
+
+
+        private void AddTreeVal(TreeNode node, TreeNode nodeNew, int n)
+        {
+            if (node != null)
+            {
+                nodeNew.val = node.val + n;
+                if (node.left != null)
+                {
+                    nodeNew.left = new TreeNode(node.left.val);
+                    AddTreeVal(node.left, nodeNew.left, n);
+                }
+                if (node.right != null)
+                {
+                    nodeNew.right = new TreeNode(node.right.val);
+                    AddTreeVal(node.right, nodeNew.right, n);
+                }
+            }
+        }
+
+
+
+
 
 
     }
