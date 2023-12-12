@@ -1,4 +1,5 @@
 ﻿using leetCode;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,7 +47,7 @@ namespace TestProjectLeetCode
                 result.Add(root.val);
                 PreOrder(root, result);
             }
-           
+
             int index = result.Count - 1;
             while (index >= 0 && result[index] == null)
             {
@@ -78,9 +79,13 @@ namespace TestProjectLeetCode
                 PreOrder(root.left, result);
                 PreOrder(root.right, result);
             }
-          
-            
-           
+        }
+
+        public static TreeNode BuildBSTTree(int?[] arr)
+        {
+            BinarySearchTree bst = new BinarySearchTree();
+            bst.Insert(arr);
+            return bst.root;
         }
 
         public static bool ListNodeSame(ListNode header, int[] arr)

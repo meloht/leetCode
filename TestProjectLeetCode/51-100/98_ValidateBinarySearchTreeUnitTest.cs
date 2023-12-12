@@ -18,15 +18,24 @@ namespace TestProjectLeetCode._51_100
             int?[] arr = { 2, 1, 3 };
             var tree = Utils.BuildBinaryTree(arr);
             var bl= alg.IsValidBST(tree);
-            Assert.IsTrue(bl);
+            Assert.AreEqual(bl,true);
         }
         [TestMethod]
         public void TestCase02()
         {
             int?[] arr = { 5, 1, 4, null, null, 3, 6 };
-            var tree = Utils.BuildBinaryTree(arr);
+            var tree = Utils.BuildBSTTree(arr);
             var bl = alg.IsValidBST(tree);
-            Assert.IsTrue(bl);
+            Assert.AreEqual(bl,false);
+        }
+
+        [TestMethod]
+        public void TestCase03()
+        {
+            int?[] arr = { 5, 4, 6, null, null, 3, 7 };
+            var tree = Utils.BuildBSTTree(arr);
+            var bl = alg.IsValidBST(tree);
+            Assert.AreEqual(bl, false);
         }
     }
 }

@@ -10,24 +10,36 @@ namespace leetCode
     {
         private int index = 0;
 
-        public TreeNode BuildTree(int?[] preorder)
+        public TreeNode BuildTree(int?[] values)
         {
-            return Construct(preorder);
+            return Construct(values);
         }
 
-        private TreeNode Construct(int?[] preorder)
+        private TreeNode Construct(int?[] values)
         {
-            if (index >= preorder.Length || preorder[index] == null)
+            if (index >= values.Length || !values[index].HasValue)
             {
                 index++;
                 return null;
             }
- 
-            TreeNode node = new TreeNode(preorder[index++].Value);
-            node.left = Construct(preorder);
-            node.right = Construct(preorder);
+
+            TreeNode node = new TreeNode(values[index].Value);
+            index++;
+
+            node.left = Construct(values);
+            node.right = Construct(values);
 
             return node;
+        }
+
+        public void InorderTraversal(TreeNode node)
+        {
+            if (node != null)
+            {
+                InorderTraversal(node.left);
+                Console.Write(node.val + " ");
+                InorderTraversal(node.right);
+            }
         }
     }
 }
