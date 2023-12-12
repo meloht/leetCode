@@ -37,5 +37,14 @@ namespace TestProjectLeetCode._51_100
             var bl = alg.IsValidBST(tree);
             Assert.AreEqual(bl, false);
         }
+
+        [TestMethod]
+        public void TestCase04()
+        {
+            int?[] arr = { 32, 26, 47, 19, null, null, 56, null, 27 };
+            var tree = Utils.BuildTree(arr);
+            var bl = alg.IsValidBST(tree);
+            Assert.AreEqual(bl, false);
+        }
     }
 }
