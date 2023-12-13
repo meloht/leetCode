@@ -39,6 +39,11 @@ namespace TestProjectLeetCode
             }
             return arr.ToArray();
         }
+        public static int?[] GetTreeList(TreeNode root)
+        {
+            var arr = PreTraversal(root).ToArray();
+            return arr;
+        }
         private static IList<int?> PreTraversal(TreeNode root)
         {
             List<int?> result = new List<int?>();
