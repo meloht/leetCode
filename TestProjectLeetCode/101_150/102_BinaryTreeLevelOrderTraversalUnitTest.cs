@@ -15,7 +15,7 @@ namespace TestProjectLeetCode._101_150
         [TestMethod]
         public void TestCase01()
         {
-            int?[] root = { 1, 2, 2, 3, 4, 4, 3 };
+            int?[] root = { 3, 9, 20, null, null, 15, 7 };
             List<IList<int>> exp = new List<IList<int>>();
             exp.Add(new int[] { 3 });
             exp.Add(new int[] { 9, 20 });
@@ -49,7 +49,6 @@ namespace TestProjectLeetCode._101_150
         {
             int?[] root = { };
             List<IList<int>> exp = new List<IList<int>>();
-            exp.Add(new int[] { });
 
             var tree = Utils.BuildTree(root);
             var res = alg.LevelOrder(tree);
