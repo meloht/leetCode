@@ -10,7 +10,22 @@ namespace leetCode._101_150
     {
         public int MaxDepth(TreeNode root)
         {
-            return 0;
+            if (root == null)
+                return 0;
+            int mm = GetMax(root, 0);
+            return mm;
+        }
+
+        private int GetMax(TreeNode root, int num)
+        {
+            if (root == null)
+                return num;
+            num++;
+            int left = GetMax(root.left, num);
+            int right = GetMax(root.right, num);
+
+            int mm = Math.Max(left, right);
+            return mm;
         }
     }
 }
