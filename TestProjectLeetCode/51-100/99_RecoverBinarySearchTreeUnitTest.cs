@@ -38,5 +38,30 @@ namespace TestProjectLeetCode._51_100
             bool bl = exp.SequenceEqual(res);
             Assert.IsTrue(bl);
         }
+        [TestMethod]
+        public void TestCase03()
+        {
+            int?[] root = { 2, 3, 1 };
+            var tree = Utils.BuildTree(root);
+            alg.RecoverTree(tree);
+            int?[] exp = { 2, 1, 3 };
+            int?[] res = Utils.GetTreeList(tree);
+
+            bool bl = exp.SequenceEqual(res);
+            Assert.IsTrue(bl);
+        }
+
+        [TestMethod]
+        public void TestCase04()
+        {
+            int?[] root = { 3, null, 2, null, 1 };
+            var tree = Utils.BuildTree(root);
+            alg.RecoverTree(tree);
+            int?[] exp = { 1, null, 2, null, 3 };
+            int?[] res = Utils.GetTreeList(tree);
+
+            bool bl = exp.SequenceEqual(res);
+            Assert.IsTrue(bl);
+        }
     }
 }
