@@ -11,7 +11,7 @@ namespace leetCode._51_100
         private int rootVal = 0;
         List<int> leftNum = new List<int>();
         List<int> rightNum = new List<int>();
-        public bool IsValidBST(TreeNode root)
+        public bool IsValidBST2(TreeNode root)
         {
             rootVal = root.val;
             if (root.left != null)
@@ -114,6 +114,29 @@ namespace leetCode._51_100
             }
 
             return true;
+        }
+
+        public bool IsValidBST(TreeNode root)
+        {
+            bool bl = IsValidTree(root, long.MinValue, long.MaxValue);
+
+            return bl;
+        }
+
+        private bool IsValidTree(TreeNode root, long min, long max)
+        {
+            if (root == null)
+                return true;
+
+            if (root.val >= max)
+                return false;
+            if (root.val <= min)
+                return false;
+
+            bool blLeft = IsValidTree(root.left, min, root.val);
+            bool blRight = IsValidTree(root.right, root.val, max);
+
+            return blLeft && blRight;
         }
     }
 }
