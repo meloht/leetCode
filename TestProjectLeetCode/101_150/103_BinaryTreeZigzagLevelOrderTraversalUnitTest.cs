@@ -56,5 +56,21 @@ namespace TestProjectLeetCode._101_150
             Assert.IsTrue(bl);
 
         }
+
+        [TestMethod]
+        public void TestCase04()
+        {
+            int?[] root = { 1, 2, 3, 4, null, null, 5 };
+            List<IList<int>> exp = new List<IList<int>>();
+            exp.Add(new int[] { 1 });
+            exp.Add(new int[] { 3, 2 });
+            exp.Add(new int[] { 4, 5 });
+
+            var tree = Utils.BuildTree(root);
+            var res = alg.ZigzagLevelOrder(tree);
+
+            bool bl = Utils.IsSameList(exp, res);
+            Assert.IsTrue(bl);
+        }
     }
 }
