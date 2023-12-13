@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,13 +9,14 @@ namespace leetCode._51_100
 {
     public class _99_RecoverBinarySearchTreeAlg
     {
+        int index = 0;
         public void RecoverTree(TreeNode root)
         {
             List<int> result = new List<int>();
             MidOrder(root, result);
             result.Sort();
 
-            MidOrderSet(root, result);
+            MidOrderSet(root, result.ToArray());
 
         }
       
@@ -28,13 +30,13 @@ namespace leetCode._51_100
           
         }
 
-        private void MidOrderSet(TreeNode root, List<int> result)
+        private void MidOrderSet(TreeNode root, int[] result)
         {
             if (root == null)
                 return;
             MidOrderSet(root.left, result);
-            root.val = result[0];
-            result.RemoveAt(0);
+            root.val = result[index];
+            index++;
             MidOrderSet(root.right, result);
         }
  
