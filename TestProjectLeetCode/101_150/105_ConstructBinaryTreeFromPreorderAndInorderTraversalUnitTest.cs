@@ -44,5 +44,21 @@ namespace TestProjectLeetCode._101_150
             bool bl = exp.SequenceEqual(res);
             Assert.IsTrue(bl);
         }
+
+        [TestMethod]
+        public void TestCase03()
+        {
+            int[] preorder = [1, 2, 3];
+            int[] inorder = [2, 3, 1];
+
+            int?[] exp = [1, 2, null, null, 3];
+
+            var tree = alg.BuildTree(preorder, inorder);
+
+            var res = Utils.GetTreeList(tree);
+
+            bool bl = exp.SequenceEqual(res);
+            Assert.IsTrue(bl);
+        }
     }
 }
