@@ -12,6 +12,8 @@ namespace TestProjectLeetCode
     {
         public static ListNode BuildListNode(int[] arr)
         {
+            if (arr.Length == 0)
+                return null;
             ListNode node = new ListNode(arr[0]);
             ListNode header = node;
             for (int i = 1; i < arr.Length; i++)
