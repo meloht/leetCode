@@ -1,2 +1,2 @@
-# leetCode
+# LeetCode
 leet code C# implement
