@@ -30,6 +30,43 @@ namespace TestProjectLeetCode
             return root;
         }
 
+        public static int?[] GetTreeLevelList(TreeNode root)
+        {
+            List<int?> list = new List<int?>();
+            if (root == null)
+                return list.ToArray();
+
+            Queue<TreeNode> queue = new Queue<TreeNode>();
+            queue.Enqueue(root);
+            while (queue.Count > 0)
+            {
+                int count = queue.Count;
+                for (int i = 0; i < count; i++)
+                {
+                    var node = queue.Dequeue();
+                    if (node != null)
+                    {
+                        list.Add(node.val);
+                        queue.Enqueue(node.left);
+                        queue.Enqueue(node.right);
+                    }
+                    else
+                    {
+                        list.Add(null);
+                    }
+                }
+              
+            }
+            int index = list.Count - 1;
+            while (index >= 0 && list[index] == null)
+            {
+                list.RemoveAt(index);
+                index--;
+            }
+            return list.ToArray();
+
+        }
+
         public static int?[][] GetTreeList(IList<TreeNode> list)
         {
             List<int?[]> arr = new List<int?[]>();
