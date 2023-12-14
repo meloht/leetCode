@@ -28,8 +28,8 @@ namespace leetCode._101_150
             var leftTreeList = res.Item1;
             var rightTreeList = res.Item2;
 
-            var preLeft = GetPreList(preorder, new HashSet<int>(leftTreeList));
-            var preRight = GetPreList(preorder, new HashSet<int>(rightTreeList));
+            var preLeft = GetPreLeftList(preorder, leftTreeList.Count);
+            var preRight = GetPreRightList(preorder, leftTreeList.Count);
 
             if (leftTreeList.Count > 0)
             {
@@ -37,7 +37,7 @@ namespace leetCode._101_150
                 TreeNode left = new TreeNode(leftVal);
 
                 parent.left = left;
-                preLeft.Remove(leftVal);
+                preLeft.RemoveAt(0);
 
                 BuildTree(preLeft, leftTreeList, left);
             }
@@ -46,7 +46,7 @@ namespace leetCode._101_150
                 int rightVal = preRight[0];
                 TreeNode right = new TreeNode(rightVal);
                 parent.right = right;
-                preRight.Remove(rightVal);
+                preRight.RemoveAt(0);
                 BuildTree(preRight, rightTreeList, right);
             }
         }
@@ -78,18 +78,24 @@ namespace leetCode._101_150
             return new Tuple<List<int>, List<int>>(leftTreeList, rightTreeList);
         }
 
-        private List<int> GetPreList(List<int> preorder, HashSet<int> inorder)
+        private List<int> GetPreLeftList(List<int> preorder, int leftCount)
         {
             List<int> list = new List<int>();
-            foreach (var item in preorder)
+            for (int i = 0; i < leftCount; i++)
             {
-                if (inorder.Contains(item))
-                {
-                    list.Add(item);
-                }
-                if (inorder.Count == list.Count)
-                    break;
+                list.Add(preorder[i]);
             }
+
+            return list;
+        }
+        private List<int> GetPreRightList(List<int> preorder, int leftCount)
+        {
+            List<int> list = new List<int>();
+            for (int i = leftCount; i < preorder.Count; i++)
+            {
+                list.Add(preorder[i]);
+            }
+
             return list;
         }
     }
