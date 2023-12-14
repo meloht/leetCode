@@ -8,7 +8,7 @@ namespace leetCode._0101_0150
 {
     public class _111_MinimumDepthOfBinaryTreeAlg
     {
-        public int MinDepth(TreeNode root)
+        public int MinDepth1(TreeNode root)
         {
             int mm = GetMin(root, 0);
             return mm;
@@ -42,6 +42,40 @@ namespace leetCode._0101_0150
                 return mm;
             }
           
+            return num;
+        }
+
+        public int MinDepth(TreeNode root)
+        {
+            if (root == null)
+                return 0;
+            Queue<TreeNode> queue = new Queue<TreeNode>();
+            queue.Enqueue(root);
+            int num = 0; 
+            while (queue.Count > 0) 
+            {
+                int count = queue.Count;
+                num++;
+                for (int i = 0; i < count; i++)
+                {
+                    var node = queue.Dequeue();
+                    if (node.right == null && node.left == null)
+                    {
+                        return num;
+                    }
+                    else
+                    {
+                        if (node.left != null)
+                        {
+                            queue.Enqueue(node.left);
+                        }
+                        if (node.right != null)
+                        {
+                            queue.Enqueue(node.right);
+                        }
+                    }
+                }
+            }
             return num;
         }
     }
