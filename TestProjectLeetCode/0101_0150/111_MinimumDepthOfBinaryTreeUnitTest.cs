@@ -29,5 +29,14 @@ namespace TestProjectLeetCode._0101_0150
             int num = alg.MinDepth(tree);
             Assert.AreEqual(5, num);
         }
+
+        [TestMethod]
+        public void TestCase03()
+        {
+            int?[] root = [-9, -3, 2, null, 4, 4, 0, -6, null, -5];
+            var tree = Utils.BuildTree(root);
+            int num = alg.MinDepth(tree);
+            Assert.AreEqual(3, num);
+        }
     }
 }
