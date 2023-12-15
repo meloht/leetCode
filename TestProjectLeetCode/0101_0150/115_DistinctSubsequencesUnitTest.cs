@@ -31,5 +31,35 @@ namespace TestProjectLeetCode._0101_0150
 
             Assert.AreEqual(num, 5);
         }
+
+        [TestMethod]
+        public void TestCase03()
+        {
+            string s = "eee";
+            string t = "eee";
+            int num = alg.NumDistinct(s, t);
+
+            Assert.AreEqual(num, 1);
+        }
+
+        [TestMethod]
+        public void TestCase04()
+        {
+            string s = "aabb";
+            string t = "abb";
+            int num = alg.NumDistinct(s, t);
+
+            Assert.AreEqual(num, 2);
+        }
+
+        [TestMethod]
+        public void TestCase05()
+        {
+            string s = "adbdadeecadeadeccaeaabdabdbcdabddddabcaaadbabaaedeeddeaeebcdeabcaaaeeaeeabcddcebddebeebedaecccbdcbcedbdaeaedcdebeecdaaedaacadbdccabddaddacdddc";
+            string t = "bcddceeeebecbc";
+            int num = alg.NumDistinct(s, t);
+            Assert.AreEqual(700531452, num);
+
+        }
     }
 }
