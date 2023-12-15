@@ -13,36 +13,36 @@ namespace leetCode._0101_0150
         public IList<IList<int>> PathSum(TreeNode root, int targetSum)
         {
             List<int> list = new List<int>();
-            Dfs(root, targetSum, list.ToArray());
+            Dfs(root, targetSum, list);
             return res;
         }
 
-        private void Dfs(TreeNode root, int targetSum, int[] list)
+        private void Dfs(TreeNode root, int targetSum, List<int> list)
         {
             if (root == null)
             {
                 return;
             }
             targetSum -= root.val;
-            var arr = list.ToList();
-            arr.Add(root.val);
+
+            list.Add(root.val);
             if (root.right == null && root.left == null)
             {
                 if (targetSum == 0)
                 {
-                    res.Add(arr.ToArray());
+                    res.Add(list.ToArray());
                 }
-                return;
             }
             if (root.left != null)
             {
-                Dfs(root.left, targetSum, arr.ToArray());
+                Dfs(root.left, targetSum, list);
             }
 
             if (root.right != null)
             {
-                Dfs(root.right, targetSum, arr.ToArray());
+                Dfs(root.right, targetSum, list);
             }
+            list.RemoveAt(list.Count - 1);
         }
     }
 }
