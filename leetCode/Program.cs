@@ -8,13 +8,7 @@ namespace leetCode
     {
         static void Main(string[] args)
         {
-            int?[] values = { 1, 2, 3, null, null, 4, 5 };
 
-            BinaryTreeBuilder builder = new BinaryTreeBuilder();
-            TreeNode root = builder.BuildTree(values);
-
-            Console.WriteLine("Inorder Traversal:");
-            builder.InorderTraversal(root);
         }
     }
 }
