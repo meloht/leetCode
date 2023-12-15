@@ -10,6 +10,24 @@ namespace leetCode._0101_0150
     {
         public bool HasPathSum(TreeNode root, int targetSum)
         {
+            if (root == null)
+                return false;
+
+            int dec = targetSum - root.val;
+            if (root.left == null && root.right == null)
+            {
+                if (dec == 0)
+                    return true;
+            }
+
+            bool left = HasPathSum(root.left, dec);
+            if (left)
+                return true;
+
+            bool right = HasPathSum(root.right, dec);
+            if (right)
+                return true;
+
             return false;
         }
     }
