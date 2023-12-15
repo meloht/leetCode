@@ -56,7 +56,7 @@ namespace leetCode._0101_0150
             }
             return root;
         }
-        public Node Connect(Node root)
+        public Node Connect2(Node root)
         {
             if (root == null)
             {
@@ -100,7 +100,7 @@ namespace leetCode._0101_0150
             else if (root.right == null && root.left != null)
             {
                 var next = GetNext(root.next);
-                if (next!=null)
+                if (next != null)
                 {
                     if (next.left != null)
                     {
@@ -133,6 +133,49 @@ namespace leetCode._0101_0150
         }
 
 
+
+
+        Node last = null, nextStart = null;
+
+        public Node Connect(Node root)
+        {
+            if (root == null)
+            {
+                return null;
+            }
+            Node start = root;
+            while (start != null)
+            {
+                last = null;
+                nextStart = null;
+                for (Node p = start; p != null; p = p.next)
+                {
+                    if (p.left != null)
+                    {
+                        Handle(p.left);
+                    }
+                    if (p.right != null)
+                    {
+                        Handle(p.right);
+                    }
+                }
+                start = nextStart;
+            }
+            return root;
+        }
+
+        public void Handle(Node p)
+        {
+            if (last != null)
+            {
+                last.next = p;
+            }
+            if (nextStart == null)
+            {
+                nextStart = p;
+            }
+            last = p;
+        }
 
     }
 }
