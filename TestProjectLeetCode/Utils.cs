@@ -25,13 +25,22 @@ namespace TestProjectLeetCode
             return header;
         }
 
+        /// <summary>
+        /// 先序遍历构造
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <returns></returns>
         public static TreeNode BuildBinaryTree(int?[] arr)
         {
             BinaryTreeBuilder builder = new BinaryTreeBuilder();
             TreeNode root = builder.BuildTree(arr);
             return root;
         }
-
+        /// <summary>
+        /// 分层遍历
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
         public static int?[] GetTreeLevelList(TreeNode root)
         {
             List<int?> list = new List<int?>();
@@ -69,6 +78,11 @@ namespace TestProjectLeetCode
 
         }
 
+        /// <summary>
+        /// 先序遍历
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
         public static int?[][] GetTreeList(IList<TreeNode> list)
         {
             List<int?[]> arr = new List<int?[]>();
@@ -78,6 +92,11 @@ namespace TestProjectLeetCode
             }
             return arr.ToArray();
         }
+        /// <summary>
+        /// 先序遍历
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
         public static int?[] GetTreeList(TreeNode root)
         {
             var arr = PreTraversal(root).ToArray();
