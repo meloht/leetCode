@@ -78,5 +78,47 @@ namespace leetCode._0101_0150
             return root;
         }
 
+        public Node Connect3(Node root)
+        {
+            if (root == null)
+            {
+                return root;
+            }
+            if (root.left != null)
+            {
+                root.left.next = root.right;
+                if (root.next != null)
+                {
+                    if (root.next.left != null)
+                    {
+                        root.right.next = root.next.left;
+                    }
+                    else
+                    {
+                        root.right.next = root.next.right;
+                    }
+                }
+              
+                Connect3(root.left);
+                Connect3(root.right);
+            }
+            else
+            {
+                if (root.next != null)
+                {
+                    if (root.next.left != null)
+                    {
+                        root.right.next = root.next.left;
+                    }
+                    else
+                    {
+                        root.right.next = root.next.right;
+                    }
+                }
+                Connect3(root.right);
+            }
+            return root;
+        }
+
     }
 }

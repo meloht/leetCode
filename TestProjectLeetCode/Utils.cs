@@ -198,12 +198,12 @@ namespace TestProjectLeetCode
         /// </summary>
         /// <param name="arr"></param>
         /// <returns></returns>
-        public static Node BuildTree(int[] arr)
+        public static Node BuildNodeTree(int?[] arr)
         {
             if (arr.Length == 0)
                 return null;
             Queue<Node> queue = new Queue<Node>();
-            Node root = new Node(arr[0]);
+            Node root = new Node(arr[0].Value);
             queue.Enqueue(root);
 
             var list = arr.ToList();
@@ -219,17 +219,27 @@ namespace TestProjectLeetCode
                     var node = queue.Dequeue();
                     if (list.Count > 0)
                     {
-                        Node left = new Node(list[0]);
+                        if (list[0] != null)
+                        {
+                            Node left = new Node(list[0].Value);
+                          
+                            node.left = left;
+                            queue.Enqueue(left);
+                        }
                         list.RemoveAt(0);
-                        node.left = left;
-                        queue.Enqueue(left);
+
                     }
                     if (list.Count > 0)
                     {
-                        Node right = new Node(list[0]);
+                        if (list[0] != null)
+                        {
+                            Node right = new Node(list[0].Value);
+                           
+                            node.right = right;
+                            queue.Enqueue(right);
+                        }
                         list.RemoveAt(0);
-                        node.right = right;
-                        queue.Enqueue(right);
+
                     }
                 }
 

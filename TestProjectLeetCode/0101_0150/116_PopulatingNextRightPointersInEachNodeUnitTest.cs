@@ -16,11 +16,11 @@ namespace TestProjectLeetCode._0101_0150
         [TestMethod]
         public void TestCase01()
         {
-            int[] root = [1, 2, 3, 4, 5, 6, 7];
+            int?[] root = [1, 2, 3, 4, 5, 6, 7];
 
             int?[] exp = [1, null, 2, 3, null, 4, 5, 6, 7, null];
 
-            Node node = Utils.BuildTree(root);
+            Node node = Utils.BuildNodeTree(root);
            
             var nodeNew = alg.Connect(node);
 
@@ -32,11 +32,11 @@ namespace TestProjectLeetCode._0101_0150
         [TestMethod]
         public void TestCase02()
         {
-            int[] root = [];
+            int?[] root = [];
 
             int?[] exp = [];
 
-            Node node = Utils.BuildTree(root);
+            Node node = Utils.BuildNodeTree(root);
 
             var nodeNew = alg.Connect(node);
 
