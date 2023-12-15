@@ -36,11 +36,21 @@ namespace leetCode._0101_0150
                     }
                     else if (node.left == null && node.right != null)
                     {
-
+                        if (pre != null)
+                        {
+                            pre.next = node.right;
+                        }
+                        queue.Enqueue(node.right);
+                        pre = node.right;
                     }
                     else if (node.left != null && node.right == null)
                     {
-                        
+                        if (pre != null)
+                        {
+                            pre.next = node.left;
+                        }
+                        queue.Enqueue(node.left);
+                        pre = node.left;
                     }
                 }
             }
