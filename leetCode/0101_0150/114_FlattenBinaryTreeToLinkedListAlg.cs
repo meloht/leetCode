@@ -10,7 +10,27 @@ namespace leetCode._0101_0150
     {
         public void Flatten(TreeNode root)
         {
+            List<TreeNode> list = new List<TreeNode>();
+            Dfs(root, list);
+            for (int i = 1; i < list.Count; i++) 
+            {
+                var pre = list[i-1];
+                var next= list[i];
+                pre.right = next;
+                pre.left = null;
+                next.left = null;
+            }
 
+        }
+
+        private void Dfs(TreeNode node, List<TreeNode> list)
+        {
+            if (node == null)
+                return;
+
+            list.Add(node);
+            Dfs(node.left, list);
+            Dfs(node.right, list);
         }
     }
 }
