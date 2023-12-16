@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestProjectLeetCode._201_250
+namespace TestLeetCode._201_250
 {
     [TestClass]
     public class _201_ReverseLinkedListUnitTest

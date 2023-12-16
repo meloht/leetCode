@@ -6,7 +6,7 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestProjectLeetCode._0101_0150
+namespace TestLeetCode._0101_0150
 {
     [TestClass]
     public class _105_ConstructBinaryTreeFromPreorderAndInorderTraversalUnitTest

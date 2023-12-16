@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestProjectLeetCode.WeeklyContest
+namespace TestLeetCode.WeeklyContest
 {
     [TestClass]
     public class Alg_374_CountTheNumberOfInfectionSequences_UnitTest

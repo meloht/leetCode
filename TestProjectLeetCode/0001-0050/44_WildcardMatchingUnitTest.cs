@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestProjectLeetCode._1_50
+namespace TestLeetCode._1_50
 {
     [TestClass]
     public class _44_WildcardMatchingUnitTest
