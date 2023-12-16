@@ -41,5 +41,28 @@ namespace TestLeetCode._0101_0150
             int res = alg.MaxProfit(arr);
             Assert.AreEqual(0, res);
         }
+
+        [TestMethod]
+        public void TestCase05()
+        {
+            int[] arr = [1, 4, 2];
+            int res = alg.MaxProfit(arr);
+            Assert.AreEqual(3, res);
+        }
+
+        [TestMethod]
+        public void TestCase06()
+        {
+            int[] arr = [1, 2, 4, 2, 5, 7, 2, 4, 9, 0];
+            int res = alg.MaxProfit(arr);
+            Assert.AreEqual(13, res);
+        }
+        [TestMethod]
+        public void TestCase07()
+        {
+            int[] arr = [2, 1, 2, 0, 1];
+            int res = alg.MaxProfit(arr);
+            Assert.AreEqual(2, res);
+        }
     }
 }
