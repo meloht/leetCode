@@ -10,7 +10,21 @@ namespace leetCode._0101_0150
     {
         public int MaxProfit(int[] prices)
         {
-            return 0;
+            int n = prices[0];
+            int max = 0;
+            for (int i = 1; i < prices.Length; i++)
+            {
+                if (n > prices[i])
+                {
+                    n = prices[i];
+                }
+                else if (n < prices[i])
+                {
+                    max += prices[i] - n;
+                    n= prices[i];
+                }
+            }
+            return max;
         }
     }
 }
