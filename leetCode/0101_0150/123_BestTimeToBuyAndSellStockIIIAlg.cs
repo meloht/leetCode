@@ -34,7 +34,7 @@ namespace leetCode._0101_0150
         {
             int[] dpLeft = new int[prices.Length];
             int[] dpRight = new int[prices.Length];
-
+            
             for (int i = 0; i < prices.Length; i++)
             {
                 for (int j = i + 1; j < prices.Length; j++)
