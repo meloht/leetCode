@@ -32,7 +32,66 @@ namespace leetCode._0101_0150
 
 
 
+
             return res;
+        }
+
+        private void AddPath(string beginWord, string endWord, List<int> lsIndex, int[] lsIndexUsed, List<IList<string>> res, IList<string> wordList,
+            Dictionary<string, NodeData> dict)
+        {
+            foreach (int itemIndex in lsIndex)
+            {
+                var arr = lsIndexUsed.ToList();
+                arr.Add(itemIndex);
+                arr.Sort();
+                string key = string.Join("-", arr);
+                if (!dict.ContainsKey(key))
+                {
+                    continue;
+                }
+                var data = dict[key];
+                var ls = GetList(data.Words, beginWord, endWord, arr);
+                foreach (var item in ls)
+                {
+
+                }
+
+                //var lsEnd=
+
+            }
+        }
+
+        private List<string> GetList(List<string> words, string beginWord, string endWord, List<int> lsIndexUsed)
+        {
+            List<string> ls = new List<string>();
+            HashSet<int> ints = new HashSet<int>(lsIndexUsed);
+            foreach (string word in words)
+            {
+                int count = 0;
+                for (int i = 0; i < word.Length; i++)
+                {
+                    if (ints.Contains(i))
+                    {
+                        if (endWord[i] == word[i])
+                        {
+                            count++;
+                        }
+                    }
+                    else
+                    {
+                        if (beginWord[i] == word[i])
+                        {
+                            count++;
+                        }
+                    }
+                }
+                if (count == word.Length)
+                {
+                    ls.Add(word);
+                }
+            }
+
+            return ls;
         }
 
         private void DictInit(string beginWord, int[] lsIndex, string endWord, int[] lsIndexUsed, string[] words,
@@ -42,7 +101,7 @@ namespace leetCode._0101_0150
             {
                 var arr = lsIndexUsed.ToList();
                 int index = lsIndex[i];
-                char ch = endWord[index];
+
                 arr.Add(index);
                 arr.Sort();
                 HashSet<int> list = new HashSet<int>(arr);
