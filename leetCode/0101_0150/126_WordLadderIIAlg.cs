@@ -127,35 +127,6 @@ namespace leetCode._0101_0150
 
         }
 
-        private List<string> GetDiffOneBegin(string beginWord, IList<string> wordList, HashSet<string> targetList)
-        {
-            List<string> ls = new List<string>();
-            List<string> ls2 = new List<string>();
-            for (int j = 0; j < beginWord.Length; j++)
-            {
-                foreach (var item in wordList)
-                {
-                    if (IsDiffOneChar(item, beginWord, j))
-                    {
-                        if (targetList.Contains(item))
-                        {
-                            ls2.Add(item);
-                        }
-                        else
-                        {
-                            ls.Add(item);
-                        }
-                    }
-                }
-            }
-
-            if (ls2.Count > 0)
-            {
-                return ls2;
-            }
-            return ls;
-
-        }
         private void InitNextWordsDict(IList<string> wordList)
         {
             foreach (var word in wordList)

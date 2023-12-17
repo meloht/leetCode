@@ -35,5 +35,17 @@ namespace TestLeetCode._0101_0150
             bool bl = Utils.IsSameList(res, exp);
             Assert.IsTrue(bl);
         }
+
+        [TestMethod]
+        public void TestCase03()
+        {
+            string beginWord = "hot";
+            string endWord = "dog";
+            string[] wordList = ["hot", "dog", "dot"];
+            var res = alg.FindLadders(beginWord, endWord, wordList);
+            string[][] exp = [["hot", "dot", "dog"]];
+            bool bl = Utils.IsSameList(res, exp);
+            Assert.IsTrue(bl);
+        }
     }
 }
