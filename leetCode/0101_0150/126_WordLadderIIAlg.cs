@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace leetCode._0101_0150
 {
@@ -23,79 +25,201 @@ namespace leetCode._0101_0150
                 }
             }
 
-            Dictionary<string, NodeData> dict = new Dictionary<string, NodeData>();
+            Dictionary<string, List<string>> dict = new Dictionary<string, List<string>>();
 
-            DictInit(beginWord, lsIndex.ToArray(), endWord, new int[] { }, wordList.ToArray(), dict);
+            DictInit(lsIndex.ToArray(), endWord, new int[] { }, wordList.ToArray(), dict);
 
             if (dict.Count == 0)
                 return res;
 
+            var wordDict = GetNextWords(wordList);
 
+            List<string[]> ress = new List<string[]>();
 
+            var keys = dict.Keys.ToList();
 
-            return res;
-        }
-
-        private void AddPath(string beginWord, string endWord, List<int> lsIndex, int[] lsIndexUsed, List<IList<string>> res, IList<string> wordList,
-            Dictionary<string, NodeData> dict)
-        {
             foreach (int itemIndex in lsIndex)
             {
-                var arr = lsIndexUsed.ToList();
-                arr.Add(itemIndex);
-                arr.Sort();
-                string key = string.Join("-", arr);
+                string key = itemIndex.ToString();
                 if (!dict.ContainsKey(key))
                 {
                     continue;
                 }
+                List<string> path = new List<string>();
+                path.Add(beginWord);
                 var data = dict[key];
-                var ls = GetList(data.Words, beginWord, endWord, arr);
-                foreach (var item in ls)
+                HashSet<string> set = new HashSet<string>(data);
+                var nextList = GetDiffOneBegin(beginWord, wordList, set);
+                foreach (string next in nextList)
                 {
-
-                }
-
-                //var lsEnd=
-
-            }
-        }
-
-        private List<string> GetList(List<string> words, string beginWord, string endWord, List<int> lsIndexUsed)
-        {
-            List<string> ls = new List<string>();
-            HashSet<int> ints = new HashSet<int>(lsIndexUsed);
-            foreach (string word in words)
-            {
-                int count = 0;
-                for (int i = 0; i < word.Length; i++)
-                {
-                    if (ints.Contains(i))
+                    path.Add(next);
+                    if (set.Contains(next))
                     {
-                        if (endWord[i] == word[i])
-                        {
-                            count++;
-                        }
+
                     }
                     else
                     {
-                        if (beginWord[i] == word[i])
+                        foreach (var item in data)
                         {
-                            count++;
+                            AddPath(next, item, path, ress, wordDict);
                         }
+
                     }
-                }
-                if (count == word.Length)
-                {
-                    ls.Add(word);
                 }
             }
 
-            return ls;
+
+            return res;
+        }
+        private void AddNext(int len, string current, string preKey, List<string> keys, Dictionary<string, List<string>> dict,
+            Dictionary<string, List<string>> wordDict)
+        {
+            List<string[]> ress = new List<string[]>();
+            var keyss = keys.Where(p => p.Contains(preKey) && p.Length == len);
+            foreach (var itemKey in keyss)
+            {
+                var nexts = dict[itemKey];
+                foreach (var itemNext in nexts)
+                {
+                    List<string> path = new List<string>();
+                    AddPath(current, itemNext, path, ress, wordDict);
+                    AddNext(len + 1, itemNext, itemKey, keys, dict, wordDict);
+                }
+            }
         }
 
-        private void DictInit(string beginWord, int[] lsIndex, string endWord, int[] lsIndexUsed, string[] words,
-            Dictionary<string, NodeData> dict)
+        private void AddPath(string current, string target, List<string> list, List<string[]> res, Dictionary<string, List<string>> dict)
+        {
+            if (!dict.ContainsKey(current))
+            {
+                return;
+            }
+            var ls = dict[current];
+            HashSet<string> set = new HashSet<string>(list);
+            var ws = ls.Where(p => !set.Contains(p)).ToList();
+            foreach (var word in ws)
+            {
+                if (IsDiffOneChar(word, target))
+                {
+                    list.Add(word);
+                    list.Add(target);
+                    res.Add(list.ToArray());
+                    list.RemoveAt(list.Count - 1);
+                    list.RemoveAt(list.Count - 1);
+                    return;
+                }
+            }
+            foreach (var word in ws)
+            {
+                list.Add(word);
+                AddPath(word, target, list, res, dict);
+                list.RemoveAt(list.Count - 1);
+            }
+
+        }
+
+        private List<string> GetDiffOneBegin(string beginWord, IList<string> wordList, HashSet<string> targetList)
+        {
+            List<string> ls = new List<string>();
+            List<string> ls2 = new List<string>();
+            for (int j = 0; j < beginWord.Length; j++)
+            {
+                foreach (var item in wordList)
+                {
+                    if (IsDiffOneChar(item, beginWord, j))
+                    {
+                        if (targetList.Contains(item))
+                        {
+                            ls2.Add(item);
+                        }
+                        else
+                        {
+                            ls.Add(item);
+                        }
+                    }
+                }
+            }
+
+            if (ls2.Count > 0)
+            {
+                return ls2;
+            }
+            return ls;
+
+        }
+        private Dictionary<string, List<string>> GetNextWords(IList<string> wordList)
+        {
+            Dictionary<string, List<string>> dict = new Dictionary<string, List<string>>();
+            foreach (var word in wordList)
+            {
+                List<string> ls = new List<string>();
+                for (int i = 0; i < word.Length; i++)
+                {
+                    foreach (var item in wordList)
+                    {
+                        if (item == word)
+                            continue;
+                        if (IsDiffOneChar(item, word, i))
+                        {
+                            ls.Add(item);
+                        }
+                    }
+                }
+
+                dict.Add(word, ls);
+            }
+
+
+            return dict;
+        }
+
+        private bool IsDiffOneChar(string s1, string s2)
+        {
+            for (int i = 0; i < s1.Length; i++)
+            {
+                if (IsDiffOneChar(s1, s2, i))
+                    return true;
+            }
+            return false;
+        }
+        private bool IsDiffOneChar(string s1, string s2, int index)
+        {
+            int count = 0;
+            for (int i = 0; i < s1.Length; i++)
+            {
+                if (i == index)
+                {
+                    if (s1[i] != s2[i])
+                    {
+                        count++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    if (s1[i] == s2[i])
+                    {
+                        count++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+            }
+
+            if (count == s1.Length)
+                return true;
+
+            return false;
+        }
+
+        private void DictInit(int[] lsIndex, string endWord, int[] lsIndexUsed, string[] words,
+            Dictionary<string, List<string>> dict)
         {
             for (int i = 0; i < lsIndex.Length; i++)
             {
@@ -109,7 +233,7 @@ namespace leetCode._0101_0150
                 foreach (var item in words)
                 {
                     int count = 0;
-                    for (int j = 0; j < beginWord.Length; j++)
+                    for (int j = 0; j < endWord.Length; j++)
                     {
                         bool bl11 = list.Contains(j);
 
@@ -119,6 +243,10 @@ namespace leetCode._0101_0150
                             {
                                 count++;
                             }
+                            else
+                            {
+                                break;
+                            }
                         }
                         else
                         {
@@ -126,18 +254,21 @@ namespace leetCode._0101_0150
                             {
                                 count++;
                             }
+                            else
+                            {
+                                break;
+                            }
                         }
                     }
-                    if (count == beginWord.Length)
+                    if (count == endWord.Length)
                     {
                         string key = string.Join("-", arr);
                         if (!dict.ContainsKey(key))
                         {
-                            dict.Add(key, new NodeData());
-                            dict[key].Arr = new List<int>(arr);
+                            dict.Add(key, new List<string>());
                         }
 
-                        dict[key].Words.Add(item);
+                        dict[key].Add(item);
                     }
                     else
                     {
@@ -148,7 +279,7 @@ namespace leetCode._0101_0150
                 {
                     var newArr = lsIndex.Where(p => p != index).ToArray();
 
-                    DictInit(beginWord, newArr, endWord, arr.ToArray(), listWord.ToArray(), dict);
+                    DictInit(newArr, endWord, arr.ToArray(), listWord.ToArray(), dict);
                 }
 
             }
@@ -156,17 +287,7 @@ namespace leetCode._0101_0150
 
 
 
-        class NodeData
-        {
-            public List<int> Arr = new List<int>();
-            public List<string> Words = new List<string>();
 
-            public override string ToString()
-            {
-                return string.Join(",", Words);
-            }
-
-        }
 
     }
 }
