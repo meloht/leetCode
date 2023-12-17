@@ -13,27 +13,22 @@ namespace leetCode._0101_0150
             List<IList<string>> res = new List<IList<string>>();
             if (!wordList.Contains(endWord))
                 return res;
-            int[] arr = new int[beginWord.Length];
-            List<char> ls = new List<char>();
+
             List<int> lsIndex = new List<int>();
             for (int i = 0; i < beginWord.Length; i++)
             {
                 if (beginWord[i] != endWord[i])
                 {
-                    ls.Add(endWord[i]);
                     lsIndex.Add(i);
                 }
-                else
-                {
-                    arr[i] = 1;
-                }
             }
-
 
             Dictionary<string, NodeData> dict = new Dictionary<string, NodeData>();
 
             DictInit(beginWord, lsIndex.ToArray(), endWord, new int[] { }, wordList.ToArray(), dict);
 
+            if (dict.Count == 0)
+                return res;
 
 
 
@@ -50,20 +45,31 @@ namespace leetCode._0101_0150
                 char ch = endWord[index];
                 arr.Add(index);
                 arr.Sort();
+                HashSet<int> list = new HashSet<int>(arr);
                 List<string> listWord = new List<string>();
                 foreach (var item in words)
                 {
-                    bool bl1 = ch == item[index];
-                    bool bl2 = true;
+                    int count = 0;
                     for (int j = 0; j < beginWord.Length; j++)
                     {
-                        if (j != index && beginWord[j] != item[j])
+                        bool bl11 = list.Contains(j);
+
+                        if (bl11)
                         {
-                            bl2 = false;
-                            break;
+                            if (endWord[j] == item[j])
+                            {
+                                count++;
+                            }
+                        }
+                        else
+                        {
+                            if (endWord[j] != item[j])
+                            {
+                                count++;
+                            }
                         }
                     }
-                    if (bl2 && bl1)
+                    if (count == beginWord.Length)
                     {
                         string key = string.Join("-", arr);
                         if (!dict.ContainsKey(key))
