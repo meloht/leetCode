@@ -53,18 +53,14 @@ namespace leetCode._0101_0150
                 foreach (string next in nextList)
                 {
                     path.Add(next);
-                    if (set.Contains(next))
-                    {
-
-                    }
-                    else
+                    if (!set.Contains(next))
                     {
                         foreach (var item in data)
                         {
                             AddPath(next, item, path, ress, wordDict);
                         }
-
                     }
+                   
                 }
             }
 
@@ -102,9 +98,7 @@ namespace leetCode._0101_0150
                 if (IsDiffOneChar(word, target))
                 {
                     list.Add(word);
-                    list.Add(target);
                     res.Add(list.ToArray());
-                    list.RemoveAt(list.Count - 1);
                     list.RemoveAt(list.Count - 1);
                     return;
                 }
