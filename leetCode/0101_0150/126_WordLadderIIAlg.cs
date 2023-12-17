@@ -36,13 +36,12 @@ namespace leetCode._0101_0150
 
             var keys = dictLen.Keys.ToList();
 
-            List<IList<string>> resList = new List<IList<string>>();
             List<string> path = new List<string>();
             path.Add(beginWord);
             var keyss = keys.Where(p => p.Length == 1).ToList();
-            AddNext(2, beginWord, keyss, keys, endWord, path.ToArray(), resList);
+            AddNext(2, beginWord, keyss, keys, endWord, path.ToArray(), res);
 
-            return resList;
+            return res;
         }
         private void AddNext(int len, string current, List<string> keyss, List<string> keys, string endWord, string[] path, List<IList<string>> resList)
         {
