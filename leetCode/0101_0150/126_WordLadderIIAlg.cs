@@ -12,35 +12,48 @@ namespace leetCode._0101_0150
     {
         private Dictionary<string, List<string>> dictLen = new Dictionary<string, List<string>>();
         private Dictionary<string, List<string>> wordDict = new Dictionary<string, List<string>>();
+        private int MinCount = int.MaxValue;
         public IList<IList<string>> FindLadders(string beginWord, string endWord, IList<string> wordList)
         {
             List<IList<string>> res = new List<IList<string>>();
             if (!wordList.Contains(endWord))
                 return res;
 
-            List<int> lsIndex = new List<int>();
+            List<int> lsDiffIndex = new List<int>();
+            List<int> lsSameIndex = new List<int>();
             for (int i = 0; i < beginWord.Length; i++)
             {
                 if (beginWord[i] != endWord[i])
                 {
-                    lsIndex.Add(i);
+                    lsDiffIndex.Add(i);
+                }
+                else
+                {
+                    lsSameIndex.Add(i);
                 }
             }
 
-            DictInit(lsIndex.ToArray(), endWord, new int[] { }, wordList.ToArray());
+            DictInit(lsDiffIndex.ToArray(), endWord, lsSameIndex.ToArray(), wordList.ToArray());
 
             if (dictLen.Count == 0)
                 return res;
 
             InitNextWordsDict(wordList);
 
-            var keys = dictLen.Keys.ToList();
 
+            var keys = dictLen.Keys.ToList();
+            int min = int.MaxValue;
+            foreach (var item in keys)
+            {
+                min = Math.Min(item.Length, min);
+            }
             List<string> path = new List<string>();
             path.Add(beginWord);
-            var keyss = keys.Where(p => p.Length == 1).ToList();
-            AddNext(2, beginWord, keyss, keys, endWord, path.ToArray(), res);
 
+            var keyss = keys.Where(p => p.Length == min).ToList();
+            AddNext(min + 1, beginWord, keyss, keys, endWord, path.ToArray(), res);
+
+          
             return res;
         }
         private void AddNext(int len, string current, List<string> keyss, List<string> keys, string endWord, string[] path, List<IList<string>> resList)
@@ -63,7 +76,7 @@ namespace leetCode._0101_0150
                                 if (len <= endWord.Length)
                                 {
                                     List<string> path1 = new List<string>(item);
-                                    
+
                                     var keyss1 = keys.Where(p => p.Contains(itemKey) && p.Length == len).ToList();
                                     AddNext(len + 1, itemNext, keyss1, keys, endWord, path1.ToArray(), resList);
                                 }
@@ -71,7 +84,7 @@ namespace leetCode._0101_0150
                                 {
                                     var paths = item.ToList();
                                     paths.Add(endWord);
-                                    resList.Add(paths);
+                                    AddPathRes(resList, paths);
                                 }
                             }
                         }
@@ -89,11 +102,52 @@ namespace leetCode._0101_0150
                         {
                             var paths = path.ToList();
                             paths.Add(endWord);
-                            resList.Add(paths);
+
+                            AddPathRes(resList, paths);
+
                         }
                     }
-                 
+
                 }
+            }
+        }
+
+        private void AddPathRes(List<IList<string>> resList, List<string> path)
+        {
+
+            if (resList.Count == 0)
+            {
+                MinCount = Math.Min(path.Count, MinCount);
+                resList.Add(path);
+            }
+            else
+            {
+
+                if (path.Count < MinCount)
+                {
+                    resList.Clear();
+                    resList.Add(path);
+                    MinCount = path.Count;
+                }
+                else
+                {
+                    if (path.Count > MinCount)
+                        return;
+                    bool bl = false;
+                    foreach (var item in resList)
+                    {
+                        if (item.SequenceEqual(path))
+                        {
+                            bl = true;
+                            break;
+                        }
+                    }
+                    if (bl == false)
+                    {
+                        resList.Add(path);
+                    }
+                }
+
             }
         }
 
@@ -195,12 +249,12 @@ namespace leetCode._0101_0150
             return false;
         }
 
-        private void DictInit(int[] lsIndex, string endWord, int[] lsIndexUsed, string[] words)
+        private void DictInit(int[] lsDiffIndex, string endWord, int[] lsIndexUsed, string[] words)
         {
-            for (int i = 0; i < lsIndex.Length; i++)
+            for (int i = 0; i < lsDiffIndex.Length; i++)
             {
                 var arr = lsIndexUsed.ToList();
-                int index = lsIndex[i];
+                int index = lsDiffIndex[i];
 
                 arr.Add(index);
                 arr.Sort();
@@ -253,7 +307,7 @@ namespace leetCode._0101_0150
                 }
                 if (listWord.Count < words.Length)
                 {
-                    var newArr = lsIndex.Where(p => p != index).ToArray();
+                    var newArr = lsDiffIndex.Where(p => p != index).ToArray();
 
                     DictInit(newArr, endWord, arr.ToArray(), listWord.ToArray());
                 }
