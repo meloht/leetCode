@@ -38,6 +38,14 @@ namespace TestLeetCode._0101_0150
             int res = alg.MaxPathSum(tree);
             Assert.AreEqual(3, res);
         }
+        [TestMethod]
+        public void TestCase04()
+        {
+            int?[] arr = [5, 4, 8, 11, null, 13, 4, 7, 2, null, null, null, 1];
+            var tree = Utils.BuildTree(arr);
+            int res = alg.MaxPathSum(tree);
+            Assert.AreEqual(48, res);
+        }
 
     }
 }

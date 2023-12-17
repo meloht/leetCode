@@ -8,22 +8,40 @@ namespace leetCode._0101_0150
 {
     public class _124_BinaryTreeMaximumPathSumAlg
     {
-        int pre = 0, maxAns = int.MinValue;
+        int maxAns = int.MinValue;
         public int MaxPathSum(TreeNode root)
         {
+            if (root == null)
+                return 0;
             Inorder(root);
             return maxAns;
         }
 
-        private void Inorder(TreeNode root)
+        private int Inorder(TreeNode root)
         {
             if (root == null)
-                return;
-            Inorder(root.left);
-            pre = Math.Max(pre + root.val, root.val);
-            System.Diagnostics.Debug.WriteLine(root.val);
-            maxAns = Math.Max(maxAns, pre);
-            Inorder(root.right);
+                return 0;
+            int currentPre = root.val;
+
+            var leftAns = Inorder(root.left);
+            int tem1 = leftAns + root.val;
+            if (tem1 > currentPre)
+            {
+                currentPre = tem1;
+            }
+
+            var rightAns = Inorder(root.right);
+
+            int tem2 = rightAns + root.val;
+            if (tem2 > root.val)
+            {
+                currentPre = Math.Max(tem2, currentPre);
+            }
+            int total = Math.Max(currentPre, tem1 + rightAns);
+            maxAns = Math.Max(maxAns, total);
+
+            return currentPre;
         }
+
     }
 }
