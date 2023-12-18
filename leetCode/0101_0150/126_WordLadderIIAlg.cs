@@ -445,11 +445,12 @@ namespace leetCode._0101_0150
                     {
                         continue;
                     }
-                   
+
                     List<string> path = new List<string>();
                     path.Add(item);
                     List<List<string>> ress = new List<List<string>>();
-                    AddToTargetPath(item, target, path, ress);
+                    var words = dictWord[target];
+                    AddToTargetPath(item, words, path, ress);
                     dictTargetPathNext.Add(key, ress);
 
                 }
@@ -457,7 +458,7 @@ namespace leetCode._0101_0150
             return list;
         }
 
-        private void AddToTargetPath(string current, string target, List<string> list, List<List<string>> res)
+        private void AddToTargetPath(string current, HashSet<string> targets, List<string> list, List<List<string>> res)
         {
             if (list.Count >= minPathNum)
             {
@@ -473,32 +474,18 @@ namespace leetCode._0101_0150
             HashSet<string> set = new HashSet<string>(list);
             var wordList = ls.Where(p => !set.Contains(p)).ToList();
 
-            var words = wordList.Where(p => p == target).ToList();
+            var words = wordList.Where(p => targets.Contains(p)).ToList();
             if (words.Count > 0)
             {
-                List<string> path = new List<string>(list);
-                path.Add(target);
-               
-                if (path.Count < minPathNum)
+                if (list.Count >= minPathNum - 1)
                 {
-                    res.Clear();
-                    res.Add(path);
-                    minPathNum = path.Count;
+                    return;
                 }
-                else if (path.Count == minPathNum)
+                foreach ( var word in words) 
                 {
-                    res.Add(path);
-                }
-                return;
-            }
-
-            foreach (var word in wordList)
-            {
-                if (IsDiffOneChar(word, target))
-                {
-                    var path = new List<string>(list);
+                    List<string> path = new List<string>(list);
                     path.Add(word);
-                    path.Add(target);
+
                     if (path.Count < minPathNum)
                     {
                         res.Clear();
@@ -511,7 +498,7 @@ namespace leetCode._0101_0150
                     }
                     return;
                 }
-
+              
             }
 
             if (list.Count >= MinCount)
@@ -521,7 +508,7 @@ namespace leetCode._0101_0150
             foreach (var word in wordList)
             {
                 list.Add(word);
-                AddToTargetPath(word, target, list, res);
+                AddToTargetPath(word, targets, list, res);
                 list.RemoveAt(list.Count - 1);
             }
 
