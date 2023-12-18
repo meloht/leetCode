@@ -10,7 +10,7 @@ namespace leetCode._0101_0150
 {
     public class _126_WordLadderIIAlg
     {
-        private Dictionary<string, HashSet<string>> dictLen = new Dictionary<string, HashSet<string>>();
+        private Dictionary<int, HashSet<string>> dictLen = new Dictionary<int, HashSet<string>>();
         private Dictionary<string, HashSet<string>> wordDict = new Dictionary<string, HashSet<string>>();
         private int MinCount = int.MaxValue;
         public IList<IList<string>> FindLadders(string beginWord, string endWord, IList<string> wordList)
@@ -46,13 +46,13 @@ namespace leetCode._0101_0150
             List<string> path = new List<string>();
             path.Add(beginWord);
 
-            var keyss = keys.Where(p => p.Length == minLen).ToList();
+            var keyss = keys.Where(p => p == minLen).ToList();
             AddNext(minLen + 1, beginWord, keyss, keys, endWord, path.ToArray(), res);
 
 
             return res;
         }
-        private void AddNext(int len, string current, List<string> keyss, List<string> keys, string endWord, string[] path, List<IList<string>> resList)
+        private void AddNext(int len, string current, List<int> keyss, List<int> keys, string endWord, string[] path, List<IList<string>> resList)
         {
             foreach (var itemKey in keyss)
             {
@@ -72,8 +72,9 @@ namespace leetCode._0101_0150
                                 if (len <= endWord.Length)
                                 {
                                     List<string> path1 = new List<string>(item);
-
-                                    var keyss1 = keys.Where(p => p.Contains(itemKey) && p.Length == len).ToList();
+                                    if (path1.Count > MinCount)
+                                        continue;
+                                    var keyss1 = keys.Where(p => p == len).ToList();
                                     AddNext(len + 1, itemNext, keyss1, keys, endWord, path1.ToArray(), resList);
                                 }
                                 else
@@ -91,7 +92,9 @@ namespace leetCode._0101_0150
                         {
                             List<string> pathChild = new List<string>(path);
                             pathChild.Add(itemNext);
-                            var keyss1 = keys.Where(p => p.Contains(itemKey) && p.Length == len).ToList();
+                            if (pathChild.Count > MinCount)
+                                continue;
+                            var keyss1 = keys.Where(p => p == len).ToList();
                             AddNext(len + 1, itemNext, keyss1, keys, endWord, pathChild.ToArray(), resList);
                         }
                         else
@@ -108,11 +111,6 @@ namespace leetCode._0101_0150
             }
         }
 
-
-        private void Wfs()
-        {
-            
-        }
 
         private void AddPathRes(List<IList<string>> resList, List<string> path)
         {
@@ -259,7 +257,6 @@ namespace leetCode._0101_0150
                 int index = lsDiffIndex[i];
 
                 arr.Add(index);
-                arr.Sort();
                 HashSet<int> list = new HashSet<int>(arr);
                 HashSet<string> listWord = new HashSet<string>();
                 foreach (var item in words)
@@ -294,13 +291,12 @@ namespace leetCode._0101_0150
                     }
                     if (count == endWord.Length)
                     {
-                        string key = string.Join("", arr);
-                        minLen = Math.Min(minLen, key.Length);
-                        if (!dictLen.ContainsKey(key))
+                        minLen = Math.Min(minLen, arr.Count);
+                        if (!dictLen.ContainsKey(arr.Count))
                         {
-                            dictLen.Add(key, new HashSet<string>());
+                            dictLen.Add(arr.Count, new HashSet<string>());
                         }
-                        var set = dictLen[key];
+                        var set = dictLen[arr.Count];
                         if (!set.Contains(item))
                         {
                             set.Add(item);

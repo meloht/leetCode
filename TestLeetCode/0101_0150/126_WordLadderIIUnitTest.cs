@@ -74,5 +74,20 @@ namespace TestLeetCode._0101_0150
             bool bl = Utils.IsSameList(res, exp);
             Assert.IsTrue(bl);
         }
+
+        [TestMethod]
+        public void TestCase06()
+        {
+            string beginWord = "qa";
+            string endWord = "sq";
+            string[] wordList = ["si", "go", "se", "cm", "so", "ph", "mt", "db", "mb", "sb", "kr", "ln", "tm", "le", "av", "sm", "ar", "ci", "ca", "br", "ti", "ba", "to", "ra", "fa", "yo", "ow", "sn", "ya", "cr", "po", "fe", "ho", "ma", "re", "or", "rn", "au", "ur", "rh", "sr", "tc", "lt", "lo", "as", "fr", "nb", "yb", "if", "pb", "ge", "th", "pm", "rb", "sh", "co", "ga", "li", "ha", "hz", "no", "bi", "di", "hi", "qa", "pi", "os", "uh", "wm", "an", "me", "mo", "na", "la", "st", "er", "sc", "ne", "mn", "mi", "am", "ex", "pt", "io", "be", "fm", "ta", "tb", "ni", "mr", "pa", "he", "lr", "sq", "ye"];
+            var res = alg.FindLadders(beginWord, endWord, wordList);
+            string[][] exp =
+                [["red", "ted", "tad", "tax"],
+                    ["red", "ted", "tex", "tax"],
+                    ["red", "rex", "tex", "tax"]];
+            //bool bl = Utils.IsSameList(res, exp);
+           // Assert.IsTrue(bl);
+        }
     }
 }
