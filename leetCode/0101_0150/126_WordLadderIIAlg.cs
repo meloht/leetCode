@@ -58,7 +58,7 @@ namespace leetCode._0101_0150
         }
         private void AddNext(int len, string current, List<int> keys, string endWord, string[] path, List<IList<string>> resList)
         {
-            if (path.Length > MinCount)
+            if (path.Length >= MinCount)
                 return;
             if (len > endWord.Length)
                 return;
@@ -75,7 +75,7 @@ namespace leetCode._0101_0150
                         var paths = path.ToList();
                         paths.Add(endWord);
                         if (paths.Count > MinCount)
-                            continue;
+                            break;
                         AddPathRes(resList, paths);
                     }
                     else
@@ -83,18 +83,19 @@ namespace leetCode._0101_0150
                         List<string> pathChild = new List<string>(path);
                         pathChild.Add(word);
                         if (pathChild.Count > MinCount)
-                            continue;
+                            break;
                         AddNext(len + 1, word, keys, endWord, pathChild.ToArray(), resList);
                     }
 
                 }
                 else
                 {
-
                     foreach (var nextTarget in nextList)
                     {
                         List<string> pathChild = new List<string>(path);
                         pathChild.Add(word);
+                        if (pathChild.Count > MinCount)
+                            break;
                         List<string[]> ress = new List<string[]>();
                         AddPath(word, nextTarget, pathChild, ress);
                        
@@ -105,14 +106,14 @@ namespace leetCode._0101_0150
                                 if (len < endWord.Length)
                                 {
                                     if (item.Length > MinCount)
-                                        continue;
+                                        break;
                                     List<string> path1 = new List<string>(item);
                                     AddNext(len + 1, nextTarget, keys, endWord, path1.ToArray(), resList);
                                 }
                                 else
                                 {
                                     if (item.Length > MinCount)
-                                        continue;
+                                        break;
                                     var paths = item.ToList();
                                     if (nextTarget == endWord)
                                     {
