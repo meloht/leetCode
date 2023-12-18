@@ -11,7 +11,7 @@ namespace leetCode._0101_0150
     public class _126_WordLadderIIAlg
     {
         private Dictionary<int, HashSet<string>> dictLen = new Dictionary<int, HashSet<string>>();
-        private Dictionary<string, HashSet<string>> wordDict = new Dictionary<string, HashSet<string>>();
+        private Dictionary<string, HashSet<string>> dictWord = new Dictionary<string, HashSet<string>>();
         private int MinCount = int.MaxValue;
         public IList<IList<string>> FindLadders(string beginWord, string endWord, IList<string> wordList)
         {
@@ -38,46 +38,75 @@ namespace leetCode._0101_0150
             if (dictLen.Count == 0)
                 return res;
 
-            InitNextWordsDict(wordList);
+            var wordListVal = wordList.ToList();
+            bool bl = !wordListVal.Contains(beginWord);
+            if (bl)
+            {
+                wordListVal.Add(beginWord);
+            }
+            InitNextWordsDict(wordListVal);
 
             var keys = dictLen.Keys.ToList();
-
 
             List<string> path = new List<string>();
             path.Add(beginWord);
 
-            var keyss = keys.Where(p => p == minLen).ToList();
-            AddNext(minLen + 1, beginWord, keyss, keys, endWord, path.ToArray(), res);
+            AddNext(minLen, beginWord, keys, endWord, path.ToArray(), res);
 
 
             return res;
         }
-        private void AddNext(int len, string current, List<int> keyss, List<int> keys, string endWord, string[] path, List<IList<string>> resList)
+        private void AddNext(int len, string current, List<int> keys, string endWord, string[] path, List<IList<string>> resList)
         {
             if (path.Length > MinCount)
                 return;
-            foreach (var itemKey in keyss)
+            if (len > endWord.Length)
+                return;
+            var keysNext = keys.Where(p => p == len).ToList();
+            var nexts = dictWord[current];
+            var nextList = GetDictNextList(keysNext);
+            var mergeList = MergePath(nexts, nextList);
+            foreach (string word in mergeList)
             {
-                var nexts = dictLen[itemKey];
-                foreach (var itemNext in nexts)
+                if (nextList.Contains(word))
                 {
-                    if (!IsDiffOneChar(current, itemNext))
+                    if (len == endWord.Length && word==endWord)
+                    {
+                        var paths = path.ToList();
+                        paths.Add(endWord);
+                        if (paths.Count > MinCount)
+                            continue;
+                        AddPathRes(resList, paths);
+                    }
+                    else
+                    {
+                        List<string> pathChild = new List<string>(path);
+                        pathChild.Add(word);
+                        if (pathChild.Count > MinCount)
+                            continue;
+                        AddNext(len + 1, word, keys, endWord, pathChild.ToArray(), resList);
+                    }
+                   
+                }
+                else
+                {
+                    foreach (var nextTarget in nextList)
                     {
                         List<string> pathChild = new List<string>(path);
                         List<string[]> ress = new List<string[]>();
-                        AddPath(current, itemNext, pathChild, ress);
+                        AddPath(word, nextTarget, pathChild, ress);
 
                         if (ress.Count > 0)
                         {
                             foreach (var item in ress)
                             {
-                                if (len <= endWord.Length)
+                                if (len < endWord.Length)
                                 {
                                     List<string> path1 = new List<string>(item);
                                     if (path1.Count > MinCount)
                                         continue;
-                                    var keyss1 = keys.Where(p => p == len).ToList();
-                                    AddNext(len + 1, itemNext, keyss1, keys, endWord, path1.ToArray(), resList);
+
+                                    AddNext(len + 1, nextTarget, keys, endWord, path1.ToArray(), resList);
                                 }
                                 else
                                 {
@@ -90,32 +119,55 @@ namespace leetCode._0101_0150
                             }
                         }
                     }
-                    else
-                    {
-                        if (len <= endWord.Length)
-                        {
-                            List<string> pathChild = new List<string>(path);
-                            pathChild.Add(itemNext);
-                            if (pathChild.Count > MinCount)
-                                continue;
-                            var keyss1 = keys.Where(p => p == len).ToList();
-                            AddNext(len + 1, itemNext, keyss1, keys, endWord, pathChild.ToArray(), resList);
-                        }
-                        else
-                        {
-                            var paths = path.ToList();
-                            paths.Add(endWord);
-                            if (paths.Count > MinCount)
-                                continue;
-                            AddPathRes(resList, paths);
-
-                        }
-                    }
-
+                   
                 }
             }
+          
         }
 
+
+      
+        private List<string> MergePath(HashSet<string> nexts, HashSet<string> targetList)
+        {
+            List<string> listTarget = new List<string>();
+            List<string> list = new List<string>();
+            foreach (var item in nexts)
+            {
+                list.Add(item);
+                if (targetList.Contains(item))
+                {
+                    listTarget.Add(item);
+                }
+            }
+            if (listTarget.Count > 0)
+                return listTarget;
+
+            return list;
+        }
+        private HashSet<string> GetDictNextList(List<int> keys)
+        {
+            HashSet<string> res = null;
+            foreach (int key in keys)
+            {
+                var ls = dictLen[key];
+                if (res == null)
+                {
+                    res = ls;
+                }
+                else
+                {
+                    foreach (var item in ls)
+                    {
+                        if (!res.Contains(item))
+                        {
+                            res.Add(item);
+                        }
+                    }
+                }
+
+            }
+            return res;
+        }
 
         private void AddPathRes(List<IList<string>> resList, List<string> path)
         {
@@ -157,11 +209,11 @@ namespace leetCode._0101_0150
 
         private void AddPath(string current, string target, List<string> list, List<string[]> res)
         {
-            if (!wordDict.ContainsKey(current))
+            if (!dictWord.ContainsKey(current))
             {
                 return;
             }
-            var ls = wordDict[current];
+            var ls = dictWord[current];
             HashSet<string> set = new HashSet<string>(list);
             var ws = ls.Where(p => !set.Contains(p)).ToList();
             foreach (var word in ws)
@@ -203,7 +255,7 @@ namespace leetCode._0101_0150
                     }
                 }
 
-                wordDict.Add(word, ls);
+                dictWord.Add(word, ls);
             }
 
         }
