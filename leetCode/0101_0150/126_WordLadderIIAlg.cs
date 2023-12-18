@@ -35,7 +35,7 @@ namespace leetCode._0101_0150
                 }
             }
             var words = wordList.ToList();
-            words.Sort();
+
             int minLen = DictInit(lsDiffIndex.ToArray(), endWord, lsSameIndex.ToArray(), words.ToArray());
 
             if (dictLen.Count == 0)
@@ -52,9 +52,8 @@ namespace leetCode._0101_0150
             DictNextWordPath(beginWord, minLen);
             List<string> path = new List<string>();
             path.Add(beginWord);
-            
-            // AddNext(minLen, beginWord, endWord, path.ToArray(), res);
 
+            AddNext(minLen, beginWord, endWord, path.ToArray(), res);
 
             return res;
         }
@@ -69,16 +68,7 @@ namespace leetCode._0101_0150
             if (dictTargetNext.ContainsKey(current))
             {
                 nextListWord = dictTargetNext[current];
-            }
-            else
-            {
-                var nexts = dictWord[current];
-                nextListWord = MergePath(nexts, nextList);
-            }
-
-            foreach (string word in nextListWord)
-            {
-                if (nextList.Contains(word))
+                foreach (string word in nextListWord)
                 {
                     if (len == endWord.Length && word == endWord)
                     {
@@ -96,66 +86,53 @@ namespace leetCode._0101_0150
                             break;
                         AddNext(len + 1, word, endWord, pathChild.ToArray(), resList);
                     }
-
                 }
-                else
+
+            }
+            else
+            {
+
+                foreach (var target in nextList)
                 {
-                    foreach (var nextTarget in nextList)
+                    string key = $"{current}-{target}";
+                    if (!dictTargetPathNext.ContainsKey(key))
                     {
-                        if (path.Length == MinCount)
-                            break;
-                        List<string> pathChild = new List<string>(path);
-                        pathChild.Add(word);
+                        List<List<string>> ress = new List<List<string>>();
+                        AddToTargetPathWfs(current, target, ress);
+                        dictTargetPathNext.Add(key, ress);
+                    }
+                    if (!dictTargetPathNext.ContainsKey(key))
+                        continue;
 
-                        List<string[]> ress = new List<string[]>();
-                        AddPath(word, nextTarget, pathChild, ress);
+                    List<List<string>> nextPath = dictTargetPathNext[key];
 
-                        if (ress.Count > 0)
+                    foreach (var item in nextPath)
+                    {
+                        List<string> pathList = new List<string>(path);
+                        pathList.AddRange(item);
+                        if (len < endWord.Length)
                         {
-                            foreach (var item in ress)
+                            if (pathList.Count > MinCount)
+                                break;
+
+                            AddNext(len + 1, target, endWord, pathList.ToArray(), resList);
+                        }
+                        else
+                        {
+                            if (pathList.Count > MinCount)
+                                break;
+                            var paths = pathList.ToList();
+                            if (target == endWord)
                             {
-                                if (len < endWord.Length)
-                                {
-                                    if (item.Length > MinCount)
-                                        break;
-                                    List<string> path1 = new List<string>(item);
-                                    AddNext(len + 1, nextTarget, endWord, path1.ToArray(), resList);
-                                }
-                                else
-                                {
-                                    if (item.Length > MinCount)
-                                        break;
-                                    var paths = item.ToList();
-                                    if (nextTarget == endWord)
-                                    {
-                                        AddPathRes(resList, paths);
-                                    }
-                                }
+                                AddPathRes(resList, paths);
                             }
                         }
                     }
 
                 }
+
             }
 
-        }
-
-        private List<string> MergePath(HashSet<string> nexts, HashSet<string> targetList)
-        {
-            List<string> listTarget = new List<string>();
-            List<string> list = new List<string>();
-            foreach (var item in nexts)
-            {
-                list.Add(item);
-                if (targetList.Contains(item))
-                {
-                    listTarget.Add(item);
-                }
-            }
-            if (listTarget.Count > 0)
-                return listTarget;
-
-            return list;
         }
 
         private void AddPathRes(List<IList<string>> resList, List<string> path)
@@ -195,66 +172,6 @@ namespace leetCode._0101_0150
             }
         }
 
-        private void AddPath(string current, string target, List<string> list, List<string[]> res)
-        {
-            if (list.Count >= MinCount)
-            {
-                return;
-            }
-            if (!dictWord.ContainsKey(current))
-            {
-                return;
-            }
-            if (res.Count > 0)
-            {
-                return;
-            }
-            var ls = dictWord[current];
-
-            HashSet<string> set = new HashSet<string>(list);
-            var wordList = ls.Where(p => !set.Contains(p)).ToList();
-
-            var words = wordList.Where(p => p == target).ToList();
-            if (words.Count > 0)
-            {
-                List<string> path = new List<string>(list);
-                path.Add(target);
-                res.Add(path.ToArray());
-                return;
-            }
-
-            foreach (var word in wordList)
-            {
-                if (IsDiffOneChar(word, target))
-                {
-                    var path = new List<string>(list);
-                    path.Add(word);
-                    path.Add(target);
-                    res.Add(path.ToArray());
-
-                    return;
-                }
-
-            }
-
-            if (res.Count > 0)
-            {
-                return;
-            }
-            if (list.Count >= MinCount)
-            {
-                return;
-            }
-            foreach (var word in wordList)
-            {
-                list.Add(word);
-
-                AddPath(word, target, list, res);
-                list.RemoveAt(list.Count - 1);
-            }
-
-        }
-
         private void InitNextWordsDict(IList<string> wordList)
         {
             foreach (var word in wordList)
@@ -278,15 +195,6 @@ namespace leetCode._0101_0150
 
         }
 
-        private bool IsDiffOneChar(string s1, string s2)
-        {
-            for (int i = 0; i < s1.Length; i++)
-            {
-                if (IsDiffOneChar(s1, s2, i))
-                    return true;
-            }
-            return false;
-        }
         private bool IsDiffOneChar(string s1, string s2, int index)
         {
             int count = 0;
@@ -401,7 +309,10 @@ namespace leetCode._0101_0150
             var nextList = dictLen[len];
             var mergeList = MergeNextPath(nexts, nextList);
 
-            dictTargetNext.Add(beginWord, mergeList);
+            if (mergeList != null)
+            {
+                dictTargetNext.Add(beginWord, mergeList);
+            }
 
             for (int i = len; i < beginWord.Length; i++)
             {
@@ -413,20 +324,20 @@ namespace leetCode._0101_0150
                 {
                     var targets = dictWord[target];
                     var mergeListNext = MergeNextPath(targets, targetListNext);
-                    dictTargetNext.Add(target, mergeListNext);
+                    if (mergeListNext != null)
+                    {
+                        dictTargetNext.Add(target, mergeListNext);
+                    }
                 }
             }
 
 
         }
-        private int minPathNum = int.MaxValue;
         private List<string> MergeNextPath(HashSet<string> nexts, HashSet<string> targetList)
         {
             List<string> listTarget = new List<string>();
-            List<string> list = new List<string>();
             foreach (var item in nexts)
             {
-                list.Add(item);
                 if (targetList.Contains(item))
                 {
                     listTarget.Add(item);
@@ -434,112 +345,86 @@ namespace leetCode._0101_0150
             }
             if (listTarget.Count > 0)
                 return listTarget;
-
-            minPathNum = int.MaxValue;
-            if (nexts.Count < targetList.Count)
-            {
-                foreach (var item in nexts)
-                {
-                    foreach (var target in targetList)
-                    {
-                        string key = $"{item}-{target}";
-                        if (dictTargetPathNext.ContainsKey(key))
-                        {
-                            continue;
-                        }
-
-                        List<string> path = new List<string>();
-                        path.Add(item);
-                        List<List<string>> ress = new List<List<string>>();
-                        var words = dictWord[target];
-                        AddToTargetPath(item, words, path, ress);
-                        dictTargetPathNext.Add(key, ress);
-
-                    }
-                }
-            }
-            else
-            {
-                foreach (var item in targetList)
-                {
-                    foreach (var target in nexts)
-                    {
-                        string key = $"{target}-{item}";
-                        if (dictTargetPathNext.ContainsKey(key))
-                        {
-                            continue;
-                        }
-
-                        List<string> path = new List<string>();
-                        path.Add(item);
-                        List<List<string>> ress = new List<List<string>>();
-                        var words = dictWord[target];
-                        AddToTargetPath(item, words, path, ress);
-                        dictTargetPathNext.Add(key, ress);
-
-                    }
-                }
-            }
-           
-            return list;
+            GetPathNext(nexts, targetList);
+            return null;
         }
-
-        private void AddToTargetPath(string current, HashSet<string> targets, List<string> list, List<List<string>> res)
+        private void GetPathNext(HashSet<string> nexts, HashSet<string> targetList)
         {
-            if (list.Count >= minPathNum)
+            foreach (var item in nexts)
             {
-                return;
-            }
-            if (!dictWord.ContainsKey(current))
-            {
-                return;
-            }
-
-            var ls = dictWord[current];
-
-            HashSet<string> set = new HashSet<string>(list);
-            var wordList = ls.Where(p => !set.Contains(p)).ToList();
-
-            var words = wordList.Where(p => targets.Contains(p)).ToList();
-            if (words.Count > 0)
-            {
-                if (list.Count >= minPathNum - 1)
+                foreach (var target in targetList)
                 {
-                    return;
-                }
-                foreach ( var word in words) 
-                {
-                    List<string> path = new List<string>(list);
-                    path.Add(word);
-
-                    if (path.Count < minPathNum)
+                    string key = $"{item}-{target}";
+                    if (!dictTargetPathNext.ContainsKey(key))
                     {
-                        res.Clear();
-                        res.Add(path);
-                        minPathNum = path.Count;
+                        List<List<string>> ress = new List<List<string>>();
+                        AddToTargetPathWfs(item, target, ress);
+                        dictTargetPathNext.Add(key, ress);
                     }
-                    else if (path.Count == minPathNum)
-                    {
-                        res.Add(path);
-                    }
-                    return;
+
                 }
-              
-            }
 
-            if (list.Count >= MinCount)
-            {
-                return;
             }
-            foreach (var word in wordList)
-            {
-                list.Add(word);
-                AddToTargetPath(word, targets, list, res);
-                list.RemoveAt(list.Count - 1);
-            }
-
         }
 
+        private void AddToTargetPathWfs(string current, string target, List<List<string>> res)
+        {
+            int numLen = int.MaxValue;
+            List<string> list = new List<string>();
+            list.Add(current);
+            Queue<NodeData> queue = new Queue<NodeData>();
+            NodeData nodeFirst = new NodeData();
+            nodeFirst.word = current;
+           
+            HashSet<string> used = new HashSet<string>();
+            queue.Enqueue(nodeFirst);
+            while (queue.Count > 0)
+            {
+                int count = queue.Count;
+                for (int i = 0; i < count; i++)
+                {
+                    var node = queue.Dequeue();
+                    var next = dictWord[node.word];
+
+                    var words = next.Where(p => !used.Contains(p)).ToList();
+                    foreach (var item in words)
+                    {
+                        if (target == item)
+                        {
+                            List<string> ls = new List<string>(node.PathList);
+                            ls.Add(target);
+                            if (ls.Count < numLen)
+                            {
+                                res.Clear();
+                                numLen = ls.Count;
+                                res.Add(ls);
+                            }
+                            else if (ls.Count == numLen)
+                            {
+                                res.Add(ls);
+                            }
+
+                        }
+                        else
+                        {
+                            NodeData nodeNext = new NodeData();
+                            nodeNext.PathList = new List<string>(node.PathList);
+                            nodeNext.word = item;
+                            nodeNext.PathList.Add(item);
+                            queue.Enqueue(nodeNext);
+                            used.Add(item);
+                        }
+                    }
+
+
+                }
+            }
+        }
+        class NodeData
+        {
+            public string word;
+            public List<string> PathList = new List<string>();
+        }
 
 
     }
