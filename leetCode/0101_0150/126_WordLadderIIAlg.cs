@@ -70,7 +70,7 @@ namespace leetCode._0101_0150
             {
                 if (nextList.Contains(word))
                 {
-                    if (len == endWord.Length && word==endWord)
+                    if (len == endWord.Length && word == endWord)
                     {
                         var paths = path.ToList();
                         paths.Add(endWord);
@@ -86,47 +86,48 @@ namespace leetCode._0101_0150
                             continue;
                         AddNext(len + 1, word, keys, endWord, pathChild.ToArray(), resList);
                     }
-                   
+
                 }
                 else
                 {
+
                     foreach (var nextTarget in nextList)
                     {
                         List<string> pathChild = new List<string>(path);
+                        pathChild.Add(word);
                         List<string[]> ress = new List<string[]>();
                         AddPath(word, nextTarget, pathChild, ress);
-
+                       
                         if (ress.Count > 0)
                         {
                             foreach (var item in ress)
                             {
                                 if (len < endWord.Length)
                                 {
-                                    List<string> path1 = new List<string>(item);
-                                    if (path1.Count > MinCount)
+                                    if (item.Length > MinCount)
                                         continue;
-
+                                    List<string> path1 = new List<string>(item);
                                     AddNext(len + 1, nextTarget, keys, endWord, path1.ToArray(), resList);
                                 }
                                 else
                                 {
-                                    var paths = item.ToList();
-                                    paths.Add(endWord);
-                                    if (paths.Count > MinCount)
+                                    if (item.Length > MinCount)
                                         continue;
-                                    AddPathRes(resList, paths);
+                                    var paths = item.ToList();
+                                    if (nextTarget == endWord)
+                                    {
+                                        AddPathRes(resList, paths);
+                                    }
                                 }
                             }
                         }
                     }
-                   
+
                 }
             }
-          
+
         }
 
-
-      
         private List<string> MergePath(HashSet<string> nexts, HashSet<string> targetList)
         {
             List<string> listTarget = new List<string>();
@@ -178,7 +179,6 @@ namespace leetCode._0101_0150
             }
             else
             {
-
                 if (path.Count < MinCount)
                 {
                     resList.Clear();
@@ -209,28 +209,58 @@ namespace leetCode._0101_0150
 
         private void AddPath(string current, string target, List<string> list, List<string[]> res)
         {
+            if (list.Count >= MinCount)
+            {
+                return;
+            }
             if (!dictWord.ContainsKey(current))
             {
                 return;
             }
+            if (res.Count > 0)
+            {
+                return;
+            }
             var ls = dictWord[current];
+
             HashSet<string> set = new HashSet<string>(list);
-            var ws = ls.Where(p => !set.Contains(p)).ToList();
-            foreach (var word in ws)
+            var wordList = ls.Where(p => !set.Contains(p)).ToList();
+
+            var words = wordList.Where(p => p == target).ToList();
+            if (words.Count > 0)
+            {
+                List<string> path = new List<string>(list);
+                path.Add(target);
+                res.Add(path.ToArray());
+                return;
+            }
+
+            foreach (var word in wordList)
             {
                 if (IsDiffOneChar(word, target))
                 {
-                    list.Add(word);
-                    list.Add(target);
-                    res.Add(list.ToArray());
-                    list.RemoveAt(list.Count - 1);
-                    list.RemoveAt(list.Count - 1);
+                    var path = new List<string>(list);
+                    path.Add(word);
+                    path.Add(target);
+                    res.Add(path.ToArray());
+
                     return;
                 }
+
             }
-            foreach (var word in ws)
+
+            if (res.Count > 0)
+            {
+                return;
+            }
+            if (list.Count >= MinCount)
+            {
+                return;
+            }
+            foreach (var word in wordList)
             {
                 list.Add(word);
+              
                 AddPath(word, target, list, res);
                 list.RemoveAt(list.Count - 1);
             }
