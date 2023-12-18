@@ -52,8 +52,8 @@ namespace leetCode._0101_0150
             DictNextWordPath(beginWord, minLen);
             List<string> path = new List<string>();
             path.Add(beginWord);
-
-            AddNext(minLen, beginWord, endWord, path.ToArray(), res);
+            
+            // AddNext(minLen, beginWord, endWord, path.ToArray(), res);
 
 
             return res;
@@ -436,25 +436,51 @@ namespace leetCode._0101_0150
                 return listTarget;
 
             minPathNum = int.MaxValue;
-            foreach (var item in list)
+            if (nexts.Count < targetList.Count)
             {
-                foreach (var target in targetList)
+                foreach (var item in nexts)
                 {
-                    string key = $"{item}-{target}";
-                    if (dictTargetPathNext.ContainsKey(key))
+                    foreach (var target in targetList)
                     {
-                        continue;
+                        string key = $"{item}-{target}";
+                        if (dictTargetPathNext.ContainsKey(key))
+                        {
+                            continue;
+                        }
+
+                        List<string> path = new List<string>();
+                        path.Add(item);
+                        List<List<string>> ress = new List<List<string>>();
+                        var words = dictWord[target];
+                        AddToTargetPath(item, words, path, ress);
+                        dictTargetPathNext.Add(key, ress);
+
                     }
-
-                    List<string> path = new List<string>();
-                    path.Add(item);
-                    List<List<string>> ress = new List<List<string>>();
-                    var words = dictWord[target];
-                    AddToTargetPath(item, words, path, ress);
-                    dictTargetPathNext.Add(key, ress);
-
                 }
             }
+            else
+            {
+                foreach (var item in targetList)
+                {
+                    foreach (var target in nexts)
+                    {
+                        string key = $"{target}-{item}";
+                        if (dictTargetPathNext.ContainsKey(key))
+                        {
+                            continue;
+                        }
+
+                        List<string> path = new List<string>();
+                        path.Add(item);
+                        List<List<string>> ress = new List<List<string>>();
+                        var words = dictWord[target];
+                        AddToTargetPath(item, words, path, ress);
+                        dictTargetPathNext.Add(key, ress);
+
+                    }
+                }
+            }
+           
             return list;
         }
 
