@@ -54,6 +54,8 @@ namespace leetCode._0101_0150
         }
         private void AddNext(int len, string current, List<int> keyss, List<int> keys, string endWord, string[] path, List<IList<string>> resList)
         {
+            if (path.Length > MinCount)
+                return;
             foreach (var itemKey in keyss)
             {
                 var nexts = dictLen[itemKey];
@@ -81,6 +83,8 @@ namespace leetCode._0101_0150
                                 {
                                     var paths = item.ToList();
                                     paths.Add(endWord);
+                                    if (paths.Count > MinCount)
+                                        continue;
                                     AddPathRes(resList, paths);
                                 }
                             }
@@ -101,7 +105,8 @@ namespace leetCode._0101_0150
                         {
                             var paths = path.ToList();
                             paths.Add(endWord);
-
+                            if (paths.Count > MinCount)
+                                continue;
                             AddPathRes(resList, paths);
 
                         }
