@@ -120,6 +120,7 @@ namespace leetCode._0101_0150
                 {
                     if (path.Count > MinCount)
                         return;
+                   
                     bool bl = false;
                     foreach (var item in resList)
                     {
