@@ -362,6 +362,7 @@ namespace leetCode._0101_0150
         {
             public string word;
             public List<string> PathList = new List<string>();
+            
         }
 
 
