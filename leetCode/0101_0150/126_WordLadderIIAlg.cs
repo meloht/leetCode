@@ -12,7 +12,6 @@ namespace leetCode._0101_0150
     {
         private Dictionary<int, HashSet<string>> dictLen = new Dictionary<int, HashSet<string>>();
         private Dictionary<string, HashSet<string>> dictWord = new Dictionary<string, HashSet<string>>();
-        private Dictionary<string, List<string>> dictTargetNext = new Dictionary<string, List<string>>();
         private Dictionary<string, List<List<string>>> dictTargetPathNext = new Dictionary<string, List<List<string>>>();
         private int MinCount = int.MaxValue;
         int numLen = int.MaxValue;
@@ -64,69 +63,41 @@ namespace leetCode._0101_0150
                 return;
             if (len > endWord.Length)
                 return;
-            List<string> nextListWord;
+
             var nextList = dictLen[len];
-            if (dictTargetNext.ContainsKey(current))
+            foreach (var target in nextList)
             {
-                nextListWord = dictTargetNext[current];
-                foreach (string word in nextListWord)
+                string key = $"{current}-{target}";
+                if (!dictTargetPathNext.ContainsKey(key))
+                    continue;
+
+                List<List<string>> nextPath = dictTargetPathNext[key];
+
+                foreach (var item in nextPath)
                 {
-                    if (len == endWord.Length && word == endWord)
+                    List<string> pathList = new List<string>(path);
+                    pathList.AddRange(item);
+                    if (len < endWord.Length)
                     {
-                        var paths = path.ToList();
-                        paths.Add(endWord);
-                        if (paths.Count > MinCount)
+                        if (pathList.Count > MinCount)
                             break;
-                        AddPathRes(resList, paths);
+
+                        AddNext(len + 1, target, endWord, pathList.ToArray(), resList);
                     }
                     else
                     {
-                        List<string> pathChild = new List<string>(path);
-                        pathChild.Add(word);
-                        if (pathChild.Count > MinCount)
+                        if (pathList.Count > MinCount)
                             break;
-                        AddNext(len + 1, word, endWord, pathChild.ToArray(), resList);
+                        var paths = pathList.ToList();
+                        if (target == endWord)
+                        {
+                            AddPathRes(resList, paths);
+                        }
                     }
                 }
 
             }
-            else
-            {
-
-                foreach (var target in nextList)
-                {
-                    string key = $"{current}-{target}";
-                    if (!dictTargetPathNext.ContainsKey(key))
-                        continue;
-
-                    List<List<string>> nextPath = dictTargetPathNext[key];
-
-                    foreach (var item in nextPath)
-                    {
-                        List<string> pathList = new List<string>(path);
-                        pathList.AddRange(item);
-                        if (len < endWord.Length)
-                        {
-                            if (pathList.Count > MinCount)
-                                break;
-
-                            AddNext(len + 1, target, endWord, pathList.ToArray(), resList);
-                        }
-                        else
-                        {
-                            if (pathList.Count > MinCount)
-                                break;
-                            var paths = pathList.ToList();
-                            if (target == endWord)
-                            {
-                                AddPathRes(resList, paths);
-                            }
-                        }
-                    }
-
-                }
-
-            }
+            
 
         }
 
@@ -300,38 +271,30 @@ namespace leetCode._0101_0150
 
         private void DictNextWordPath(string beginWord, int len)
         {
-            var nexts = dictWord[beginWord];
-            var nextList = dictLen[len];
-            var mergeList = MergeNextPath(nexts, nextList);
             Queue<string> queue = new Queue<string>();
-            if (mergeList != null)
-            {
-                dictTargetNext.Add(beginWord, mergeList);
-                foreach (var item in mergeList)
-                {
-                    queue.Enqueue(item);
-                }
-            }
-           
-            len++;
+            queue.Enqueue(beginWord);
+
             while (queue.Count > 0 && len <= beginWord.Length)
             {
                 var targetList = dictLen[len];
                 int count = queue.Count;
-                numLen = int.MaxValue;
+               
                 for (int i = 0; i < count; i++)
                 {
                     var word = queue.Dequeue();
+                  
                     foreach (var target in targetList)
                     {
                         string key = $"{word}-{target}";
+                       
                         if (!dictTargetPathNext.ContainsKey(key))
                         {
                             List<List<string>> ress = new List<List<string>>();
                             AddToTargetPathWfs(word, target, ress);
-                            dictTargetPathNext.Add(key, ress);
+
                             if (ress.Count > 0)
                             {
+                                dictTargetPathNext.Add(key, ress);
                                 queue.Enqueue(target);
                             }
                         }
@@ -341,54 +304,14 @@ namespace leetCode._0101_0150
             }
         }
 
-        private List<string> MergeNextPath(HashSet<string> nexts, HashSet<string> targetList)
-        {
-            List<string> ls = new List<string>();
-            List<string> listTarget = new List<string>();
-            foreach (var item in nexts)
-            {
-                if (targetList.Contains(item))
-                {
-                    listTarget.Add(item);
-                }
-                ls.Add(item);
-            }
-            if (listTarget.Count > 0)
-                return listTarget;
-           
-            GetPathNext(nexts, targetList);
-            return ls;
-        }
-        private void GetPathNext(HashSet<string> nexts, HashSet<string> targetList)
-        {
-            numLen = int.MaxValue;
-            foreach (var item in nexts)
-            {
-                foreach (var target in targetList)
-                {
-                    string key = $"{item}-{target}";
-                    if (!dictTargetPathNext.ContainsKey(key))
-                    {
-                        List<List<string>> ress = new List<List<string>>();
-                        AddToTargetPathWfs(item, target, ress);
-                        dictTargetPathNext.Add(key, ress);
-                    }
-
-                }
-
-            }
-        }
-
         private void AddToTargetPathWfs(string current, string target, List<List<string>> res)
         {
-
-            List<string> list = new List<string>();
-            list.Add(current);
             Queue<NodeData> queue = new Queue<NodeData>();
             NodeData nodeFirst = new NodeData();
             nodeFirst.word = current;
-
+            numLen = int.MaxValue;
             HashSet<string> used = new HashSet<string>();
+            used.Add(current);
             queue.Enqueue(nodeFirst);
             while (queue.Count > 0)
             {
@@ -404,7 +327,7 @@ namespace leetCode._0101_0150
                         if (target == item)
                         {
                             List<string> ls = new List<string>(node.PathList);
-                            ls.Add(target);
+                            ls.Add(item);
                             if (ls.Count < numLen)
                             {
                                 res.Clear();
