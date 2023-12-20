@@ -111,19 +111,19 @@ namespace leetCode._0101_0150
                             {
                                 wordSets.Remove(nextWord);
                             }
-                            queueBegin.Enqueue(nextWord);
-                            nextList1.Add(nextWord);
                             if (nextList2.Contains(nextWord))
                             {
                                 return stepBegin + stepEnd;
                             }
+                            queueBegin.Enqueue(nextWord);
+                            nextList1.Add(nextWord);
                         }
                         charArr[j] = origin;
                     }
 
                 }
 
-
+                nextList2.Clear();
                 int countEnd = queueEnd.Count;
 
                 for (int i = 0; i < countEnd; i++)
@@ -148,18 +148,17 @@ namespace leetCode._0101_0150
                                 wordSets.Remove(nextWord);
                             }
 
-                            queueEnd.Enqueue(nextWord);
-
                             if (nextList1.Contains(nextWord))
                             {
                                 return stepBegin + stepEnd + 1;
                             }
                             nextList2.Add(nextWord);
+                            queueEnd.Enqueue(nextWord);
                         }
                         charArr[j] = origin;
                     }
                 }
-
+                nextList1.Clear();
                 stepEnd++;
                 stepBegin++;
             }
