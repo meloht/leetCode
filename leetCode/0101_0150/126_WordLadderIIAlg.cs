@@ -373,9 +373,7 @@ namespace leetCode._0101_0150
                         for (char c = 'a'; c <= 'z'; c++)
                         {
                             charArr[j] = c;
-                            if (origin == c)
-                                continue;
-                           
+
                             string nextWord = new string(charArr);
                           
                             if (steps.ContainsKey(nextWord) && step == steps[nextWord])
