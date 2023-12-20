@@ -145,7 +145,7 @@ namespace leetCode._0101_0150
             {
                 return dictWord[word];
             }
-            List<string> ls = new List<string>();
+            HashSet<string> ls = new HashSet<string>();
             for (int i = 0; i < word.Length; i++)
             {
                 foreach (var item in wordList)
@@ -158,8 +158,9 @@ namespace leetCode._0101_0150
                     }
                 }
             }
-            dictWord.Add(word, ls);
-            return ls;
+            var list = ls.ToList();
+            dictWord.Add(word, list);
+            return list;
         }
 
         private bool IsDiffOneChar(string s1, string s2, int index)
