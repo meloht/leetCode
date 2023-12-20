@@ -15,7 +15,7 @@ namespace leetCode._0101_0150
 
         private int MinCount = int.MaxValue;
         int numLen = int.MaxValue;
-        public IList<IList<string>> FindLadders(string beginWord, string endWord, IList<string> wordList)
+        public IList<IList<string>> FindLadders1(string beginWord, string endWord, IList<string> wordList)
         {
             List<IList<string>> res = new List<IList<string>>();
             if (!wordList.Contains(endWord))
@@ -46,15 +46,15 @@ namespace leetCode._0101_0150
             {
                 words.Add(beginWord);
             }
-
+            HashSet<string> wordSet = new HashSet<string>(words);
             List<string> path = new List<string>();
             path.Add(beginWord);
 
-            AddNext(minLen, beginWord, endWord, path.ToArray(), res, wordList);
+            AddNext(minLen, beginWord, endWord, path.ToArray(), res, wordSet);
 
             return res;
         }
-        private void AddNext(int len, string current, string endWord, string[] path, List<IList<string>> resList, IList<string> wordList)
+        private void AddNext(int len, string current, string endWord, string[] path, List<IList<string>> resList, HashSet<string> wordList)
         {
             if (path.Length >= MinCount)
                 return;
@@ -140,24 +140,32 @@ namespace leetCode._0101_0150
             }
         }
 
-        private HashSet<string> GetNextWordList(string word, IList<string> wordList)
+        private HashSet<string> GetNextWordList(string word, HashSet<string> wordList)
         {
             if (dictWord.ContainsKey(word))
             {
                 return dictWord[word];
             }
+            char[] charArray = word.ToArray();
             HashSet<string> ls = new HashSet<string>();
             for (int i = 0; i < word.Length; i++)
             {
-                foreach (var item in wordList)
+                char curr = word[i];
+                for (char j = 'a'; j <= 'z'; j++)
                 {
-                    if (item == word)
-                        continue;
-                    if (IsDiffOneChar(item, word, i) && !ls.Contains(item))
+                    if (j != curr)
                     {
-                        ls.Add(item);
+                        charArray[i] = j;
+                        string ss = new string(charArray);
+                        if (wordList.Contains(ss))
+                        {
+                            ls.Add(ss);
+                        }
+
                     }
                 }
+                charArray[i] = curr;
+
             }
 
             dictWord.Add(word, ls);
@@ -271,7 +279,7 @@ namespace leetCode._0101_0150
             return minLen;
         }
 
-        private void AddToTargetPathBfs(string current, string target, List<List<string>> res, int numLen, IList<string> wordList)
+        private void AddToTargetPathBfs(string current, string target, List<List<string>> res, int numLen, HashSet<string> wordList)
         {
             Queue<NodeData> queue = new Queue<NodeData>();
             NodeData nodeFirst = new NodeData();
@@ -319,7 +327,7 @@ namespace leetCode._0101_0150
                             used.Add(item);
                         }
                     }
-                   
+
 
 
                 }
@@ -335,6 +343,101 @@ namespace leetCode._0101_0150
             }
         }
 
+        public IList<IList<string>> FindLadders(string beginWord, string endWord, IList<string> wordList)
+        {
+            List<IList<string>> res = new List<IList<string>>();
+            HashSet<string> wordSets = new HashSet<string>(wordList);
+            if (!wordSets.Contains(endWord))
+                return res;
 
+            wordSets.Remove(beginWord);
+
+            Dictionary<string, int> steps = new Dictionary<string, int>();
+            steps.Add(beginWord, 0);
+            Dictionary<string, List<string>> from = new Dictionary<string, List<string>>();
+            int step = 1;
+            bool found = false;
+            int wordlen = beginWord.Length;
+            Queue<string> queue = new Queue<string>();
+            queue.Enqueue(beginWord);
+            while (queue.Count > 0)
+            {
+                int count = queue.Count;
+                for (int i = 0; i < count; i++)
+                {
+                    string current = queue.Dequeue();
+                    char[] charArr = current.ToArray();
+                    for (int j = 0; j < wordlen; j++)
+                    {
+                        char origin = charArr[j];
+                        for (char c = 'a'; c <= 'z'; c++)
+                        {
+                            charArr[j] = c;
+                            if (origin == c)
+                                continue;
+                           
+                            string nextWord = new string(charArr);
+                          
+                            if (steps.ContainsKey(nextWord) && step == steps[nextWord])
+                            {
+                                from[nextWord].Add(current);
+                            }
+                            if (!wordSets.Contains(nextWord))
+                            {
+                                continue;
+                            }
+                            wordSets.Remove(nextWord);
+                            queue.Enqueue(nextWord);
+
+
+                            from.TryAdd(nextWord, new List<string>());
+                            from[nextWord].Add(current);
+
+                            steps.Add(nextWord, step);
+
+                            if (nextWord == endWord)
+                            {
+                                found = true;
+                            }
+                        }
+                        charArr[j] = origin;
+                    }
+
+
+
+                }
+                step++;
+                if (found)
+                {
+                    break;
+                }
+            }
+            if (found)
+            {
+                List<string> path = new List<string>();
+                path.Add(endWord);
+                BackTrack(from, path, beginWord, endWord, res);
+            }
+
+            return res;
+        }
+
+        private void BackTrack(Dictionary<string, List<string>> from, List<string> path, string beginword, string cur, List<IList<string>> res)
+        {
+            if (cur == beginword)
+            {
+                res.Add(new List<string>(path));
+                return;
+            }
+            
+            var list = from[cur];
+            foreach (string precursor in list)
+            {
+                path.Insert(0,precursor);
+                BackTrack(from, path, beginword, precursor, res);
+                path.RemoveAt(0);
+            }
+
+        }
     }
 }
