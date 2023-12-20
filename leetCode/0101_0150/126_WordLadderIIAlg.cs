@@ -10,8 +10,8 @@ namespace leetCode._0101_0150
 {
     public class _126_WordLadderIIAlg
     {
-        private Dictionary<int, HashSet<string>> dictLen = new Dictionary<int, HashSet<string>>();
-        private Dictionary<string, HashSet<string>> dictWord = new Dictionary<string, HashSet<string>>();
+        private Dictionary<int, List<string>> dictLen = new Dictionary<int, List<string>>();
+        private Dictionary<string, List<string>> dictWord = new Dictionary<string, List<string>>();
 
         private int MinCount = int.MaxValue;
         int numLen = int.MaxValue;
@@ -139,13 +139,13 @@ namespace leetCode._0101_0150
             }
         }
 
-        private HashSet<string> GetNextWordList(string word, IList<string> wordList)
+        private List<string> GetNextWordList(string word, IList<string> wordList)
         {
             if (dictWord.ContainsKey(word))
             {
                 return dictWord[word];
             }
-            HashSet<string> ls = new HashSet<string>();
+            List<string> ls = new List<string>();
             for (int i = 0; i < word.Length; i++)
             {
                 foreach (var item in wordList)
@@ -208,7 +208,7 @@ namespace leetCode._0101_0150
 
                 arr.Add(index);
                 HashSet<int> list = new HashSet<int>(arr);
-                HashSet<string> listWord = new HashSet<string>();
+                List<string> listWord = new List<string>();
                 foreach (var item in words)
                 {
                     int count = 0;
@@ -244,7 +244,7 @@ namespace leetCode._0101_0150
                         minLen = Math.Min(minLen, arr.Count);
                         if (!dictLen.ContainsKey(arr.Count))
                         {
-                            dictLen.Add(arr.Count, new HashSet<string>());
+                            dictLen.Add(arr.Count, new List<string>());
                         }
                         var set = dictLen[arr.Count];
                         if (!set.Contains(item))
