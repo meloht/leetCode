@@ -63,13 +63,11 @@ namespace leetCode._0101_0150
             return 0;
         }
 
-        public int LadderLength2(string beginWord, string endWord, IList<string> wordList)
+        public int LadderLength(string beginWord, string endWord, IList<string> wordList)
         {
             HashSet<string> wordSets = new HashSet<string>(wordList);
             if (!wordSets.Contains(endWord))
                 return 0;
-            int stepBegin = 1;
-            int stepEnd = 1;
 
             int wordlen = beginWord.Length;
 
@@ -81,91 +79,101 @@ namespace leetCode._0101_0150
             queueBegin.Enqueue(beginWord);
             queueEnd.Enqueue(endWord);
 
-            HashSet<string> nextList1 = new HashSet<string>();
-            HashSet<string> nextList2 = new HashSet<string>();
-            nextList2.Add(endWord);
-            nextList1.Add(beginWord);
+            HashSet<string> nextListBegin = new HashSet<string>();
+            HashSet<string> nextListEnd = new HashSet<string>();
+            nextListEnd.Add(endWord);
+            nextListBegin.Add(beginWord);
+            int step = 2;
 
             while (queueBegin.Count > 0 || queueEnd.Count > 0)
             {
+                HashSet<string> setQueue;
+                HashSet<string> setTarget;
+                Queue<string> queue;
                 int countBegin = queueBegin.Count;
-
-                for (int i = 0; i < countBegin; i++)
-                {
-                    string current = queueBegin.Dequeue();
-                    char[] charArr = current.ToArray();
-
-                    for (int j = 0; j < wordlen; j++)
-                    {
-                        char origin = charArr[j];
-                        for (char c = 'a'; c <= 'z'; c++)
-                        {
-                            charArr[j] = c;
-
-                            string nextWord = new string(charArr);
-
-                            if (!wordSets.Contains(nextWord) && !nextList2.Contains(nextWord))
-                            {
-                                continue;
-                            }
-                            if (wordSets.Contains(nextWord))
-                            {
-                                wordSets.Remove(nextWord);
-                            }
-                            if (nextList2.Contains(nextWord))
-                            {
-                                return stepBegin + stepEnd;
-                            }
-                            queueBegin.Enqueue(nextWord);
-                            nextList1.Add(nextWord);
-                        }
-                        charArr[j] = origin;
-                    }
-
-                }
-
-                nextList2.Clear();
                 int countEnd = queueEnd.Count;
-
-                for (int i = 0; i < countEnd; i++)
+                if (countBegin > 0 && countEnd > 0)
                 {
-                    string current = queueEnd.Dequeue();
-                    char[] charArr = current.ToArray();
-                    for (int j = 0; j < wordlen; j++)
+                    if (countBegin > countEnd)
                     {
-                        char origin = charArr[j];
-                        for (char c = 'a'; c <= 'z'; c++)
-                        {
-                            charArr[j] = c;
-
-                            string nextWord = new string(charArr);
-
-                            if (!wordSets.Contains(nextWord) && !nextList1.Contains(nextWord))
-                            {
-                                continue;
-                            }
-                            if (wordSets.Contains(nextWord))
-                            {
-                                wordSets.Remove(nextWord);
-                            }
-
-                            if (nextList1.Contains(nextWord))
-                            {
-                                return stepBegin + stepEnd + 1;
-                            }
-                            nextList2.Add(nextWord);
-                            queueEnd.Enqueue(nextWord);
-                        }
-                        charArr[j] = origin;
+                        setQueue = nextListEnd;
+                        setTarget = nextListBegin;
+                        queue = queueEnd;
+                    }
+                    else
+                    {
+                        setQueue = nextListBegin;
+                        setTarget = nextListEnd;
+                        queue = queueBegin;
+                       
                     }
                 }
-                nextList1.Clear();
-                stepEnd++;
-                stepBegin++;
+                else
+                {
+                    if (countEnd > 0)
+                    {
+                        setQueue = nextListEnd;
+                        setTarget = nextListBegin;
+                        queue = queueEnd;
+                       
+                    }
+                    else
+                    {
+                        setQueue = nextListBegin;
+                        setTarget = nextListEnd;
+                        queue = queueBegin;
+                      
+                    }
+                }
+                bool bl = IsFind(queue, wordlen, wordSets, setQueue, setTarget);
+                if (bl)
+                {
+                    return step;
+                }
+
+                step++;
+
             }
-
-
             return 0;
+        }
+        private bool IsFind(Queue<string> queue, int wordlen, HashSet<string> wordSets, HashSet<string> nextListQueue, HashSet<string> nextListTarget)
+        {
+            int countBegin = queue.Count;
+
+            for (int i = 0; i < countBegin; i++)
+            {
+                string current = queue.Dequeue();
+                char[] charArr = current.ToArray();
+
+                for (int j = 0; j < wordlen; j++)
+                {
+                    char origin = charArr[j];
+                    for (char c = 'a'; c <= 'z'; c++)
+                    {
+                        charArr[j] = c;
+
+                        string nextWord = new string(charArr);
+                        if (nextListTarget.Contains(nextWord))
+                        {
+                            return true;
+                        }
+                        if (!wordSets.Contains(nextWord))
+                        {
+                            continue;
+                        }
+                        if (wordSets.Contains(nextWord))
+                        {
+                            wordSets.Remove(nextWord);
+                        }
+
+                        queue.Enqueue(nextWord);
+                        nextListQueue.Add(nextWord);
+                    }
+                    charArr[j] = origin;
+                }
+
+            }
+            return false;
         }
 
 
