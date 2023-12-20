@@ -71,7 +71,8 @@ namespace leetCode._0101_0150
                     numLen = MinCount - path.Length - (endWord.Length - len);
                 }
                 List<List<string>> nextPath = new List<List<string>>();
-                AddToTargetPathWfs(current, target, nextPath, numLen, wordList);
+                AddToTargetPathBfs(current, target, nextPath, numLen, wordList);
+
 
                 foreach (var item in nextPath)
                 {
@@ -270,7 +271,7 @@ namespace leetCode._0101_0150
             return minLen;
         }
 
-        private void AddToTargetPathWfs(string current, string target, List<List<string>> res, int numLen, IList<string> wordList)
+        private void AddToTargetPathBfs(string current, string target, List<List<string>> res, int numLen, IList<string> wordList)
         {
             Queue<NodeData> queue = new Queue<NodeData>();
             NodeData nodeFirst = new NodeData();
@@ -291,24 +292,23 @@ namespace leetCode._0101_0150
                     {
                         if (target == item)
                         {
-                            List<string> ls = new List<string>(node.PathList);
-                            ls.Add(item);
-                            if (ls.Count < numLen)
+                            node.PathList.Add(item);
+                            if (node.PathList.Count < numLen)
                             {
                                 res.Clear();
-                                numLen = ls.Count;
-                                res.Add(ls);
+                                numLen = node.PathList.Count;
+                                res.Add(node.PathList);
                             }
-                            else if (ls.Count == numLen)
+                            else if (node.PathList.Count == numLen)
                             {
-                                res.Add(ls);
+                                res.Add(node.PathList);
                             }
 
                         }
                         else
                         {
                             NodeData nodeNext = new NodeData();
-                            nodeNext.PathList = new List<string>(node.PathList);
+                            nodeNext.PathList.AddRange(node.PathList);
                             nodeNext.word = item;
                             nodeNext.PathList.Add(item);
                             if (nodeNext.PathList.Count < numLen)
