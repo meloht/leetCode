@@ -11,7 +11,7 @@ namespace leetCode._0101_0150
     public class _126_WordLadderIIAlg
     {
         private Dictionary<int, List<string>> dictLen = new Dictionary<int, List<string>>();
-        private Dictionary<string, List<string>> dictWord = new Dictionary<string, List<string>>();
+        private Dictionary<string, HashSet<string>> dictWord = new Dictionary<string, HashSet<string>>();
 
         private int MinCount = int.MaxValue;
         int numLen = int.MaxValue;
@@ -140,7 +140,7 @@ namespace leetCode._0101_0150
             }
         }
 
-        private List<string> GetNextWordList(string word, IList<string> wordList)
+        private HashSet<string> GetNextWordList(string word, IList<string> wordList)
         {
             if (dictWord.ContainsKey(word))
             {
@@ -159,9 +159,9 @@ namespace leetCode._0101_0150
                     }
                 }
             }
-            var list = ls.ToList();
-            dictWord.Add(word, list);
-            return list;
+
+            dictWord.Add(word, ls);
+            return ls;
         }
 
         private bool IsDiffOneChar(string s1, string s2, int index)
@@ -287,25 +287,26 @@ namespace leetCode._0101_0150
                     var node = queue.Dequeue();
                     var next = GetNextWordList(node.word, wordList);
 
-                    var words = next.Where(p => !used.Contains(p)).ToList();
-                    foreach (var item in words)
+                    if (next.Contains(target))
                     {
-                        if (target == item)
+                        node.PathList.Add(target);
+                        if (node.PathList.Count < numLen)
                         {
-                            node.PathList.Add(item);
-                            if (node.PathList.Count < numLen)
-                            {
-                                res.Clear();
-                                numLen = node.PathList.Count;
-                                res.Add(node.PathList);
-                            }
-                            else if (node.PathList.Count == numLen)
-                            {
-                                res.Add(node.PathList);
-                            }
-
+                            res.Clear();
+                            numLen = node.PathList.Count;
+                            res.Add(node.PathList);
                         }
-                        else
+                        else if (node.PathList.Count == numLen)
+                        {
+                            res.Add(node.PathList);
+                        }
+
+                    }
+                    else
+                    {
+                        var words = next.Where(p => !used.Contains(p)).ToList();
+
+                        foreach (var item in words)
                         {
                             NodeData nodeNext = new NodeData();
                             nodeNext.PathList.AddRange(node.PathList);
@@ -318,6 +319,7 @@ namespace leetCode._0101_0150
                             used.Add(item);
                         }
                     }
+                   
 
 
                 }
