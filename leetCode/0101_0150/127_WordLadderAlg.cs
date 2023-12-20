@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace leetCode._0101_0150
 {
@@ -62,7 +63,7 @@ namespace leetCode._0101_0150
             return 0;
         }
 
-        public int LadderLength(string beginWord, string endWord, IList<string> wordList)
+        public int LadderLength2(string beginWord, string endWord, IList<string> wordList)
         {
             HashSet<string> wordSets = new HashSet<string>(wordList);
             if (!wordSets.Contains(endWord))
@@ -167,6 +168,168 @@ namespace leetCode._0101_0150
             return 0;
         }
 
+
+        public int LadderLength3(string beginWord, string endWord, IList<string> wordList)
+        {
+            var wordSet = new HashSet<string>(wordList);
+            if (!wordSet.Contains(endWord))
+            {
+                return 0;
+            }
+
+            var beginSet = new HashSet<string> { beginWord };
+            var endSet = new HashSet<string> { endWord };
+
+            int level = 1;
+            while (beginSet.Count > 0 && endSet.Count > 0)
+            {
+                // 优化：每次扩展节点数较少的一方
+                if (beginSet.Count > endSet.Count)
+                {
+                    var temp = beginSet;
+                    beginSet = endSet;
+                    endSet = temp;
+                }
+
+                var nextLevelSet = new HashSet<string>();
+                foreach (var word in beginSet)
+                {
+                    var charArray = word.ToCharArray();
+
+                    for (int j = 0; j < charArray.Length; j++)
+                    {
+                        char originalChar = charArray[j];
+
+                        for (char c = 'a'; c <= 'z'; c++)
+                        {
+                            if (c == originalChar) continue;
+
+                            charArray[j] = c;
+                            string nextWord = new string(charArray);
+
+                            if (endSet.Contains(nextWord))
+                            {
+                                return level + 1;
+                            }
+
+                            if (wordSet.Contains(nextWord))
+                            {
+                                nextLevelSet.Add(nextWord);
+                                wordSet.Remove(nextWord);
+                            }
+                        }
+                        charArray[j] = originalChar;
+                    }
+                }
+
+                beginSet = nextLevelSet;
+                level++;
+            }
+
+            return 0;
+        }
+
+
+        Dictionary<string, int> wordId = new Dictionary<string, int>();
+        List<List<int>> edge = new List<List<int>>();
+        int nodeNum = 0;
+
+        public int LadderLength4(string beginWord, string endWord, IList<string> wordList)
+        {
+            foreach (string word in wordList)
+            {
+                AddEdge(word);
+            }
+            AddEdge(beginWord);
+            if (!wordId.ContainsKey(endWord))
+            {
+                return 0;
+            }
+
+            int[] disBegin = new int[nodeNum];
+            Array.Fill(disBegin, int.MaxValue);
+            int beginId = wordId[beginWord];
+            disBegin[beginId] = 0;
+            Queue<int> queBegin = new Queue<int>();
+            queBegin.Enqueue(beginId);
+
+            int[] disEnd = new int[nodeNum];
+            Array.Fill(disEnd, int.MaxValue);
+            int endId = wordId[endWord];
+            disEnd[endId] = 0;
+            Queue<int> queEnd = new Queue<int>();
+            queEnd.Enqueue(endId);
+
+            while (queBegin.Count > 0 && queEnd.Count > 0)
+            {
+                int queBeginSize = queBegin.Count;
+                for (int i = 0; i < queBeginSize; ++i)
+                {
+                    int nodeBegin = queBegin.Dequeue();
+                    if (disEnd[nodeBegin] != int.MaxValue)
+                    {
+                        return (disBegin[nodeBegin] + disEnd[nodeBegin]) / 2 + 1;
+                    }
+                    var ls = edge[nodeBegin];
+                    foreach (int it in ls)
+                    {
+                        if (disBegin[it] == int.MaxValue)
+                        {
+                            disBegin[it] = disBegin[nodeBegin] + 1;
+                            queBegin.Enqueue(it);
+                        }
+                    }
+                }
+
+                int queEndSize = queEnd.Count;
+                for (int i = 0; i < queEndSize; ++i)
+                {
+                    int nodeEnd = queEnd.Dequeue();
+                    if (disBegin[nodeEnd] != int.MaxValue)
+                    {
+                        return (disBegin[nodeEnd] + disEnd[nodeEnd]) / 2 + 1;
+                    }
+                    var ls = edge[nodeEnd];
+                    foreach (int it in ls)
+                    {
+                        if (disEnd[it] == int.MaxValue)
+                        {
+                            disEnd[it] = disEnd[nodeEnd] + 1;
+                            queEnd.Enqueue(it);
+                        }
+                    }
+                }
+            }
+            return 0;
+        }
+
+        public void AddEdge(string word)
+        {
+            AddWord(word);
+            int id1 = wordId[word];
+            char[] array = word.ToCharArray();
+            int length = array.Length;
+            for (int i = 0; i < length; ++i)
+            {
+                char tmp = array[i];
+                array[i] = '*';
+                string newWord = new string(array);
+                AddWord(newWord);
+                int id2 = wordId[newWord];
+                edge[id1].Add(id2);
+                edge[id2].Add(id1);
+                array[i] = tmp;
+            }
+        }
+
+        public void AddWord(string word)
+        {
+            if (!wordId.ContainsKey(word))
+            {
+                wordId.Add(word, nodeNum++);
+                edge.Add(new List<int>());
+            }
+        }
 
 
 
