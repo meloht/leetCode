@@ -47,17 +47,14 @@ namespace leetCode._0101_0150
                 words.Add(beginWord);
             }
 
-            InitNextWordsDict(words);
-
-
             List<string> path = new List<string>();
             path.Add(beginWord);
 
-            AddNext(minLen, beginWord, endWord, path.ToArray(), res);
+            AddNext(minLen, beginWord, endWord, path.ToArray(), res, wordList);
 
             return res;
         }
-        private void AddNext(int len, string current, string endWord, string[] path, List<IList<string>> resList)
+        private void AddNext(int len, string current, string endWord, string[] path, List<IList<string>> resList, IList<string> wordList)
         {
             if (path.Length >= MinCount)
                 return;
@@ -69,9 +66,12 @@ namespace leetCode._0101_0150
             {
                 numLen = int.MaxValue;
                 string key = $"{current}-{target}";
-               
+                if (MinCount != int.MaxValue)
+                {
+                    numLen = MinCount - path.Length - (endWord.Length - len);
+                }
                 List<List<string>> nextPath = new List<List<string>>();
-                AddToTargetPathWfs(current, target, nextPath, numLen);
+                AddToTargetPathWfs(current, target, nextPath, numLen, wordList);
 
                 foreach (var item in nextPath)
                 {
@@ -82,7 +82,7 @@ namespace leetCode._0101_0150
                         if (pathList.Count > MinCount)
                             break;
 
-                        AddNext(len + 1, target, endWord, pathList.ToArray(), resList);
+                        AddNext(len + 1, target, endWord, pathList.ToArray(), resList, wordList);
                     }
                     else
                     {
@@ -120,7 +120,7 @@ namespace leetCode._0101_0150
                 {
                     if (path.Count > MinCount)
                         return;
-                   
+
                     bool bl = false;
                     foreach (var item in resList)
                     {
@@ -139,27 +139,27 @@ namespace leetCode._0101_0150
             }
         }
 
-        private void InitNextWordsDict(IList<string> wordList)
+        private HashSet<string> GetNextWordList(string word, IList<string> wordList)
         {
-            foreach (var word in wordList)
+            if (dictWord.ContainsKey(word))
             {
-                HashSet<string> ls = new HashSet<string>();
-                for (int i = 0; i < word.Length; i++)
+                return dictWord[word];
+            }
+            HashSet<string> ls = new HashSet<string>();
+            for (int i = 0; i < word.Length; i++)
+            {
+                foreach (var item in wordList)
                 {
-                    foreach (var item in wordList)
+                    if (item == word)
+                        continue;
+                    if (IsDiffOneChar(item, word, i) && !ls.Contains(item))
                     {
-                        if (item == word)
-                            continue;
-                        if (IsDiffOneChar(item, word, i) && !ls.Contains(item))
-                        {
-                            ls.Add(item);
-                        }
+                        ls.Add(item);
                     }
                 }
-
-                dictWord.Add(word, ls);
             }
-
+            dictWord.Add(word, ls);
+            return ls;
         }
 
         private bool IsDiffOneChar(string s1, string s2, int index)
@@ -269,7 +269,7 @@ namespace leetCode._0101_0150
             return minLen;
         }
 
-        private void AddToTargetPathWfs(string current, string target, List<List<string>> res, int numLen)
+        private void AddToTargetPathWfs(string current, string target, List<List<string>> res, int numLen, IList<string> wordList)
         {
             Queue<NodeData> queue = new Queue<NodeData>();
             NodeData nodeFirst = new NodeData();
@@ -283,7 +283,7 @@ namespace leetCode._0101_0150
                 for (int i = 0; i < count; i++)
                 {
                     var node = queue.Dequeue();
-                    var next = dictWord[node.word];
+                    var next = GetNextWordList(node.word, wordList);
 
                     var words = next.Where(p => !used.Contains(p)).ToList();
                     foreach (var item in words)
