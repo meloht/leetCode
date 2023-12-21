@@ -10,7 +10,7 @@ namespace leetCode._0101_0150
     public class _131_PalindromePartitioningAlg
     {
 
-        public IList<IList<string>> Partition(string s)
+        public IList<IList<string>> Partition1(string s)
         {
             HashSet<string> set = new HashSet<string>();
             List<IList<string>> res = new List<IList<string>>();
@@ -76,6 +76,27 @@ namespace leetCode._0101_0150
                 res.Add(ans);
             }
 
+        }
+
+        public IList<IList<string>> Partition(string s)
+        {
+            bool[,] dp = new bool[s.Length , s.Length];
+            for (int i = 0; i < s.Length; i++)
+            {
+                dp[i, i] = true;
+               
+            }
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                for (int j = 1; j < s.Length; j++)
+                {
+                    dp[i,j]= dp[i,j-1];
+                }
+            }
+
+
+            return res;
         }
 
     }
