@@ -20,6 +20,7 @@ namespace TestLeetCode._0101_0150
 
             alg.Solve(board);
             bool bl = Utils.IsSameArr(exp, board);
+            Assert.IsTrue(bl);
         }
 
 
@@ -31,6 +32,51 @@ namespace TestLeetCode._0101_0150
 
             alg.Solve(board);
             bool bl = Utils.IsSameArr(exp, board);
+            Assert.IsTrue(bl);
+        }
+
+        [TestMethod]
+        public void TestCase03()
+        {
+            char[][] board = [['X', 'O'], ['O', 'X']];
+            char[][] exp = [['X', 'O'], ['O', 'X']];
+
+            alg.Solve(board);
+            bool bl = Utils.IsSameArr(exp, board);
+            Assert.IsTrue(bl);
+        }
+
+        [TestMethod]
+        public void TestCase04()
+        {
+            char[][] board = [['X', 'O', 'X'], ['O', 'X', 'O'], ['X', 'O', 'X']];
+            char[][] exp = [['X', 'O', 'X'], ['O', 'X', 'O'], ['X', 'O', 'X']];
+
+            alg.Solve(board);
+            bool bl = Utils.IsSameArr(exp, board);
+            Assert.IsTrue(bl);
+        }
+
+        [TestMethod]
+        public void TestCase05()
+        {
+            char[][] board = [['X', 'O', 'X', 'X'], ['O', 'X', 'O', 'X'], ['X', 'O', 'X', 'O'], ['O', 'X', 'O', 'X']];
+            char[][] exp = [['X', 'O', 'X', 'X'], ['O', 'X', 'X', 'X'], ['X', 'X', 'X', 'O'], ['O', 'X', 'O', 'X']];
+
+            alg.Solve(board);
+            bool bl = Utils.IsSameArr(exp, board);
+            Assert.IsTrue(bl);
+        }
+
+        [TestMethod]
+        public void TestCase06()
+        {
+            char[][] board = [['O', 'X', 'X', 'O', 'X'], ['X', 'O', 'O', 'X', 'O'], ['X', 'O', 'X', 'O', 'X'], ['O', 'X', 'O', 'O', 'O'], ['X', 'X', 'O', 'X', 'O']];
+            char[][] exp = [['O', 'X', 'X', 'O', 'X'], ['X', 'X', 'X', 'X', 'O'], ['X', 'X', 'X', 'O', 'X'], ['O', 'X', 'O', 'O', 'O'], ['X', 'X', 'O', 'X', 'O']];
+
+            alg.Solve(board);
+            bool bl = Utils.IsSameArr(exp, board);
+            Assert.IsTrue(bl);
         }
     }
 }
