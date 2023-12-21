@@ -78,25 +78,48 @@ namespace leetCode._0101_0150
 
         }
 
+        List<IList<string>> result=new List<IList<string>>();
+        List<string> list = new List<string>();
         public IList<IList<string>> Partition(string s)
         {
-            bool[,] dp = new bool[s.Length , s.Length];
+            bool[][] dp = new bool[s.Length][];
             for (int i = 0; i < s.Length; i++)
             {
-                dp[i, i] = true;
-               
+                dp[i] = new bool[s.Length];
+                Array.Fill(dp[i], true);
+
             }
 
-            for (int i = 0; i < s.Length; i++)
+
+            for (int i = s.Length - 1; i >= 0; --i)
             {
-                for (int j = 1; j < s.Length; j++)
+                for (int j = i + 1; j < s.Length; ++j)
                 {
-                    dp[i,j]= dp[i,j-1];
+                    dp[i][j] = (s[i] == s[j]) && dp[i + 1][j - 1];
+                   
                 }
             }
+            Dfs(s, 0, dp);
 
 
-            return res;
+            return result;
+        }
+        private void Dfs(string s,int i, bool[][] dp)
+        {
+            if (i == s.Length)
+            {
+                result.Add(new List<string>(list));
+                return;
+            }
+            for (int j = i; j < s.Length; j++)
+            {
+                if (dp[i][j])
+                {
+                    list.Add(s.Substring(i, j + 1 - i));
+                    Dfs(s, j + 1, dp);
+                    list.RemoveAt(list.Count - 1);
+                }
+            }
         }
 
     }
