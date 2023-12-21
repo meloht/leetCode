@@ -12,7 +12,7 @@ namespace leetCode._0101_0150
         int iMax = 0;
         int jMax = 0;
         bool[,] dictBorder;
-        public void Solve(char[][] board)
+        public void Solve1(char[][] board)
         {
             dictBorder = new bool[board.Length, board[0].Length];
             iMax = board.Length - 1;
@@ -98,6 +98,54 @@ namespace leetCode._0101_0150
                 return false;
             }
             return false;
+        }
+
+        public void Solve(char[][] board)
+        {
+            iMax = board.Length - 1;
+            jMax = board[0].Length - 1;
+
+            for (int i = 0; i < board.Length; i++)
+            {
+                for (int j = 0; j < board[i].Length; j++)
+                {
+                    if (board[i][j] == 'O' && (i == 0 || i == iMax || j == 0 || j == jMax))
+                    {
+                        IsOver(board, i, j);
+                    }
+                }
+            }
+            for (int i = 0; i < board.Length; i++)
+            {
+                for (int j = 0; j < board[i].Length; j++)
+                {
+                    if (board[i][j] == 'H')
+                    {
+                        board[i][j] = 'O';
+                    }
+                    else
+                    {
+                        board[i][j] = 'X';
+                    }
+                }
+            }
+        }
+
+        private void IsOver(char[][] board, int i, int j)
+        {
+            if (i < 0 || i > iMax || j < 0 || j > jMax)
+                return;
+            if (board[i][j] == 'H')
+                return;
+            if (board[i][j] == 'X')
+                return;
+
+            board[i][j] = 'H';
+            IsOver(board, i - 1, j);
+            IsOver(board, i + 1, j);
+            IsOver(board, i, j - 1);
+            IsOver(board, i, j + 1);
+
         }
     }
 }
