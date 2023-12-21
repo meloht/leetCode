@@ -67,7 +67,7 @@ namespace TestLeetCode
                         list.Add(null);
                     }
                 }
-              
+
             }
             int index = list.Count - 1;
             while (index >= 0 && list[index] == null)
@@ -222,7 +222,7 @@ namespace TestLeetCode
                         if (list[0] != null)
                         {
                             Node left = new Node(list[0].Value);
-                          
+
                             node.left = left;
                             queue.Enqueue(left);
                         }
@@ -234,7 +234,7 @@ namespace TestLeetCode
                         if (list[0] != null)
                         {
                             Node right = new Node(list[0].Value);
-                           
+
                             node.right = right;
                             queue.Enqueue(right);
                         }
@@ -243,7 +243,7 @@ namespace TestLeetCode
                     }
                 }
 
-              
+
             }
             return root;
         }
@@ -424,8 +424,25 @@ namespace TestLeetCode
         /// <param name="arr1"></param>
         /// <param name="arr2"></param>
         /// <returns></returns>
-        public static bool IsSameArr(int[][] arr1, int[][] arr2)
+        public static bool IsSameArr(int[][] arr1, int[][] arr2) 
         {
+      
+            for (int i = 0; i < arr1.Length; i++)
+            {
+                for (int j = 0; j < arr1[i].Length; j++)
+                {
+                    if (arr1[i][j] != arr2[i][j])
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+        public static bool IsSameArr(char[][] arr1, char[][] arr2)
+        {
+
             for (int i = 0; i < arr1.Length; i++)
             {
                 for (int j = 0; j < arr1[i].Length; j++)
