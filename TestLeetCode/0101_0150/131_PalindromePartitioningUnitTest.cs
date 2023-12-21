@@ -18,7 +18,7 @@ namespace TestLeetCode._0101_0150
             string s = "aab";
             string[][] exp = [["a", "a", "b"], ["aa", "b"]];
             var res = alg.Partition(s);
-            bool bl = Utils.IsSame(exp, res);
+            bool bl = Utils.IsSameList(exp, res);
             Assert.IsTrue(bl);
         }
 
@@ -28,8 +28,28 @@ namespace TestLeetCode._0101_0150
             string s = "a";
             string[][] exp = [["a"]];
             var res = alg.Partition(s);
-            bool bl = Utils.IsSame(exp, res);
+            bool bl = Utils.IsSameList(exp, res);
             Assert.IsTrue(bl);
+        }
+
+        [TestMethod]
+        public void TestCase03()
+        {
+            string s = "cbbbcc";
+            string[][] exp = [["c", "b", "b", "b", "c", "c"], ["c", "b", "b", "b", "cc"], ["c", "b", "bb", "c", "c"], ["c", "b", "bb", "cc"], ["c", "bb", "b", "c", "c"], ["c", "bb", "b", "cc"], ["c", "bbb", "c", "c"], ["c", "bbb", "cc"], ["cbbbc", "c"]];
+            var res = alg.Partition(s);
+            bool bl = Utils.IsSameList(exp, res);
+            Assert.IsTrue(bl);
+        }
+
+        [TestMethod]
+        public void TestCase04()
+        {
+            string s = "ssssssssssssss";
+            string[][] exp = [["c", "b", "b", "b", "c", "c"], ["c", "b", "b", "b", "cc"], ["c", "b", "bb", "c", "c"], ["c", "b", "bb", "cc"], ["c", "bb", "b", "c", "c"], ["c", "bb", "b", "cc"], ["c", "bbb", "c", "c"], ["c", "bbb", "cc"], ["cbbbc", "c"]];
+            var res = alg.Partition(s);
+            //bool bl = Utils.IsSameList(exp, res);
+            //Assert.IsTrue(bl);
         }
     }
 }
