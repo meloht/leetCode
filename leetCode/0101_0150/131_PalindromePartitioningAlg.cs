@@ -78,9 +78,9 @@ namespace leetCode._0101_0150
 
         }
 
-        List<IList<string>> result=new List<IList<string>>();
+        List<IList<string>> result = new List<IList<string>>();
         List<string> list = new List<string>();
-        public IList<IList<string>> Partition(string s)
+        public IList<IList<string>> Partition2(string s)
         {
             bool[][] dp = new bool[s.Length][];
             for (int i = 0; i < s.Length; i++)
@@ -96,7 +96,7 @@ namespace leetCode._0101_0150
                 for (int j = i + 1; j < s.Length; ++j)
                 {
                     dp[i][j] = (s[i] == s[j]) && dp[i + 1][j - 1];
-                   
+
                 }
             }
             Dfs(s, 0, dp);
@@ -104,7 +104,7 @@ namespace leetCode._0101_0150
 
             return result;
         }
-        private void Dfs(string s,int i, bool[][] dp)
+        private void Dfs(string s, int i, bool[][] dp)
         {
             if (i == s.Length)
             {
@@ -120,6 +120,64 @@ namespace leetCode._0101_0150
                     list.RemoveAt(list.Count - 1);
                 }
             }
+        }
+
+
+        public IList<IList<string>> Partition(string s)
+        {
+            int[,] dp = new int[s.Length, s.Length];
+
+
+
+            Dfs2(s, 0, dp);
+
+
+            return result;
+        }
+        private void Dfs2(string s, int i, int[,] dp)
+        {
+            if (i == s.Length)
+            {
+                result.Add(new List<string>(list));
+                return;
+            }
+            for (int j = i; j < s.Length; j++)
+            {
+                if (IsPalindrome(s, i, j, dp) == 1)
+                {
+                    list.Add(s.Substring(i, j + 1 - i));
+                    Dfs2(s, j + 1, dp);
+                    list.RemoveAt(list.Count - 1);
+                }
+            }
+        }
+        /// <summary>
+        /// 记忆化搜索中，f[i][j] = 0 表示未搜索，1 表示是回文串，-1 表示不是回文串
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <param name="dp"></param>
+        /// <returns></returns>
+        private int IsPalindrome(string s, int i, int j, int[,] dp)
+        {
+            if (dp[i, j] != 0)
+            {
+                return dp[i, j];
+            }
+            if (i >= j)
+            {
+                dp[i, j] = 1;
+            }
+            else if (s[i] == s[j])
+            {
+                dp[i, j] = IsPalindrome(s, i + 1, j - 1, dp);
+            }
+            else
+            {
+                dp[i, j] = -1;
+            }
+            return dp[i, j];
         }
 
     }
