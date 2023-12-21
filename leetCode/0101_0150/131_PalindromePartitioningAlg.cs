@@ -80,7 +80,7 @@ namespace leetCode._0101_0150
 
         List<IList<string>> result = new List<IList<string>>();
         List<string> list = new List<string>();
-        public IList<IList<string>> Partition2(string s)
+        public IList<IList<string>> Partition(string s)
         {
             bool[][] dp = new bool[s.Length][];
             for (int i = 0; i < s.Length; i++)
@@ -123,7 +123,9 @@ namespace leetCode._0101_0150
         }
 
 
-        public IList<IList<string>> Partition(string s)
+       
+
+        public IList<IList<string>> Partition3(string s)
         {
             int[,] dp = new int[s.Length, s.Length];
 
