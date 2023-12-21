@@ -9,11 +9,12 @@ namespace leetCode._0101_0150
 {
     public class _131_PalindromePartitioningAlg
     {
-        HashSet<string> set = new HashSet<string>();
+
         public IList<IList<string>> Partition(string s)
         {
+            HashSet<string> set = new HashSet<string>();
             List<IList<string>> res = new List<IList<string>>();
-          
+
             List<string> ls = new List<string>();
             for (int j = 0; j < s.Length; j++)
             {
@@ -36,7 +37,7 @@ namespace leetCode._0101_0150
                         if (curr == pre)
                         {
                             string word = $"{pre}{curr}";
-                            AddAns(queue, res, list, word, j - 1, j);
+                            AddAns(queue, list, word, j - 1, j, res, set);
                         }
                         if (j + 1 < list.Count)
                         {
@@ -44,17 +45,18 @@ namespace leetCode._0101_0150
                             if (next == pre)
                             {
                                 string word = $"{pre}{curr}{next}";
-                                AddAns(queue, res, list, word, j - 1, j + 1);
+                                AddAns(queue, list, word, j - 1, j + 1, res, set);
                             }
                         }
                     }
                 }
             }
 
+
             return res;
         }
 
-        private void AddAns(Queue<List<string>> queue, List<IList<string>> res, List<string> list, string word, int begin, int end)
+        private void AddAns(Queue<List<string>> queue, List<string> list, string word, int begin, int end, List<IList<string>> res, HashSet<string> set)
         {
             List<string> ans = new List<string>();
             for (int i = 0; i < begin; i++)
@@ -70,11 +72,11 @@ namespace leetCode._0101_0150
             if (!set.Contains(ress))
             {
                 queue.Enqueue(ans);
-                res.Add(ans);
                 set.Add(ress);
+                res.Add(ans);
             }
-           
+
         }
-    
+
     }
 }
