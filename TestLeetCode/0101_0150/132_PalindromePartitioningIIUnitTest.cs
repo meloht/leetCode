@@ -75,6 +75,7 @@ namespace TestLeetCode._0101_0150
         public void TestCase08()
         {
             string s = "fifgbeajcacehiicccfecbfhhgfiiecdcjjffbghdidbhbdbfbfjccgbbdcjheccfbhafehieabbdfeigbiaggchaeghaijfbjhi";
+           
             var res = alg.MinCut(s);
             Assert.AreEqual(res, 75);
         }

@@ -17,66 +17,38 @@ namespace leetCode._0101_0150
                 Array.Fill(dp[i], true);
 
             }
-            int[] arrLen = new int[s.Length];
-            Array.Fill(arrLen, 1);
+
             for (int i = s.Length - 1; i >= 0; --i)
             {
                 for (int j = i + 1; j < s.Length; ++j)
                 {
                     dp[i][j] = (s[i] == s[j]) && dp[i + 1][j - 1];
-
-                    if (dp[i][j])
-                    {
-                        int n = j - i + 1;
-                        arrLen[i] = Math.Max(n, arrLen[i]);
-                    }
-
                 }
-
-
             }
 
             int[] res = new int[s.Length];
             Array.Fill(res, int.MaxValue);
-
-            int nn = arrLen[0];
-            int preIndex = nn - 1;
-
-            for (int i = 0; i < nn; i++)
+            for (int i = 0; i < s.Length; i++)
             {
-                res[i] = 1;
-            }
-
-            for (int i = 1; i < s.Length; i++)
-            {
-                nn = arrLen[i];
-                int len = nn + i - 1;
-                if (i == 42)
+                if (dp[0][i])
                 {
-
+                    res[i] = 0;
                 }
-                for (int j = i; j <= len; j++)
+                else
                 {
-                    if (preIndex >= i)
+                    for (int j = 0; j < i; j++)
                     {
-                        res[j] = Math.Min(res[j], 1 + res[i - 1]);
+                        if (dp[j + 1][i])
+                        {
+                            res[i] = Math.Min(res[i], res[j] + 1);
+                        }
                     }
-                    else
-                    {
-                        res[j] = 1 + res[i - 1];
-                    }
-
                 }
-                preIndex = Math.Max(len, preIndex); ;
-
-
             }
 
-            if (res[s.Length - 1] > 0)
-            {
-                return res[s.Length - 1] - 1;
-            }
-            return 0;
+
+            return res[s.Length - 1];
         }
+
     }
 }
