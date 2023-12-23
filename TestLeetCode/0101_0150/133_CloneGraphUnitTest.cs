@@ -19,7 +19,9 @@ namespace TestLeetCode._0101_0150
             int[][] adjList = [[2, 4], [1, 3], [2, 4], [1, 3]];
             var root = GraphNode.Build(adjList);
             int[][] exp = [[2, 4], [1, 3], [2, 4], [1, 3]];
-            var res = GraphNode.GetList(root);
+
+            var node = alg.CloneGraph(root);
+            var res = GraphNode.GetList(node);
 
             bool bl = Utils.IsSameList(exp, res);
             Assert.IsTrue(bl);
@@ -31,7 +33,8 @@ namespace TestLeetCode._0101_0150
             int[][] adjList = [[]];
             var root = GraphNode.Build(adjList);
             int[][] exp = [[]];
-            var res = GraphNode.GetList(root);
+            var node = alg.CloneGraph(root);
+            var res = GraphNode.GetList(node);
 
             bool bl = Utils.IsSameList(exp, res);
             Assert.IsTrue(bl);
@@ -42,7 +45,8 @@ namespace TestLeetCode._0101_0150
             int[][] adjList = [];
             var root = GraphNode.Build(adjList);
             int[][] exp = [];
-            var res = GraphNode.GetList(root);
+            var node = alg.CloneGraph(root);
+            var res = GraphNode.GetList(node);
 
             bool bl = Utils.IsSameList(exp, res);
             Assert.IsTrue(bl);

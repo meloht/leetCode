@@ -38,6 +38,7 @@ namespace leetCode
         {
             if (adjList.Length == 0)
                 return null;
+
             Dictionary<int, GraphNode> dict = new Dictionary<int, GraphNode>();
             for (int i = 0; i < adjList.Length; i++)
             {
