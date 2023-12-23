@@ -48,7 +48,6 @@ namespace leetCode._0101_0150
                 n = n ^ i;
             }
 
-
             return n;
         }
 
