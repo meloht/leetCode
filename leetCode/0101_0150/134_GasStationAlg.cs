@@ -10,14 +10,24 @@ namespace leetCode._0101_0150
     {
         public int CanCompleteCircuit(int[] gas, int[] cost)
         {
+            int t1 = 0;
+
+            int begin = -1;
             for (int i = 0; i < gas.Length; i++)
             {
-                if (gas[i] >= cost[i] && gas[i] > 0)
+                t1 += gas[i];
+                t1 -= cost[i];
+                if (t1 >= 0)
                 {
-                    bool bl = IsPass(i, gas, cost);
-                    if (bl)
-                        return i;
+                    begin = i;
+                    break;
                 }
+            }
+            if (begin > -1 && gas[begin] >= cost[begin] && gas[begin] > 0)
+            {
+                bool bl = IsPass(begin, gas, cost);
+                if (bl)
+                    return begin;
             }
             return -1;
         }
