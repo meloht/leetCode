@@ -10,7 +10,37 @@ namespace leetCode._0101_0150
     {
         public int CanCompleteCircuit(int[] gas, int[] cost)
         {
-            return 0;
+            for (int i = 0; i < gas.Length; i++)
+            {
+                if (gas[i] >= cost[i] && gas[i] > 0)
+                {
+                    bool bl = IsPass(i, gas, cost);
+                    if (bl)
+                        return i;
+                }
+            }
+            return -1;
+        }
+        private bool IsPass(int begin, int[] gas, int[] cost)
+        {
+            int index = begin;
+            int total = 0;
+            while (true)
+            {
+                total += gas[index];
+                total = total - cost[index];
+                if (total >= 0)
+                {
+                    index++;
+                    index = index % gas.Length;
+                    if (index == begin)
+                        return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
     }
 }
