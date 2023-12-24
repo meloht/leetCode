@@ -10,15 +10,23 @@ namespace leetCode._0101_0150
     {
         public int SingleNumber(int[] nums)
         {
-            HashSet<int> set = new HashSet<int>();
+            Dictionary<int, int> set = new Dictionary<int, int>();
             for (int i = 0; i < nums.Length; i++)
             {
-                if (!set.Add(nums[i]))
+                if (!set.ContainsKey(nums[i]))
                 {
-                    set.Remove(nums[i]);
+                    set.Add(nums[i], 0);
+                }
+                set[nums[i]]++;
+            }
+            foreach (var item in set)
+            {
+                if (item.Value == 1)
+                {
+                    return item.Key;
                 }
             }
-            return set.First();
+            return 0;
         }
     }
 }

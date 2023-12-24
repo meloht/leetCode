@@ -17,7 +17,7 @@ namespace TestLeetCode._0101_0150
         {
             int[] nums = [2, 2, 3, 2];
             int res = alg.SingleNumber(nums);
-            Assert.AreEqual(1, res);
+            Assert.AreEqual(3, res);
         }
         [TestMethod]
         public void TestCase02()
