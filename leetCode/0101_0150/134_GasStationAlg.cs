@@ -47,7 +47,7 @@ namespace leetCode._0101_0150
                 }
                 else
                 {
-                    t1 = t1 + dec;
+                    t1 += dec;
                 }
 
             }
