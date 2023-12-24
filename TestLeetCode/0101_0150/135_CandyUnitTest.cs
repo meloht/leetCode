@@ -35,5 +35,27 @@ namespace TestLeetCode._0101_0150
             int res = alg.Candy(ratings);
             Assert.AreEqual(28, res);
         }
+        [TestMethod]
+        public void TestCase04()
+        {
+            int[] ratings = [3, 2, 1, 0, 2, 4, 3, 2, 1, 0];
+            int res = alg.Candy(ratings);
+            Assert.AreEqual(27, res);
+        }
+        [TestMethod]
+        public void TestCase05()
+        {
+            int[] ratings = [3, 2, 1, 0, 2, 4, 3, 2, 1, 0, 0];
+            int res = alg.Candy(ratings);
+            Assert.AreEqual(28, res);
+        }
+
+        [TestMethod]
+        public void TestCase06()
+        {
+            int[] ratings = [1, 3, 2, 2, 1];
+            int res = alg.Candy(ratings);
+            Assert.AreEqual(7, res);
+        }
     }
 }

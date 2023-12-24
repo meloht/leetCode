@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,129 +14,197 @@ namespace leetCode._0101_0150
             if (ratings.Length == 1)
                 return 1;
 
+            int index = 0;
             int total = 0;
             int len = ratings.Length - 1;
 
-            int baseNum = 1;
-            int preNum = 0;
-
-            int status = -2;// equal:0, up:1, down:-1 
-            for (int i = 0; i < len; i++)
+            DataModel lastModel = null;
+            while (index < len)
             {
-                int curr = ratings[i];
-                int next = ratings[i + 1];
-                if (curr < next)// up
+                int nextIndex = index + 1;
+                int curr = ratings[index];
+                int nextVal = ratings[nextIndex];
+                if (nextVal > curr)
                 {
-                    if (status == -2)
-                    {
-                        baseNum = 1;
-                        total += baseNum;
-                    }
-                    else if (status == 1)
-                    {
-                        baseNum++;
-                        total += baseNum;
-                    }
-                    else if (status == -1)
-                    {
-                        baseNum++;
-                        preNum = baseNum;
 
-                        total += baseNum;
-                        baseNum = 1;
+                    var currModel = GetUpRangeNum(index, ratings, lastModel == null);
 
-
-                    }
-                    else if (status == 0)
-                    {
-                        preNum = baseNum;
-                        baseNum = 1;
-                        total += baseNum;
-                    }
-                    status = 1;
+                    lastModel = currModel;
+                    total += currModel.Sum;
+                    index = currModel.Index + 1;
+                    continue;
                 }
-                else if (curr == next) //equal
+                else if (nextVal < curr)
                 {
 
-                    if (status == -1)
+                    var currModel = GetDownRangeNum(index, ratings);
+                    if (lastModel != null)
                     {
-                        baseNum++;
-                        if (preNum < baseNum)
+                        if (lastModel.Status == 1)
                         {
-                            total += baseNum;
+                            if (lastModel.LastNum < currModel.LastNum)
+                            {
+                                total = total - lastModel.LastNum;
+                                total += currModel.Sum;
+                            }
+                            else
+                            {
+                                total = total + currModel.Sum - currModel.LastNum;
+                            }
                         }
-                        else
+                        else if (lastModel.Status == 0)
                         {
-                            total += preNum;
+                            total -= lastModel.LastNum;
+                            total += currModel.Sum;
                         }
-                        preNum = baseNum;
-                        baseNum = 1;
+                    }
+                    else
+                    {
+                        total += currModel.Sum;
+                    }
 
-                    }
-                    else if (status == -2)
-                    {
-                        baseNum = 1;
-                        total += baseNum;
-                    }
-                    else if (status == 0)
-                    {
-                        preNum = 1;
-                        baseNum = 1;
-                        total += baseNum;
-
-                    }
-                    else if (status == 1)
-                    {
-                        baseNum++;
-                        total += baseNum;
-                        preNum = baseNum;
-                        baseNum = 1;
-                    }
-                    status = 0;
+                    lastModel = currModel;
+                    index = currModel.Index + 1;
+                    continue;
                 }
                 else
                 {
+                    var currModel = GetEqualRangeNum(index, ratings, lastModel == null);
+                    total += currModel.Sum;
+                    lastModel = currModel;
+                    index = currModel.Index + 1;
+                    continue;
 
-                    // down
-                    if (status == -2)
-                    {
-                        baseNum = 1;
-                        total += baseNum;
-                    }
-                    else if (status == 1)
-                    {
-                        baseNum++;
-                        preNum = baseNum;
-                    }
-                    else if (status == 0)
-                    {
-                        baseNum = 1;
-                        total += baseNum;
-                    }
-                    else if (status == -1)
-                    {
-                        baseNum++;
-                        total += baseNum;
-                    }
-                    status = -1;
+                }
+            }
+            return total;
+        }
+        class DataModel
+        {
+            public int Index;
+            public int Sum;
+            public int LastNum;
+            public int Status;
+            public DataModel(int index, int sum, int lastNum, int status)
+            {
+                this.Index = index;
+                this.Sum = sum;
+                this.LastNum = lastNum;
+                this.Status = status;
+            }
+        }
+        private DataModel GetUpRangeNum(int begin, int[] ratings, bool isFirst)
+        {
+            int len = ratings.Length - 1;
+            int baseNum = 2;
+            if (isFirst)
+            {
+                baseNum = 1;
+            }
+            int num = 0;
+            int last = 0;
+            int index = begin;
+            int ln = 1;
+            for (int i = begin; i < len; i++)
+            {
+                int curr = ratings[i];
+                int nextIndex = i + 1;
+                int next = ratings[nextIndex];
+                if (curr < next)
+                {
+                    index = i;
+                    ln++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            if (!isFirst)
+            {
+                ln--;
+            }
+            for (int i = 0; i < ln; i++)
+            {
+                num += baseNum;
+                last = baseNum;
+                baseNum++;
+            }
+
+            DataModel model = new DataModel(index, num, last, 1);
+
+            return model;
+        }
+
+        private DataModel GetEqualRangeNum(int begin, int[] ratings, bool isFirst)
+        {
+            int len = ratings.Length - 1;
+            int num = 0;
+            int index = begin;
+            int ln = 1;
+            for (int i = begin; i < len; i++)
+            {
+                int curr = ratings[i];
+                int nextIndex = i + 1;
+                int next = ratings[nextIndex];
+                if (curr == next)
+                {
+                    index = i;
+                    ln++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            if (!isFirst)
+            {
+                ln--;
+            }
+            for (int i = 0; i < ln; i++)
+            {
+                num += 1;
+
+            }
+
+            DataModel model = new DataModel(index, num, 1, 0);
+            return model;
+        }
+
+        private DataModel GetDownRangeNum(int begin, int[] ratings)
+        {
+            int len = ratings.Length - 1;
+            int num = 0;
+            int last = 0;
+            int baseNum = 1;
+            int index = begin;
+            int ln = 1;
+            for (int i = begin; i < len; i++)
+            {
+                int curr = ratings[i];
+                int nextIndex = i + 1;
+                int next = ratings[nextIndex];
+                if (curr > next)
+                {
+                    index = i;
+                    ln++;
+                }
+                else
+                {
+                    break;
                 }
             }
 
-            if (status == 1)
+            for (int i = 0; i < ln; i++)
             {
+                num += baseNum;
+                last = baseNum;
                 baseNum++;
-                total += baseNum;
             }
-            else if (status == 0)
-            {
-                total += 1;
-            }
-            else
-            {
-                baseNum++;
-                total += baseNum;
-            }
-            return total;
+
+            DataModel model = new DataModel(index, num, last, -1);
+
+            return model;
         }
 
     }
