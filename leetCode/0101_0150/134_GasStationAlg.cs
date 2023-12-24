@@ -57,26 +57,6 @@ namespace leetCode._0101_0150
 
             return -1;
         }
-        private bool IsPass(int begin, int[] gas, int[] cost)
-        {
-            int index = begin;
-            int total = 0;
-            while (true)
-            {
-                total += gas[index];
-                total = total - cost[index];
-                if (total >= 0)
-                {
-                    index++;
-                    index = index % gas.Length;
-                    if (index == begin)
-                        return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
+      
     }
 }
