@@ -9,7 +9,7 @@ namespace leetCode._0101_0150
 {
     public class _135_CandyAlg
     {
-        public int Candy(int[] ratings)
+        public int Candy1(int[] ratings)
         {
             if (ratings.Length == 1)
                 return 1;
@@ -205,6 +205,69 @@ namespace leetCode._0101_0150
             DataModel model = new DataModel(index, num, last, -1);
 
             return model;
+        }
+
+        public int Candy2(int[] ratings)
+        {
+            int[] arr = new int[ratings.Length];
+            int len = ratings.Length;
+            for (int i = 0; i < len; i++)
+            {
+                if (i > 0 && ratings[i] > ratings[i - 1])
+                {
+                    arr[i] = arr[i - 1] + 1;
+                }
+                else
+                {
+                    arr[i] = 1;
+                }
+            }
+            int right = 0, ret = 0;
+            for (int i = len - 1; i >= 0; i--)
+            {
+                if (i < len - 1 && ratings[i] > ratings[i + 1])
+                {
+                    right++;
+                }
+                else
+                {
+                    right = 1;
+                }
+                ret += Math.Max(arr[i], right);
+            }
+            return ret;
+        }
+        public int Candy(int[] ratings)
+        {
+            int len = ratings.Length;
+            int res = 1;
+            int left = 1;
+            int right = 0;
+            int pre = 1;
+
+            for (int i = 1; i < len; i++)
+            {
+                if (ratings[i] >= ratings[i - 1])
+                {
+                    right = 0;
+                    pre = ratings[i] == ratings[i - 1] ? 1 : pre + 1;
+                    res += pre;
+                    left = pre;
+                }
+                else
+                {
+                    right++;
+                    if (right == left)
+                    {
+                        right++;
+                    }
+                    res += right;
+                    pre = 1;
+                }
+
+
+            }
+            return res;
         }
 
     }
