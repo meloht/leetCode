@@ -18,6 +18,7 @@ namespace TestLeetCode._0101_0150
             int[] head = [1, 2, 3, 4];
             int[] exp = [1, 4, 2, 3];
             var node = Utils.BuildListNode(head);
+            alg.ReorderList(node);
             var res = Utils.GetLinkNodeList(node);
 
             bool bl = exp.SequenceEqual(res);
@@ -30,6 +31,7 @@ namespace TestLeetCode._0101_0150
             int[] head = [1, 2, 3, 4, 5];
             int[] exp = [1, 5, 2, 4, 3];
             var node = Utils.BuildListNode(head);
+            alg.ReorderList(node);
             var res = Utils.GetLinkNodeList(node);
 
             bool bl = exp.SequenceEqual(res);
