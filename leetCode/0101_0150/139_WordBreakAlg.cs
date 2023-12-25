@@ -10,7 +10,7 @@ namespace leetCode._0101_0150
 {
     public class _139_WordBreakAlg
     {
-        public bool WordBreak(string s, IList<string> wordDict)
+        public bool WordBreak1(string s, IList<string> wordDict)
         {
             var wordDictSet = new HashSet<string>(wordDict);
 
@@ -34,7 +34,7 @@ namespace leetCode._0101_0150
 
 
 
-        public bool WordBreak1(string s, IList<string> wordDict)
+        public bool WordBreak2(string s, IList<string> wordDict)
         {
             bool[,] dp = new bool[s.Length, s.Length];
             for (int j = 0; j < wordDict.Count; j++)
@@ -56,6 +56,7 @@ namespace leetCode._0101_0150
 
                     }
                 }
+
             }
             for (int i = 0; i < s.Length; i++)
             {
@@ -69,6 +70,47 @@ namespace leetCode._0101_0150
             }
 
             return dp[0, s.Length - 1];
+        }
+
+
+        public bool WordBreak(string s, IList<string> wordDict)
+        {
+            Dictionary<string, bool> dict = new Dictionary<string, bool>();
+            var wordDictSet = new HashSet<string>(wordDict);
+            return Dfs(s, wordDictSet, dict);
+        }
+        private bool Dfs(string s, HashSet<string> wordDictSet, Dictionary<string, bool> dict)
+        {
+            if (string.IsNullOrEmpty(s))
+                return true;
+
+            if (dict.ContainsKey(s))
+                return dict[s];
+
+            for (int i = 1; i <= s.Length; i++)
+            {
+                string ss = s.Substring(0, i);
+                bool blleft = wordDictSet.Contains(ss);
+                if (!dict.ContainsKey(ss))
+                {
+                    dict.Add(ss, blleft);
+                }
+                if (blleft)
+                {
+                    string ss2 = s.Substring(i);
+                    bool bl = Dfs(s.Substring(i), wordDictSet, dict);
+                    if (!dict.ContainsKey(ss2))
+                    {
+                        dict.Add(ss2, bl);
+                    }
+                    if (bl)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
 
