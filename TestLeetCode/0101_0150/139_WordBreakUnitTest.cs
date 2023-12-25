@@ -41,5 +41,36 @@ namespace TestLeetCode._0101_0150
             bool bl = alg.WordBreak(word, wordDict);
             Assert.IsFalse(bl);
         }
+
+
+        [TestMethod]
+        public void TestCase04()
+        {
+            string word = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab";
+            string[] wordDict = ["a", "aa", "aaa", "aaaa", "aaaaa", "aaaaaa", "aaaaaaa", "aaaaaaaa", "aaaaaaaaa", "aaaaaaaaaa"];
+
+            bool bl = alg.WordBreak(word, wordDict);
+            Assert.AreEqual(false,bl);
+        }
+
+        [TestMethod]
+        public void TestCase05()
+        {
+            string word = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+            string[] wordDict = ["a", "aa", "aaa", "aaaa", "aaaaa", "aaaaaa", "aaaaaaa", "aaaaaaaa", "aaaaaaaaa", "aaaaaaaaaa"];
+
+            bool bl = alg.WordBreak(word, wordDict);
+            Assert.AreEqual(false, bl);
+        }
+
+        [TestMethod]
+        public void TestCase06()
+        {
+            string word = "cars";
+            string[] wordDict = ["car", "ca", "rs"];
+
+            bool bl = alg.WordBreak(word, wordDict);
+            Assert.AreEqual(true, bl);
+        }
     }
 }
