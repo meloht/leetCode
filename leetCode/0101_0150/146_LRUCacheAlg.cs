@@ -64,8 +64,6 @@ namespace leetCode._0101_0150
                 int index = queue.IndexOf(data);
                 queue.RemoveAt(index);
                 queue.Add(data);
-             
-               // queue.Sort((x, y) => { return x.Time.CompareTo(y.Time); });
             }
         }
         class NodeData
