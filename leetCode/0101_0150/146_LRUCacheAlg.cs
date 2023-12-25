@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace leetCode._0101_0150
 {
@@ -13,11 +14,11 @@ namespace leetCode._0101_0150
             private int _capacity;
 
             private Dictionary<int, NodeData> _cache;
-            private List<NodeData> queue;
+            private NodeData Head;
+            private NodeData Last;
             public LRUCache(int capacity)
             {
                 _capacity = capacity;
-                queue = new List<NodeData>(_capacity);
                 _cache = new Dictionary<int, NodeData>(_capacity);
             }
 
@@ -26,7 +27,6 @@ namespace leetCode._0101_0150
                 if (_cache.ContainsKey(key))
                 {
                     var data = _cache[key];
-                    data.Time = DateTime.Now;
                     UpdateOrder(data);
                     return data.Value;
                 }
@@ -40,42 +40,113 @@ namespace leetCode._0101_0150
                 {
                     if (_capacity == _cache.Count)
                     {
-                        var rem = queue[0];
-                        _cache.Remove(rem.Key);
-                        queue.RemoveAt(0);
+                        var node = RemoveNode();
+
+                        _cache.Remove(node.Key);
                     }
-                    var data = new NodeData(key, value, DateTime.Now);
+                    var data = new NodeData(key, value);
                     _cache.Add(key, data);
-                    queue.Add(data);
+                    AddNode(data);
                 }
                 else
                 {
                     var data = _cache[key];
                     data.Value = value;
                     UpdateOrder(data);
-                   
+
+                }
+            }
+            private void AddNode(NodeData data)
+            {
+                if (Head == null)
+                {
+                    Head = data;
+                    Last = data;
+                }
+                else
+                {
+                    Last.Next = data;
+                    data.Pre = Last;
+                    Last = data;
+                }
+            }
+
+            private void UpdateOrder(NodeData data)
+            {
+                if (data == Last)
+                    return;
+
+                if (data == Head)
+                {
+                    var temp = data;
+                    Head = data.Next;
+                    Head.Pre = null;
+
+                    var tem2 = Last;
+                    tem2.Next = temp;
+                    temp.Pre = tem2;
+                    Last = temp;
+
+                }
+                else
+                {
+                    var pre = data.Pre;
+                    var last = data.Next;
+
+                    if (pre != null)
+                    {
+                        pre.Next = last;
+                    }
+                    if (last != null)
+                    {
+                        last.Pre = pre;
+                    }
+
+                    if (Last != null)
+                    {
+                        var temp = Last;
+                        data.Next = null;
+                        data.Pre = temp;
+                        temp.Next = data;
+                        Last = data;
+                    }
                 }
 
 
             }
-            private void UpdateOrder(NodeData data)
+            private NodeData RemoveNode()
             {
-                data.Time = DateTime.Now;
-                int index = queue.IndexOf(data);
-                queue.RemoveAt(index);
-                queue.Add(data);
+                var temp = Head;
+
+                var newHead = Head.Next;
+                if (newHead != null)
+                {
+                    newHead.Pre = null;
+                }
+                Head = newHead;
+                if (Head == null)
+                {
+                    Last = null;
+                }
+                temp.Next = null;
+
+                return temp;
             }
         }
         class NodeData
         {
             public int Key;
             public int Value;
-            public DateTime Time;
-            public NodeData(int key, int value, DateTime time)
+            public NodeData Next;
+            public NodeData Pre;
+            public NodeData(int key, int value)
             {
                 Key = key;
-                Time = time;
                 Value = value;
+            }
+            public override string ToString()
+            {
+                return $"{Key} {Value}";
             }
         }
     }
