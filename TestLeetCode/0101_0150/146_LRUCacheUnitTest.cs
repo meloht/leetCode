@@ -21,7 +21,7 @@ namespace TestLeetCode._0101_0150
             alg.Put(2, 2);
             Assert.AreEqual(1, alg.Get(1));
             alg.Put(3, 3);
-            Assert.AreEqual(2, alg.Get(2));
+            Assert.AreEqual(-1, alg.Get(2));
             alg.Put(4, 4);
             Assert.AreEqual(-1, alg.Get(1));
             Assert.AreEqual(3, alg.Get(3));
