@@ -98,7 +98,7 @@ namespace leetCode._0101_0150
                 if (blleft)
                 {
                     string ss2 = s.Substring(i);
-                    bool bl = Dfs(s.Substring(i), wordDictSet, dict);
+                    bool bl = Dfs(ss2, wordDictSet, dict);
                     if (!dict.ContainsKey(ss2))
                     {
                         dict.Add(ss2, bl);

@@ -19,7 +19,10 @@ namespace TestLeetCode._0101_0150
             string[] wordDict = ["cat", "cats", "and", "sand", "dog"];
 
             var res = alg.WordBreak(word, wordDict);
+            var resarr = res.ToArray();
             string[] exp = ["cats and dog", "cat sand dog"];
+            Array.Sort(exp);
+            Array.Sort(resarr);
             Assert.IsTrue(exp.SequenceEqual(res));
         }
 
