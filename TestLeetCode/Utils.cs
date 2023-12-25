@@ -26,6 +26,18 @@ namespace TestLeetCode
             return header;
         }
 
+        public static int[] GetLinkNodeList(ListNode head)
+        {
+            List<int> list = new List<int>();
+            ListNode node = head;
+            while (node != null)
+            {
+                list.Add(node.val);
+                node = node.next;
+            }
+            return list.ToArray();
+        }
+
         public static ListNode BuildListNode(int[] arr,int pos)
         {
             if (arr.Length == 0)
