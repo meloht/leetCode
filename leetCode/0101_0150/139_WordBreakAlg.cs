@@ -10,110 +10,31 @@ namespace leetCode._0101_0150
 {
     public class _139_WordBreakAlg
     {
-        public bool WordBreak1(string s, IList<string> wordDict)
-        {
-            HashSet<string> wordSet = new HashSet<string>(wordDict);
-            int[,] dp = new int[s.Length, s.Length];
-
-            if (wordSet.Contains(s))
-                return true;
-            if (!IsStop(s, 0, s.Length - 1, dp, wordSet))
-            {
-                return false;
-            }
-            for (int i = 1; i < s.Length; i++)
-            {
-                bool bl1 = Dfs(s, 0, i - 1, dp, wordSet);
-                bool bl2 = Dfs(s, i, s.Length - 1, dp, wordSet);
-                if (bl1 && bl2)
-                    return true;
-            }
-            return false;
-        }
-        private bool Dfs(string s, int begin, int end, int[,] dp, HashSet<string> wordSet)
-        {
-            if (IsExist(s, begin, end, dp, wordSet))
-                return true;
-            for (int i = begin + 1; i <= end; i++)
-            {
-                bool bl1 = IsExist(s, begin, i - 1, dp, wordSet);
-                bool bl2 = IsExist(s, i, s.Length - 1, dp, wordSet);
-                if (bl1 && bl2)
-                {
-                    return true;
-                }
-                else
-                {
-                    if (bl1 && bl2 == false)
-                    {
-                        if (!IsStop(s, i, s.Length - 1, dp, wordSet))
-                        {
-                            return false;
-                        }
-                        bool bl = Dfs(s, i, s.Length - 1, dp, wordSet);
-                        if (bl)
-                        {
-                            return true;
-                        }
-                    }
-
-                }
-            }
-
-
-            return false;
-        }
-        private bool IsStop(string s, int begin, int end, int[,] dp, HashSet<string> wordSet)
-        {
-            bool bl1 = false;
-            for (int i = 0; i <= end; i++)
-            {
-                if (IsExist(s, 0, i + 1, dp, wordSet))
-                {
-                    bl1 = true;
-                    break;
-                }
-            }
-            bool bl2 = false;
-            for (int i = end; i >= begin; i--)
-            {
-                if (IsExist(s, i, end, dp, wordSet))
-                {
-                    bl2 = true;
-                    break;
-                }
-            }
-            return bl1 && bl2;
-        }
-
-        private bool IsExist(string s, int begin, int end, int[,] dp, HashSet<string> wordSet)
-        {
-            if (dp[begin, end] == 0)
-            {
-                string ss = s.Substring(begin, end - begin + 1);
-                if (wordSet.Contains(ss))
-                {
-                    dp[begin, end] = 1;
-                    return true;
-                }
-                else
-                {
-                    dp[begin, end] = -1;
-                    return false;
-                }
-            }
-            else if (dp[begin, end] == 1)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-
         public bool WordBreak(string s, IList<string> wordDict)
+        {
+            var wordDictSet = new HashSet<string>(wordDict);
+
+            var dp = new bool[s.Length + 1];
+            dp[0] = true;
+            for (int i = 1; i <= s.Length; ++i)
+            {
+                for (int j = 0; j < i; ++j)
+                {
+                    if (dp[j] && wordDictSet.Contains(s.Substring(j, i - j)))
+                    {
+                        dp[i] = true;
+                        break;
+                    }
+                }
+            }
+
+            return dp[s.Length];
+
+        }
+
+
+
+        public bool WordBreak1(string s, IList<string> wordDict)
         {
             bool[,] dp = new bool[s.Length, s.Length];
             for (int j = 0; j < wordDict.Count; j++)
