@@ -20,20 +20,24 @@ namespace leetCode._0101_0150
                 node = node.next;
             }
             node = head;
-            while (list.Count > 0)
+            int left = 0;
+            int right = list.Count - 1;
+            while (left <= right)
             {
-                var node1= list[list.Count - 1];
+                var node1 = list[right];
                 node.next = node1;
                 node1.next = null;
-                list.RemoveAt(list.Count - 1);
-                if (list.Count > 0)
+
+                if (left < right)
                 {
-                    var node2 = list[0];
+                    var node2 = list[left];
                     node1.next = node2;
                     node = node2;
                     node2.next = null;
-                    list.RemoveAt(0);
                 }
+
+                right--;
+                left++;
             }
         }
     }
