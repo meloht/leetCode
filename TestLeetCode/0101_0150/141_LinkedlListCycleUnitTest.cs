@@ -17,7 +17,7 @@ namespace TestLeetCode._0101_0150
         {
             int[] head = [3, 2, 0, -4];
             int pos = 1;
-            var node = Utils.BuildListNode(head);
+            var node = Utils.BuildListNode(head, pos);
             bool bl = alg.HasCycle(node);
             Assert.AreEqual(true, bl);
         }
@@ -27,7 +27,7 @@ namespace TestLeetCode._0101_0150
         {
             int[] head = [1, 2];
             int pos = 0;
-            var node = Utils.BuildListNode(head);
+            var node = Utils.BuildListNode(head, pos);
             bool bl = alg.HasCycle(node);
             Assert.AreEqual(true, bl);
         }
@@ -37,9 +37,11 @@ namespace TestLeetCode._0101_0150
         {
             int[] head = [1];
             int pos = -1;
-            var node = Utils.BuildListNode(head);
+            var node = Utils.BuildListNode(head, pos);
             bool bl = alg.HasCycle(node);
             Assert.AreEqual(false, bl);
         }
+
+
     }
 }

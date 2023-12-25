@@ -26,6 +26,28 @@ namespace TestLeetCode
             return header;
         }
 
+        public static ListNode BuildListNode(int[] arr,int pos)
+        {
+            if (arr.Length == 0)
+                return null;
+            ListNode node = new ListNode(arr[0]);
+            ListNode header = node;
+            Dictionary<int, ListNode> dict = new Dictionary<int, ListNode>();
+            dict.Add(0, header);
+            for (int i = 1; i < arr.Length; i++)
+            {
+                node.next = new ListNode(arr[i]);
+                node = node.next;
+                dict.Add(i, node);
+            }
+            if (pos != -1)
+            {
+                dict[arr.Length - 1].next = dict[pos];
+            }
+           
+            return header;
+        }
+
         /// <summary>
         /// 先序遍历构造
         /// </summary>
