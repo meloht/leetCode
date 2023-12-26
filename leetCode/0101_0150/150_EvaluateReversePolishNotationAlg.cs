@@ -10,7 +10,40 @@ namespace leetCode._0101_0150
     {
         public int EvalRPN(string[] tokens)
         {
-            return 0;
+            Stack<string> stack = new Stack<string>();
+            foreach (var item in tokens)
+            {
+                if (item == "+" || item == "-" || item == "*" || item == "/")
+                {
+                    int num2 = int.Parse(stack.Pop());
+                    int num1 = int.Parse(stack.Pop());
+                    int res = 0;
+                    if (item == "+")
+                    {
+                        res = num1 + num2;
+                    }
+                    else if (item == "-")
+                    {
+                        res = num1 - num2;
+                    }
+                    else if (item == "*")
+                    {
+                        res = num1 * num2;
+                    }
+                    else if (item == "/")
+                    {
+                        res = num1 / num2;
+                    }
+
+                    stack.Push(res.ToString());
+                }
+                else
+                {
+                    stack.Push(item);
+                }
+            }
+            int num = int.Parse(stack.Pop());
+            return num;
         }
     }
 }
