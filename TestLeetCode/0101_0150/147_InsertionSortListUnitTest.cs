@@ -17,7 +17,8 @@ namespace TestLeetCode._0101_0150
         {
             int[] head = [4, 2, 1, 3];
             var list = Utils.BuildListNode(head);
-            int[] res = Utils.GetLinkNodeList(list);
+            var node = alg.InsertionSortList(list);
+            int[] res = Utils.GetLinkNodeList(node);
             int[] exp = [1, 2, 3, 4];
 
             bool bl = exp.SequenceEqual(res);
@@ -29,7 +30,8 @@ namespace TestLeetCode._0101_0150
         {
             int[] head = [-1, 5, 3, 4, 0];
             var list = Utils.BuildListNode(head);
-            int[] res = Utils.GetLinkNodeList(list);
+            var node = alg.InsertionSortList(list);
+            int[] res = Utils.GetLinkNodeList(node);
             int[] exp = [-1, 0, 3, 4, 5];
 
             bool bl = exp.SequenceEqual(res);
