@@ -11,18 +11,28 @@ namespace leetCode._0151_0200
         public class MinStack
         {
             Stack<int> stack;
+            Stack<int> minStack;
             public MinStack()
             {
                 stack = new Stack<int>();
+                minStack = new Stack<int>();
             }
 
             public void Push(int val)
             {
                 stack.Push(val);
+                if (minStack.Count == 0 || minStack.Peek() >= val)
+                {
+                    minStack.Push(val);
+                }
             }
 
             public void Pop()
             {
+                if (minStack.Peek() == stack.Peek())
+                {
+                    minStack.Pop();
+                }
                 stack.Pop();
             }
 
@@ -33,7 +43,7 @@ namespace leetCode._0151_0200
 
             public int GetMin()
             {
-                return 0;
+                return minStack.Peek();
             }
         }
 
