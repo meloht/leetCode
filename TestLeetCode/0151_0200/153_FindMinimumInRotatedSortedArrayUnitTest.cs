@@ -36,5 +36,28 @@ namespace TestLeetCode._0151_0200
             int res = alg.FindMin(nums);
             Assert.AreEqual(11, res);
         }
+
+        [TestMethod]
+        public void TestCase04()
+        {
+            int[] nums = [2, 1];
+            int res = alg.FindMin(nums);
+            Assert.AreEqual(1, res);
+        }
+        [TestMethod]
+        public void TestCase05()
+        {
+            int[] nums = [3, 1, 2];
+            int res = alg.FindMin(nums);
+            Assert.AreEqual(1, res);
+        }
+
+        [TestMethod]
+        public void TestCase06()
+        {
+            int[] nums = [5, 1, 2, 3, 4];
+            int res = alg.FindMin(nums);
+            Assert.AreEqual(1, res);
+        }
     }
 }
