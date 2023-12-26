@@ -10,7 +10,12 @@ namespace leetCode._0151_0200
     {
         public string ReverseWords(string s)
         {
-            return null;
+            s = s.Trim();
+            var ls = s.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+            var res = ls.Reverse();
+
+            return string.Join(" ", res);
         }
     }
 }

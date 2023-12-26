@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using leetCode._1_50;
 
-namespace TestLeetCode._1_50
+namespace TestLeetCode._0001_0050
 {
     [TestClass]
     public class _39_CombinationSumUnitTest
