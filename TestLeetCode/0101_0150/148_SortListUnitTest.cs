@@ -37,5 +37,17 @@ namespace TestLeetCode._0101_0150
             bool bl = exp.SequenceEqual(res);
             Assert.IsTrue(bl);
         }
+        [TestMethod]
+        public void TestCase03()
+        {
+            int[] head = [];
+            var list = Utils.BuildListNode(head);
+            var node = alg.SortList(list);
+            int[] res = Utils.GetLinkNodeList(node);
+            int[] exp = [];
+
+            bool bl = exp.SequenceEqual(res);
+            Assert.IsTrue(bl);
+        }
     }
 }
