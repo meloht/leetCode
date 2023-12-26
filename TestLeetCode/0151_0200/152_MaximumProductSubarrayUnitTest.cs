@@ -27,5 +27,36 @@ namespace TestLeetCode._0151_0200
             int res = alg.MaxProduct(nums);
             Assert.AreEqual(0, res);
         }
+
+        [TestMethod]
+        public void TestCase03()
+        {
+            int[] nums = [-2, 3, -4];
+            int res = alg.MaxProduct(nums);
+            Assert.AreEqual(24, res);
+        }
+        [TestMethod]
+        public void TestCase04()
+        {
+            int[] nums = [7, -2, -4];
+            int res = alg.MaxProduct(nums);
+            Assert.AreEqual(56, res);
+        }
+
+        [TestMethod]
+        public void TestCase05()
+        {
+            int[] nums = [3, -1, 4];
+            int res = alg.MaxProduct(nums);
+            Assert.AreEqual(4, res);
+        }
+
+        [TestMethod]
+        public void TestCase06()
+        {
+            int[] nums = [2, -5, -2, -4, 3];
+            int res = alg.MaxProduct(nums);
+            Assert.AreEqual(24, res);
+        }
     }
 }
