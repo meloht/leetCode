@@ -66,5 +66,19 @@ namespace leetCode._0151_0200
             }
             return max;
         }
+
+        public int MaxProduct2(int[] nums)
+        {
+            int maxF = nums[0], minF = nums[0], ans = nums[0];
+            int length = nums.Length;
+            for (int i = 1; i < length; ++i)
+            {
+                int mx = maxF, mn = minF;
+                maxF = Math.Max(mx * nums[i], Math.Max(nums[i], mn * nums[i]));
+                minF = Math.Min(mn * nums[i], Math.Min(nums[i], mx * nums[i]));
+                ans = Math.Max(maxF, ans);
+            }
+            return ans;
+        }
     }
 }
