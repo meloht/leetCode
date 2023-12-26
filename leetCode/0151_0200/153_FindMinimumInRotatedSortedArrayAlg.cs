@@ -8,7 +8,7 @@ namespace leetCode._0151_0200
 {
     public class _153_FindMinimumInRotatedSortedArrayAlg
     {
-        public int FindMin(int[] nums)
+        public int FindMin1(int[] nums)
         {
             if (nums.Length == 1)
                 return nums[0];
@@ -55,6 +55,24 @@ namespace leetCode._0151_0200
             return 0;
         }
 
+        public int FindMin(int[] nums)
+        {
+            int low = 0;
+            int high = nums.Length - 1;
+            while (low < high)
+            {
+                int pivot = low + (high - low) / 2;
+                if (nums[pivot] < nums[high])
+                {
+                    high = pivot;
+                }
+                else
+                {
+                    low = pivot + 1;
+                }
+            }
+            return nums[low];
+        }
 
 
     }
