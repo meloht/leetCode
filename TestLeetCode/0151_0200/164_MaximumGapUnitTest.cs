@@ -27,5 +27,12 @@ namespace TestLeetCode._0151_0200
             int res = alg.MaximumGap(nums);
             Assert.AreEqual(0, res);
         }
+        [TestMethod]
+        public void TestCase03()
+        {
+            int[] nums = [1, 10000000];
+            int res = alg.MaximumGap(nums);
+            Assert.AreEqual(9999999, res);
+        }
     }
 }
