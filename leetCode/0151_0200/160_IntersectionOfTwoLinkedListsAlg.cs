@@ -8,11 +8,11 @@ namespace leetCode._0151_0200
 {
     public class _160_IntersectionOfTwoLinkedListsAlg
     {
-        public ListNode GetIntersectionNode(ListNode headA, ListNode headB)
+        public ListNode GetIntersectionNode1(ListNode headA, ListNode headB)
         {
 
-            ListNode nodeA= headA;
-            ListNode nodeB= headB;
+            ListNode nodeA = headA;
+            ListNode nodeB = headB;
             HashSet<ListNode> listNodes = new HashSet<ListNode>();
             while (nodeA != null || nodeB != null)
             {
@@ -42,6 +42,58 @@ namespace leetCode._0151_0200
                 }
             }
             return null;
+        }
+
+      
+
+        public ListNode GetIntersectionNode2(ListNode headA, ListNode headB)
+        {
+            int lenA = GetLen(headA);
+            int lenB = GetLen(headB);
+
+            ListNode nodeA = headA;
+            ListNode nodeB = headB;
+            if (lenA > lenB)
+            {
+                int dec = lenA - lenB;
+                while (nodeA != null && dec > 0)
+                {
+                    dec--;
+                    nodeA = nodeA.next;
+                }
+            }
+            else
+            {
+                int dec = lenB - lenA;
+                while (nodeB != null && dec > 0)
+                {
+                    dec--;
+                    nodeB = nodeB.next;
+                }
+            }
+
+            while (nodeA != null && nodeB != null)
+            {
+                if (nodeA == nodeB)
+                    return nodeA;
+
+                nodeA = nodeA.next;
+                nodeB = nodeB.next;
+            }
+
+
+            return null;
+        }
+        private int GetLen(ListNode head)
+        {
+            int num = 0;
+            ListNode node = head;
+            while (node != null)
+            {
+                num++;
+                node = node.next;
+            }
+            return num;
         }
     }
 }
