@@ -46,7 +46,7 @@ namespace leetCode._0151_0200
 
       
 
-        public ListNode GetIntersectionNode2(ListNode headA, ListNode headB)
+        public ListNode GetIntersectionNode(ListNode headA, ListNode headB)
         {
             int lenA = GetLen(headA);
             int lenB = GetLen(headB);
