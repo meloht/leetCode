@@ -29,5 +29,24 @@ namespace leetCode._51_100
                 }
             }
         }
+
+        public IList<int> InorderTraversal2(TreeNode root)
+        {
+            List<int> res = new List<int>();
+            Stack<TreeNode> stk = new Stack<TreeNode>();
+            while (root != null || stk.Count > 0)
+            {
+                while (root != null)
+                {
+                    stk.Push(root);
+                    root = root.left;
+                }
+                root = stk.Pop();
+                res.Add(root.val);
+                root = root.right;
+            }
+            return res;
+        }
+
     }
 }
