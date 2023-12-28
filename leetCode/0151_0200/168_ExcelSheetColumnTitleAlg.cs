@@ -58,5 +58,24 @@ namespace leetCode._0151_0200
 
             return stringBuilder.ToString();
         }
+
+        public string ConvertToTitle2(int columnNumber)
+        {
+            List<char> list = new List<char>();
+            while (columnNumber != 0)
+            {
+                columnNumber--;
+                list.Add((char)(columnNumber % 26 + 'A'));
+                columnNumber /= 26;
+            }
+            StringBuilder columnTitle = new StringBuilder();
+            for (int i = list.Count - 1; i >= 0; i--)
+            {
+                columnTitle.Append(list[i]);
+            }
+            return columnTitle.ToString();
+        }
+
+
     }
 }
