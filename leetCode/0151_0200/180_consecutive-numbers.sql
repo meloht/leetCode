@@ -25,3 +25,19 @@ FROM
     Logs a,
     (SELECT @cnt := 1, @pre := '') b
 ) t WHERE t.cnt >= 3
+
+select
+    distinct t.num as ConsecutiveNums 
+from
+(
+    select 
+        id,
+        num,
+        row_number() over(order by id) as rn,
+        row_number() over(partition by num order by id) as id_rn
+    from Logs 
+) t
+group by t.num, (t.rn - t.id_rn)
+having count(1) >= 3
+;
+
