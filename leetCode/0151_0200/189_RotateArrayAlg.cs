@@ -32,27 +32,7 @@ namespace leetCode._0151_0200
                 nums[i] = list[j];
             }
         }
-        public void Rotate2(int[] nums, int k)
-        {
-            int len = nums.Length;
-            k = k % len;
-            if (k == 0)
-                return;
 
-            while (k > 0)
-            {
-                int last = nums[len - 1];
-                int end = len - 2;
-                for (int i = end; i >= 0; i--)
-                {
-                    nums[i + 1] = nums[i];
-                }
-                nums[0] = last;
-
-                k--;
-            }
-
-        }
 
 
         public void Rotate3(int[] nums, int k)
