@@ -47,7 +47,8 @@ namespace leetCode._51_100
 
         public string GetPermutation(int n, int k)
         {
-            Dictionary<int, int> dict = new Dictionary<int, int>();
+            int[] dict = new int[n + 1];
+            dict[0] = 1;
             List<int> list = new List<int>();
             for (int i = 1; i <= n; i++)
             {
@@ -85,7 +86,7 @@ namespace leetCode._51_100
                     int dec = num / dict[n - i];
                     int rem = num % dict[n - i];
                     num = rem;
-                    
+
                     int t = list[dec];
                     sb.Append(t);
                     list.RemoveAt(dec);
