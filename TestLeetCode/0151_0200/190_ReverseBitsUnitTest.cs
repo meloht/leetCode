@@ -16,7 +16,7 @@ namespace TestLeetCode._0151_0200
         public void TestCase01()
         {
             uint n = 43261596;
-            uint exp = 43261596;
+            uint exp = 964176192;
             var res = alg.reverseBits(n);
             Assert.AreEqual(exp, res);
 
