@@ -60,7 +60,7 @@ namespace leetCode._0151_0200
             return f[k + 1, 0];
         }
 
-        public int MaxProfit(int k, int[] prices)
+        public int MaxProfit1(int k, int[] prices)
         {
             if (prices.Length == 0)
                 return 0;
@@ -121,9 +121,82 @@ namespace leetCode._0151_0200
         }
 
 
+        public int MaxProfit4(int k, int[] prices)
+        {
+            if (prices.Length == 0)
+            {
+                return 0;
+            }
+
+            int n = prices.Length;
+            k = Math.Min(k, n / 2);
+            int[,] buy = new int[n, k + 1];
+            int[,] sell = new int[n, k + 1];
+
+            buy[0, 0] = -prices[0];
+            sell[0, 0] = 0;
+            for (int i = 1; i <= k; ++i)
+            {
+                buy[0, i] = sell[0, i] = int.MinValue / 2;
+            }
+
+            for (int i = 1; i < n; ++i)
+            {
+                buy[i, 0] = Math.Max(buy[i - 1, 0], sell[i - 1, 0] - prices[i]);
+                for (int j = 1; j <= k; ++j)
+                {
+                    buy[i, j] = Math.Max(buy[i - 1, j], sell[i - 1, j] - prices[i]);
+                    sell[i, j] = Math.Max(sell[i - 1, j], buy[i - 1, j - 1] + prices[i]);
+                }
+            }
+            int max = 0;
+            for (int i = 0; i <= k; i++)
+            {
+                max = Math.Max(max, sell[n - 1, i]);
+            }
+
+            return max;
+        }
+
+        public int MaxProfit(int k, int[] prices)
+        {
+            if (prices.Length == 0)
+            {
+                return 0;
+            }
+
+            int n = prices.Length;
+            k = Math.Min(k, n / 2);
+            int[] buy = new int[k + 1];
+            int[] sell = new int[k + 1];
+
+            buy[0] = -prices[0];
+            sell[0] = 0;
+            for (int i = 1; i <= k; ++i)
+            {
+                buy[i] = sell[i] = int.MinValue / 2;
+            }
+
+            for (int i = 1; i < n; ++i)
+            {
+                buy[0] = Math.Max(buy[0], sell[0] - prices[i]);
+                for (int j = 1; j <= k; ++j)
+                {
+                    buy[j] = Math.Max(buy[j], sell[j] - prices[i]);
+                    sell[j] = Math.Max(sell[j], buy[j - 1] + prices[i]);
+                }
+            }
+            int max = 0;
+            for (int i = 0; i <= k; i++)
+            {
+                max = Math.Max(max, sell[i]);
+            }
+
+            return max;
+        }
+
+
     }
-
-
 
 
 }
