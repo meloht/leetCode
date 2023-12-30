@@ -34,5 +34,34 @@ namespace leetCode._0151_0200
             Dfs(root.right, res, depth);
             Dfs(root.left, res, depth);
         }
+
+        public IList<int> RightSideView2(TreeNode root)
+        {
+            List<int> list = new List<int>();
+            if (root == null) return list;
+            Queue<TreeNode> queue = new Queue<TreeNode>();
+            queue.Enqueue(root);
+            while (queue.Count > 0)
+            {
+                int levelCount = queue.Count;
+                for (int i = 0; i < levelCount; i++)
+                {
+                    TreeNode node = queue.Dequeue();
+                    if (i == levelCount - 1)
+                    {
+                        list.Add(node.val);
+                    }
+                    if (node.left != null)
+                    {
+                        queue.Enqueue(node.left);
+                    }
+                    if (node.right != null)
+                    {
+                        queue.Enqueue(node.right);
+                    }
+                }
+            }
+            return list;
+        }
     }
 }
