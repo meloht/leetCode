@@ -26,5 +26,13 @@ namespace TestLeetCode._0151_0200
             Assert.AreEqual(false, res);
         }
 
+        [TestMethod]
+        public void TestCase03()
+        {
+            var res = alg.IsHappy(1);
+            Assert.AreEqual(true, res);
+        }
+
+
     }
 }
