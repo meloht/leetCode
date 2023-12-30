@@ -8,7 +8,7 @@ namespace leetCode._0151_0200
 {
     public class _203_RemoveLinkedListElementsAlg
     {
-        public ListNode RemoveElements(ListNode head, int val)
+        public ListNode RemoveElements1(ListNode head, int val)
         {
             ListNode headNew = null;
             ListNode node = head;
@@ -37,5 +37,17 @@ namespace leetCode._0151_0200
             }
             return headNew;
         }
+
+        public ListNode RemoveElements(ListNode head, int val)
+        {
+            if (head == null)
+            {
+                return head;
+            }
+            head.next = RemoveElements(head.next, val);
+            return head.val == val ? head.next : head;
+        }
+
+
     }
 }
