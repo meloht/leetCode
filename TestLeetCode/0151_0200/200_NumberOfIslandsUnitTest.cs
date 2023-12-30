@@ -16,12 +16,12 @@ namespace TestLeetCode._0151_0200
         public void TestCase01()
         {
             char[][] grid = [
-  ['1', '1', '1', '1', '0'],
+                ['1', '1', '1', '1', '0'],
                 ['1', '1', '0', '1', '0'],
                 ['1', '1', '0', '0', '0'],
                 ['0', '0', '0', '0', '0']
 ];
-            int res=alg.NumIslands(grid);
+            int res = alg.NumIslands(grid);
             Assert.AreEqual(1, res);
         }
 
@@ -29,13 +29,21 @@ namespace TestLeetCode._0151_0200
         public void TestCase02()
         {
             char[][] grid = [
-  ['1', '1', '0', '0', '0'],
+                ['1', '1', '0', '0', '0'],
                 ['1', '1', '0', '0', '0'],
                 ['0', '0', '1', '0', '0'],
                 ['0', '0', '0', '1', '1']
 ];
             int res = alg.NumIslands(grid);
             Assert.AreEqual(3, res);
+        }
+
+        [TestMethod]
+        public void TestCase03()
+        {
+            char[][] grid = [['1', '1']];
+            int res = alg.NumIslands(grid);
+            Assert.AreEqual(1, res);
         }
     }
 }
