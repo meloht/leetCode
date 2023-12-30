@@ -45,6 +45,7 @@ namespace leetCode._0151_0200
                 return head;
             }
             head.next = RemoveElements(head.next, val);
+            System.Diagnostics.Debug.WriteLine($"{head.val}");
             return head.val == val ? head.next : head;
         }
 
