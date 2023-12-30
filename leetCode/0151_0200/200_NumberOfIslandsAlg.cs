@@ -9,20 +9,19 @@ namespace leetCode._0151_0200
     public class _200_NumberOfIslandsAlg
     {
 
-        int imax = 0;
-        int jmax = 0;
+        int m = 0;
+        int n = 0;
         public int NumIslands(char[][] grid)
         {
-            int m = grid.Length;
-            int n = grid[0].Length;
-            imax = m - 1;
-            jmax = n - 1;
+            m = grid.Length - 1;
+            n = grid[0].Length - 1;
+
             int count = 0;
 
 
-            for (int i = 0; i < m; i++)
+            for (int i = 0; i <= m; i++)
             {
-                for (int j = 0; j < n; j++)
+                for (int j = 0; j <= n; j++)
                 {
                     if (grid[i][j] == '1')
                     {
@@ -41,7 +40,7 @@ namespace leetCode._0151_0200
         private void Dfs(char[][] grid, int i, int j)
         {
 
-            if (i >= 0 && i <= imax && j >= 0 && j <= jmax && grid[i][j] == '1')
+            if (i >= 0 && i <= m && j >= 0 && j <= n && grid[i][j] == '1')
             {
                 grid[i][j] = '2';
 
