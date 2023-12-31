@@ -18,8 +18,12 @@ namespace leetCode.WeeklyContest._0378
 
             if (IsSameStr(begin, end) == false)
                 return res;
-            Dictionary<string, bool> dict = new Dictionary<string, bool>();
 
+            int[][] dictLeft = InitCacheData(begin);
+            int[][] dictRight = InitCacheData(end);
+
+            Dictionary<string, bool> dict = new Dictionary<string, bool>();
+           
             for (int i = 0; i < queries.Length; i++)
             {
                 string key = string.Join(",", queries[i]);
@@ -29,28 +33,24 @@ namespace leetCode.WeeklyContest._0378
                 }
                 else
                 {
-                    res[i] = IsSame(s, queries[i], len);
+                    res[i] = IsSame(s, queries[i], len, dictLeft, dictRight);
                     dict.Add(key, res[i]);
                 }
-
             }
 
             return res;
         }
 
 
-        private bool IsSame(string s, int[] arr, int len)
+        private bool IsSame(string s, int[] arr, int len, int[][] dictLeft, int[][] dictRight)
         {
             int a = arr[0];
             int b = arr[1];
             int c = arr[2];
             int d = arr[3];
 
-            string a2 = s.Substring(a, b - a + 1);
-            string b2 = s.Substring(c, d - c + 1);
-
-            var dict2 = GetCharDict(b2);
-            var dict1 = GetCharDict(a2);
+            var dict1 = GetCharArr(dictLeft, a, b);
+            var dict2 = GetCharArr(dictRight, c - len, d - len);
 
             for (int i = 0, j = s.Length - 1; i < len; i++, j--)
             {
@@ -91,6 +91,23 @@ namespace leetCode.WeeklyContest._0378
             return false;
         }
 
+        private int[][] InitCacheData(string s)
+        {
+            int[][] dict = new int[s.Length][];
+
+            dict[0] = GetCharDict(s.Substring(0, 1));
+            for (int i = 1; i < s.Length; i++)
+            {
+                var ch = s[i] - 'a';
+                int[] arr = new int[26];
+                Array.Copy(dict[i - 1], arr, 26);
+                arr[ch]++;
+                dict[i] = arr;
+            }
+
+            return dict;
+        }
+
         private bool ReduceDict(int[] dict, char item)
         {
             int index = item - 'a';
@@ -103,7 +120,27 @@ namespace leetCode.WeeklyContest._0378
             {
                 return false;
             }
-           
+
+        }
+
+        private int[] GetCharArr(int[][] dict, int begin, int end)
+        {
+            int[] arr = new int[26];
+            var range1 = dict[end];
+
+            for (int i = 0; i < 26; i++)
+            {
+                arr[i] = range1[i];
+            }
+            if (begin > 0)
+            {
+                var range2 = dict[begin - 1];
+                for (int i = 0; i < 26; i++)
+                {
+                    arr[i] = arr[i] - range2[i];
+                }
+            }
+            return arr;
         }
 
         private bool IsSameStr(string s1, string s2)
@@ -136,7 +173,7 @@ namespace leetCode.WeeklyContest._0378
                 return true;
             }
             return false;
-          
+
         }
     }
 }
