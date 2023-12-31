@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace leetCode._201_250
 {
-    public class _201_ReverseLinkedListAlg
+    public class _206_ReverseLinkedListAlg
     {
         public ListNode ReverseList1(ListNode head)
         {

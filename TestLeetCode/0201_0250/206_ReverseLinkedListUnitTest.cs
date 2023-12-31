@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 namespace TestLeetCode._0201_0250
 {
     [TestClass]
-    public class _201_ReverseLinkedListUnitTest
+    public class _206_ReverseLinkedListUnitTest
     {
-        _201_ReverseLinkedListAlg alg = new _201_ReverseLinkedListAlg();
+        _206_ReverseLinkedListAlg alg = new _206_ReverseLinkedListAlg();
 
         [TestMethod]
         public void TestCase01()

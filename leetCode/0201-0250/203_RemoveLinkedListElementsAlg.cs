@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace leetCode._0151_0200
+namespace leetCode._201_250
 {
     public class _203_RemoveLinkedListElementsAlg
     {
