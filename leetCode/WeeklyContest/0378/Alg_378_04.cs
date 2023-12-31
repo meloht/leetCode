@@ -19,6 +19,7 @@ namespace leetCode.WeeklyContest._0378
             if (IsSameStr(begin, end) == false)
                 return res;
             Dictionary<string, bool> dict = new Dictionary<string, bool>();
+
             for (int i = 0; i < queries.Length; i++)
             {
                 string key = string.Join(",", queries[i]);
@@ -31,11 +32,12 @@ namespace leetCode.WeeklyContest._0378
                     res[i] = IsSame(s, queries[i], len);
                     dict.Add(key, res[i]);
                 }
-              
+
             }
 
             return res;
         }
+
 
         private bool IsSame(string s, int[] arr, int len)
         {
@@ -89,17 +91,19 @@ namespace leetCode.WeeklyContest._0378
             return false;
         }
 
-        private bool ReduceDict(Dictionary<char, int> dict, char item)
+        private bool ReduceDict(int[] dict, char item)
         {
-            if (!dict.ContainsKey(item))
-                return false;
-
-            dict[item]--;
-            if (dict[item] == 0)
+            int index = item - 'a';
+            if (dict[index] > 0)
             {
-                dict.Remove(item);
+                dict[index]--;
+                return true;
             }
-            return true;
+            else
+            {
+                return false;
+            }
+           
         }
 
         private bool IsSameStr(string s1, string s2)
@@ -114,33 +118,25 @@ namespace leetCode.WeeklyContest._0378
                 return true;
             return false;
         }
-        private Dictionary<char, int> GetCharDict(string begin)
+        private int[] GetCharDict(string begin)
         {
-            Dictionary<char, int> dict = new Dictionary<char, int>();
+            int[] arr = new int[26];
             foreach (char c in begin)
             {
-                if (dict.ContainsKey(c))
-                {
-                    dict[c]++;
-                }
-                else
-                {
-                    dict.Add(c, 1);
-                }
-            }
-            return dict;
-        }
-        private bool IsSameDict(Dictionary<char, int> dict1, Dictionary<char, int> dict2)
-        {
-            foreach (var item in dict1)
-            {
-                if (!dict2.ContainsKey(item.Key))
-                    return false;
-                if (dict2[item.Key] != item.Value)
-                    return false;
+                int index = c - 'a';
+                arr[index]++;
 
             }
-            return true;
+            return arr;
+        }
+        private bool IsSameDict(int[] dict1, int[] dict2)
+        {
+            if (dict1.SequenceEqual(dict2))
+            {
+                return true;
+            }
+            return false;
+          
         }
     }
 }

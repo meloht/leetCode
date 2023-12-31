@@ -11,21 +11,22 @@ namespace leetCode.WeeklyContest._0378
 
         public int MaximumLength(string s)
         {
-
             Dictionary<string, int> dict = new Dictionary<string, int>();
-            int count = 1;
+
             string sss = s + "0";
+            StringBuilder sb = new StringBuilder();
+            sb.Append(sss[0]);
             for (int i = 1; i < sss.Length; i++)
             {
                 var pre = sss[i - 1];
                 var curr = sss[i];
                 if (pre == curr)
                 {
-                    count++;
+                    sb.Append(sss[i]);
                 }
                 else
                 {
-                    string ss = pre.ToString().PadLeft(count, pre);
+                    var ss = sb.ToString();
                     if (dict.ContainsKey(ss))
                     {
                         dict[ss]++;
@@ -34,7 +35,8 @@ namespace leetCode.WeeklyContest._0378
                     {
                         dict.Add(ss, 1);
                     }
-                    count = 1;
+                    sb.Clear();
+                    sb.Append(curr);
                 }
             }
             int max = -1;
@@ -75,10 +77,7 @@ namespace leetCode.WeeklyContest._0378
                                 break;
                             key = item.Key.Substring(0, len);
                         }
-
-
                     }
-
                 }
             }
             return max;
