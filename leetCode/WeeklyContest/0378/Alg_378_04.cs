@@ -16,14 +16,18 @@ namespace leetCode.WeeklyContest._0378
             string end = s.Substring(len);
             bool[] res = new bool[queries.Length];
 
-            if (IsSameStr(begin, end) == false)
+            var dict1 = GetCharDict(begin);
+            var dict2 = GetCharDict(end);
+
+            if (IsSameDict(dict1, dict2) == false)
                 return res;
 
-            int[][] dictLeft = InitCacheData(begin);
-            int[][] dictRight = InitCacheData(end);
+
+            int[][] dictLeft = InitCacheData(begin, dict1);
+            int[][] dictRight = InitCacheData(end, dict2);
 
             Dictionary<string, bool> dict = new Dictionary<string, bool>();
-           
+
             for (int i = 0; i < queries.Length; i++)
             {
                 string key = string.Join(",", queries[i]);
@@ -40,7 +44,6 @@ namespace leetCode.WeeklyContest._0378
 
             return res;
         }
-
 
         private bool IsSame(string s, int[] arr, int len, int[][] dictLeft, int[][] dictRight)
         {
@@ -91,17 +94,17 @@ namespace leetCode.WeeklyContest._0378
             return false;
         }
 
-        private int[][] InitCacheData(string s)
+        private int[][] InitCacheData(string s, int[] dictAll)
         {
             int[][] dict = new int[s.Length][];
 
-            dict[0] = GetCharDict(s.Substring(0, 1));
-            for (int i = 1; i < s.Length; i++)
+            dict[s.Length - 1] = dictAll;
+            for (int i = s.Length - 2; i >= 0; i--)
             {
-                var ch = s[i] - 'a';
+                var ch = s[i + 1] - 'a';
                 int[] arr = new int[26];
-                Array.Copy(dict[i - 1], arr, 26);
-                arr[ch]++;
+                Array.Copy(dict[i + 1], arr, 26);
+                arr[ch]--;
                 dict[i] = arr;
             }
 
@@ -143,18 +146,6 @@ namespace leetCode.WeeklyContest._0378
             return arr;
         }
 
-        private bool IsSameStr(string s1, string s2)
-        {
-            if (s1 == s2)
-                return true;
-
-            var dict1 = GetCharDict(s1);
-            var dict2 = GetCharDict(s2);
-
-            if (IsSameDict(dict1, dict2))
-                return true;
-            return false;
-        }
         private int[] GetCharDict(string begin)
         {
             int[] arr = new int[26];
