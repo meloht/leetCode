@@ -64,5 +64,27 @@ namespace TestLeetCode.WeeklyContest._0378
           //  Assert.AreEqual(true, exp.SequenceEqual(res));
         }
 
+        [TestMethod]
+        public void TestCase05()
+        {
+            string s = "bbccbb";
+            int[][] queries = [[0, 1, 4, 5]];
+
+            bool[] exp = [true];
+            var res = alg.CanMakePalindromeQueries(s, queries);
+            Assert.AreEqual(true, exp.SequenceEqual(res));
+        }
+
+        [TestMethod]
+        public void TestCase06()
+        {
+            string s = "stgjtzqwgkuadjgqugkwdtzast";
+            int[][] queries = [[5, 10, 13, 23]];
+
+            bool[] exp = [false];
+            var res = alg.CanMakePalindromeQueries(s, queries);
+            Assert.AreEqual(true, exp.SequenceEqual(res));
+        }
+
     }
 }

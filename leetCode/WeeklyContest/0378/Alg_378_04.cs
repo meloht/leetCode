@@ -19,9 +19,8 @@ namespace leetCode.WeeklyContest._0378
             var dict1 = GetCharDict(begin);
             var dict2 = GetCharDict(end);
 
-            if (IsSameDict(dict1, dict2) == false)
+            if (dict1.SequenceEqual(dict2) == false)
                 return res;
-
 
             int[][] dictLeft = InitCacheData(begin, dict1);
             int[][] dictRight = InitCacheData(end, dict2);
@@ -37,7 +36,7 @@ namespace leetCode.WeeklyContest._0378
                 }
                 else
                 {
-                    res[i] = IsSame(s, queries[i], len, dictLeft, dictRight);
+                    res[i] = IsSame(begin, end, queries[i], len, dictLeft, dictRight);
                     dict.Add(key, res[i]);
                 }
             }
@@ -45,49 +44,70 @@ namespace leetCode.WeeklyContest._0378
             return res;
         }
 
-        private bool IsSame(string s, int[] arr, int len, int[][] dictLeft, int[][] dictRight)
+        private bool IsSame(string begin, string end, int[] arr, int len, int[][] dictLeft, int[][] dictRight)
         {
             int a = arr[0];
             int b = arr[1];
             int c = arr[2];
             int d = arr[3];
 
+            int c1 = 2 * len - (d + 1);
+            int d1 = 2 * len - (c + 1);
+
             var dict1 = GetCharArr(dictLeft, a, b);
             var dict2 = GetCharArr(dictRight, c - len, d - len);
 
-            for (int i = 0, j = s.Length - 1; i < len; i++, j--)
+            int leftMax = Math.Max(a, c1);
+            int baseIndex = len - 1;
+            for (int i = 0; i < leftMax; i++)
             {
+                int j = baseIndex - i;
                 if (i >= a && i <= b)
                 {
-                    if (j >= c && j <= d)
+                    if (!ReduceDict(dict1, end[j]))
                     {
+                        return false;
                     }
-                    else
+                }
+                else if (i >= c1 && i <= d1)
+                {
+                    if (!ReduceDict(dict2, begin[i]))
                     {
-                        if (!ReduceDict(dict1, s[j]))
-                        {
-                            return false;
-                        }
+                        return false;
                     }
                 }
                 else
                 {
-
-                    if (j >= c && j <= d)
-                    {
-                        if (!ReduceDict(dict2, s[i]))
-                        {
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        if (s[i] != s[j])
-                            return false;
-                    }
+                    if (begin[i] != end[j])
+                        return false;
                 }
             }
-            if (IsSameDict(dict1, dict2))
+
+            int rightMax = Math.Min(b, d1) + 1;
+            for (int i = rightMax; i < len; i++)
+            {
+                int j = baseIndex - i;
+                if (i >= a && i <= b)
+                {
+                    if (!ReduceDict(dict1, end[j]))
+                    {
+                        return false;
+                    }
+                }
+                else if (i >= c1 && i <= d1)
+                {
+                    if (!ReduceDict(dict2, begin[i]))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (begin[i] != end[j])
+                        return false;
+                }
+            }
+            if (dict1.SequenceEqual(dict2))
                 return true;
 
 
@@ -110,6 +130,7 @@ namespace leetCode.WeeklyContest._0378
 
             return dict;
         }
+
 
         private bool ReduceDict(int[] dict, char item)
         {
@@ -157,14 +178,6 @@ namespace leetCode.WeeklyContest._0378
             }
             return arr;
         }
-        private bool IsSameDict(int[] dict1, int[] dict2)
-        {
-            if (dict1.SequenceEqual(dict2))
-            {
-                return true;
-            }
-            return false;
 
-        }
     }
 }
