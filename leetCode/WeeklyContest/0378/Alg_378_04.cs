@@ -57,6 +57,24 @@ namespace leetCode.WeeklyContest._0378
             var dict1 = GetCharArr(dictLeft, a, b);
             var dict2 = GetCharArr(dictRight, c - len, d - len);
 
+            int leftMin = Math.Min(a, c1) - 1;
+            if (leftMin >= 0 && leftMin < len)
+            {
+                int[] leftMaxLeft = GetCharArr(dictLeft, 0, leftMin);
+                int[] leftMaxRight = GetCharArr(dictRight, len - 1 - leftMin, len - 1);
+                if (leftMaxLeft.SequenceEqual(leftMaxRight) == false)
+                    return false;
+            }
+            int rightMax = Math.Max(b, d1) + 1;
+            if (rightMax >= 0 && rightMax < len)
+            {
+                int[] rightMaxLeft = GetCharArr(dictLeft, rightMax, len - 1);
+                int[] rightMaxRight = GetCharArr(dictRight, 0, len - 1 - rightMax);
+                if (rightMaxLeft.SequenceEqual(rightMaxRight) == false)
+                    return false;
+            }
+
+
             int leftMax = Math.Max(a, c1);
             int baseIndex = len - 1;
             for (int i = 0; i < leftMax; i++)
@@ -83,8 +101,8 @@ namespace leetCode.WeeklyContest._0378
                 }
             }
 
-            int rightMax = Math.Min(b, d1) + 1;
-            for (int i = rightMax; i < len; i++)
+            int rightMin = Math.Min(b, d1) + 1;
+            for (int i = rightMin; i < len; i++)
             {
                 int j = baseIndex - i;
                 if (i >= a && i <= b)
