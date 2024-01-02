@@ -12,7 +12,6 @@ namespace leetCode._0201_0250
         List<int> list = new List<int>();
         public int[] FindOrder(int numCourses, int[][] prerequisites)
         {
-
             if (prerequisites.Length == 0)
             {
                 for (int i = 0; i < numCourses; i++)
@@ -41,19 +40,14 @@ namespace leetCode._0201_0250
                 }
                 HashSet<int> set1 = new HashSet<int>();
                 bool bl = Dfs(set1, dict, i);
-                if (bl)
+                if (bl == false)
                 {
-                    if (setOK.Add(i))
-                    {
-                        list.Add(i);
-                    }
+                    return new int[] { };
                 }
-
-
             }
 
-
             return list.ToArray();
+
         }
 
         private bool Dfs(HashSet<int> set, List<List<int>> dict, int n)
@@ -65,24 +59,27 @@ namespace leetCode._0201_0250
 
             var next = dict[n];
             if (next.Count == 0)
+            {
+                if (setOK.Add(n))
+                {
+                    list.Add(n);
+                }
                 return true;
+            }
 
             foreach (var item in next)
             {
                 bool bl = Dfs(set, dict, item);
-                if (bl)
-                {
-                    if (setOK.Add(item))
-                    {
-                        list.Add(item);
-                    }
-                   
-                    return true;
-                }
                 set.Remove(item);
-
+                if (bl == false)
+                    return false;
             }
-            return false;
+            if (setOK.Add(n))
+            {
+                list.Add(n);
+            }
+            return true;
         }
+
     }
 }
