@@ -30,8 +30,17 @@ namespace TestLeetCode._0201_0250
             int[][] prerequisites = [[1, 0], [2, 0], [3, 1], [3, 2]];
 
             var res = alg.FindOrder(numCourses, prerequisites);
-            int[] exp = [0, 2, 1, 3];
-            Assert.AreEqual(true, exp.SequenceEqual(res));
+            int[][] exp = [[0, 2, 1, 3],[0, 1, 2, 3],[0, 2, 1, 3]];
+            bool bl = false;
+            foreach (var item in exp)
+            {
+                if (item.SequenceEqual(res))
+                {
+                    bl = true;
+                    break;
+                }
+            }
+            Assert.AreEqual(true, bl);
         }
 
         [TestMethod]
@@ -42,6 +51,17 @@ namespace TestLeetCode._0201_0250
 
             var res = alg.FindOrder(numCourses, prerequisites);
             int[] exp = [0];
+            Assert.AreEqual(true, exp.SequenceEqual(res));
+        }
+
+        [TestMethod]
+        public void TestCase04()
+        {
+            int numCourses = 3;
+            int[][] prerequisites = [[1, 0], [1, 2], [0, 1]];
+
+            var res = alg.FindOrder(numCourses, prerequisites);
+            int[] exp = [];
             Assert.AreEqual(true, exp.SequenceEqual(res));
         }
     }

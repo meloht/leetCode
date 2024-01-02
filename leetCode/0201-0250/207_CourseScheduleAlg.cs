@@ -49,7 +49,10 @@ namespace leetCode._0201_0250
 
             var next = dict[n];
             if (next.Count == 0)
+            {
+                setOK.Add(n);
                 return true;
+            }
 
             foreach (var item in next)
             {
