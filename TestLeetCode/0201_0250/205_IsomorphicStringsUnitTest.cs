@@ -35,5 +35,21 @@ namespace TestLeetCode._0201_0250
             var res = alg.IsIsomorphic(s, t);
             Assert.AreEqual(true, res);
         }
+
+        [TestMethod]
+        public void TestCase04()
+        {
+            string s = "badc", t = "baba";
+            var res = alg.IsIsomorphic(s, t);
+            Assert.AreEqual(false, res);
+        }
+
+        [TestMethod]
+        public void TestCase05()
+        {
+            string s = "bbbaaaba", t = "aaabbbba";
+            var res = alg.IsIsomorphic(s, t);
+            Assert.AreEqual(false, res);
+        }
     }
 }
