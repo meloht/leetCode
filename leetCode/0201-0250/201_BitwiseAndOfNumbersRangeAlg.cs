@@ -5,7 +5,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace leetCode._201_250
+namespace leetCode._0201_0250
 {
     public class _201_BitwiseAndOfNumbersRangeAlg
     {

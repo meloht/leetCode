@@ -1,11 +1,11 @@
-﻿using leetCode._201_250;
+﻿using leetCode._0201_0250;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._201_250
+namespace TestLeetCode._0201_0250
 {
     [TestClass]
     public class _202_HappyNumberUnitTest
