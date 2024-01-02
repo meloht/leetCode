@@ -21,7 +21,7 @@ namespace leetCode._0201_0250
             {
                 flag = true;
                 j = 2;
-                int max = (int)Math.Sqrt(i);
+                int max = j * j;
                 while (j <= max)
                 {
                     if (i % j == 0)
@@ -51,7 +51,7 @@ namespace leetCode._0201_0250
             {
                 if (prime[p] == true)
                 {
-                    for (int i = p * p; i <n; i += p)
+                    for (int i = p * p; i < n; i += p)
                         prime[i] = false;
                 }
             }
@@ -87,7 +87,7 @@ namespace leetCode._0201_0250
                             prime[i] = false;
                             total--;
                         }
-                       
+
                     }
 
                 }
