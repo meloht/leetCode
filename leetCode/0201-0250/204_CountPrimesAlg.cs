@@ -66,7 +66,7 @@ namespace leetCode._0201_0250
             }
             return count;
         }
-        public int CountPrimes(int n)
+        public int CountPrimes3(int n)
         {
             if (n <= 2)
                 return 0;
@@ -94,6 +94,36 @@ namespace leetCode._0201_0250
             }
 
             return total;
+        }
+
+        public int CountPrimes(int n)
+        {
+            if (n <= 2)
+                return 0;
+            List<int> primes = new List<int>();
+            bool[] prime = new bool[n];
+            Array.Fill(prime, true);
+            
+            for (int i = 2; i < n; i++)
+            {
+                if (prime[i] == true)
+                {
+                    primes.Add(i);
+
+                }
+                for (int j = 0; j < primes.Count && i * primes[j] < n; ++j)
+                {
+                    prime[i * primes[j]] = false;
+                    if (i % primes[j] == 0)
+                    {
+                        break;
+                    }
+                }
+
+
+            }
+
+            return primes.Count;
         }
     }
 }
