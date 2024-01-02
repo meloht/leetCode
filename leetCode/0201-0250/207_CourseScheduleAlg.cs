@@ -8,6 +8,7 @@ namespace leetCode._0201_0250
 {
     public class _207_CourseScheduleAlg
     {
+        HashSet<int> setOK = new HashSet<int>();
         public bool CanFinish(int numCourses, int[][] prerequisites)
         {
             if (prerequisites.Length == 0)
@@ -24,10 +25,10 @@ namespace leetCode._0201_0250
                 dict[arr[0]] = dict[arr[0]].Append(arr[1]).ToArray();
             }
 
-            HashSet<int> set = new HashSet<int>();
+          
             for (int i = 0; i < numCourses; i++)
             {
-                if (set.Contains(i))
+                if (setOK.Contains(i))
                 {
                     continue;
                 }
@@ -36,16 +37,15 @@ namespace leetCode._0201_0250
                 if (bl == false)
                     return false;
 
-                foreach (var item in set1)
-                {
-                    set.Add(item);
-                }
+               
             }
 
             return true;
         }
         private bool Dfs(HashSet<int> set, int[][] dict, int n)
         {
+            if (setOK.Contains(n))
+                return true;
             if (set.Add(n) == false)
                 return false;
 
@@ -60,7 +60,7 @@ namespace leetCode._0201_0250
                 if (bl == false)
                     return false;
             }
-
+            setOK.Add(n);
             return true;
         }
     }
