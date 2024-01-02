@@ -14,15 +14,14 @@ namespace leetCode._0201_0250
             if (prerequisites.Length == 0)
                 return true;
 
-            int[][] dict = new int[numCourses][];
-
+            List<List<int>> dict = new List<List<int>>();
+            for (int i = 0; i < numCourses; i++)
+            {
+                dict.Add(new List<int>());
+            }
             foreach (int[] arr in prerequisites)
             {
-                if (dict[arr[0]] == null)
-                {
-                    dict[arr[0]] = new int[] { };
-                }
-                dict[arr[0]] = dict[arr[0]].Append(arr[1]).ToArray();
+                dict[arr[0]].Add(arr[1]);
             }
 
           
@@ -37,12 +36,11 @@ namespace leetCode._0201_0250
                 if (bl == false)
                     return false;
 
-               
             }
 
             return true;
         }
-        private bool Dfs(HashSet<int> set, int[][] dict, int n)
+        private bool Dfs(HashSet<int> set, List<List<int>> dict, int n)
         {
             if (setOK.Contains(n))
                 return true;
@@ -50,7 +48,7 @@ namespace leetCode._0201_0250
                 return false;
 
             var next = dict[n];
-            if (next == null || next.Length == 0)
+            if (next.Count == 0)
                 return true;
 
             foreach (var item in next)
