@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace leetCode._0201_0250
 {
     public class _207_CourseScheduleAlg
     {
         HashSet<int> setOK = new HashSet<int>();
-        public bool CanFinish(int numCourses, int[][] prerequisites)
+        public bool CanFinish1(int numCourses, int[][] prerequisites)
         {
             if (prerequisites.Length == 0)
                 return true;
@@ -24,7 +25,7 @@ namespace leetCode._0201_0250
                 dict[arr[0]].Add(arr[1]);
             }
 
-          
+
             for (int i = 0; i < numCourses; i++)
             {
                 if (setOK.Contains(i))
@@ -64,5 +65,95 @@ namespace leetCode._0201_0250
             setOK.Add(n);
             return true;
         }
+
+        bool valid = true;
+        public bool CanFinish2(int numCourses, int[][] prerequisites)
+        {
+            List<List<int>> edges = new List<List<int>>();
+            for (int i = 0; i < numCourses; i++)
+            {
+                edges.Add(new List<int>());
+            }
+            int[] visited = new int[numCourses];
+            foreach (var item in prerequisites)
+            {
+                edges[item[1]].Add(item[0]);
+            }
+
+            for (int i = 0; i < numCourses && valid; i++)
+            {
+                if (visited[i] == 0)
+                {
+                    Dfs(i, visited, edges);
+                }
+            }
+            return valid;
+        }
+
+        public void Dfs(int u, int[] visited, List<List<int>> edges)
+        {
+            visited[u] = 1;
+            foreach (int v in edges[u])
+            {
+                if (visited[v] == 0)
+                {
+                    Dfs(v, visited, edges);
+                    if (!valid)
+                    {
+                        return;
+                    }
+                }
+                else if (visited[v] == 1)
+                {
+                    valid = false;
+                    return;
+                }
+            }
+            visited[u] = 2;
+        }
+
+
+
+        public bool CanFinish(int numCourses, int[][] prerequisites)
+        {
+            List<List<int>> edges = new List<List<int>>();
+            int[] inDeg = new int[numCourses];
+            for (int i = 0; i < numCourses; i++)
+            {
+                edges.Add(new List<int>());
+            }
+            foreach (var item in prerequisites)
+            {
+                edges[item[1]].Add(item[0]);
+                inDeg[item[0]]++;
+            }
+            Queue<int> queue = new Queue<int>();
+            for (int i = 0; i < numCourses; i++)
+            {
+                if (inDeg[i] == 0)
+                {
+                    queue.Enqueue(i);
+                }
+            }
+            int visited = 0;
+            while (queue.Count > 0)
+            {
+                visited++;
+                int u = queue.Dequeue();
+                var list = edges[u];
+                foreach (int item in list)
+                {
+                    inDeg[item]--;
+                    if (inDeg[item] == 0)
+                    {
+                        queue.Enqueue(item);
+                    }
+                }
+
+            }
+
+            return visited == numCourses;
+        }
+
     }
 }
