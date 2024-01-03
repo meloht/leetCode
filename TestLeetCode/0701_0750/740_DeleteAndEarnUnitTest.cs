@@ -48,5 +48,14 @@ namespace TestLeetCode._0701_0750
             int res = alg.DeleteAndEarn(nums);
             Assert.AreEqual(exp, res);
         }
+
+        [TestMethod]
+        public void TestCase05()
+        {
+            int[] nums = [1, 6, 3, 3, 8, 4, 8, 10, 1, 3];
+            int exp = 43;
+            int res = alg.DeleteAndEarn(nums);
+            Assert.AreEqual(exp, res);
+        }
     }
 }
