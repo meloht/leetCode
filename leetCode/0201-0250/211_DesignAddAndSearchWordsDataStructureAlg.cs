@@ -36,18 +36,20 @@ namespace leetCode._0201_0250
                 }
                 node.Count++;
             }
-            int len = 0;
+
             public bool Search(string word)
             {
                 if (word.Length == 0)
                     return false;
-                len = word.Length - 1;
+
                 TrieNode node = root;
                 var res = Dfs(word, 0, node);
                 return res;
             }
             private bool Dfs(string word, int index, TrieNode node)
             {
+                if (index == word.Length)
+                    return node.Count > 0;
                 char ch = word[index];
                 if (ch == '.')
                 {
@@ -56,18 +58,9 @@ namespace leetCode._0201_0250
                     {
                         if (next != null)
                         {
-                            if (index == len)
-                            {
-                                if (next.Count > 0)
-                                    return true;
-
-                            }
-                            else
-                            {
-                                var res = Dfs(word, index + 1, next);
-                                if (res)
-                                    return true;
-                            }
+                            var res = Dfs(word, index + 1, next);
+                            if (res)
+                                return true;
 
                         }
                     }
@@ -78,18 +71,9 @@ namespace leetCode._0201_0250
                     if (node.NextNode[i] == null)
                         return false;
                     var next = node.NextNode[i];
-                    if (index == len)
-                    {
-                        if (next.Count > 0)
-                            return true;
-                        return false;
-                    }
-                    else
-                    {
-                        var res = Dfs(word, index + 1, next);
-                        if (res)
-                            return true;
-                    }
+                    var res = Dfs(word, index + 1, next);
+                    if (res)
+                        return true;
 
                 }
 
