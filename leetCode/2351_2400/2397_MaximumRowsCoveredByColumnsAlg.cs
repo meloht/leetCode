@@ -8,7 +8,7 @@ namespace leetCode._2351_2400
 {
     public class _2397_MaximumRowsCoveredByColumnsAlg
     {
-        public int MaximumRows(int[][] matrix, int numSelect)
+        public int MaximumRows1(int[][] matrix, int numSelect)
         {
             int m = matrix.Length;
             int n = matrix[0].Length;
@@ -123,6 +123,78 @@ namespace leetCode._2351_2400
                 GenerateCombinationsUtil(arr, data, i + 1, end, index + 1, r, res);
             }
         }
+
+
+        public int MaximumRows(int[][] matrix, int numSelect)
+        {
+            int m = matrix.Length;
+            int n = matrix[0].Length;
+            int[] mask = new int[m];
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    mask[i] += matrix[i][j] << (n - j - 1);
+                }
+            }
+            int res = 0;
+            int cur = 0;
+            int limit = (1 << n);
+            while (++cur < limit)
+            {
+                if (int.PopCount(cur) != numSelect)
+                {
+                    continue;
+                }
+                int t = 0;
+                for (int j = 0; j < m; j++)
+                {
+                    if ((mask[j] & cur) == mask[j])
+                    {
+                        ++t;
+                    }
+                }
+                res = Math.Max(res, t);
+            }
+            return res;
+        }
+
+
+
+        public int MaximumRows2(int[][] matrix, int numSelect)
+        {
+            int m = matrix.Length;
+            int n = matrix[0].Length;
+            int[] mask = new int[m];
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    mask[i] += matrix[i][j] << (n - j - 1);
+                }
+            }
+            int res = 0;
+            int cur = (1 << numSelect) - 1;
+            int limit = (1 << n);
+            while (cur < limit)
+            {
+                int t = 0;
+                for (int j = 0; j < m; j++)
+                {
+                    if ((mask[j] & cur) == mask[j])
+                    {
+                        ++t;
+                    }
+                }
+                res = Math.Max(res, t);
+                int lb = cur & -cur;
+                int r = cur + lb;
+                cur = ((r ^ cur) >> int.TrailingZeroCount(lb) + 2) | r;
+            }
+            return res;
+        }
+
+
 
     }
 }
