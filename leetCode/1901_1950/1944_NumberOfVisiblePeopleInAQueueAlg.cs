@@ -11,48 +11,95 @@ namespace leetCode._1901_1950
         public int[] CanSeePersonsCount(int[] heights)
         {
             int[] res = new int[heights.Length];
-            for (int i = 0; i < heights.Length; i++)
-            {
-                int count = 0;
-                int max = 0;
+            Stack<NodeModel> stack = new Stack<NodeModel>();
+            int len = heights.Length;
 
-                for (int j = i + 1; j < heights.Length; j++)
+            for (int i = 0; i < len; i++)
+            {
+                int curr = heights[i];
+                while (stack.Count > 0)
                 {
-                    if (max == 0)
+                    var node = stack.Peek();
+                    if (node.Max <= curr && curr < heights[node.Index])
                     {
-                        if (heights[j] < heights[i])
-                        {
-                            count++;
-                            max = heights[j];
-                        }
-                        else
-                        {
-                            count++;
-                            break;
-                        }
+                        node.Count++;
+                        node.Max = curr;
+                        break;
+                    }
+                    else if (curr >= heights[node.Index])
+                    {
+                        node.Count++;
+                        res[node.Index] = node.Count;
+                        stack.Pop();
                     }
                     else
                     {
-                        if (heights[j] > max && heights[j] < heights[i])
-                        {
-                            count++;
-                            max = heights[j];
-                        }
-                        else if (heights[j] > max && heights[j] >= heights[i])
-                        {
-                            count++;
-                            break;
-                        }
-                        else if (heights[j] <= max)
-                        {
-                            continue;
-                        }
+                        break;
                     }
-
                 }
-                res[i] = count;
+
+
+                int nextIndex = i + 1;
+                if (nextIndex < len)
+                {
+                    if (heights[nextIndex] < curr)
+                    {
+                        stack.Push(new NodeModel(i, 0, heights[nextIndex]));
+                    }
+                    else
+                    {
+                        res[i] = 1;
+                    }
+                }
+                else
+                {
+                    res[i] = 0;
+                }
+            }
+            while (stack.Count > 0)
+            {
+                var node = stack.Pop();
+                res[node.Index] = node.Count;
             }
 
+
+            return res;
+        }
+        class NodeModel
+        {
+            public int Index;
+            public int Count;
+            public int Max;
+            public NodeModel(int index, int count, int max)
+            {
+                this.Index = index;
+                this.Count = count;
+                this.Max = max;
+            }
+        }
+
+
+
+        public int[] CanSeePersonsCount2(int[] heights)
+        {
+            int n = heights.Length;
+            Stack<int> stack = new Stack<int>();
+            int[] res = new int[n];
+
+            for (int i = n - 1; i >= 0; i--)
+            {
+                int h = heights[i];
+                while (stack.Count > 0 && stack.Peek() < h)
+                {
+                    stack.Pop();
+                    res[i]++;
+                }
+                if (stack.Count > 0)
+                {
+                    res[i]++;
+                }
+                stack.Push(h);
+            }
             return res;
         }
     }
