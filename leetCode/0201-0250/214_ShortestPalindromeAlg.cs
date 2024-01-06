@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace leetCode._0201_0250
 {
     public class _214_ShortestPalindromeAlg
     {
-        public string ShortestPalindrome(string s)
+        public string ShortestPalindrome2(string s)
         {
             if (string.IsNullOrEmpty(s))
                 return s;
@@ -71,6 +72,49 @@ namespace leetCode._0201_0250
                 }
             }
             return -1;
+        }
+
+
+
+
+        public string ShortestPalindrome(string s)
+        {
+            int n = s.Length;
+            int[] fail = new int[n];
+            Array.Fill(fail, -1);
+            for (int i = 1; i < n; ++i)
+            {
+                int j = fail[i - 1];
+                while (j != -1 && s[j + 1] != s[i])
+                {
+                    j = fail[j];
+                }
+                if (s[j + 1] == s[i])
+                {
+                    fail[i] = j + 1;
+                }
+            }
+            int best = -1;
+            for (int i = n - 1; i >= 0; --i)
+            {
+                while (best != -1 && s[best + 1] != s[i])
+                {
+                    best = fail[best];
+                }
+                if (s[best + 1] == s[i])
+                {
+                    ++best;
+                }
+            }
+            string add = (best == n - 1 ? "" : s.Substring(best + 1));
+            StringBuilder ans = new StringBuilder();
+            for (int i = add.Length-1; i >=0; i--)
+            {
+                ans.Append(add[i]);
+            }
+          
+            ans.Append(s);
+            return ans.ToString();
         }
 
       
