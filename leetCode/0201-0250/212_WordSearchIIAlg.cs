@@ -4,9 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static leetCode._0101_0150._138_CopyListWithRandomPointerAlg;
-using static leetCode._0201_0250._208_ImplementTriePrefixTreeAlg;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+
 
 namespace leetCode._0201_0250
 {
@@ -14,7 +12,7 @@ namespace leetCode._0201_0250
     {
 
         int[,] directions = { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 } };
-        public IList<string> FindWords(char[][] board, string[] words)
+        public IList<string> FindWords1(char[][] board, string[] words)
         {
             TrieNode root = new TrieNode();
             foreach (var item in words)
@@ -96,7 +94,7 @@ namespace leetCode._0201_0250
         }
 
 
-        public IList<string> FindWords1(char[][] board, string[] words)
+        public IList<string> FindWords2(char[][] board, string[] words)
         {
             int[,] tree = new int[10001, 26];
             int[] pass = new int[10001];
@@ -155,6 +153,70 @@ namespace leetCode._0201_0250
                 return count;
             }
 
+        }
+
+
+        public IList<string> FindWords(char[][] board, string[] words)
+        {
+            WordDictionary dic = new WordDictionary(), t;
+            foreach (var word in words)
+            {
+                t = dic;
+                foreach (var c in word)
+                {
+                    if (t[c] == null) t[c] = new WordDictionary();
+                    t = t[c];
+                }
+                t.word = word;
+            }
+
+            int m = board.Length - 1, n = board[0].Length - 1;
+            var result = new List<string>();
+            void searchWords(int i, int j, WordDictionary tmp)
+            {
+                char c;
+                if ((c = board[i][j]) == '#' || tmp[c] == null) return;
+
+                tmp = tmp[c];
+                if (tmp.word != null)
+                {
+                    result.Add(tmp.word);
+                    tmp.word = null;
+                }
+
+                if (!tmp.hashNext) return;
+
+                board[i][j] = '#';
+                if (i < m) searchWords(i + 1, j, tmp);
+                if (i > 0) searchWords(i - 1, j, tmp);
+                if (j < n) searchWords(i, j + 1, tmp);
+                if (j > 0) searchWords(i, j - 1, tmp);
+                board[i][j] = c;
+            }
+
+            for (var i = 0; i <= m; i++)
+                for (var j = 0; j <= n; j++)
+                    searchWords(i, j, dic);
+            return result;
+        }
+
+        private class WordDictionary
+        {
+            public WordDictionary[] next = new WordDictionary[26];
+            public string word;
+            public bool hashNext = false;
+            public WordDictionary this[char c]
+            {
+                get
+                {
+                    return next[c - 'a'];
+                }
+                set
+                {
+                    next[c - 'a'] = value;
+                    hashNext = true;
+                }
+            }
         }
     }
 }
