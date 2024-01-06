@@ -1,166 +1,160 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static leetCode._0101_0150._138_CopyListWithRandomPointerAlg;
+using static leetCode._0201_0250._208_ImplementTriePrefixTreeAlg;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace leetCode._0201_0250
 {
     public class _212_WordSearchIIAlg
     {
+
+        int[,] directions = { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 } };
         public IList<string> FindWords(char[][] board, string[] words)
         {
-            List<string> result = new List<string>();
+            TrieNode root = new TrieNode();
             foreach (var item in words)
             {
-                if (Exist(board, item))
-                {
-                    result.Add(item);
-                }
+                root.Insert(item);
             }
-            return result;
-        }
 
-
-        public bool Exist(char[][] board, string word)
-        {
-            List<int[]> list = new List<int[]>();
-            char begin = word[0];
+            HashSet<string> ans = new HashSet<string>();
             for (int i = 0; i < board.Length; i++)
             {
                 for (int j = 0; j < board[i].Length; j++)
                 {
-                    if (board[i][j] == begin)
-                    {
-                        list.Add(new[] { i, j });
-                    }
+                    DFS(board, i, j, root, ans);
                 }
             }
-
-            bool[,] used = new bool[board.Length, board[0].Length];
-            foreach (var item in list)
-            {
-                bool bl = Dfs(board, item[0], item[1], word, 0, used);
-                if (bl)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return ans.ToList();
         }
-        private bool Dfs(char[][] board, int i, int j, string word, int index, bool[,] used)
+
+        private void DFS(char[][] board, int i, int j, TrieNode node, HashSet<string> ans)
         {
-            if (i >= board.Length || i < 0 || j >= board[0].Length || j < 0)
-                return false;
-            if (used[i, j] == true)
-                return false;
-
-
-            char ch = word[index];
-            if (board[i][j] == ch)
+            if (board[i][j] == '#')
+                return;
+            int index = board[i][j] - 'a';
+            if (node.Children[index] == null)
             {
+                return;
+            }
+            char ch = board[i][j];
+            var nxt = node.Children[index];
 
-                if (index == word.Length - 1)
+            if (nxt.Word != "")
+            {
+                ans.Add(nxt.Word);
+                nxt.Word = "";
+            }
+            if (nxt.Children.Count(p => p != null) > 0)
+            {
+                board[i][j] = '#';
+                int len = directions.GetLength(0);
+                for (int k = 0; k < len; k++)
                 {
-                    return true;
-                }
-                index++;
-                used[i, j] = true;
-                bool bl = Dfs(board, i + 1, j, word, index, used);
-                used[i, j] = false;
-                if (bl == false)
-                {
-                    used[i, j] = true;
-                    bl = Dfs(board, i, j + 1, word, index, used);
-                    used[i, j] = false;
-                    if (bl)
+                    int ii = i + directions[k, 0];
+                    int jj = j + directions[k, 1];
+                    if (ii >= 0 && ii < board.Length && jj >= 0 && jj < board[0].Length)
                     {
-                        return true;
-                    }
-                    else
-                    {
-                        used[i, j] = true;
-                        bl = Dfs(board, i - 1, j, word, index, used);
-                        used[i, j] = false;
-                        if (bl)
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            used[i, j] = true;
-                            bl = Dfs(board, i, j - 1, word, index, used);
-                            used[i, j] = false;
-                            return bl;
-                        }
+                        DFS(board, ii, jj, nxt, ans);
                     }
                 }
-                else
-                {
-                    return true;
-                }
-
+                board[i][j] = ch;
             }
-            else
+            if (nxt.Children.Count(p => p != null) == 0)
             {
-                return false;
+                node.Children[index] = null;
             }
+
         }
 
-
-
-        public bool Exist1(char[][] board, string word)
+        class TrieNode
         {
-            int h = board.Length, w = board[0].Length;
-            bool[,] visited = new bool[h, w];
-            for (int i = 0; i < h; i++)
+            public string Word = "";
+            public TrieNode[] Children = new TrieNode[26];
+            public bool IsWord;
+
+            public void Insert(string word)
             {
-                for (int j = 0; j < w; j++)
+                TrieNode node = this;
+                foreach (var ch in word)
                 {
-                    bool flag = Check(board, visited, i, j, word, 0);
-                    if (flag)
+                    int index = ch - 'a';
+                    if (node.Children[index] == null)
                     {
-                        return true;
+                        node.Children[index] = new TrieNode();
                     }
+                    node = node.Children[index];
                 }
+                node.Word = word;
             }
-            return false;
+
         }
 
-        public bool Check(char[][] board, bool[,] visited, int i, int j, string s, int k)
+
+        public IList<string> FindWords1(char[][] board, string[] words)
         {
-            if (board[i][j] != s[k])
+            int[,] tree = new int[10001, 26];
+            int[] pass = new int[10001];
+            string[] end = new string[10001];
+            int index = 1;
+            //静态前缀树
+            for (int i = 0; i < words.Length; i++)
             {
-                return false;
-            }
-            else if (k == s.Length - 1)
-            {
-                return true;
-            }
-            visited[i, j] = true;
-            int[][] directions = [[0, 1], [0, -1], [1, 0], [-1, 0]];
-            bool result = false;
-            foreach (int[] dir in directions)
-            {
-                int newi = i + dir[0], newj = j + dir[1];
-                if (newi >= 0 && newi < board.Length && newj >= 0 && newj < board[0].Length)
+                var curent = 1;
+                for (int j = 0; j < words[i].Length; j++)
                 {
-                    if (!visited[newi,newj])
+                    if (tree[curent, words[i][j] - 'a'] == 0)
                     {
-                        bool flag = Check(board, visited, newi, newj, s, k + 1);
-                        if (flag)
-                        {
-                            result = true;
-                            break;
-                        }
+                        tree[curent, words[i][j] - 'a'] = ++index;
                     }
+                    curent = tree[curent, words[i][j] - 'a'];
+                    pass[curent]++;
+                }
+                end[curent] = words[i];
+            }
+            int n = board.Length;
+            int m = board[0].Length;
+            List<string> ans = new List<string>();
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    dfs(i, j, 1);
                 }
             }
-            visited[i,j] = false;
-            return result;
+            return ans;
+            //返回：收集到了几个答案
+            int dfs(int i, int j, int start)
+            {
+                if (i < 0 || i >= n || j < 0 || j >= m || board[i][j] == ' ')
+                    return 0;
+                int count = 0;
+                int next = tree[start, board[i][j] - 'a'];
+                if (end[next] != null)
+                {
+                    ans.Add(end[next]);
+                    end[next] = null;
+                    count++;
+                }
+                var temp = board[i][j];
+                board[i][j] = ' ';
+                if (next != 0 && pass[next] > 0)
+                {
+                    count += dfs(i - 1, j, next);
+                    count += dfs(i + 1, j, next);
+                    count += dfs(i, j - 1, next);
+                    count += dfs(i, j + 1, next);
+                }
+                board[i][j] = temp;
+                pass[next] -= count;
+                return count;
+            }
+
         }
-
-
     }
 }
