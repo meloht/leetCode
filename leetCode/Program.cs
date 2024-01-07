@@ -10,7 +10,7 @@ namespace leetCode
         static void Main(string[] args)
         {
             int[] numbers = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-            int r = 5; // 选择的元素个数
+            int r = 9; // 选择的元素个数
             int n = numbers.Length;
 
             GenerateCombinations(numbers, n, r);
