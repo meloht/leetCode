@@ -74,9 +74,6 @@ namespace leetCode._0201_0250
             return -1;
         }
 
-
-
-
         public string ShortestPalindrome(string s)
         {
             int n = s.Length;
