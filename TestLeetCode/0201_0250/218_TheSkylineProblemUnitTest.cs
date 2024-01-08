@@ -35,5 +35,17 @@ namespace TestLeetCode._0201_0250
             bool bl = Utils.IsSameList(exp, res);
             Assert.IsTrue(bl);
         }
+
+        [TestMethod]
+        public void TestCase03()
+        {
+            int[][] buildings = [[0, 2147483647, 2147483647]];
+
+            int[][] exp = [[0, 2147483647], [2147483647, 0]];
+
+            var res = alg.GetSkyline(buildings);
+            bool bl = Utils.IsSameList(exp, res);
+            Assert.IsTrue(bl);
+        }
     }
 }
