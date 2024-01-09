@@ -29,5 +29,26 @@ namespace TestLeetCode._2701_2750
             int res = alg.MinExtraChar(s, dictionary);
             Assert.AreEqual(3, res);
         }
+
+        [TestMethod]
+        public void TestCase03()
+        {
+            string s = "voctvochpgutoywpnafylzelqsnzsbandjcqdciyoefi";
+            string[] dictionary = ["tf", "v", "wadrya", "a", "cqdci", "uqfg", "voc", "zelqsn", "band", "b", "yoefi", "utoywp", "herqqn", "umra", "frfuyj", "vczatj", "sdww"];
+            int res = alg.MinExtraChar(s, dictionary);
+            Assert.AreEqual(11, res);
+        }
+
+        [TestMethod]
+        public void TestCase04()
+        {
+            string s = "smsvy";
+            string[] dictionary = ["j", "p", "y", "r", "t", "nj", "k", "xj", "vg",
+                "da", "m", "u", "yq", "as", "wh", "b", 
+                "vo", "h", "wb", "z", "np", "uy", "i", "f", "w", "wg", "s",
+                "ls", "xf", "ou", "mj", "pf"];
+            int res = alg.MinExtraChar(s, dictionary);
+            Assert.AreEqual(1, res);
+        }
     }
 }
