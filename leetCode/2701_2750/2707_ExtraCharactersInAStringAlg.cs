@@ -52,5 +52,47 @@ namespace leetCode._2701_2750
                 }
             }
         }
+
+        public int MinExtraChar1(string s, string[] dictionary)
+        {
+            WordDictionary dic = new WordDictionary();
+            foreach (var word in dictionary)
+            {
+                dic.Insert(word);
+            }
+            return 0;
+        }
+
+        private class WordDictionary
+        {
+            public WordDictionary[] next = new WordDictionary[26];
+            public string word;
+            public bool hashNext = false;
+            public WordDictionary this[char c]
+            {
+                get
+                {
+                    return next[c - 'a'];
+                }
+                set
+                {
+                    next[c - 'a'] = value;
+                    hashNext = true;
+                }
+            }
+
+            public void Insert(string word)
+            {
+                WordDictionary node = this;
+                foreach (char c in word)
+                {
+                    if (node[c] == null)
+                    {
+                        node[c] = new WordDictionary();
+                    }
+                    node.word = word;
+                }
+            }
+        }
     }
 }
