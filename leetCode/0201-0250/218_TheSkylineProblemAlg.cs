@@ -184,7 +184,7 @@ namespace leetCode._0201_0250
             return result;
         }
 
-        public IList<IList<int>> GetSkyline(int[][] buildings)
+        public IList<IList<int>> GetSkyline4(int[][] buildings)
         {
             PriorityQueue<int[], int> queue = new PriorityQueue<int[], int>(Comparer<int>.Create((a, b) => b - a));
             List<int> list = new List<int>();
@@ -206,7 +206,7 @@ namespace leetCode._0201_0250
                 }
                 while (queue.Count > 0 && queue.Peek()[0] <= item)
                 {
-                    var dd = queue.Dequeue();
+                    queue.Dequeue();
                 }
                 int maxn = queue.Count == 0 ? 0 : queue.Peek()[1];
                 if (result.Count == 0 || maxn != result[result.Count - 1][1])
@@ -215,6 +215,71 @@ namespace leetCode._0201_0250
                 }
             }
             return result;
+        }
+
+        public IList<IList<int>> GetSkyline(int[][] buildings)
+        {
+            List<IList<int>> res = new List<IList<int>>();
+            HashSet<int> set = new HashSet<int>();
+
+            Dictionary<int, List<int[]>> dictLeft = new Dictionary<int, List<int[]>>();
+            foreach (int[] item in buildings)
+            {
+                if (dictLeft.ContainsKey(item[0]))
+                {
+                    dictLeft[item[0]].Add(item);
+                }
+                else
+                {
+                    var ls = new List<int[]>();
+                    ls.Add(item);
+                    dictLeft.Add(item[0], ls);
+                }
+                set.Add(item[0]);
+                set.Add(item[1]);
+            }
+
+            List<int> listSet = set.ToList();
+            listSet.Sort();
+            PriorityQueue<int[], int> queue = new PriorityQueue<int[], int>(Comparer<int>.Create((a, b) => b - a));
+            int preMax = 0;
+            for (int i = 0; i < listSet.Count; i++)
+            {
+                int num = listSet[i];
+
+                if (dictLeft.ContainsKey(num))
+                {
+                    var ls = dictLeft[num];
+                    foreach (int[] item in ls)
+                    {
+                        if (item[0] <= num && item[1] > num)
+                        {
+                            queue.Enqueue(new int[] { item[1], item[2] }, item[2]);
+                        }
+                    }
+
+                }
+                while (queue.Count > 0 && queue.Peek()[0] <= num)
+                {
+                    queue.Dequeue();
+                }
+                int max = queue.Count == 0 ? 0 : queue.Peek()[1];
+                if (i == 0)
+                {
+                    res.Add(new int[] { num, max });
+                    preMax = max;
+                }
+                else
+                {
+                    if (max != preMax)
+                    {
+                        res.Add(new int[] { num, max });
+                    }
+                    preMax = max;
+                }
+            }
+
+            return res;
         }
 
 
