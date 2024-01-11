@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -73,7 +74,7 @@ namespace leetCode._0201_0250
         }
 
 
-        public IList<IList<int>> GetSkyline(int[][] buildings)
+        public IList<IList<int>> GetSkyline2(int[][] buildings)
         {
             List<IList<int>> res = new List<IList<int>>();
             HashSet<int> set = new HashSet<int>();
@@ -144,6 +145,78 @@ namespace leetCode._0201_0250
 
             return res;
         }
+
+
+        public IList<IList<int>> GetSkyline3(int[][] buildings)
+        {
+            var xAxis = new int[buildings.Length * 2];
+            for (int i = 0, j = 0; i < buildings.Length; i++)
+            {
+                xAxis[j++] = buildings[i][0];
+                xAxis[j++] = buildings[i][1];
+            }
+            Array.Sort(xAxis);
+
+            var result = new List<IList<int>>();
+
+            var currentBuildings = new PriorityQueue<int[], int>(Comparer<int>.Create((a, b) => b - a));
+            var id = 0;
+            // 每一个X点（起点或者重点）进行结算
+            foreach (var x in xAxis)
+            {
+                // 将已经越界的building出队
+                // *队列按照Height从高到低排序，所以会存在Left（building[id][1]）已经越界但是未弹出的情况
+                // *但是由于其并非最高高度，并不影响最高高度计算
+                while (currentBuildings.Count > 0 && currentBuildings.Peek()[1] <= x)
+                    currentBuildings.Dequeue();
+
+                // 将所有正在入界的building入队（可能有多个building位于同一起点）
+                // 由于X点包含了所有的起点，所以每个building必定会入队
+                // 由于building[]非递减排序，所以可以用id来避免重复入队
+                for (; id < buildings.Length && buildings[id][0] == x; id++)
+                    currentBuildings.Enqueue(buildings[id], buildings[id][2]);
+
+                // 获取变化后的Height，如果发生变化则记录
+                var newHeight = currentBuildings.Count == 0 ? 0 : currentBuildings.Peek()[2];
+                if (result.Count == 0 || newHeight != result[^1][1])
+                    result.Add(new int[] { x, newHeight });
+            }
+            return result;
+        }
+
+        public IList<IList<int>> GetSkyline(int[][] buildings)
+        {
+            PriorityQueue<int[], int> queue = new PriorityQueue<int[], int>(Comparer<int>.Create((a, b) => b - a));
+            List<int> list = new List<int>();
+            foreach (int[] item in buildings)
+            {
+                list.Add(item[0]);
+                list.Add(item[1]);
+            }
+            list.Sort();
+            var result = new List<IList<int>>();
+            int n = buildings.Length;
+            int idx = 0;
+            foreach (int item in list)
+            {
+                while (idx < n && buildings[idx][0] <= item)
+                {
+                    queue.Enqueue(new int[] { buildings[idx][1], buildings[idx][2] }, buildings[idx][2]);
+                    idx++;
+                }
+                while (queue.Count > 0 && queue.Peek()[0] <= item)
+                {
+                    var dd = queue.Dequeue();
+                }
+                int maxn = queue.Count == 0 ? 0 : queue.Peek()[1];
+                if (result.Count == 0 || maxn != result[result.Count - 1][1])
+                {
+                    result.Add(new int[] { item, maxn });
+                }
+            }
+            return result;
+        }
+
 
 
 
