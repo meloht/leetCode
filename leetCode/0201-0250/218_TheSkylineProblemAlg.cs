@@ -9,9 +9,9 @@ namespace leetCode._0201_0250
 {
     public class _218_TheSkylineProblemAlg
     {
-       
 
-        public IList<IList<int>> GetSkyline(int[][] buildings)
+
+        public IList<IList<int>> GetSkyline1(int[][] buildings)
         {
             List<IList<int>> res = new List<IList<int>>();
             HashSet<int> set = new HashSet<int>();
@@ -54,11 +54,11 @@ namespace leetCode._0201_0250
 
                 dictMax.Add(num, max);
             }
-  
+
             res.Add(new int[] { listSet[0], dictMax[listSet[0]] });
             for (int i = 1; i < listSet.Count; i++)
             {
-                int prev = listSet[i-1];
+                int prev = listSet[i - 1];
                 int prevH = dictMax[prev];
 
                 int curr = listSet[i];
@@ -71,6 +71,80 @@ namespace leetCode._0201_0250
 
             return res;
         }
+
+
+        public IList<IList<int>> GetSkyline(int[][] buildings)
+        {
+            List<IList<int>> res = new List<IList<int>>();
+            HashSet<int> set = new HashSet<int>();
+
+            Dictionary<int, List<int[]>> dictLeft = new Dictionary<int, List<int[]>>();
+            foreach (int[] item in buildings)
+            {
+                if (dictLeft.ContainsKey(item[0]))
+                {
+                    dictLeft[item[0]].Add(item);
+                }
+                else
+                {
+                    var ls = new List<int[]>();
+                    ls.Add(item);
+                    dictLeft.Add(item[0], ls);
+                }
+                set.Add(item[0]);
+                set.Add(item[1]);
+            }
+
+            List<int> listSet = set.ToList();
+            listSet.Sort();
+            List<int[]> list = new List<int[]>();
+            int preMax = 0;
+            for (int i = 0; i < listSet.Count; i++)
+            {
+                int max = 0;
+                int num = listSet[i];
+
+                List<int[]> list1 = new List<int[]>();
+                foreach (int[] item in list)
+                {
+                    if (item[0] <= num && item[1] > num)
+                    {
+                        max = Math.Max(max, item[2]);
+                        list1.Add(item);
+                    }
+                }
+                if (dictLeft.ContainsKey(num))
+                {
+                    var ls = dictLeft[num];
+                    foreach (int[] item in ls)
+                    {
+                        if (item[0] <= num && item[1] > num)
+                        {
+                            max = Math.Max(max, item[2]);
+                            list1.Add(item);
+                        }
+                    }
+
+                }
+                list = list1;
+                if (i == 0)
+                {
+                    res.Add(new int[] { num, max });
+                    preMax = max;
+                }
+                else
+                {
+                    if (max != preMax)
+                    {
+                        res.Add(new int[] { num, max });
+                    }
+                    preMax = max;
+                }
+            }
+
+            return res;
+        }
+
 
 
     }
