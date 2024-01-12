@@ -10,6 +10,14 @@ namespace leetCode._0501_0550
     {
         public int LongestPalindromeSubseq(string s)
         {
+            int len = s.Length;
+            if (len < 2)
+                return 1;
+            int maxlen = 0;
+            int begin = 0;
+
+            int[,] dp = new int[len + 1, len + 1];
+
             return 0;
         }
     }

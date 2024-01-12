@@ -29,5 +29,30 @@ namespace TestLeetCode._0501_0550
             int res = alg.LongestPalindromeSubseq(s);
             Assert.AreEqual(exp, res);
         }
+        [TestMethod]
+        public void TestCase03()
+        {
+            string s = "cbbdc";
+            int exp = 4;
+            int res = alg.LongestPalindromeSubseq(s);
+            Assert.AreEqual(exp, res);
+        }
+
+        [TestMethod]
+        public void TestCase04()
+        {
+            string s = "abcdfgecba";
+            int exp = 7;
+            int res = alg.LongestPalindromeSubseq(s);
+            Assert.AreEqual(exp, res);
+        }
+        [TestMethod]
+        public void TestCase05()
+        {
+            string s = "bbbabcdefghiltyzqlihgfedc";
+            int exp = 8;
+            int res = alg.LongestPalindromeSubseq(s);
+            Assert.AreEqual(exp, res);
+        }
     }
 }
