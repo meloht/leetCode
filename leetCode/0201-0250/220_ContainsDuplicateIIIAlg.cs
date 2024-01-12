@@ -18,7 +18,22 @@ namespace leetCode._0201_0250
             }
 
             var ls = list.OrderBy(p => p.Value).ToList();
+            int len = ls.Count;
+            for (int i = 0; i < len; i++)
+            {
+                var curr = ls[i];
 
+                for (int j = i + 1; j < len; j++)
+                {
+                    var next = ls[j];
+                    int diff = Math.Abs(curr.Value - next.Value);
+                    if (diff > valueDiff)
+                        break;
+                    int indff = Math.Abs(curr.Index - next.Index);
+                    if (indff <= indexDiff)
+                        return true;
+                }
+            }
 
             return false;
 
