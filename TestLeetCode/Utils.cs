@@ -38,7 +38,7 @@ namespace TestLeetCode
             return list.ToArray();
         }
 
-        public static ListNode BuildListNode(int[] arr,int pos)
+        public static ListNode BuildListNode(int[] arr, int pos)
         {
             if (arr.Length == 0)
                 return null;
@@ -56,7 +56,7 @@ namespace TestLeetCode
             {
                 dict[arr.Length - 1].next = dict[pos];
             }
-           
+
             return header;
         }
 
@@ -227,6 +227,20 @@ namespace TestLeetCode
             return root;
         }
 
+        public static TreeNode GetTreeNodeByVal(int val, TreeNode node)
+        {
+            if (node == null)
+                return null;
+            if (node.val == val)
+                return node;
+            var left = GetTreeNodeByVal(val, node.left);
+            if (left != null)
+                return left;
+            var right = GetTreeNodeByVal(val, node.right);
+            if (right != null)
+                return right;
+            return null;
+        }
         /// <summary>
         /// 按照数组顺序构建二叉树
         /// </summary>
@@ -458,9 +472,9 @@ namespace TestLeetCode
         /// <param name="arr1"></param>
         /// <param name="arr2"></param>
         /// <returns></returns>
-        public static bool IsSameArr(int[][] arr1, int[][] arr2) 
+        public static bool IsSameArr(int[][] arr1, int[][] arr2)
         {
-      
+
             for (int i = 0; i < arr1.Length; i++)
             {
                 for (int j = 0; j < arr1[i].Length; j++)
