@@ -50,7 +50,7 @@ namespace TestLeetCode._0501_0550
         public void TestCase05()
         {
             string s = "bbbabcdefghiltyzqlihgfedc";
-            int exp = 8;
+            int exp = 17;
             int res = alg.LongestPalindromeSubseq(s);
             Assert.AreEqual(exp, res);
         }
