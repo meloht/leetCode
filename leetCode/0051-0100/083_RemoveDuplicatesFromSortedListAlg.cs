@@ -8,7 +8,7 @@ namespace leetCode._51_100
 {
     public class _83_RemoveDuplicatesFromSortedListAlg
     {
-        public ListNode DeleteDuplicates(ListNode head)
+        public ListNode DeleteDuplicates1(ListNode head)
         {
             ListNode nodeHead = head;
             ListNode node1 = nodeHead;
@@ -24,6 +24,25 @@ namespace leetCode._51_100
 
             }
             return nodeHead;
+        }
+
+        public ListNode DeleteDuplicates(ListNode head)
+        {
+            if (head == null)
+                return null;
+            ListNode node = head;
+            while (node.next != null)
+            {
+                if (node.next.val == node.val)
+                {
+                    node.next = node.next.next;
+                }
+                else
+                {
+                    node = node.next;
+                }
+            }
+            return head;
         }
 
 
