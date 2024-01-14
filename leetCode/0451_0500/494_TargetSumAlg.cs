@@ -8,7 +8,7 @@ namespace leetCode._0451_0500
 {
     public class _494_TargetSumAlg
     {
-        public int FindTargetSumWays(int[] nums, int target)
+        public int FindTargetSumWays1(int[] nums, int target)
         {
             target += nums.Sum();
             if (target < 0 || target % 2 > 0)
@@ -36,5 +36,29 @@ namespace leetCode._0451_0500
 
             return dp[n, target];
         }
+
+        public int FindTargetSumWays(int[] nums, int target)
+        {
+            target += nums.Sum();
+            if (target < 0 || target % 2 > 0)
+                return 0;
+
+            target /= 2;
+
+            int[] dp = new int[target + 1];
+            dp[0] = 1;
+            foreach (int x in nums)
+            {
+                for (int c = target; c >= x; --c)
+                {
+                    dp[c] += dp[c - x];
+                }
+                   
+            }
+               
+            return dp[target];
+        }
+
+
     }
 }
