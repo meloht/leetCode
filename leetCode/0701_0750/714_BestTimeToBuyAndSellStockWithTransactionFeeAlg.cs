@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,7 +24,7 @@ namespace leetCode._0701_0750
 
         }
 
-        public int MaxProfit(int[] prices, int fee)
+        public int MaxProfit2(int[] prices, int fee)
         {
             int n = prices.Length;
             int sell0 = 0;
@@ -37,6 +38,28 @@ namespace leetCode._0701_0750
             }
             return sell0;
 
+        }
+
+
+        public int MaxProfit(int[] prices, int fee)
+        {
+            int n = prices.Length;
+            int buy = prices[0] + fee;
+            int profit = 0;
+            for (int i = 1; i < n; i++)
+            {
+                int t = prices[i] + fee;
+                if (t < buy)
+                {
+                    buy = t;
+                }
+                else if (prices[i] > buy)
+                {
+                    profit += prices[i] - buy;
+                    buy = prices[i];
+                }
+            }
+            return profit;
         }
     }
 }
