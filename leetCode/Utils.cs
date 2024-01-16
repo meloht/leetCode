@@ -8,6 +8,7 @@ namespace leetCode
 {
     internal class Utils
     {
+        public static int Mod = 1_000_000_007;
         public static int gcd(int a, int b)
         {
             return b != 0 ? gcd(b, a % b) : a;
