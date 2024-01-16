@@ -330,6 +330,33 @@ namespace TestLeetCode
             return list.ToArray();
         }
 
+        public static int[] GetTreeLevel(TreeNode root)
+        {
+            List<int> list = new List<int>();
+            if (root == null)
+                return list.ToArray();
+            Queue<TreeNode> queue = new Queue<TreeNode>();
+            queue.Enqueue(root);
+            while (queue.Count > 0)
+            {
+                int count = queue.Count;
+                for (int i = 0; i < count; i++)
+                {
+                    var node = queue.Dequeue();
+                    list.Add(node.val);
+                    if (node.left != null)
+                    {
+                        queue.Enqueue(node.left);
+                    }
+                    if (node.right != null)
+                    {
+                        queue.Enqueue(node.right);
+                    }
+                }
+            }
+            return list.ToArray();
+        }
+
 
         public static bool ListNodeSame(ListNode header, int[] arr)
         {
