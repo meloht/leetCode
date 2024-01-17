@@ -42,7 +42,7 @@ namespace leetCode._2701_2750
         }
         private int CountNumbers(string num,int minSum,int maxSum)
         {
-            int[,,] dp=new int[]
+           
             return 0;
         }
         static int[,,] dp;
@@ -100,15 +100,6 @@ namespace leetCode._2701_2750
             return result;
         }
 
-        static void Main()
-        {
-            int A = 100;
-            int B = 500;
-            int targetSum = 5;
-
-            int result = CountNumbersWithDigitSum(A, B, targetSum);
-
-            Console.WriteLine($"在范围 [{A}, {B}] 内，数位之和为 {targetSum} 的数字个数为：{result}");
-        }
+       
     }
 }
