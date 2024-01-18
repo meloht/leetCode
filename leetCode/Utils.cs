@@ -8,6 +8,9 @@ namespace leetCode
 {
     internal class Utils
     {
+        /// <summary>
+        /// 1_000_000_007
+        /// </summary>
         public static int Mod = 1_000_000_007;
         public static int gcd(int a, int b)
         {

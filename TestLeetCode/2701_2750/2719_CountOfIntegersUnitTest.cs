@@ -31,5 +31,15 @@ namespace TestLeetCode._2701_2750
             int res = alg.Count(num1, num2, min_num, max_num);
             Assert.AreEqual(exp, res);
         }
+
+        [TestMethod]
+        public void TestCase03()
+        {
+            string num1 = "4179205230", num2 = "7748704426";
+            int min_num = 8, max_num = 46;
+            int exp = 883045899;
+            int res = alg.Count(num1, num2, min_num, max_num);
+            Assert.AreEqual(exp, res);
+        }
     }
 }
