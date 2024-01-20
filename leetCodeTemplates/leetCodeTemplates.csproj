@@ -11,9 +11,12 @@
     <Compile Include="..\leetCode\0351_0400\357_CountNumbersWithUniqueDigitsAlg.cs" Link="数位DP\357_CountNumbersWithUniqueDigitsAlg.cs" />
     <Compile Include="..\leetCode\0551_0600\600_NonNegativeIntegersWithoutConsecutiveOnesAlg.cs" Link="数位DP\600_NonNegativeIntegersWithoutConsecutiveOnesAlg.cs" />
     <Compile Include="..\leetCode\0751_0800\788_RotatedDigitsAlg.cs" Link="数位DP\788_RotatedDigitsAlg.cs" />
+    <Compile Include="..\leetCode\0901_0950\902_NumbersAtMostNGivenDigitSetAlg.cs" Link="数位DP\902_NumbersAtMostNGivenDigitSetAlg.cs" />
     <Compile Include="..\leetCode\1001_1050\1012_NumbersWithRepeatedDigitsAlg.cs" Link="数位DP\1012_NumbersWithRepeatedDigitsAlg.cs" />
     <Compile Include="..\leetCode\2351_2400\2376_CountSpecialIntegersAlg.cs" Link="数位DP\2376_CountSpecialIntegersAlg.cs" />
     <Compile Include="..\leetCode\2701_2750\2719_CountOfIntegersAlg.cs" Link="数位DP\2719_CountOfIntegersAlg.cs" />
+    <Compile Include="..\leetCode\2901_3000\2999_CountTheNumberOfPowerfulIntegersAlg.cs" Link="数位DP\2999_CountTheNumberOfPowerfulIntegersAlg.cs" />
+    <Compile Include="..\leetCode\InterviewQuestion\17_06_2_NumberOf2sInRangeLcciAlg.cs" Link="数位DP\17_06_2_NumberOf2sInRangeLcciAlg.cs" />
   </ItemGroup>
 
 </Project>
