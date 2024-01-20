@@ -8,7 +8,10 @@
 
   <ItemGroup>
     <Compile Include="..\leetCode\0201-0250\233_NumberOfDigitOneAlg.cs" Link="数位DP\233_NumberOfDigitOneAlg.cs" />
+    <Compile Include="..\leetCode\0551_0600\600_NonNegativeIntegersWithoutConsecutiveOnesAlg.cs" Link="数位DP\600_NonNegativeIntegersWithoutConsecutiveOnesAlg.cs" />
     <Compile Include="..\leetCode\0751_0800\788_RotatedDigitsAlg.cs" Link="数位DP\788_RotatedDigitsAlg.cs" />
+    <Compile Include="..\leetCode\1001_1050\1012_NumbersWithRepeatedDigitsAlg.cs" Link="数位DP\1012_NumbersWithRepeatedDigitsAlg.cs" />
+    <Compile Include="..\leetCode\2351_2400\2376_CountSpecialIntegersAlg.cs" Link="数位DP\2376_CountSpecialIntegersAlg.cs" />
     <Compile Include="..\leetCode\2701_2750\2719_CountOfIntegersAlg.cs" Link="数位DP\2719_CountOfIntegersAlg.cs" />
   </ItemGroup>
 
