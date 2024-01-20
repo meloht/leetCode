@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\leetCode\0201-0250\233_NumberOfDigitOneAlg.cs" Link="数位DP\233_NumberOfDigitOneAlg.cs" />
+    <Compile Include="..\leetCode\0751_0800\788_RotatedDigitsAlg.cs" Link="数位DP\788_RotatedDigitsAlg.cs" />
+    <Compile Include="..\leetCode\2701_2750\2719_CountOfIntegersAlg.cs" Link="数位DP\2719_CountOfIntegersAlg.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="数位DP\" />
+  </ItemGroup>
+
+</Project>
