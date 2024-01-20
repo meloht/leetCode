@@ -115,59 +115,9 @@ namespace leetCode._2701_2750
         }
 
 
-        static int[,,] dp;
-        static int CountNumbersWithDigitSum(int pos, int sum, bool isLimited, string limitStr)
-        {
-            if (pos == -1)
-            {
-                return sum == 0 ? 1 : 0;
-            }
+       
 
-            if (!isLimited && dp[pos, sum, 0] != -1)
-            {
-                return dp[pos, sum, 0];
-            }
-
-            int limit = isLimited ? int.Parse(limitStr[pos].ToString()) : 9;
-            int count = 0;
-
-            for (int digit = 0; digit <= limit; digit++)
-            {
-                count += CountNumbersWithDigitSum(pos - 1, sum - digit, isLimited && digit == limit, limitStr);
-            }
-
-            if (!isLimited)
-            {
-                dp[pos, sum, 0] = count;
-            }
-
-            return count;
-        }
-
-        static int CountNumbersWithDigitSum(int A, int B, int targetSum)
-        {
-            string strA = (A - 1).ToString();
-            string strB = B.ToString();
-
-            int lenB = strB.Length;
-            dp = new int[lenB, targetSum + 1, 1];
-
-            for (int i = 0; i < lenB; i++)
-            {
-                for (int j = 0; j <= targetSum; j++)
-                {
-                    for (int k = 0; k < 2; k++)
-                    {
-                        dp[i, j, k] = -1;
-                    }
-                }
-            }
-
-            int result = CountNumbersWithDigitSum(lenB - 1, targetSum, true, strB) -
-                         CountNumbersWithDigitSum(lenB - 1, targetSum, true, strA);
-
-            return result;
-        }
+      
 
 
     }
