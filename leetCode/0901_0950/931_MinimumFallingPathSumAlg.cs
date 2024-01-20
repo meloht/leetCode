@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace leetCode._0901_0950
 {
-    public class _0931_MinimumFallingPathSumAlg
+    public class _931_MinimumFallingPathSumAlg
     {
         public int MinFallingPathSum(int[][] matrix)
         {

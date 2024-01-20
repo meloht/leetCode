@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace TestLeetCode._0901_0950
 {
     [TestClass]
-    public class _0931_MinimumFallingPathSumUnitTest
+    public class _931_MinimumFallingPathSumUnitTest
     {
-        _0931_MinimumFallingPathSumAlg alg = new _0931_MinimumFallingPathSumAlg();
+        _931_MinimumFallingPathSumAlg alg = new _931_MinimumFallingPathSumAlg();
 
         [TestMethod]
         public void TestCase01()
