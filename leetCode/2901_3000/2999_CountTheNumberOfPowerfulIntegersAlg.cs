@@ -39,7 +39,6 @@ namespace leetCode._2901_3000
 
             long res = 0;
 
-
             int low = limitLow ? begin[i] - '0' : 0;
             int high = limitHigh ? end[i] - '0' : 9;
             int endIndex = end.Length - endStr.Length;
@@ -59,7 +58,6 @@ namespace leetCode._2901_3000
                 }
 
             }
-
 
             if (!limitHigh && !limitLow)
             {
