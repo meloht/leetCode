@@ -40,7 +40,6 @@ namespace leetCode._0551_0600
 
             int res = 0;
           
-
             int up = isLimit ? s[i] - '0' : 1;
 
             for (int j = 0; j <= up; j++)
