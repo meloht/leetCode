@@ -66,10 +66,9 @@ namespace leetCode._2801_2850
             int nn = Math.Max(d, low);
             for (int j = nn; j <= high; j++)
             {
-                System.Diagnostics.Debug.Write(j);
+
                 res += Dfs(i + 1, (num * 10 + j) % K, diff + j % 2 * 2 - 1, limitLow && j == low, limitHigh && j == high, true);
             }
-            System.Diagnostics.Debug.WriteLine("");
             if (!limitHigh && !limitLow && isNum)
             {
                 dp[i, num, diff] = res;
