@@ -14,36 +14,70 @@ namespace leetCode._0201_0250
             if (s.Length == 1)
                 return Convert.ToInt32(s);
 
+            char[] arr = s.ToCharArray().Where(p => p != ' ').ToArray();
+            bool flag = arr[0] == '-';
+
             Stack<string> stack = new Stack<string>();
-            foreach (char item in s)
+            int i = flag ? 1 : 0;
+            while (i < arr.Length)
             {
-                if (item == ' ')
+                if (char.IsNumber(arr[i]))
                 {
+                    StringBuilder sb = new StringBuilder();
+                    while (i < s.Length && char.IsNumber(s[i]))
+                    {
+                        sb.Append(s[i]);
+                        i++;
+                    }
+                   
+
+                    stack.Push(sb.ToString());
                     continue;
                 }
-                if (item == ')')
+                else
                 {
-                    while (stack.Peek() != "(")
+                    if (s[i] == ')')
                     {
-                        var num1 = stack.Pop();
-                        var op = stack.Pop();
-                        var num2 = stack.Pop();
-                        int num = 0;
-                        if (op == "-")
+                        while (stack.Count > 0)
                         {
-                             num = int.Parse(num2) - int.Parse(num1);
+                            var num1 = stack.Pop();
+                            var op = stack.Pop();
+                            var num2 = stack.Pop();
+                            int num = 0;
+                            if (op == "-")
+                            {
+                                num = int.Parse(num2) - int.Parse(num1);
+                            }
+                            else
+                            {
+                                num = int.Parse(num2) + int.Parse(num1);
+                            }
+                            if (stack.Peek() == "(")
+                            {
+                                stack.Pop();
+                                stack.Push(num.ToString());
+                                break;
+                            }
+                            else
+                            {
+                                stack.Push(num.ToString());
+                            }
+
                         }
-                        else
-                        {
-                             num = int.Parse(num2) + int.Parse(num1);
-                        }
-                       
-                        stack.Push(num.ToString());
+
                     }
-                    stack.Pop();
+                    else
+                    {
+                        stack.Push(s[i].ToString());
+                    }
+
+                    i++;
                 }
-               // stack.Push(item);
+
             }
+
+
+
             return 0;
         }
     }
