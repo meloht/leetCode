@@ -34,8 +34,35 @@ namespace leetCode._0201_0250
             return true;
         }
 
-       
+        private ListNode frontPointer;
+
+        private bool RecursivelyCheck(ListNode currentNode)
+        {
+            if (currentNode != null)
+            {
+                if (!RecursivelyCheck(currentNode.next))
+                {
+                    return false;
+                }
+                if (currentNode.val != frontPointer.val)
+                {
+                    return false;
+                }
+                frontPointer = frontPointer.next;
+            }
+            return true;
+        }
+
         public bool IsPalindrome(ListNode head)
+        {
+            frontPointer = head;
+            return RecursivelyCheck(head);
+        }
+
+
+
+      
+        public bool IsPalindrome2(ListNode head)
         {
             if (head == null)
             {
