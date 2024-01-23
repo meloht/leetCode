@@ -19,44 +19,53 @@ namespace leetCode._0201_0250
 
             Stack<string> stack = new Stack<string>();
             int i = flag ? 1 : 0;
+
+            var ress = CaculateNum(arr, 0, ' ', i);
             while (i < arr.Length)
             {
                 if (char.IsNumber(arr[i]))
                 {
-                    var res = ComputeNum(arr, i);
-                    stack.Push(res.Item2.ToString());
-                    i = res.Item3;
+                    var res = CaculateNum(arr, 0, ' ', i);
+                    i = res.Item2;
+                    stack.Push(res.Item1.ToString());
                     continue;
                 }
                 else
                 {
                     if (arr[i] == ')')
                     {
-                        while (stack.Count > 0)
+                        while (stack.Count > 1)
                         {
                             var num1 = stack.Pop();
-                            var op = stack.Pop();
-                            var num2 = stack.Pop();
-                            int num = 0;
-                            if (op == "-")
-                            {
-                                num = int.Parse(num2) - int.Parse(num1);
-                            }
-                            else
-                            {
-                                num = int.Parse(num2) + int.Parse(num1);
-                            }
                             if (stack.Peek() == "(")
                             {
                                 stack.Pop();
-                                stack.Push(num.ToString());
+                            }
+                            if (stack.Count == 0)
+                            {
+                                stack.Push(num1.ToString());
                                 break;
+                            }
+                            if (stack.Peek() == "+" || stack.Peek() == "-")
+                            {
+                                string op = stack.Pop();
+                                int num2 = int.Parse(stack.Pop());
+                                if (op == "+")
+                                {
+                                    int num = num2 + int.Parse(num1);
+                                    stack.Push(num.ToString());
+
+                                }
+                                else if (op == "-")
+                                {
+                                    int num = num2 - int.Parse(num1);
+                                    stack.Push(num.ToString());
+                                }
                             }
                             else
                             {
-                                stack.Push(num.ToString());
+                                break;
                             }
-
                         }
 
                     }
@@ -72,7 +81,7 @@ namespace leetCode._0201_0250
 
             if (stack.Count == 1)
             {
-                int num= int.Parse(stack.Pop());
+                int num = int.Parse(stack.Pop());
                 if (flag)
                 {
                     return -num;
@@ -83,39 +92,40 @@ namespace leetCode._0201_0250
             return 0;
         }
 
-        private Tuple<bool, int, int> ComputeNum(char[] arr, int i)
+        private Tuple<int, int> CaculateNum(char[] arr, int num, char op, int i)
         {
             if (i >= arr.Length)
-                return new Tuple<bool, int, int>(false, 0, i - 1);
-            if (!char.IsNumber(arr[i]))
             {
-                return new Tuple<bool, int, int>(false, 0, i);
+                return new Tuple<int, int>(num, i);
             }
-            var item = GetNextNum(arr, i);
-            if (item.Item2 >= arr.Length)
+            if (arr[i] == '(')
             {
-                return new Tuple<bool, int, int>(true, item.Item1, item.Item2);
+                return new Tuple<int, int>(num, i - 1);
             }
-            i = item.Item2;
-            int num = item.Item1;
-            var flag = arr[i];
-            if (char.IsNumber(arr[i + 1]))
+            if (arr[i] == ')')
             {
-                var next = GetNextNum(arr, i + 1);
-                int res = 0;
-                if (flag == '+')
+                return new Tuple<int, int>(num, i);
+            }
+            if (arr[i] == '+' || arr[i] == '-')
+            {
+                return CaculateNum(arr, num, arr[i], i + 1);
+            }
+            if (char.IsNumber(arr[i]))
+            {
+                var res = GetNextNum(arr, i);
+                int num1 = res.Item1;
+                if (op == '+')
                 {
-                    res = num + next.Item2;
+                    num1 = num + num1;
                 }
-                else
+                else if (op == '-')
                 {
-                    res = num - next.Item2;
+                    num1 = num - num1;
                 }
-
+                return CaculateNum(arr, num1, op, res.Item2);
             }
-         
-            return new Tuple<bool, int, int>(false, num, item.Item2);
 
+            return new Tuple<int, int>(num, 0);
         }
         private Tuple<int, int> GetNextNum(char[] arr, int i)
         {
