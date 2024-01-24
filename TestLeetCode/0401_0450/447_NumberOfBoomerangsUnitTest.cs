@@ -1,11 +1,11 @@
-﻿using leetCode._0441_0450;
+﻿using leetCode._0401_0450;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._0441_0450
+namespace TestLeetCode._0401_0450
 {
     [TestClass]
     public class _447_NumberOfBoomerangsUnitTest

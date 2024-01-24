@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace leetCode._0441_0450
+namespace leetCode._0401_0450
 {
     public class _447_NumberOfBoomerangsAlg
     {
