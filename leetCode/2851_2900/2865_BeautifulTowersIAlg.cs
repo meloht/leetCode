@@ -8,7 +8,7 @@ namespace leetCode._2851_2900
 {
     public class _2865_BeautifulTowersIAlg
     {
-        public long MaximumSumOfHeights(IList<int> maxHeights)
+        public long MaximumSumOfHeights1(IList<int> maxHeights)
         {
             if (maxHeights.Count == 1)
                 return maxHeights[0];
@@ -23,9 +23,7 @@ namespace leetCode._2851_2900
                     {
                         stack.Clear();
                         stack.Push(curr);
-                        if (i == 5)
-                        { 
-                        }
+
                         long num = GetNum(i - 1, maxHeights);
                         max = Math.Max(max, num);
 
@@ -69,6 +67,11 @@ namespace leetCode._2851_2900
             }
 
             return max;
+        }
+
+        public long MaximumSumOfHeights(IList<int> maxHeights)
+        {
+            return 0;
         }
     }
 }
