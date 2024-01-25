@@ -15,78 +15,40 @@ namespace leetCode._0201_0250
                 return Convert.ToInt32(s);
 
             char[] arr = s.ToCharArray().Where(p => p != ' ').ToArray();
-            bool flag = arr[0] == '-';
+            bool flag = arr[0] == '-' && arr[1] == '(';
 
-            Stack<string> stack = new Stack<string>();
+            Stack<int> stack = new Stack<int>();
+            Stack<char> opStack = new Stack<char>();
             int i = flag ? 1 : 0;
 
-            var ress = CaculateNum(arr, 0, ' ', i);
-            while (i < arr.Length)
+            while (i < s.Length)
             {
-                if (char.IsNumber(arr[i]))
+                int num = 0;
+                while (arr[i] != '(')
                 {
-                    var res = CaculateNum(arr, 0, ' ', i);
+                    var res = GetNum(arr, i);
+                    num += res.Item1;
                     i = res.Item2;
-                    stack.Push(res.Item1.ToString());
-                    continue;
                 }
-                else
+                if (arr[i] == '(')
                 {
-                    if (arr[i] == ')')
-                    {
-                        while (stack.Count > 1)
-                        {
-                            var num1 = stack.Pop();
-                            if (stack.Peek() == "(")
-                            {
-                                stack.Pop();
-                            }
-                            if (stack.Count == 0)
-                            {
-                                stack.Push(num1.ToString());
-                                break;
-                            }
-                            if (stack.Peek() == "+" || stack.Peek() == "-")
-                            {
-                                string op = stack.Pop();
-                                int num2 = int.Parse(stack.Pop());
-                                if (op == "+")
-                                {
-                                    int num = num2 + int.Parse(num1);
-                                    stack.Push(num.ToString());
-
-                                }
-                                else if (op == "-")
-                                {
-                                    int num = num2 - int.Parse(num1);
-                                    stack.Push(num.ToString());
-                                }
-                            }
-                            else
-                            {
-                                break;
-                            }
-                        }
-
-                    }
-                    else
-                    {
-                        stack.Push(arr[i].ToString());
-                    }
-
+                    stack.Push(num);
                     i++;
                 }
-
-            }
-
-            if (stack.Count == 1)
-            {
-                int num = int.Parse(stack.Pop());
-                if (flag)
+                num = 0;
+                while (arr[i] != ')')
                 {
-                    return -num;
+                    var res = GetNum(arr, i);
+                    num += res.Item1;
+                    i = res.Item2;
                 }
-                return num;
+                if (arr[i] == ')')
+                {
+                    int prev = stack.Pop();
+                    num = num + prev;
+                    stack.Push(num);
+                    i++;
+                }
             }
 
             return 0;
@@ -136,6 +98,37 @@ namespace leetCode._0201_0250
                 i++;
             }
             int num = int.Parse(sb.ToString());
+            return new Tuple<int, int>(num, i);
+        }
+
+
+        private Tuple<int, int> GetNum(char[] arr, int i)
+        {
+            bool flag = false;
+            if (arr[i] == '-')
+            {
+                flag = true;
+                i++;
+            }
+            else if (arr[i] == '+')
+            {
+                i++;
+            }
+            StringBuilder sb = new StringBuilder();
+            while (i < arr.Length && char.IsNumber(arr[i]))
+            {
+                sb.Append(arr[i]);
+                i++;
+            }
+            if (sb.ToString().Length == 0)
+            {
+                return new Tuple<int, int>(0, i--);
+            }
+            int num = int.Parse(sb.ToString());
+            if (flag)
+            {
+                num = -num;
+            }
             return new Tuple<int, int>(num, i);
         }
     }

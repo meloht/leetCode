@@ -56,5 +56,32 @@ namespace TestLeetCode._0201_0250
             int res = alg.Calculate(s);
             Assert.AreEqual(exp, res);
         }
+
+        [TestMethod]
+        public void TestCase06()
+        {
+            string s = "-2+ 1";
+            int exp = -1;
+            int res = alg.Calculate(s);
+            Assert.AreEqual(exp, res);
+        }
+
+        [TestMethod]
+        public void TestCase07()
+        {
+            string s = "-(2+ 1)";
+            int exp = -3;
+            int res = alg.Calculate(s);
+            Assert.AreEqual(exp, res);
+        }
+
+        [TestMethod]
+        public void TestCase08()
+        {
+            string s = "2-4-(8+2-6+(8+4-(1)+8-10))";
+            int exp = -15;
+            int res = alg.Calculate(s);
+            Assert.AreEqual(exp, res);
+        }
     }
 }
