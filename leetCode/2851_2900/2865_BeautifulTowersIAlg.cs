@@ -71,7 +71,49 @@ namespace leetCode._2851_2900
 
         public long MaximumSumOfHeights(IList<int> maxHeights)
         {
-            return 0;
+            int n = maxHeights.Count;
+            long max = 0;
+            long[] prefix = new long[n];
+            long[] suffix = new long[n];
+            Stack<int> stackLeft = new Stack<int>();
+            Stack<int> stackRight = new Stack<int>();
+
+            for (int i = 0; i < n; i++)
+            {
+                while (stackLeft.Count > 0 && maxHeights[i] < maxHeights[stackLeft.Peek()])
+                {
+                    stackLeft.Pop();
+                }
+                if (stackLeft.Count == 0)
+                {
+                    prefix[i] = (long)(i + 1) * maxHeights[i];
+                }
+                else
+                {
+                    prefix[i] = prefix[stackLeft.Peek()] + (long)(i - stackLeft.Peek()) * maxHeights[i];
+                }
+                stackLeft.Push(i);
+            }
+
+            for (int i = n - 1; i >= 0; i--)
+            {
+                while (stackRight.Count > 0 && maxHeights[i] < maxHeights[stackRight.Peek()])
+                {
+                    stackRight.Pop();
+                }
+                if (stackRight.Count == 0)
+                {
+                    suffix[i] = (long)(n - i) * maxHeights[i];
+                }
+                else
+                {
+                    suffix[i] = suffix[stackRight.Peek()] + (long)(stackRight.Peek() - i) * maxHeights[i];
+                }
+                stackRight.Push(i);
+
+                max = Math.Max(max, prefix[i] + suffix[i] - maxHeights[i]);
+            }
+            return max;
         }
     }
 }
