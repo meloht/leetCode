@@ -15,40 +15,82 @@ namespace leetCode._0201_0250
                 return Convert.ToInt32(s);
 
             char[] arr = s.ToCharArray().Where(p => p != ' ').ToArray();
-            bool flag = arr[0] == '-' && arr[1] == '(';
 
             Stack<int> stack = new Stack<int>();
             Stack<char> opStack = new Stack<char>();
-            int i = flag ? 1 : 0;
 
+            int i = 0;
             while (i < s.Length)
             {
                 int num = 0;
-                while (arr[i] != '(')
+
+                if ((arr[i] == '-' || arr[i] == '+') && arr[i + 1] == '(')
                 {
-                    var res = GetNum(arr, i);
-                    num += res.Item1;
-                    i = res.Item2;
-                }
-                if (arr[i] == '(')
-                {
-                    stack.Push(num);
+                    opStack.Push(arr[i]);
                     i++;
                 }
-                num = 0;
-                while (arr[i] != ')')
+                else if ((arr[i] == '-' || arr[i] == '+') && char.IsNumber(arr[i + 1]))
                 {
                     var res = GetNum(arr, i);
                     num += res.Item1;
                     i = res.Item2;
                 }
+                else if (arr[i] == '(' && char.IsNumber(arr[i + 1]))
+                {
+                    var res = GetNum(arr, i);
+                    num += res.Item1;
+                    i = res.Item2;
+                    stack.Push(num);
+                }
+                else if (char.IsNumber(arr[i]))
+                {
+                    var res = GetNum(arr, i);
+                    num += res.Item1;
+                    i = res.Item2;
+                    stack.Push(num);
+                }
+                else
+                {
+                    i++;
+                    continue;
+                }
+
+
+
                 if (arr[i] == ')')
                 {
                     int prev = stack.Pop();
-                    num = num + prev;
-                    stack.Push(num);
+                    char op = opStack.Pop();
+                    if (op == '+')
+                    {
+                        num = num + prev;
+                    }
+                    else
+                    {
+                        num = prev - num;
+                    }
+                    if (stack.Count > 0)
+                    {
+                        prev = stack.Pop();
+                        op = opStack.Pop();
+                        if (op == '+')
+                        {
+                            num = num + prev;
+                        }
+                        else
+                        {
+                            num = prev - num;
+                        }
+                        stack.Push(num);
+                    }
+                    else
+                    {
+                        stack.Push(num);
+                    }
+
                     i++;
                 }
+
             }
 
             return 0;
