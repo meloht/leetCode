@@ -23,7 +23,7 @@ namespace leetCode._0201_0250
             while (i < s.Length)
             {
                 int num = 0;
-
+                bool isNum = false;
                 if ((arr[i] == '-' || arr[i] == '+') && arr[i + 1] == '(')
                 {
                     opStack.Push(arr[i]);
@@ -34,20 +34,21 @@ namespace leetCode._0201_0250
                     var res = GetNum(arr, i);
                     num += res.Item1;
                     i = res.Item2;
+                    isNum = true;
                 }
                 else if (arr[i] == '(' && char.IsNumber(arr[i + 1]))
                 {
                     var res = GetNum(arr, i);
                     num += res.Item1;
                     i = res.Item2;
-                    stack.Push(num);
+                    isNum = true;
                 }
                 else if (char.IsNumber(arr[i]))
                 {
                     var res = GetNum(arr, i);
                     num += res.Item1;
                     i = res.Item2;
-                    stack.Push(num);
+                    isNum = true;
                 }
                 else
                 {
