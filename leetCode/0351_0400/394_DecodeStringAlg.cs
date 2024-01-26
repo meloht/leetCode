@@ -1,4 +1,5 @@
-﻿using System;
+﻿using leetCode._101_150;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,85 +9,121 @@ namespace leetCode._0351_0400
 {
     public class _394_DecodeStringAlg
     {
-        public string DecodeString(string s)
+        string str;
+        int index;
+        public string DecodeString1(string s)
         {
             if (s.Length == 1)
                 return s;
+            str = s;
+            index = 0;
 
-            StringBuilder sb = new StringBuilder();
-            int i = 0;
-            while (i < s.Length)
+            string ss = GetString();
+            return ss;
+
+        }
+
+        private string GetString()
+        {
+            if (index >= str.Length || str[index] == ']')
             {
-                if (char.IsNumber(s[i]))
+                return "";
+            }
+            StringBuilder sb = new StringBuilder();
+            if (char.IsDigit(str[index]))
+            {
+                int num = GetNum();
+                index++;
+                string res = GetString();
+                index++;
+
+                for (int i = 0; i < num; i++)
                 {
-                    var res = GetStr(s, i);
-                    i = res.Item2;
-                    sb.Append(res.Item1);
-
+                    sb.Append(res);
                 }
-                else if (s[i] != '[' && s[i] != ']')
-                {
-                    while (i < s.Length && !char.IsNumber(s[i]) && s[i] != '[' && s[i] != ']')
-                    {
-                        sb.Append(s[i]);
-                        i++;
-                    }
-                    continue;
-                }
+            }
+            else
+            {
+                string res = GetStringList();
+                sb.Append(res);
+            }
 
-                i++;
+            string ss = GetString();
+            return sb.Append(ss).ToString();
 
+        }
+        private int GetNum()
+        {
+            int res = 0;
+            while (index < str.Length && char.IsDigit(str[index]))
+            {
+                res = res * 10 + str[index] - '0';
+                index++;
+            }
+
+            return res;
+        }
+        private string GetStringList()
+        {
+            StringBuilder sb = new StringBuilder();
+            while (index < str.Length && char.IsLetter(str[index]))
+            {
+                sb.Append(str[index]);
+                index++;
             }
             return sb.ToString();
         }
 
-        private void AddItem(StringBuilder sb, string item, int n)
+
+        public string DecodeString(string s)
         {
+            StringBuilder sb = new StringBuilder();
+            Stack<int> stack = new Stack<int>();
+            int n = s.Length;
+            int num = 0;
             for (int i = 0; i < n; i++)
             {
-                sb.Append(item);
-            }
-        }
+                var ch = s[i];
+                if (char.IsDigit(ch))
+                {
+                    num = num * 10 + ch - '0';
+                }
+                else if (char.IsLetter(ch))
+                {
+                    sb.Append(ch);
+                }
+                else if (ch == '[')
+                {
+                    stack.Push(num);
+                    num = 0;
+                    sb.Append(ch);
+                }
+                else
+                {
+                    int index=sb.Length - 1;
+                    List<char> list = new List<char>();
+                    while (sb[index] != '[')
+                    {
+                        list.Add(sb[index]);
+                        sb.Length = index;
+                        index--;
+                    }
+                    sb.Length = index;
+                    StringBuilder sb2 = new StringBuilder();
+                    for (int j = list.Count - 1; j >= 0; j--)
+                    {
+                        sb2.Append(list[j]);
+                    }
+                    int count = stack.Pop();
+                    string item = sb2.ToString();
+                    for (int j = 0; j < count; j++)
+                    {
+                        sb.Append(item);
+                    }
+                }
 
-        private Tuple<int, int> GetNum(string arr, int i)
-        {
-            StringBuilder sb = new StringBuilder();
-            while (i < arr.Length && char.IsNumber(arr[i]))
-            {
-                sb.Append(arr[i]);
-                i++;
             }
-
-            int num = int.Parse(sb.ToString());
-            return new Tuple<int, int>(num, i);
-        }
-        public Tuple<string, int> GetStr(string arr, int i)
-        {
-            StringBuilder sb = new StringBuilder();
-            int num = 1;
-            if (i < arr.Length && char.IsNumber(arr[i]))
-            {
-                var res = GetNum(arr, i);
-                num = res.Item1;
-                i = res.Item2;
-                i++;
-            }
-            
-            while (i < arr.Length && !char.IsNumber(arr[i]) && arr[i] != '[' && arr[i] != ']')
-            {
-                sb.Append(arr[i]);
-                i++;
-            }
-            if (i < arr.Length && char.IsNumber(arr[i]))
-            {
-                var res = GetStr(arr, i);
-                i = res.Item2;
-                sb.Append(res.Item1);
-            }
-
-            StringBuilder sb2 = new StringBuilder();
-            AddItem(sb2, sb.ToString(), num);
-            return new Tuple<string, int>(sb2.ToString(), i);
+            return sb.ToString();
         }
 
     }
