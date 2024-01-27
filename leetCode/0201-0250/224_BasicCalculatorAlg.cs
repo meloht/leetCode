@@ -1,4 +1,5 @@
-﻿using System;
+﻿using leetCode._0151_0200;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,171 +9,100 @@ namespace leetCode._0201_0250
 {
     public class _224_BasicCalculatorAlg
     {
+
+        int index = 0;
+        char[] strNum;
         public int Calculate(string s)
         {
             s = s.Trim();
             if (s.Length == 1)
                 return Convert.ToInt32(s);
 
-            char[] arr = s.ToCharArray().Where(p => p != ' ').ToArray();
-
-            Stack<int> stack = new Stack<int>();
-            Stack<char> opStack = new Stack<char>();
-
-            int i = 0;
-            while (i < s.Length)
-            {
-                int num = 0;
-                bool isNum = false;
-                if ((arr[i] == '-' || arr[i] == '+') && arr[i + 1] == '(')
-                {
-                    opStack.Push(arr[i]);
-                    i++;
-                }
-                else if ((arr[i] == '-' || arr[i] == '+') && char.IsNumber(arr[i + 1]))
-                {
-                    var res = GetNum(arr, i);
-                    num += res.Item1;
-                    i = res.Item2;
-                    isNum = true;
-                }
-                else if (arr[i] == '(' && char.IsNumber(arr[i + 1]))
-                {
-                    var res = GetNum(arr, i);
-                    num += res.Item1;
-                    i = res.Item2;
-                    isNum = true;
-                }
-                else if (char.IsNumber(arr[i]))
-                {
-                    var res = GetNum(arr, i);
-                    num += res.Item1;
-                    i = res.Item2;
-                    isNum = true;
-                }
-                else
-                {
-                    i++;
-                    continue;
-                }
-
-
-
-                if (arr[i] == ')')
-                {
-                    int prev = stack.Pop();
-                    char op = opStack.Pop();
-                    if (op == '+')
-                    {
-                        num = num + prev;
-                    }
-                    else
-                    {
-                        num = prev - num;
-                    }
-                    if (stack.Count > 0)
-                    {
-                        prev = stack.Pop();
-                        op = opStack.Pop();
-                        if (op == '+')
-                        {
-                            num = num + prev;
-                        }
-                        else
-                        {
-                            num = prev - num;
-                        }
-                        stack.Push(num);
-                    }
-                    else
-                    {
-                        stack.Push(num);
-                    }
-
-                    i++;
-                }
-
-            }
-
-            return 0;
+            strNum = s.ToCharArray().Where(p => p != ' ').ToArray();
+            int ans = Calc();
+            return ans;
         }
 
-        private Tuple<int, int> CaculateNum(char[] arr, int num, char op, int i)
+        private int Calc()
         {
-            if (i >= arr.Length)
+            if (index >= strNum.Length)
             {
-                return new Tuple<int, int>(num, i);
+                return 0;
             }
-            if (arr[i] == '(')
+            if (strNum[index] == ')')
             {
-                return new Tuple<int, int>(num, i - 1);
+                return 0;
             }
-            if (arr[i] == ')')
+            int ans = 0;
+            if (char.IsDigit(strNum[index]))
             {
-                return new Tuple<int, int>(num, i);
+                int num = ComputNum();
+                ans += num;
             }
-            if (arr[i] == '+' || arr[i] == '-')
+            else if (strNum[index] == '-' && index + 1 < strNum.Length && char.IsDigit(strNum[index + 1]))
             {
-                return CaculateNum(arr, num, arr[i], i + 1);
+                int num = ComputNum();
+                ans += num;
             }
-            if (char.IsNumber(arr[i]))
+            else if (strNum[index] == '-' && index + 1 < strNum.Length && strNum[index + 1] == '(')
             {
-                var res = GetNextNum(arr, i);
-                int num1 = res.Item1;
-                if (op == '+')
-                {
-                    num1 = num + num1;
-                }
-                else if (op == '-')
-                {
-                    num1 = num - num1;
-                }
-                return CaculateNum(arr, num1, op, res.Item2);
+                index += 2;
+                ans = ans - Calc();
+                index++;
             }
-
-            return new Tuple<int, int>(num, 0);
-        }
-        private Tuple<int, int> GetNextNum(char[] arr, int i)
-        {
-            StringBuilder sb = new StringBuilder();
-            while (i < arr.Length && char.IsNumber(arr[i]))
+            else if (strNum[index] == '(')
             {
-                sb.Append(arr[i]);
-                i++;
+                index++;
+                ans = ans + Calc();
+                index++;
             }
-            int num = int.Parse(sb.ToString());
-            return new Tuple<int, int>(num, i);
+            else if (strNum[index]=='+')
+            {
+                index++;
+            }
+            ans = ans + Calc();
+            return ans;
         }
 
-
-        private Tuple<int, int> GetNum(char[] arr, int i)
+        private int ComputNum()
         {
-            bool flag = false;
-            if (arr[i] == '-')
+            if (index >= strNum.Length || strNum[index] == '(' || strNum[index] == ')')
             {
-                flag = true;
-                i++;
+                return 0;
             }
-            else if (arr[i] == '+')
+            if (strNum[index] == '-' && index + 1 < strNum.Length && strNum[index + 1] == '(')
             {
-                i++;
+                return 0;
             }
-            StringBuilder sb = new StringBuilder();
-            while (i < arr.Length && char.IsNumber(arr[i]))
+            int num = 0;
+            if (strNum[index] == '-')
             {
-                sb.Append(arr[i]);
-                i++;
+                index++;
+                num = -GetNum();
             }
-            if (sb.ToString().Length == 0)
+            else if (char.IsDigit(strNum[index]))
             {
-                return new Tuple<int, int>(0, i--);
+                num = GetNum();
             }
-            int num = int.Parse(sb.ToString());
-            if (flag)
+            else if (strNum[index] == '+')
             {
-                num = -num;
+                index++;
+                num = GetNum();
             }
-            return new Tuple<int, int>(num, i);
+
+            int ans = num + ComputNum();
+            return ans;
+        }
+
+        private int GetNum()
+        {
+            int res = 0;
+            while (index < strNum.Length && char.IsDigit(strNum[index]))
+            {
+                res = res * 10 + strNum[index] - '0';
+                index++;
+            }
+            return res;
         }
     }
 }
