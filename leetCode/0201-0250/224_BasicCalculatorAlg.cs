@@ -12,7 +12,7 @@ namespace leetCode._0201_0250
 
         int index = 0;
         char[] strNum;
-        public int Calculate(string s)
+        public int Calculate1(string s)
         {
             s = s.Trim();
             if (s.Length == 1)
@@ -56,7 +56,7 @@ namespace leetCode._0201_0250
                 ans = ans + Calc();
                 index++;
             }
-            else if (strNum[index]=='+')
+            else if (strNum[index] == '+')
             {
                 index++;
             }
@@ -101,6 +101,55 @@ namespace leetCode._0201_0250
             {
                 res = res * 10 + strNum[index] - '0';
                 index++;
+            }
+            return res;
+        }
+
+        public int Calculate(string s)
+        {
+            Stack<int> stack = new Stack<int>();
+            stack.Push(1);
+            int sign = 1;
+
+            int res = 0;
+            int n = s.Length;
+            int i = 0;
+            while (i < n)
+            {
+                if (s[i] == ' ')
+                {
+                    i++;
+                }
+                else if (s[i] == '+')
+                {
+                    sign = stack.Peek();
+                    i++;
+                }
+                else if (s[i] == '-')
+                {
+                    sign = -stack.Peek();
+                    i++;
+                }
+                else if (s[i] == '(')
+                {
+                    stack.Push(sign);
+                    i++;
+                }
+                else if (s[i] == ')')
+                {
+                    stack.Pop();
+                    i++;
+                }
+                else
+                {
+                    int num = 0;
+                    while (i < s.Length && char.IsDigit(s[i]))
+                    {
+                        num = num * 10 + s[i] - '0';
+                        i++;
+                    }
+                    res += sign * num;
+                }
             }
             return res;
         }
