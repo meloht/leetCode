@@ -8,7 +8,7 @@ namespace leetCode._0201_0250
 {
     public class _239_SlidingWindowMaximumAlg
     {
-        public int[] MaxSlidingWindow(int[] nums, int k)
+        public int[] MaxSlidingWindow1(int[] nums, int k)
         {
             int n = nums.Length;
             int m = n - k + 1;
@@ -52,6 +52,43 @@ namespace leetCode._0201_0250
                     }
                 }
                
+            }
+            return res;
+        }
+
+        public int[] MaxSlidingWindow(int[] nums, int k)
+        {
+            int n = nums.Length;
+            int m = n - k + 1;
+            int[] res = new int[m];
+
+            LinkedList<int> list = new LinkedList<int>();
+     
+            for (int i = 0; i < k; i++)
+            {
+                while (list.Count > 0 && nums[i] >= nums[list.Last.Value])
+                {
+                    list.RemoveLast();
+                }
+                list.AddLast(i);
+            }
+            res[0] = nums[list.First.Value];
+
+            for (int i = k, j = 1; i < n; i++, j++)
+            {
+
+                while (list.Count > 0 && nums[i] >= nums[list.Last.Value])
+                {
+                    list.RemoveLast();
+                }
+                list.AddLast(i);
+
+                while (list.First.Value < j)
+                {
+                    list.RemoveFirst();
+                }
+                res[j] = nums[list.First.Value];
+
             }
             return res;
         }

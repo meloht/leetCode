@@ -33,6 +33,7 @@ namespace leetCode._0301_0350
             {
                 result.Add(queue.Dequeue());
             }
+           
             return result.ToArray();
         }
     }
