@@ -38,5 +38,24 @@ namespace TestLeetCode._0401_0450
             bool res = alg.CanPartition(nums);
             Assert.AreEqual(exp, res);
         }
+
+
+        [TestMethod]
+        public void TestCase04()
+        {
+            int[] nums = [9, 1, 2, 4, 10];
+            bool exp = true;
+            bool res = alg.CanPartition(nums);
+            Assert.AreEqual(exp, res);
+        }
+
+        [TestMethod]
+        public void TestCase05()
+        {
+            int[] nums = [1, 5, 10, 6];
+            bool exp = true;
+            bool res = alg.CanPartition(nums);
+            Assert.AreEqual(exp, res);
+        }
     }
 }
