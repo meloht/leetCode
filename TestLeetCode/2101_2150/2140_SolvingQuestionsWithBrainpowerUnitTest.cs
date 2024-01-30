@@ -29,5 +29,25 @@ namespace TestLeetCode._2101_2150
             long res = alg.MostPoints(questions);
             Assert.AreEqual(exp, res);
         }
-    }
+
+        [TestMethod]
+        public void TestCase03()
+        {
+            int[][] questions = [[10, 1], [10, 1], [10, 1], [10, 1], [10, 1]];
+            long exp = 30;
+            long res = alg.MostPoints(questions);
+            Assert.AreEqual(exp, res);
+        }
+
+        [TestMethod]
+        public void TestCase04()
+        {
+            int[][] questions = [[10, 1], [10, 1], [10, 1], [10, 1]];
+            long exp = 20;
+            long res = alg.MostPoints(questions);
+            Assert.AreEqual(exp, res);
+        }
+
+ 
+    }  
 }
