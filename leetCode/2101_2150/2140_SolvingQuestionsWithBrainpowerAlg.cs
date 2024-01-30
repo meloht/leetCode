@@ -35,7 +35,7 @@ namespace leetCode._2101_2150
 
         }
 
-        public long MostPoints(int[][] questions)
+        public long MostPoints2(int[][] questions)
         {
             long[] dp = new long[questions.Length + 1];
 
@@ -45,6 +45,21 @@ namespace leetCode._2101_2150
                 dp[i] = Math.Max(dp[i + 1], questions[i][0] + dp[index]);
             }
             return dp[0];
+        }
+
+        public long MostPoints(int[][] questions)
+        {
+            long[] dp = new long[questions.Length + 1];
+
+            for (int i = 0; i < questions.Length; i++)
+            {
+                dp[i + 1] = Math.Max(dp[i], dp[i + 1]);
+                var q = questions[i];
+                int next = Math.Min(i + q[1] + 1, questions.Length);
+
+                dp[next] = Math.Max(dp[next], q[0] + dp[i]);
+            }
+            return dp[questions.Length];
         }
     }
 }
