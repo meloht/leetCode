@@ -7,4 +7,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="1751_1800\1757_RecyclableAndLowFatProductsAlg.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="1751_1800\1757_RecyclableAndLowFatProductsAlg.sql" />
+  </ItemGroup>
+
 </Project>
