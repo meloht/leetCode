@@ -10,15 +10,16 @@ namespace leetCode._1451_1500
     {
         public int[] Shuffle(int[] nums, int n)
         {
-            List<int> list = new List<int>(2*n);
-            for (int i = 0, j = n; i < n; i++, j++)
+            int[] arr = new int[2 * n];
+
+            for (int i = 0, j = n, k = 0; i < n; i++, j++, k++)
             {
-                list.Add(nums[i]);
-                list.Add(nums[j]);
-               
+                arr[k] = nums[i];
+                k++;
+                arr[k] = nums[j];
             }
 
-            return list.ToArray();
+            return arr;
         }
     }
 }
