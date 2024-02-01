@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._1251_1300
+namespace Test._1251_1300
 {
     [TestClass]
     public class _1281_SubtractTheProductAndSumOfDigitsOfAnIntegerUnitTest

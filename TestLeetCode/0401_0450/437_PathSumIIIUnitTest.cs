@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._0401_0450
+namespace Test._0401_0450
 {
     [TestClass]
     public class _437_PathSumIIIUnitTest

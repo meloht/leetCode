@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode
+namespace Test
 {
     public class Utils
     {

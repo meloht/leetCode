@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._2601_2650
+namespace Test._2601_2650
 {
     [TestClass]
     public class _2645_MinimumAdditionsToMakeValidStringUnitTest

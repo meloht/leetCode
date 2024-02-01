@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._0251_0300
+namespace Test._0251_0300
 {
     [TestClass]
     public class _287_FindTheDuplicateNumberUnitTest

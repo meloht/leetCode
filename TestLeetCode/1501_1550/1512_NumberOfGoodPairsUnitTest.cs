@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._1501_1550
+namespace Test._1501_1550
 {
     [TestClass]
     public class _1512_NumberOfGoodPairsUnitTest

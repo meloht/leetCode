@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._0351_0400
+namespace Test._0351_0400
 {
     [TestClass]
     public class _357_CountNumbersWithUniqueDigitsUnitTest

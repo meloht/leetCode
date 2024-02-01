@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._2351_2400
+namespace Test._2351_2400
 {
     [TestClass]
     public class _2397_MaximumRowsCoveredByColumnsUnitTest

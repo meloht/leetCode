@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._1451_1500
+namespace Test._1451_1500
 {
     [TestClass]
     public class _1486_XorOperationInAnArrayUnitTest

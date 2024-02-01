@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._2651_2700
+namespace Test._2651_2700
 {
     [TestClass]
     public class _2696_MinimumStringLengthAfterRemovingSubstringsUnitTest

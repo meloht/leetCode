@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._2401_2450
+namespace Test._2401_2450
 {
     [TestClass]
     public class _2413_SmallestEvenMultipleUnitTest

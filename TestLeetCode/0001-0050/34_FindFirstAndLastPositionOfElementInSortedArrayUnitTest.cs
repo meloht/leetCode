@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._0001_0050
+namespace Test._0001_0050
 {
     [TestClass]
     public class _34_FindFirstAndLastPositionOfElementInSortedArrayUnitTest

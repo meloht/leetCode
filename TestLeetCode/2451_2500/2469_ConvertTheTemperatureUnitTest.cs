@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._2451_2500
+namespace Test._2451_2500
 {
     [TestClass]
     public class _2469_ConvertTheTemperatureUnitTest

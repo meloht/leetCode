@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._0851_0900
+namespace Test._0851_0900
 {
     [TestClass]
     public class _852_PeakIndexInAMountainArrayUnitTest

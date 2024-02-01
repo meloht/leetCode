@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._2751_2800
+namespace Test._2751_2800
 {
     [TestClass]
     public class _2774_FindMaximumNumberOfStringPairsUnitTest

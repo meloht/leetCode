@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._1551_1600
+namespace Test._1551_1600
 {
     [TestClass]
     public class _1599_MaximumProfitOfOperatingACentennialWheelUnitTest

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._0151_0200
+namespace Test._0151_0200
 {
     [TestClass]
     public class _153_FindMinimumInRotatedSortedArrayUnitTest

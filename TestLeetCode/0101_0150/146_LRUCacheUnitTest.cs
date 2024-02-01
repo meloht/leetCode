@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static leetCode._0101_0150._146_LRUCacheAlg;
 
-namespace TestLeetCode._0101_0150
+namespace Test._0101_0150
 {
     [TestClass]
     public class _146_LRUCacheUnitTest

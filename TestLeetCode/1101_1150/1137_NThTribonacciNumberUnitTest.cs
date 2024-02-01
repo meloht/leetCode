@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._1101_1150
+namespace Test._1101_1150
 {
     [TestClass]
     public class _1137_NThTribonacciNumberUnitTest

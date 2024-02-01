@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._2901_3000
+namespace Test._2901_3000
 {
     [TestClass]
     public class _2999_CountTheNumberOfPowerfulIntegersUnitTest

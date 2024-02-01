@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode.InterviewQuestion
+namespace Test.InterviewQuestion
 {
     [TestClass]
     public class NumberOf2sInRangeLcciUnitTest

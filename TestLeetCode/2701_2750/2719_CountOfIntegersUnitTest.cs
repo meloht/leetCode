@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._2701_2750
+namespace Test._2701_2750
 {
     [TestClass]
     public class _2719_CountOfIntegersUnitTest

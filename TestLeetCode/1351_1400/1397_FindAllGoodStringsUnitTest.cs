@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._1351_1400
+namespace Test._1351_1400
 {
     [TestClass]
     public class _1397_FindAllGoodStringsUnitTest

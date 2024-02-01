@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode.WeeklyContest
+namespace Test.WeeklyContest
 {
     [TestClass]
     public class Alg_374_FindPeaks_UnitTest

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._1701_1750
+namespace Test._1701_1750
 {
     [TestClass]
     public class _1742_MaximumNumberOfBallsInABoxUnitTest

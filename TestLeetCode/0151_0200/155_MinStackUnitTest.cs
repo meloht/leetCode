@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static leetCode._0151_0200._155_MinStackAlg;
 
-namespace TestLeetCode._0151_0200
+namespace Test._0151_0200
 {
     [TestClass]
     public class _155_MinStackUnitTest

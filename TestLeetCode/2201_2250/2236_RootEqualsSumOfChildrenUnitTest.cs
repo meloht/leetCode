@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._2201_2250
+namespace Test._2201_2250
 {
     [TestClass]
     public class _2236_RootEqualsSumOfChildrenUnitTest

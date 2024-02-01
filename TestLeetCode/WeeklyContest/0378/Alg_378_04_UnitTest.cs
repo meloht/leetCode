@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode.WeeklyContest._0378
+namespace Test.WeeklyContest._0378
 {
     [TestClass]
     public class Alg_378_04_UnitTest

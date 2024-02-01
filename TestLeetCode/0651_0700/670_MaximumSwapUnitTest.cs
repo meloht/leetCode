@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._0651_0700
+namespace Test._0651_0700
 {
     [TestClass]
     public class _670_MaximumSwapUnitTest

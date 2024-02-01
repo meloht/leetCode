@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._2051_2100
+namespace Test._2051_2100
 {
     [TestClass]
     public class _2085_CountCommonWordsWithOneOccurrenceUnitTest

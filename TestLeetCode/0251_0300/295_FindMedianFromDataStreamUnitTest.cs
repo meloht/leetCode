@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static leetCode._0251_0300._295_FindMedianFromDataStreamAlg;
 
-namespace TestLeetCode._0251_0300
+namespace Test._0251_0300
 {
     [TestClass]
     public class _295_FindMedianFromDataStreamUnitTest

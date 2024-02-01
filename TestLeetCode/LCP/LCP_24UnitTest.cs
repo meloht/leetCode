@@ -5,8 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode.LCP
+namespace Test.LCP
 {
+   
     [TestClass]
     public class LCP_24UnitTest
     {

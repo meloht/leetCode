@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._1901_1950
+namespace Test._1901_1950
 {
     [TestClass]
     public class _1944_NumberOfVisiblePeopleInAQueueUnitTest

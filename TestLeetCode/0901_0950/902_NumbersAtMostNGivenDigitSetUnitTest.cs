@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._0901_0950
+namespace Test._0901_0950
 {
     [TestClass]
     public class _902_NumbersAtMostNGivenDigitSetUnitTest

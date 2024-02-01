@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._2851_2900
+namespace Test._2851_2900
 {
     [TestClass]
     public class _2865_BeautifulTowersIUnitTest

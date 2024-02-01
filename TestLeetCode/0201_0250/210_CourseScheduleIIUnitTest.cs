@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._0201_0250
+namespace Test._0201_0250
 {
     [TestClass]
     public class _210_CourseScheduleIIUnitTest

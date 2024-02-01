@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._2801_2850
+namespace Test._2801_2850
 {
     [TestClass]
     public class _2827_NumberOfBeautifulIntegersInTheRangeUnitTest

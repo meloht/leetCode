@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._0301_0350
+namespace Test._0301_0350
 {
     [TestClass]
     public class _322_CoinChangeUnitTest

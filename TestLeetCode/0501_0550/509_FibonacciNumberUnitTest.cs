@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._0501_0550
+namespace Test._0501_0550
 {
     [TestClass]
     public class _509_FibonacciNumberUnitTest

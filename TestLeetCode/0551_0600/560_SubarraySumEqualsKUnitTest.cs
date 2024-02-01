@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._0551_0600
+namespace Test._0551_0600
 {
     [TestClass]
     public class _560_SubarraySumEqualsKUnitTest

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._0101_0150
+namespace Test._0101_0150
 {
     [TestClass]
     public class _117_PopulatingNextRightPointersInEachNodeIIUnitTest

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._0951_1000
+namespace Test._0951_1000
 {
     [TestClass]
     public class _0994_RottingOrangesUnitTest

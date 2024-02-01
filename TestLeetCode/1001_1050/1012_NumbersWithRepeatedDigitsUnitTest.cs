@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._1001_1050
+namespace Test._1001_1050
 {
     [TestClass]
     public class _1012_NumbersWithRepeatedDigitsUnitTest

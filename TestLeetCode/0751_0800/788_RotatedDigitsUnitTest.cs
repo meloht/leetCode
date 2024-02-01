@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._0751_0800
+namespace Test._0751_0800
 {
     [TestClass]
     public class _788_RotatedDigitsUnitTest

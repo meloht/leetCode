@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static leetCode._0201_0250._232_ImplementQueueUsingStacksAlg;
 
-namespace TestLeetCode._0201_0250
+namespace Test._0201_0250
 {
     [TestClass]
     public class _232_ImplementQueueUsingStacksUnitTest

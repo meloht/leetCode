@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._0451_0500
+namespace Test._0451_0500
 {
     [TestClass]
     public class _494_TargetSumUnitTest

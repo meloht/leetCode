@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._1401_1450
+namespace Test._1401_1450
 {
     [TestClass]
     public class _1422_MaximumScoreAfterSplittingAStringUnitTest

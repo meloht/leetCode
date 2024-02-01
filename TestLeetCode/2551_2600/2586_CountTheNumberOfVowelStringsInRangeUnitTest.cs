@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._2551_2600
+namespace Test._2551_2600
 {
     [TestClass]
     public class _2586_CountTheNumberOfVowelStringsInRangeUnitTest

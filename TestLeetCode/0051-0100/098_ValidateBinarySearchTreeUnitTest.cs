@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._0051_0100
+namespace Test._0051_0100
 {
     [TestClass]
     public class _98_ValidateBinarySearchTreeUnitTest

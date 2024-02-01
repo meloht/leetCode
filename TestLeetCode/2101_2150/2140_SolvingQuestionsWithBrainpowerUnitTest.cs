@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLeetCode._2101_2150
+namespace Test._2101_2150
 {
     [TestClass]
     public class _2140_SolvingQuestionsWithBrainpowerUnitTest
