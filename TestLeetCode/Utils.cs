@@ -531,5 +531,16 @@ namespace TestLeetCode
 
             return true;
         }
+
+        /// <summary>
+        /// 排序后相同
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsSameArr(int[] arr1, int[] arr2)
+        {
+            Array.Sort(arr1);
+            Array.Sort(arr2);
+            return arr1.SequenceEqual(arr2);
+        }
     }
 }
