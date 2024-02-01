@@ -8,7 +8,7 @@ namespace leetCode._1401_1450
 {
     public class _1422_MaximumScoreAfterSplittingAStringAlg
     {
-        public int MaxScore(string s)
+        public int MaxScore1(string s)
         {
             int[] suffix = new int[s.Length];
             int n = 0;
@@ -30,6 +30,38 @@ namespace leetCode._1401_1450
                     n++;
                 }
                 ans = Math.Max(ans, suffix[i + 1] + n);
+            }
+            return ans;
+        }
+
+        public int MaxScore(string s)
+        {
+
+            int n = 0;
+            for (int i = 1; i < s.Length; i++)
+            {
+                if (s[i] == '1')
+                {
+                    n++;
+                }
+            }
+            if (s[0] == '0')
+            {
+                n++;
+            }
+            int ans = n;
+            int len = s.Length - 1;
+            for (int i = 1; i < len; i++)
+            {
+                if (s[i] == '0')
+                {
+                    n++;
+                }
+                else
+                {
+                    n--;
+                }
+                ans = Math.Max(ans, n);
             }
             return ans;
         }
