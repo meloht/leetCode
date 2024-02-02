@@ -11,85 +11,55 @@ namespace leetCode.LCP
         int Mod = 1_000_000_007;
         public int[] NumsGame(int[] nums)
         {
-            int[] res = new int[nums.Length];
+            int n = nums.Length;
+            int[] res = new int[n];
 
-            int sum = 0;
-            for (int i = 0, n = 1; i < nums.Length; i++, n++)
+            PriorityQueue<int, int> lower = new PriorityQueue<int, int>();
+            PriorityQueue<int, int> upper = new PriorityQueue<int, int>();
+
+            long lowerSum = 0;
+            long upperSum = 0;
+            for (int i = 0; i < n; i++)
             {
-                sum += nums[i];
-                bool bl = n % 2 == 0;
-                if (n > 1)
+                int x = nums[i] - i;
+                if (lower.Count == 0 || lower.Peek() >= x)
                 {
-                    int avg = sum / n;
-                    if (sum % n > 0)
+                    lowerSum += x;
+                    lower.Enqueue(x, -x);
+                    if (lower.Count > upper.Count + 1)
                     {
-                        if (bl)
-                        {
-                            int n1 = GetEvenAns(i, avg, nums);
-                            int n2 = GetEvenAns(i, avg + 1, nums);
-                            res[i] = Math.Min(n1, n2);
-                        }
-                        else
-                        {
-                            int n0 = GetOddAns(i, avg, nums);
-                            int n1 = GetOddAns(i, avg + 1, nums);
-                            int n2 = GetOddAns(i, avg + 2, nums);
-                            res[i] = Math.Min(n1, n2);
-                            res[i] = Math.Min(res[i], n0);
-                        }
+                        int num = lower.Dequeue();
+                        upperSum += num;
+                        upper.Enqueue(num, num);
+                        lowerSum -= num;
                     }
-                    else
+                }
+                else
+                {
+                    upperSum += x;
+                    upper.Enqueue(x, x);
+                    if (lower.Count < upper.Count)
                     {
-                        if (bl)
-                        {
-                            int n1 = GetEvenAns(i, avg - 1, nums);
-                            int n2 = GetEvenAns(i, avg, nums);
-                            res[i] = Math.Min(n1, n2);
-                        }
-                        else
-                        {
-                            int n1 = GetOddAns(i, avg, nums);
-                            res[i] = n1;
-                        }
+                        int num = upper.Dequeue();
+                        lowerSum += num;
+                        lower.Enqueue(num, -num);
+                        upperSum -= num;
                     }
                 }
 
+                if ((i + 1) % 2 == 0)
+                {
+                    res[i] = (int)((upperSum - lowerSum) % Mod);
+                }
+                else
+                {
+                    res[i] = (int)((upperSum - lowerSum + lower.Peek()) % Mod);
+                }
 
             }
 
             return res;
         }
-
-        private int GetEvenAns(int n, int avg, int[] nums)
-        {
-            int h = n / 2;
-            int ans = 0;
-            for (int i = h, j = avg; i >= 0; i--, j--)
-            {
-                ans += Math.Abs(j - nums[i]);
-            }
-            for (int i = h + 1, j = avg + 1; i <= n; i++, j++)
-            {
-                ans += Math.Abs(j - nums[i]);
-            }
-            return ans;
-        }
-
-        private int GetOddAns(int n, int avg, int[] nums)
-        {
-            int h = n / 2;
-            int ans = 0;
-            for (int i = h - 1, j = avg - 1; i >= 0; i--, j--)
-            {
-                ans += Math.Abs(j - nums[i]);
-            }
-            for (int i = h, j = avg; i <= n; i++, j++)
-            {
-                ans += Math.Abs(j - nums[i]);
-            }
-            return ans;
-        }
-
 
     }
 }
