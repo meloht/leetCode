@@ -12,7 +12,6 @@ namespace leetCode._0301_0350
         public IList<string> RemoveInvalidParentheses(string s)
         {
             HashSet<string> res = new HashSet<string>();
-
             int left = 0;
             int right = 0;
             foreach (char c in s)
@@ -42,7 +41,10 @@ namespace leetCode._0301_0350
         {
             if (n < 0)
                 return;
-            if (n > 0 && (s.Length - i) < n)
+            int rem = s.Length - i;
+            if (n > 0 && rem < n)
+                return;
+            if (ls.Count + rem < max)
                 return;
             if (i >= s.Length)
             {
@@ -52,7 +54,6 @@ namespace leetCode._0301_0350
                 }
                 return;
             }
-
             if (s[i] == ')')
             {
                 if (n > 0)
