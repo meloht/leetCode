@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace leetCode._1_50
 {
-    internal class GenerateParenthesisAlg
+    public class GenerateParenthesisAlg
     {
-        public IList<string> GenerateParenthesis(int n)
+        public IList<string> GenerateParenthesis1(int n)
         {
             List<List<string>> total = new List<List<string>>();
             if (n == 0)
@@ -38,5 +38,36 @@ namespace leetCode._1_50
 
             return total[n];
         }
+
+        public IList<string> GenerateParenthesis(int n)
+        {
+            int m = 2 * n;
+            char[] list = new char[m];
+            Array.Fill(list, ' ');
+            List<string> res = new List<string>();
+            Dfs(0, 0, m, n, list, res);
+            return res;
+        }
+        private void Dfs(int i,int open,int m,int n, char[] ls,List<string> res)
+        {
+            if (i == m)
+            {
+                res.Add(new string(ls));
+                return;
+            }
+
+            if (open < n)
+            {
+                ls[i] = '(';
+                Dfs(i + 1, open + 1, m, n, ls, res);
+            }
+            if (i - open < open)
+            {
+                ls[i] = ')';
+                Dfs(i + 1, open, m, n, ls, res);
+            }
+           
+        }
+
     }
 }
