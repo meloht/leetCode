@@ -536,7 +536,7 @@ namespace Test
         /// 排序后相同
         /// </summary>
         /// <returns></returns>
-        public static bool IsSameArr(int[] arr1, int[] arr2)
+        public static bool IsSameArr<T>(T[] arr1, T[] arr2)
         {
             Array.Sort(arr1);
             Array.Sort(arr2);
