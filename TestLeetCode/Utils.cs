@@ -383,52 +383,32 @@ namespace Test
                 return false;
 
             int count = 0;
+            HashSet<int> set = new HashSet<int>();
             foreach (var item in list)
             {
-                System.Diagnostics.Debug.WriteLine("=======================");
-                var dd = list2.Where(p => p.Count == item.Count).ToList();
-                var b = item.ToList();
-                b.Sort();
-                StringBuilder sb = new StringBuilder();
-                foreach (var num1 in b)
+                var ls1 = item.ToList();
+                ls1.Sort();
+                for (int i = 0; i < list2.Count; i++)
                 {
-                    sb.Append(num1);
-                }
-                System.Diagnostics.Debug.WriteLine(sb.ToString());
-                sb.Clear();
-                foreach (var item2 in dd)
-                {
-                    var a = item2.ToList();
-                    a.Sort();
+                    if(set.Contains(i))
+                        continue;
+                    var item2 = list2[i];
+                    if (item.Count != item2.Count)
+                        continue;
 
-                    if (a.SequenceEqual(b))
+                    var ls2 = item2.ToList();
+                    ls2.Sort();
+                    if (ls1.SequenceEqual(ls2))
                     {
                         count++;
-
-                        foreach (var num1 in b)
-                        {
-                            sb.Append(num1);
-                        }
-                        System.Diagnostics.Debug.WriteLine(sb.ToString());
-                        sb.Clear();
+                        set.Add(i);
+                        break;
                     }
                 }
-                System.Diagnostics.Debug.WriteLine("=======================");
+               
             }
             if (count == list.Count)
                 return true;
-
-            System.Diagnostics.Debug.WriteLine("*********************************");
-            foreach (var item in list2)
-            {
-                foreach (var item2 in item)
-                {
-                    System.Diagnostics.Debug.Write(item2);
-                }
-                System.Diagnostics.Debug.WriteLine("");
-            }
-
-            System.Diagnostics.Debug.WriteLine("*********************************");
             return false;
         }
         /// <summary>
@@ -445,51 +425,28 @@ namespace Test
                 return false;
 
             int count = 0;
+            HashSet<int> set = new HashSet<int>();
             foreach (var item in list)
             {
-                System.Diagnostics.Debug.WriteLine("=======================");
-                var dd = list2.Where(p => p.Count == item.Count).ToList();
-                var b = item.ToList();
-
-                StringBuilder sb = new StringBuilder();
-                foreach (var num1 in b)
+                for (int i = 0; i < list2.Count; i++)
                 {
-                    sb.Append(num1);
-                }
-                System.Diagnostics.Debug.WriteLine(sb.ToString());
-                sb.Clear();
-                foreach (var item2 in dd)
-                {
-                    var a = item2.ToList();
+                    if (set.Contains(i))
+                        continue;
+                    var item2 = list2[i];
 
-                    if (a.SequenceEqual(b))
+                    if (item.Count != item2.Count)
+                        continue;
+
+                    if (item.SequenceEqual(item2))
                     {
+                        set.Add(i);
                         count++;
-                        foreach (var num1 in b)
-                        {
-                            sb.Append(num1);
-                        }
-                        System.Diagnostics.Debug.WriteLine(sb.ToString());
-                        sb.Clear();
                         break;
                     }
                 }
-                System.Diagnostics.Debug.WriteLine("=======================");
             }
             if (count == list.Count)
                 return true;
-
-            System.Diagnostics.Debug.WriteLine("*********************************");
-            foreach (var item in list2)
-            {
-                foreach (var item2 in item)
-                {
-                    System.Diagnostics.Debug.Write(item2);
-                }
-                System.Diagnostics.Debug.WriteLine("");
-            }
-
-            System.Diagnostics.Debug.WriteLine("*********************************");
             return false;
         }
 
