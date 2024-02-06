@@ -8,7 +8,7 @@ namespace leetCode._0351_0400
 {
     public class _373_FindKPairsWithSmallestSumsAlg
     {
-        public IList<IList<int>> KSmallestPairs(int[] nums1, int[] nums2, int k)
+        public IList<IList<int>> KSmallestPairs1(int[] nums1, int[] nums2, int k)
         {
             PriorityQueue<int[], int> queue = new PriorityQueue<int[], int>(Comparer<int>.Create((x, y) => -x.CompareTo(y)));
             int max = 0;
@@ -33,7 +33,7 @@ namespace leetCode._0351_0400
                             break;
                         }
                     }
-                   
+
                     queue.Enqueue(new int[] { nums1[i], nums2[j] }, num);
                     ResetQueue(queue, k);
                     if (queue.Count >= k)
@@ -41,7 +41,7 @@ namespace leetCode._0351_0400
                         var arr = queue.Peek();
                         max = arr[0] + arr[1];
                     }
-                 
+
                 }
 
             }
@@ -56,12 +56,33 @@ namespace leetCode._0351_0400
             return res;
         }
 
-        private void ResetQueue(PriorityQueue<int[], int> queue ,int k)
+        private void ResetQueue(PriorityQueue<int[], int> queue, int k)
         {
-            while (queue.Count > k) 
+            while (queue.Count > k)
             {
                 queue.Dequeue();
             }
+        }
+
+        public IList<IList<int>> KSmallestPairs(int[] nums1, int[] nums2, int k)
+        {
+            var queue = new PriorityQueue<(int, int), int>();
+            int len = Math.Min(k, nums1.Length);
+            for (var i = 0; i < len; i++)
+            {
+                queue.Enqueue((i, 0), nums1[i] + nums2[0]);
+            }
+            var list = new List<IList<int>>();
+            for (var i = 0; i < k && queue.Count > 0; i++)
+            {
+                var pair = queue.Dequeue();
+                list.Add(new int[] { nums1[pair.Item1], nums2[pair.Item2] });
+                if (pair.Item2 < nums2.Length - 1)
+                {
+                    queue.Enqueue((pair.Item1, pair.Item2 + 1), nums1[pair.Item1] + nums2[pair.Item2 + 1]);
+                }
+            }
+            return list;
         }
     }
 }
