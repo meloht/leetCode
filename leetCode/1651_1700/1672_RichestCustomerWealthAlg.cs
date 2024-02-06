@@ -10,8 +10,7 @@ namespace leetCode._1651_1700
     {
         public int MaximumWealth(int[][] accounts)
         {
-            int max = accounts.Select(p => p.Sum()).Max();
-            return max;
+            return accounts.Select(p => p.Sum()).Max();
         }
     }
 }

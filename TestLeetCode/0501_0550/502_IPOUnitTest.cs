@@ -32,5 +32,16 @@ namespace Test._0501_0550
             int res = alg.FindMaximizedCapital(k, w, profits, capital);
             Assert.AreEqual(exp, res);
         }
+
+
+        [TestMethod]
+        public void TestCase03()
+        {
+            int k = 1, w = 0;
+            int[] profits = [1, 2, 3], capital = [0, 1, 2];
+            int exp = 1;
+            int res = alg.FindMaximizedCapital(k, w, profits, capital);
+            Assert.AreEqual(exp, res);
+        }
     }
 }
