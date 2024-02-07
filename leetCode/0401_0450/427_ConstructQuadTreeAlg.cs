@@ -61,6 +61,7 @@ namespace leetCode._0401_0450
             while (queue.Count > 0)
             {
                 int count = queue.Count;
+                List<Node> listNode = new List<Node>();
                 for (int i = 0; i < count; i++)
                 {
                     var item = queue.Dequeue();
@@ -72,17 +73,23 @@ namespace leetCode._0401_0450
                     {
                         int?[] arr = new int?[] { item.isLeaf ? 1 : 0, item.val ? 1 : 0 };
                         list.Add(arr);
-                        if (item.isLeaf == false)
-                        {
-                            queue.Enqueue(item.topLeft);
-                            queue.Enqueue(item.topRight);
-                            queue.Enqueue(item.bottomLeft);
-                            queue.Enqueue(item.bottomRight);
-                        }
-                       
+                        listNode.Add(item.topLeft);
+                        listNode.Add(item.topRight);
+                        listNode.Add(item.bottomLeft);
+                        listNode.Add(item.bottomRight);
+
                     }
 
                 }
+                while (listNode.Count > 0 && listNode[listNode.Count - 1] == null)
+                {
+                    listNode.RemoveAt(listNode.Count - 1);
+                }
+                foreach (var item in listNode)
+                {
+                    queue.Enqueue(item);
+                }
+                
             }
 
             return list.ToArray();

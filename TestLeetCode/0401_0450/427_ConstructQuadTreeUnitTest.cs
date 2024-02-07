@@ -19,8 +19,8 @@ namespace Test._0401_0450
             Node node = alg.Construct(grid);
             int?[][] exp = [[0, 1], [1, 0], [1, 1], [1, 1], [1, 0]];
             int?[][] res = alg.Build(node);
-           // bool bl = Utils.IsSameArr(exp, res);
-           // Assert.IsTrue(bl);
+            bool bl = Utils.IsSameArrNull(exp, res);
+            Assert.IsTrue(bl);
         }
 
         [TestMethod]
@@ -38,8 +38,8 @@ namespace Test._0401_0450
             Node node = alg.Construct(grid);
             int?[][] exp = [[0, 1], [1, 1], [0, 1], [1, 1], [1, 0], null, null, null, null, [1, 0], [1, 0], [1, 1], [1, 1]];
             int?[][] res = alg.Build(node);
-           // bool bl = Utils.IsSameArr(exp, res);
-            //Assert.IsTrue(bl);
+            bool bl = Utils.IsSameArrNull(exp, res);
+            Assert.IsTrue(bl);
         }
     }
 }

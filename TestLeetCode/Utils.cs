@@ -390,7 +390,7 @@ namespace Test
                 ls1.Sort();
                 for (int i = 0; i < list2.Count; i++)
                 {
-                    if(set.Contains(i))
+                    if (set.Contains(i))
                         continue;
                     var item2 = list2[i];
                     if (item.Count != item2.Count)
@@ -405,7 +405,7 @@ namespace Test
                         break;
                     }
                 }
-               
+
             }
             if (count == list.Count)
                 return true;
@@ -461,6 +461,29 @@ namespace Test
 
             for (int i = 0; i < arr1.Length; i++)
             {
+                for (int j = 0; j < arr1[i].Length; j++)
+                {
+                    if (arr1[i][j] != arr2[i][j])
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        public static bool IsSameArrNull(int?[][] arr1, int?[][] arr2)
+        {
+
+            for (int i = 0; i < arr1.Length; i++)
+            {
+                if (arr1[i] == null && arr2[i] != null)
+                {
+                    return false;
+                }
+                if (arr1[i] == null)
+                    continue;
                 for (int j = 0; j < arr1[i].Length; j++)
                 {
                     if (arr1[i][j] != arr2[i][j])
