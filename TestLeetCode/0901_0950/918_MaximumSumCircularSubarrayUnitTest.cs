@@ -56,5 +56,23 @@ namespace Test._0901_0950
             int res = alg.MaxSubarraySumCircular(nums);
             Assert.AreEqual(exp, res);
         }
+
+        [TestMethod]
+        public void TestCase06()
+        {
+            int[] nums = [1, 2, 3, 4, 5];
+            int exp = 15;
+            int res = alg.MaxSubarraySumCircular(nums);
+            Assert.AreEqual(exp, res);
+        }
+
+        [TestMethod]
+        public void TestCase07()
+        {
+            int[] nums = [-3, -2, -3];
+            int exp = -2;
+            int res = alg.MaxSubarraySumCircular(nums);
+            Assert.AreEqual(exp, res);
+        }
     }
 }
