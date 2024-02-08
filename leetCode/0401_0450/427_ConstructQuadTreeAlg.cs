@@ -9,13 +9,13 @@ namespace leetCode._0401_0450
 {
     public class _427_ConstructQuadTreeAlg
     {
-        public Node Construct(int[][] grid)
+        public Node Construct1(int[][] grid)
         {
             int n = grid.Length;
-            Node root = Dfs(grid, 0, n, 0, n);
+            Node root = Dfs1(grid, 0, n, 0, n);
             return root;
         }
-        private Node Dfs(int[][] grid, int n0, int n1, int m0, int m1)
+        private Node Dfs1(int[][] grid, int n0, int n1, int m0, int m1)
         {
             bool bl = true;
             for (int i = n0; i < n1; i++)
@@ -37,14 +37,65 @@ namespace leetCode._0401_0450
             {
                 return new Node(grid[n0][m0] == 1, true);
             }
+            var topleft = Dfs1(grid, n0, (n0 + n1) / 2, m0, (m0 + m1) / 2);
+            var topright = Dfs1(grid, n0, (n0 + n1) / 2, (m0 + m1) / 2, m1);
+            var bottomleft = Dfs1(grid, (n0 + n1) / 2, n1, m0, (m0 + m1) / 2);
+            var bottomright = Dfs1(grid, (n0 + n1) / 2, n1, (m0 + m1) / 2, m1);
 
-            Node ret = new Node(
-         true,
-         false,
-         Dfs(grid, n0, (n0 + n1) / 2, m0, (m0 + m1) / 2),
-         Dfs(grid, n0, (n0 + n1) / 2, (m0 + m1) / 2, m1),
-         Dfs(grid, (n0 + n1) / 2, n1, m0, (m0 + m1) / 2),
-         Dfs(grid, (n0 + n1) / 2, n1, (m0 + m1) / 2, m1));
+            Node ret = new Node(true, false,
+                                topleft,
+                                topright,
+                                bottomleft,
+                                bottomright);
+
+
+            return ret;
+
+        }
+
+        public Node Construct(int[][] grid)
+        {
+            int n = grid.Length;
+            int[][] pre = new int[n + 1][];
+            for (int i = 0; i <= n; ++i)
+            {
+                pre[i] = new int[n + 1];
+            }
+            for (int i = 1; i <= n; ++i)
+            {
+                for (int j = 1; j <= n; ++j)
+                {
+                    pre[i][j] = pre[i - 1][j] + pre[i][j - 1] - pre[i - 1][j - 1] + grid[i - 1][j - 1];
+                }
+            }
+
+            Node root = Dfs(grid, pre, 0, n, 0, n);
+            return root;
+        }
+        private Node Dfs(int[][] grid, int[][] pre, int n0, int n1, int m0, int m1)
+        {
+            int total = pre[n1][m1] - pre[n1][m0] - pre[n0][m1] + pre[n0][m0];
+
+            if (total == 0)
+            {
+                return new Node(false, true);
+            }
+            else if (total == (n1 - n0) * (m1 - m0))
+            {
+                return new Node(true, true);
+            }
+
+
+            var topleft = Dfs(grid, pre, n0, (n0 + n1) / 2, m0, (m0 + m1) / 2);
+            var topright = Dfs(grid, pre, n0, (n0 + n1) / 2, (m0 + m1) / 2, m1);
+            var bottomleft = Dfs(grid, pre, (n0 + n1) / 2, n1, m0, (m0 + m1) / 2);
+            var bottomright = Dfs(grid, pre, (n0 + n1) / 2, n1, (m0 + m1) / 2, m1);
+
+            Node ret = new Node(true, false,
+                                topleft,
+                                topright,
+                                bottomleft,
+                                bottomright);
 
 
             return ret;
@@ -89,7 +140,7 @@ namespace leetCode._0401_0450
                 {
                     queue.Enqueue(item);
                 }
-                
+
             }
 
             return list.ToArray();
