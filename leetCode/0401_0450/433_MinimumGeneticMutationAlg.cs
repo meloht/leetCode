@@ -15,16 +15,17 @@ namespace leetCode._0401_0450
 
             if (startGene == endGene)
                 return 0;
-
-            HashSet<string> set = new HashSet<string>(bank);
-            if (set.Contains(endGene) == false)
-                return -1;
          
             int ans = 0;
             HashSet<string> used=new HashSet<string>();
             Queue<string> queue = new Queue<string>();
+            bool blExist = false;
             foreach (var item in bank)
             {
+                if (item == endGene)
+                {
+                    blExist = true;
+                }
                 int n = GetDiff(item, startGene);
                 if (n == 1)
                 {
@@ -32,6 +33,8 @@ namespace leetCode._0401_0450
                     used.Add(item);
                 }
             }
+            if (blExist == false)
+                return -1;
             ans++;
             while (queue.Count > 0)
             {
