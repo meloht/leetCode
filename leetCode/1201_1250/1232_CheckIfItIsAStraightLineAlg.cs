@@ -41,7 +41,7 @@ namespace leetCode._1201_1250
         public bool CheckStraightLine(int[][] coordinates)
         {
             int m = coordinates.Length;
-            // 将计算斜率（每个点与第一个点间的斜率）的除法转换为交换项的乘法，这样可避免判断除数为0的情况
+           
             int x = coordinates[0][0], y = coordinates[0][1];
             int k = coordinates[1][0] - x, v = coordinates[1][1] - y;
             for (int i = 2; i < m; i++)
