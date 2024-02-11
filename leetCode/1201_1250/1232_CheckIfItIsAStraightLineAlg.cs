@@ -33,6 +33,11 @@ namespace leetCode._1201_1250
             return true;
         }
 
+        /// <summary>
+        /// 两点直线方程转换为乘法
+        /// </summary>
+        /// <param name="coordinates"></param>
+        /// <returns></returns>
         public bool CheckStraightLine(int[][] coordinates)
         {
             int m = coordinates.Length;
