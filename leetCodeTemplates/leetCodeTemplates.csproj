@@ -12,6 +12,7 @@
     <Compile Include="..\leetCode\0351_0400\399_EvaluateDivisionAlg.cs" Link="并查集\399_EvaluateDivisionAlg.cs" />
     <Compile Include="..\leetCode\0501_0550\547_NumberOfProvincesAlg.cs" Link="并查集\547_NumberOfProvincesAlg.cs" />
     <Compile Include="..\leetCode\0551_0600\600_NonNegativeIntegersWithoutConsecutiveOnesAlg.cs" Link="数位DP\600_NonNegativeIntegersWithoutConsecutiveOnesAlg.cs" />
+    <Compile Include="..\leetCode\0651_0700\684_RedundantConnectionAlg.cs" Link="并查集\684_RedundantConnectionAlg.cs" />
     <Compile Include="..\leetCode\0751_0800\788_RotatedDigitsAlg.cs" Link="数位DP\788_RotatedDigitsAlg.cs" />
     <Compile Include="..\leetCode\0901_0950\902_NumbersAtMostNGivenDigitSetAlg.cs" Link="数位DP\902_NumbersAtMostNGivenDigitSetAlg.cs" />
     <Compile Include="..\leetCode\0951_1000\0990_SatisfiabilityOfEqualityEquationsAlg.cs" Link="并查集\0990_SatisfiabilityOfEqualityEquationsAlg.cs" />
