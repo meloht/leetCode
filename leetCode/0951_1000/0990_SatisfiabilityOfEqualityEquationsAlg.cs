@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace leetCode._0951_1000
 {
-    public class _990_SatisfiabilityOfEqualityEquationsAlg
+    public class _0990_SatisfiabilityOfEqualityEquationsAlg
     {
         public bool EquationsPossible(string[] equations)
         {

@@ -10,7 +10,7 @@ namespace Test._0951_1000
     [TestClass]
     public class _0990_SatisfiabilityOfEqualityEquationsUnitTest
     {
-        _990_SatisfiabilityOfEqualityEquationsAlg alg = new _990_SatisfiabilityOfEqualityEquationsAlg();
+        _0990_SatisfiabilityOfEqualityEquationsAlg alg = new _0990_SatisfiabilityOfEqualityEquationsAlg();
 
         [TestMethod]
         public void TestCase01()

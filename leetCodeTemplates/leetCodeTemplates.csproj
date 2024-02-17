@@ -9,9 +9,12 @@
   <ItemGroup>
     <Compile Include="..\leetCode\0201-0250\233_NumberOfDigitOneAlg.cs" Link="数位DP\233_NumberOfDigitOneAlg.cs" />
     <Compile Include="..\leetCode\0351_0400\357_CountNumbersWithUniqueDigitsAlg.cs" Link="数位DP\357_CountNumbersWithUniqueDigitsAlg.cs" />
+    <Compile Include="..\leetCode\0351_0400\399_EvaluateDivisionAlg.cs" Link="并查集\399_EvaluateDivisionAlg.cs" />
+    <Compile Include="..\leetCode\0501_0550\547_NumberOfProvincesAlg.cs" Link="并查集\547_NumberOfProvincesAlg.cs" />
     <Compile Include="..\leetCode\0551_0600\600_NonNegativeIntegersWithoutConsecutiveOnesAlg.cs" Link="数位DP\600_NonNegativeIntegersWithoutConsecutiveOnesAlg.cs" />
     <Compile Include="..\leetCode\0751_0800\788_RotatedDigitsAlg.cs" Link="数位DP\788_RotatedDigitsAlg.cs" />
     <Compile Include="..\leetCode\0901_0950\902_NumbersAtMostNGivenDigitSetAlg.cs" Link="数位DP\902_NumbersAtMostNGivenDigitSetAlg.cs" />
+    <Compile Include="..\leetCode\0951_1000\0990_SatisfiabilityOfEqualityEquationsAlg.cs" Link="并查集\0990_SatisfiabilityOfEqualityEquationsAlg.cs" />
     <Compile Include="..\leetCode\1001_1050\1012_NumbersWithRepeatedDigitsAlg.cs" Link="数位DP\1012_NumbersWithRepeatedDigitsAlg.cs" />
     <Compile Include="..\leetCode\1351_1400\1397_FindAllGoodStringsAlg.cs" Link="数位DP\1397_FindAllGoodStringsAlg.cs" />
     <Compile Include="..\leetCode\1701_1750\1742_MaximumNumberOfBallsInABoxAlg.cs" Link="数位DP\1742_MaximumNumberOfBallsInABoxAlg.cs" />
@@ -21,6 +24,10 @@
     <Compile Include="..\leetCode\2801_2850\2827_NumberOfBeautifulIntegersInTheRangeAlg.cs" Link="数位DP\2827_NumberOfBeautifulIntegersInTheRangeAlg.cs" />
     <Compile Include="..\leetCode\2901_3000\2999_CountTheNumberOfPowerfulIntegersAlg.cs" Link="数位DP\2999_CountTheNumberOfPowerfulIntegersAlg.cs" />
     <Compile Include="..\leetCode\InterviewQuestion\17_06_2_NumberOf2sInRangeLcciAlg.cs" Link="数位DP\17_06_2_NumberOf2sInRangeLcciAlg.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="并查集\" />
   </ItemGroup>
 
 </Project>
