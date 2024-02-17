@@ -9,17 +9,17 @@ namespace leetCode._0101_0150
 {
     public class _116_PopulatingNextRightPointersInEachNodeAlg
     {
-        public Node Connect(Node root)
+        public NodeThree Connect(NodeThree root)
         {
             if (root == null)
                 return root;
 
-            Queue<Node> queue = new Queue<Node>();
+            Queue<NodeThree> queue = new Queue<NodeThree>();
             queue.Enqueue(root);
             while (queue.Count > 0)
             {
                 int count = queue.Count;
-                Node pre = null;
+                NodeThree pre = null;
                 for (int i = 0; i < count; i++)
                 {
                     var node = queue.Dequeue();
@@ -39,7 +39,7 @@ namespace leetCode._0101_0150
             return root;
         }
 
-        public Node Connect2(Node root)
+        public NodeThree Connect2(NodeThree root)
         {
             if (root == null)
             {
@@ -47,13 +47,13 @@ namespace leetCode._0101_0150
             }
 
             // 从根节点开始
-            Node leftmost = root;
+            NodeThree leftmost = root;
 
             while (leftmost.left != null)
             {
 
                 // 遍历这一层节点组织成的链表，为下一层的节点更新 next 指针
-                Node head = leftmost;
+                NodeThree head = leftmost;
 
                 while (head != null)
                 {
@@ -78,7 +78,7 @@ namespace leetCode._0101_0150
             return root;
         }
 
-        public Node Connect3(Node root)
+        public NodeThree Connect3(NodeThree root)
         {
             if (root == null)
             {

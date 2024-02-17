@@ -8,17 +8,17 @@ namespace leetCode._0101_0150
 {
     public class _117_PopulatingNextRightPointersInEachNodeIIAlg
     {
-        public Node Connect1(Node root)
+        public NodeThree Connect1(NodeThree root)
         {
             if (root == null)
                 return root;
 
-            Queue<Node> queue = new Queue<Node>();
+            Queue<NodeThree> queue = new Queue<NodeThree>();
             queue.Enqueue(root);
             while (queue.Count > 0)
             {
                 int count = queue.Count;
-                Node pre = null;
+                NodeThree pre = null;
                 for (int i = 0; i < count; i++)
                 {
                     var node = queue.Dequeue();
@@ -56,7 +56,7 @@ namespace leetCode._0101_0150
             }
             return root;
         }
-        public Node Connect2(Node root)
+        public NodeThree Connect2(NodeThree root)
         {
             if (root == null)
             {
@@ -117,7 +117,7 @@ namespace leetCode._0101_0150
             return root;
         }
 
-        private Node GetNext(Node node)
+        private NodeThree GetNext(NodeThree node)
         {
             if (node == null)
             {
@@ -135,20 +135,20 @@ namespace leetCode._0101_0150
 
 
 
-        Node last = null, nextStart = null;
+        NodeThree last = null, nextStart = null;
 
-        public Node Connect(Node root)
+        public NodeThree Connect(NodeThree root)
         {
             if (root == null)
             {
                 return null;
             }
-            Node start = root;
+            NodeThree start = root;
             while (start != null)
             {
                 last = null;
                 nextStart = null;
-                for (Node p = start; p != null; p = p.next)
+                for (NodeThree p = start; p != null; p = p.next)
                 {
                     if (p.left != null)
                     {
@@ -164,7 +164,7 @@ namespace leetCode._0101_0150
             return root;
         }
 
-        public void Handle(Node p)
+        public void Handle(NodeThree p)
         {
             if (last != null)
             {

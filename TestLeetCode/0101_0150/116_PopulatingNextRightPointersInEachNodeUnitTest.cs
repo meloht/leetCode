@@ -20,7 +20,7 @@ namespace Test._0101_0150
 
             int?[] exp = [1, null, 2, 3, null, 4, 5, 6, 7, null];
 
-            Node node = Utils.BuildNodeTree(root);
+            NodeThree node = Utils.BuildNodeTree(root);
            
             var nodeNew = alg.Connect(node);
 
@@ -36,7 +36,7 @@ namespace Test._0101_0150
 
             int?[] exp = [];
 
-            Node node = Utils.BuildNodeTree(root);
+            NodeThree node = Utils.BuildNodeTree(root);
 
             var nodeNew = alg.Connect(node);
 

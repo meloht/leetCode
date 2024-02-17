@@ -246,12 +246,12 @@ namespace Test
         /// </summary>
         /// <param name="arr"></param>
         /// <returns></returns>
-        public static Node BuildNodeTree(int?[] arr)
+        public static NodeThree BuildNodeTree(int?[] arr)
         {
             if (arr.Length == 0)
                 return null;
-            Queue<Node> queue = new Queue<Node>();
-            Node root = new Node(arr[0].Value);
+            Queue<NodeThree> queue = new Queue<NodeThree>();
+            NodeThree root = new NodeThree(arr[0].Value);
             queue.Enqueue(root);
 
             var list = arr.ToList();
@@ -269,7 +269,7 @@ namespace Test
                     {
                         if (list[0] != null)
                         {
-                            Node left = new Node(list[0].Value);
+                            NodeThree left = new NodeThree(list[0].Value);
 
                             node.left = left;
                             queue.Enqueue(left);
@@ -281,7 +281,7 @@ namespace Test
                     {
                         if (list[0] != null)
                         {
-                            Node right = new Node(list[0].Value);
+                            NodeThree right = new NodeThree(list[0].Value);
 
                             node.right = right;
                             queue.Enqueue(right);
@@ -296,13 +296,13 @@ namespace Test
             return root;
         }
 
-        public static int?[] GetNodeList(Node root)
+        public static int?[] GetNodeList(NodeThree root)
         {
             List<int?> list = new List<int?>();
             if (root == null)
                 return list.ToArray();
 
-            Queue<Node> queue = new Queue<Node>();
+            Queue<NodeThree> queue = new Queue<NodeThree>();
             queue.Enqueue(root);
 
             while (queue.Count > 0)

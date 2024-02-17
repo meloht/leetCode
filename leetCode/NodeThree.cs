@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 
 namespace leetCode
 {
-    public class Node
+    public class NodeThree
     {
         public int val;
-        public Node left;
-        public Node right;
-        public Node next;
+        public NodeThree left;
+        public NodeThree right;
+        public NodeThree next;
 
-        public Node() { }
+        public NodeThree() { }
 
-        public Node(int _val)
+        public NodeThree(int _val)
         {
             val = _val;
         }
 
-        public Node(int _val, Node _left, Node _right, Node _next)
+        public NodeThree(int _val, NodeThree _left, NodeThree _right, NodeThree _next)
         {
             val = _val;
             left = _left;
