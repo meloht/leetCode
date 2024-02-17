@@ -11,7 +11,7 @@ namespace leetCode._0951_1000
         public bool EquationsPossible(string[] equations)
         {
             UnionFind unionFind = new UnionFind(26);
-           
+
             foreach (var item in equations)
             {
                 if (item[1] == '=')
@@ -33,7 +33,7 @@ namespace leetCode._0951_1000
                     {
                         return false;
                     }
-                    
+
                 }
             }
             return true;
@@ -43,13 +43,16 @@ namespace leetCode._0951_1000
         private class UnionFind
         {
             private int[] parent;
+            private int[] ranks;
             public UnionFind(int n)
             {
                 this.parent = new int[n];
-               
+                this.ranks = new int[n];
+
                 for (int i = 0; i < n; i++)
                 {
                     parent[i] = i;
+
                 }
             }
 
@@ -61,7 +64,22 @@ namespace leetCode._0951_1000
                 {
                     return;
                 }
-                parent[rootX] = rootY;
+                int xRank = this.ranks[rootX];
+                int yRank = this.ranks[rootY];
+                if (xRank < yRank)
+                {
+                    this.parent[rootX] = rootY;
+                }
+                else if (xRank > yRank)
+                {
+                    this.parent[rootY] = rootX;
+                }
+                else
+                {
+                    parent[rootX] = rootY;
+                    this.ranks[rootY]++;
+                }
+
             }
 
             /// <summary>
