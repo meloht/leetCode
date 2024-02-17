@@ -17,6 +17,7 @@
     <Compile Include="..\leetCode\0901_0950\902_NumbersAtMostNGivenDigitSetAlg.cs" Link="数位DP\902_NumbersAtMostNGivenDigitSetAlg.cs" />
     <Compile Include="..\leetCode\0951_1000\0990_SatisfiabilityOfEqualityEquationsAlg.cs" Link="并查集\0990_SatisfiabilityOfEqualityEquationsAlg.cs" />
     <Compile Include="..\leetCode\1001_1050\1012_NumbersWithRepeatedDigitsAlg.cs" Link="数位DP\1012_NumbersWithRepeatedDigitsAlg.cs" />
+    <Compile Include="..\leetCode\1301_1350\1319_NumberOfOperationsToMakeNetworkConnectedAlg.cs" Link="并查集\1319_NumberOfOperationsToMakeNetworkConnectedAlg.cs" />
     <Compile Include="..\leetCode\1351_1400\1397_FindAllGoodStringsAlg.cs" Link="数位DP\1397_FindAllGoodStringsAlg.cs" />
     <Compile Include="..\leetCode\1701_1750\1742_MaximumNumberOfBallsInABoxAlg.cs" Link="数位DP\1742_MaximumNumberOfBallsInABoxAlg.cs" />
     <Compile Include="..\leetCode\2351_2400\2376_CountSpecialIntegersAlg.cs" Link="数位DP\2376_CountSpecialIntegersAlg.cs" />
