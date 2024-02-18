@@ -29,8 +29,6 @@
     <Compile Include="..\leetCode\InterviewQuestion\17_06_2_NumberOf2sInRangeLcciAlg.cs" Link="数位DP\17_06_2_NumberOf2sInRangeLcciAlg.cs" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="并查集\" />
-  </ItemGroup>
+
 
 </Project>
