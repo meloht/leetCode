@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using leetCode;
 
 namespace Test._0201_0250
 {
@@ -16,7 +17,7 @@ namespace Test._0201_0250
         public void TestCase01()
         {
             int[] head = [1, 2, 2, 1];
-            var node = Utils.BuildListNode(head);
+            var node = ListNode.BuildListNode(head);
             bool exp = true;
             var res = alg.IsPalindrome(node);
             Assert.AreEqual(exp, res);
@@ -26,7 +27,7 @@ namespace Test._0201_0250
         public void TestCase02()
         {
             int[] head = [1, 2];
-            var node = Utils.BuildListNode(head);
+            var node = ListNode.BuildListNode(head);
             bool exp = false;
             var res = alg.IsPalindrome(node);
             Assert.AreEqual(exp, res);
@@ -36,7 +37,7 @@ namespace Test._0201_0250
         public void TestCase03()
         {
             int[] head = [1, 2, 1];
-            var node = Utils.BuildListNode(head);
+            var node = ListNode.BuildListNode(head);
             bool exp = true;
             var res = alg.IsPalindrome(node);
             Assert.AreEqual(exp, res);
@@ -45,7 +46,7 @@ namespace Test._0201_0250
         public void TestCase04()
         {
             int[] head = [1, 2, 2];
-            var node = Utils.BuildListNode(head);
+            var node = ListNode.BuildListNode(head);
             bool exp = false;
             var res = alg.IsPalindrome(node);
             Assert.AreEqual(exp, res);

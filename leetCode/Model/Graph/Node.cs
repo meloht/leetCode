@@ -4,26 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace leetCode
+namespace leetCode.Model.Graph
 {
-    public class GraphNode
+    public class Node
     {
         public int val;
-        public IList<GraphNode> neighbors;
+        public IList<Node> neighbors;
 
-        public GraphNode()
+        public Node()
         {
             val = 0;
-            neighbors = new List<GraphNode>();
+            neighbors = new List<Node>();
         }
 
-        public GraphNode(int _val)
+        public Node(int _val)
         {
             val = _val;
-            neighbors = new List<GraphNode>();
+            neighbors = new List<Node>();
         }
 
-        public GraphNode(int _val, List<GraphNode> _neighbors)
+        public Node(int _val, List<Node> _neighbors)
         {
             val = _val;
             neighbors = _neighbors;
@@ -34,16 +34,16 @@ namespace leetCode
         }
 
 
-        public static GraphNode Build(int[][] adjList)
+        public static Node Build(int[][] adjList)
         {
             if (adjList.Length == 0)
                 return null;
 
-            Dictionary<int, GraphNode> dict = new Dictionary<int, GraphNode>();
+            Dictionary<int, Node> dict = new Dictionary<int, Node>();
             for (int i = 0; i < adjList.Length; i++)
             {
                 int val = i + 1;
-                GraphNode node = new GraphNode(val);
+                Node node = new Node(val);
                 dict.Add(val, node);
 
             }
@@ -51,9 +51,9 @@ namespace leetCode
             for (int i = 0; i < adjList.Length; i++)
             {
                 int val = i + 1;
-                GraphNode node = dict[val];
+                Node node = dict[val];
                 var list = adjList[i];
-                List<GraphNode> ls = new List<GraphNode>();
+                List<Node> ls = new List<Node>();
                 foreach (var item in list)
                 {
                     var n = dict[item];
@@ -66,17 +66,17 @@ namespace leetCode
             return dict[1];
         }
 
-        public static int[][] GetList(GraphNode root)
+        public static int[][] GetList(Node root)
         {
             List<int[]> res = new List<int[]>();
             if (root == null)
                 return res.ToArray();
             HashSet<int> set = new HashSet<int>();
-            Queue<GraphNode> queue = new Queue<GraphNode>();
+            Queue<Node> queue = new Queue<Node>();
             queue.Enqueue(root);
 
             set.Add(root.val);
-            List<GraphNode> list = new List<GraphNode>();
+            List<Node> list = new List<Node>();
             list.Add(root);
             while (queue.Count > 0)
             {

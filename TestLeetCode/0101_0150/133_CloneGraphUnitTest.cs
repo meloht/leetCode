@@ -1,5 +1,6 @@
 ﻿using leetCode;
 using leetCode._0101_0150;
+using leetCode.Model.Graph;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,11 +18,11 @@ namespace Test._0101_0150
         public void TestCase01()
         {
             int[][] adjList = [[2, 4], [1, 3], [2, 4], [1, 3]];
-            var root = GraphNode.Build(adjList);
+            var root = Node.Build(adjList);
             int[][] exp = [[2, 4], [1, 3], [2, 4], [1, 3]];
 
             var node = alg.CloneGraph(root);
-            var res = GraphNode.GetList(node);
+            var res = Node.GetList(node);
 
             bool bl = Utils.IsSameList(exp, res);
             Assert.IsTrue(bl);
@@ -31,10 +32,10 @@ namespace Test._0101_0150
         public void TestCase02()
         {
             int[][] adjList = [[]];
-            var root = GraphNode.Build(adjList);
+            var root = Node.Build(adjList);
             int[][] exp = [[]];
             var node = alg.CloneGraph(root);
-            var res = GraphNode.GetList(node);
+            var res = Node.GetList(node);
 
             bool bl = Utils.IsSameList(exp, res);
             Assert.IsTrue(bl);
@@ -43,10 +44,10 @@ namespace Test._0101_0150
         public void TestCase03()
         {
             int[][] adjList = [];
-            var root = GraphNode.Build(adjList);
+            var root = Node.Build(adjList);
             int[][] exp = [];
             var node = alg.CloneGraph(root);
-            var res = GraphNode.GetList(node);
+            var res = Node.GetList(node);
 
             bool bl = Utils.IsSameList(exp, res);
             Assert.IsTrue(bl);

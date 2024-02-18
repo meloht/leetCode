@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Test._0201_0250
 {
     [TestClass]
@@ -16,11 +17,11 @@ namespace Test._0201_0250
         [TestMethod]
         public void TestCase01()
         {
-            ListNode node1 = Utils.BuildListNode(new int[] { 1, 2, 3, 4, 5 });
+            ListNode node1 = ListNode.BuildListNode(new int[] { 1, 2, 3, 4, 5 });
             var res = alg.ReverseList(node1);
             int[] arr = { 5, 4, 3, 2, 1 };
 
-            bool bl = Utils.ListNodeSame(res, arr);
+            bool bl = ListNode.ListNodeSame(res, arr);
 
             Assert.AreEqual(true, bl);
         }
@@ -28,11 +29,11 @@ namespace Test._0201_0250
         [TestMethod]
         public void TestCase02()
         {
-            ListNode node1 = Utils.BuildListNode(new int[] { 1, 2 });
+            ListNode node1 = ListNode.BuildListNode(new int[] { 1, 2 });
             var res = alg.ReverseList(node1);
             int[] arr = { 2, 1 };
 
-            bool bl = Utils.ListNodeSame(res, arr);
+            bool bl = ListNode.ListNodeSame(res, arr);
 
             Assert.AreEqual(true, bl);
         }

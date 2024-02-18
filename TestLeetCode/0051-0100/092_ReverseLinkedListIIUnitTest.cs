@@ -16,11 +16,11 @@ namespace Test._0051_0100
         [TestMethod]
         public void TestCase01()
         {
-            ListNode node1 = Utils.BuildListNode(new int[] { 1, 2, 3, 4, 5 });
+            ListNode node1 = ListNode.BuildListNode(new int[] { 1, 2, 3, 4, 5 });
             var res = alg.ReverseBetween(node1, 2, 4);
             int[] arr = { 1, 4, 3, 2, 5 };
 
-            bool bl = Utils.ListNodeSame(res, arr);
+            bool bl = ListNode.ListNodeSame(res, arr);
 
             Assert.AreEqual(true, bl);
         }
@@ -29,11 +29,11 @@ namespace Test._0051_0100
         [TestMethod]
         public void TestCase02()
         {
-            ListNode node1 = Utils.BuildListNode(new int[] { 5 });
+            ListNode node1 = ListNode.BuildListNode(new int[] { 5 });
             var res = alg.ReverseBetween(node1, 1, 1);
             int[] arr = { 5 };
 
-            bool bl = Utils.ListNodeSame(res, arr);
+            bool bl = ListNode.ListNodeSame(res, arr);
 
             Assert.AreEqual(true, bl);
         }
@@ -41,11 +41,11 @@ namespace Test._0051_0100
         [TestMethod]
         public void TestCase03()
         {
-            ListNode node1 = Utils.BuildListNode(new int[] { 1, 2, 3 });
+            ListNode node1 = ListNode.BuildListNode(new int[] { 1, 2, 3 });
             var res = alg.ReverseBetween(node1, 3, 3);
             int[] arr = { 1, 2, 3 };
 
-            bool bl = Utils.ListNodeSame(res, arr);
+            bool bl = ListNode.ListNodeSame(res, arr);
 
             Assert.AreEqual(true, bl);
         }

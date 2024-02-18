@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using leetCode;
 
 namespace Test._0201_0250
 {
@@ -16,9 +17,9 @@ namespace Test._0201_0250
         public void TestCase01()
         {
             int[] arr = [1, 2, 6, 3, 4, 5, 6];
-            var head = Utils.BuildListNode(arr);
+            var head = ListNode.BuildListNode(arr);
             var res = alg.RemoveElements(head, 6);
-            var ls = Utils.GetLinkNodeList(res);
+            var ls = ListNode.GetLinkNodeList(res);
             int[] exp = [1, 2, 3, 4, 5];
 
             Assert.AreEqual(true, exp.SequenceEqual(ls));
@@ -28,9 +29,9 @@ namespace Test._0201_0250
         public void TestCase02()
         {
             int[] arr = [];
-            var head = Utils.BuildListNode(arr);
+            var head = ListNode.BuildListNode(arr);
             var res = alg.RemoveElements(head, 1);
-            var ls = Utils.GetLinkNodeList(res);
+            var ls = ListNode.GetLinkNodeList(res);
             int[] exp = [];
 
             Assert.AreEqual(true, exp.SequenceEqual(ls));
@@ -40,9 +41,9 @@ namespace Test._0201_0250
         public void TestCase03()
         {
             int[] arr = [7, 7, 7, 7];
-            var head = Utils.BuildListNode(arr);
+            var head = ListNode.BuildListNode(arr);
             var res = alg.RemoveElements(head, 7);
-            var ls = Utils.GetLinkNodeList(res);
+            var ls = ListNode.GetLinkNodeList(res);
             int[] exp = [];
 
             Assert.AreEqual(true, exp.SequenceEqual(ls));

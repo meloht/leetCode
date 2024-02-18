@@ -21,11 +21,11 @@ namespace Test._0051_0100
         [TestMethod]
         public void TestCase01()
         {
-            ListNode node1 = Utils.BuildListNode(new int[] { 1, 4, 3, 2, 5, 2 });
+            ListNode node1 = ListNode.BuildListNode(new int[] { 1, 4, 3, 2, 5, 2 });
             var res = alg.Partition(node1, 3);
             int[] arr = { 1, 2, 2, 4, 3, 5 };
 
-            bool bl = Utils.ListNodeSame(res, arr);
+            bool bl = ListNode.ListNodeSame(res, arr);
 
             Assert.AreEqual(true, bl);
         }
@@ -33,11 +33,11 @@ namespace Test._0051_0100
         [TestMethod]
         public void TestCase02()
         {
-            ListNode node1 = Utils.BuildListNode(new int[] { 2, 1 });
+            ListNode node1 = ListNode.BuildListNode(new int[] { 2, 1 });
             var res = alg.Partition(node1, 2);
             int[] arr = { 1, 2 };
 
-            bool bl = Utils.ListNodeSame(res, arr);
+            bool bl = ListNode.ListNodeSame(res, arr);
 
             Assert.AreEqual(true, bl);
         }

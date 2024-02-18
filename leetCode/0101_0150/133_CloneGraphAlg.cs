@@ -1,4 +1,5 @@
-﻿using System;
+﻿using leetCode.Model.Graph;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,14 +10,14 @@ namespace leetCode._0101_0150
 
     public class _133_CloneGraphAlg
     {
-        public GraphNode CloneGraph(GraphNode node)
+        public Node CloneGraph(Node node)
         {
             if (node == null)
                 return null;
-            List<GraphNode> list = new List<GraphNode>();
+            List<Node> list = new List<Node>();
             Dictionary<int, int[]> dict = new Dictionary<int, int[]>();
             HashSet<int> set = new HashSet<int>();
-            Queue<GraphNode> queue = new Queue<GraphNode>();
+            Queue<Node> queue = new Queue<Node>();
             queue.Enqueue(node);
             list.Add(node);
             set.Add(node.val);
@@ -42,11 +43,11 @@ namespace leetCode._0101_0150
             }
             set = null;
             queue = null;
-            GraphNode root = null;
-            Dictionary<int, GraphNode> dictNode = new Dictionary<int, GraphNode>();
+            Node root = null;
+            Dictionary<int, Node> dictNode = new Dictionary<int, Node>();
             for (int i = 0; i < list.Count; i++)
             {
-                GraphNode nodev = new GraphNode(list[i].val);
+                Node nodev = new Node(list[i].val);
                 dictNode.Add(nodev.val, nodev);
                 if (i == 0)
                 {
@@ -56,7 +57,7 @@ namespace leetCode._0101_0150
             foreach (var item in dictNode)
             {
                 var ls = dict[item.Key];
-                List<GraphNode> nlist = new List<GraphNode>();
+                List<Node> nlist = new List<Node>();
                 foreach (var val in ls)
                 {
                     nlist.Add(dictNode[val]);

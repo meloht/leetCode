@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using leetCode;
 
 namespace Test._2801_2850
 {
@@ -16,9 +17,9 @@ namespace Test._2801_2850
         public void TestCase01()
         {
             int[] head = [18, 6, 10, 3];
-            var list = Utils.BuildListNode(head);
+            var list = ListNode.BuildListNode(head);
             var res = alg.InsertGreatestCommonDivisors(list);
-            int[] resu = Utils.GetLinkNodeList(res);
+            int[] resu = ListNode.GetLinkNodeList(res);
 
             int[] exp = [18, 6, 6, 2, 10, 1, 3];
 
@@ -30,9 +31,9 @@ namespace Test._2801_2850
         public void TestCase02()
         {
             int[] head = [7];
-            var list = Utils.BuildListNode(head);
+            var list = ListNode.BuildListNode(head);
             var res = alg.InsertGreatestCommonDivisors(list);
-            int[] resu = Utils.GetLinkNodeList(res);
+            int[] resu = ListNode.GetLinkNodeList(res);
 
             int[] exp = [7];
 

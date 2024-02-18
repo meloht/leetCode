@@ -1,4 +1,5 @@
-﻿using leetCode._0101_0150;
+﻿using leetCode;
+using leetCode._0101_0150;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace Test._0101_0150
         {
             int[] head = [3, 2, 0, -4];
             int pos = 1;
-            var node = Utils.BuildListNode(head, pos);
+            var node = ListNode.BuildListNode(head, pos);
             bool bl = alg.HasCycle(node);
             Assert.AreEqual(true, bl);
         }
@@ -27,7 +28,7 @@ namespace Test._0101_0150
         {
             int[] head = [1, 2];
             int pos = 0;
-            var node = Utils.BuildListNode(head, pos);
+            var node = ListNode.BuildListNode(head, pos);
             bool bl = alg.HasCycle(node);
             Assert.AreEqual(true, bl);
         }
@@ -37,7 +38,7 @@ namespace Test._0101_0150
         {
             int[] head = [1];
             int pos = -1;
-            var node = Utils.BuildListNode(head, pos);
+            var node = ListNode.BuildListNode(head, pos);
             bool bl = alg.HasCycle(node);
             Assert.AreEqual(false, bl);
         }

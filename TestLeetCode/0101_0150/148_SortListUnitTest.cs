@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using leetCode;
 
 namespace Test._0101_0150
 {
@@ -16,9 +17,9 @@ namespace Test._0101_0150
         public void TestCase01()
         {
             int[] head = [4, 2, 1, 3];
-            var list = Utils.BuildListNode(head);
+            var list = ListNode.BuildListNode(head);
             var node = alg.SortList(list);
-            int[] res = Utils.GetLinkNodeList(node);
+            int[] res = ListNode.GetLinkNodeList(node);
             int[] exp = [1, 2, 3, 4];
 
             bool bl = exp.SequenceEqual(res);
@@ -29,9 +30,9 @@ namespace Test._0101_0150
         public void TestCase02()
         {
             int[] head = [-1, 5, 3, 4, 0];
-            var list = Utils.BuildListNode(head);
+            var list = ListNode.BuildListNode(head);
             var node = alg.SortList(list);
-            int[] res = Utils.GetLinkNodeList(node);
+            int[] res = ListNode.GetLinkNodeList(node);
             int[] exp = [-1, 0, 3, 4, 5];
 
             bool bl = exp.SequenceEqual(res);
@@ -41,9 +42,9 @@ namespace Test._0101_0150
         public void TestCase03()
         {
             int[] head = [];
-            var list = Utils.BuildListNode(head);
+            var list = ListNode.BuildListNode(head);
             var node = alg.SortList(list);
-            int[] res = Utils.GetLinkNodeList(node);
+            int[] res = ListNode.GetLinkNodeList(node);
             int[] exp = [];
 
             bool bl = exp.SequenceEqual(res);

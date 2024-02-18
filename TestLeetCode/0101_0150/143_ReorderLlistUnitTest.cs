@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using leetCode;
 
 namespace Test._0101_0150
 {
@@ -17,9 +18,9 @@ namespace Test._0101_0150
         {
             int[] head = [1, 2, 3, 4];
             int[] exp = [1, 4, 2, 3];
-            var node = Utils.BuildListNode(head);
+            var node = ListNode.BuildListNode(head);
             alg.ReorderList(node);
-            var res = Utils.GetLinkNodeList(node);
+            var res = ListNode.GetLinkNodeList(node);
 
             bool bl = exp.SequenceEqual(res);
             Assert.IsTrue(bl);
@@ -30,9 +31,9 @@ namespace Test._0101_0150
         {
             int[] head = [1, 2, 3, 4, 5];
             int[] exp = [1, 5, 2, 4, 3];
-            var node = Utils.BuildListNode(head);
+            var node = ListNode.BuildListNode(head);
             alg.ReorderList(node);
-            var res = Utils.GetLinkNodeList(node);
+            var res = ListNode.GetLinkNodeList(node);
 
             bool bl = exp.SequenceEqual(res);
             Assert.IsTrue(bl);

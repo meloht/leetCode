@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using leetCode;
 
 namespace Test._0151_0200
 {
@@ -20,7 +21,7 @@ namespace Test._0151_0200
             int[] a = [4, 1, 8, 4, 5];
             int[] b = [5, 6, 1];
 
-            var lista = Utils.BuildListNode(a);
+            var lista = ListNode.BuildListNode(a);
             int intersectVal = 8;
             ListNode intersectNode = null;
             ListNode node = lista;
@@ -34,7 +35,7 @@ namespace Test._0151_0200
                 node = node.next;
             }
 
-            var listb = Utils.BuildListNode(b);
+            var listb = ListNode.BuildListNode(b);
             node = listb;
             ListNode last = null;
             while (node != null)
@@ -58,7 +59,7 @@ namespace Test._0151_0200
             int[] a = [1, 9, 1, 2, 4];
             int[] b = [3];
 
-            var lista = Utils.BuildListNode(a);
+            var lista = ListNode.BuildListNode(a);
             int intersectVal = 2;
             ListNode intersectNode = null;
             ListNode node = lista;
@@ -72,7 +73,7 @@ namespace Test._0151_0200
                 node = node.next;
             }
 
-            var listb = Utils.BuildListNode(b);
+            var listb = ListNode.BuildListNode(b);
             node = listb;
             ListNode last = null;
             while (node != null)
@@ -96,9 +97,9 @@ namespace Test._0151_0200
             int[] a = [2, 6, 4];
             int[] b = [1, 5];
 
-            var lista = Utils.BuildListNode(a);
+            var lista = ListNode.BuildListNode(a);
            
-            var listb = Utils.BuildListNode(b);
+            var listb = ListNode.BuildListNode(b);
 
             var res = alg.GetIntersectionNode(lista, listb);
             Assert.AreEqual(res, null);

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using leetCode;
 
 namespace Test._0101_0150
 {
@@ -17,7 +18,7 @@ namespace Test._0101_0150
         public void TestCase01()
         {
             int[] nums = [-10, -3, 0, 5, 9];
-            var listNode = Utils.BuildListNode(nums);
+            var listNode = ListNode.BuildListNode(nums);
             var tree = alg.SortedListToBST(listNode);
             var res = TreeNode.GetTreeLevelList(tree);
             int?[] exp1 = [0, -3, 9, -10, null, 5];
@@ -30,7 +31,7 @@ namespace Test._0101_0150
         public void TestCase02()
         {
             int[] nums = [];
-            var listNode = Utils.BuildListNode(nums);
+            var listNode = ListNode.BuildListNode(nums);
             var tree = alg.SortedListToBST(listNode);
             var res = TreeNode.GetTreeLevelList(tree);
             int?[] exp1 = [];
