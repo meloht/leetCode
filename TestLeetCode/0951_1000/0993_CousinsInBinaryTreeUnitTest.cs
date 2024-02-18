@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using leetCode.Model.BinaryTree;
 
 namespace Test._0951_1000
 {
@@ -18,7 +19,7 @@ namespace Test._0951_1000
             int?[] root = [1, 2, 3, 4];
             int x = 4, y = 3;
             bool exp = false;
-            var tree = Utils.BuildTree(root);
+            var tree = TreeNode.BuildTree(root);
             bool res = alg.IsCousins(tree, x, y);
             Assert.AreEqual(exp, res);
         }
@@ -29,7 +30,7 @@ namespace Test._0951_1000
             int?[] root = [1, 2, 3, null, 4, null, 5];
             int x = 5, y = 4;
             bool exp = true;
-            var tree = Utils.BuildTree(root);
+            var tree = TreeNode.BuildTree(root);
             bool res = alg.IsCousins(tree, x, y);
             Assert.AreEqual(exp, res);
         }
@@ -40,7 +41,7 @@ namespace Test._0951_1000
             int?[] root = [1, 2, 3, null, 4];
             int x = 2, y = 3;
             bool exp = false;
-            var tree = Utils.BuildTree(root);
+            var tree = TreeNode.BuildTree(root);
             bool res = alg.IsCousins(tree, x, y);
             Assert.AreEqual(exp, res);
         }

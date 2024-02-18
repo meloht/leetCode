@@ -1,4 +1,5 @@
 ﻿using leetCode._51_100;
+using leetCode.Model.BinaryTree;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,10 +18,10 @@ namespace Test._0051_0100
         public void TestCase01()
         {
             int?[] root = { 1, 3, null, null, 2 };
-            var tree = Utils.BuildTree(root);
+            var tree = TreeNode.BuildTree(root);
             alg.RecoverTree(tree);
             int?[] exp = { 3, 1, null, null, 2 };
-            int?[] res = Utils.GetTreeList(tree);
+            int?[] res = TreeNode.GetTreeList(tree);
 
             bool bl = exp.SequenceEqual(res);
             Assert.IsTrue(bl);
@@ -30,10 +31,10 @@ namespace Test._0051_0100
         public void TestCase02()
         {
             int?[] root = { 3, 1, 4, null, null, 2 };
-            var tree = Utils.BuildTree(root);
+            var tree = TreeNode.BuildTree(root);
             alg.RecoverTree(tree);
             int?[] exp = { 2, 1, 4, null, null, 3 };
-            int?[] res = Utils.GetTreeList(tree);
+            int?[] res = TreeNode.GetTreeList(tree);
 
             bool bl = exp.SequenceEqual(res);
             Assert.IsTrue(bl);
@@ -42,10 +43,10 @@ namespace Test._0051_0100
         public void TestCase03()
         {
             int?[] root = { 2, 3, 1 };
-            var tree = Utils.BuildTree(root);
+            var tree = TreeNode.BuildTree(root);
             alg.RecoverTree(tree);
             int?[] exp = { 2, 1, 3 };
-            int?[] res = Utils.GetTreeList(tree);
+            int?[] res = TreeNode.GetTreeList(tree);
 
             bool bl = exp.SequenceEqual(res);
             Assert.IsTrue(bl);
@@ -55,10 +56,10 @@ namespace Test._0051_0100
         public void TestCase04()
         {
             int?[] root = { 3, null, 2, null, 1 };
-            var tree = Utils.BuildTree(root);
+            var tree = TreeNode.BuildTree(root);
             alg.RecoverTree(tree);
             int?[] exp = { 1, null, 2, null, 3 };
-            int?[] res = Utils.GetTreeList(tree);
+            int?[] res = TreeNode.GetTreeList(tree);
 
             bool bl = exp.SequenceEqual(res);
             Assert.IsTrue(bl);

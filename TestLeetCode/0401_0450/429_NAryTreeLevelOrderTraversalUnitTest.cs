@@ -1,5 +1,6 @@
 ﻿using leetCode._0401_0450;
 using leetCode._2551_2600;
+using leetCode.Model.NTreeNode;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using leetCode.Model.BinaryTree;
 
 namespace Test._0101_0150
 {
@@ -16,9 +17,9 @@ namespace Test._0101_0150
         public void TestCase01()
         {
             int?[] root = [1, 2, 5, 3, 4, null, 6];
-            var tree = Utils.BuildTree(root);
+            var tree = TreeNode.BuildTree(root);
             alg.Flatten(tree);
-            int?[] res=Utils.GetTreeList(tree);
+            int?[] res= TreeNode.GetTreeList(tree);
             int?[] exp = [1, null, 2, null, 3, null, 4, null, 5, null, 6];
 
             bool bl = exp.SequenceEqual(res);
@@ -29,9 +30,9 @@ namespace Test._0101_0150
         public void TestCase02()
         {
             int?[] root = [];
-            var tree = Utils.BuildTree(root);
+            var tree = TreeNode.BuildTree(root);
             alg.Flatten(tree);
-            int?[] res = Utils.GetTreeList(tree);
+            int?[] res = TreeNode.GetTreeList(tree);
             int?[] exp = [];
 
             bool bl = exp.SequenceEqual(res);
@@ -42,9 +43,9 @@ namespace Test._0101_0150
         public void TestCase03()
         {
             int?[] root = [0];
-            var tree = Utils.BuildTree(root);
+            var tree = TreeNode.BuildTree(root);
             alg.Flatten(tree);
-            int?[] res = Utils.GetTreeList(tree);
+            int?[] res = TreeNode.GetTreeList(tree);
             int?[] exp = [0];
 
             bool bl = exp.SequenceEqual(res);

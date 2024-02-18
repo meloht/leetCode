@@ -4,22 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using leetCode.Model.ThreeTreeNode;
 
 namespace leetCode._0101_0150
 {
     public class _116_PopulatingNextRightPointersInEachNodeAlg
     {
-        public NodeThree Connect(NodeThree root)
+        public Node Connect(Node root)
         {
             if (root == null)
                 return root;
 
-            Queue<NodeThree> queue = new Queue<NodeThree>();
+            Queue<Node> queue = new Queue<Node>();
             queue.Enqueue(root);
             while (queue.Count > 0)
             {
                 int count = queue.Count;
-                NodeThree pre = null;
+                Node pre = null;
                 for (int i = 0; i < count; i++)
                 {
                     var node = queue.Dequeue();
@@ -39,7 +40,7 @@ namespace leetCode._0101_0150
             return root;
         }
 
-        public NodeThree Connect2(NodeThree root)
+        public Node Connect2(Node root)
         {
             if (root == null)
             {
@@ -47,13 +48,13 @@ namespace leetCode._0101_0150
             }
 
             // 从根节点开始
-            NodeThree leftmost = root;
+            Node leftmost = root;
 
             while (leftmost.left != null)
             {
 
                 // 遍历这一层节点组织成的链表，为下一层的节点更新 next 指针
-                NodeThree head = leftmost;
+                Node head = leftmost;
 
                 while (head != null)
                 {
@@ -78,7 +79,7 @@ namespace leetCode._0101_0150
             return root;
         }
 
-        public NodeThree Connect3(NodeThree root)
+        public Node Connect3(Node root)
         {
             if (root == null)
             {

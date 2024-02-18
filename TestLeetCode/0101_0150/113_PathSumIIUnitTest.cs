@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using leetCode.Model.BinaryTree;
 
 namespace Test._0101_0150
 {
@@ -16,7 +17,7 @@ namespace Test._0101_0150
         public void TestCase01()
         {
             int?[] root = [5, 4, 8, 11, null, 13, 4, 7, 2, null, null, 5, 1];
-            var tree = Utils.BuildTree(root);
+            var tree = TreeNode.BuildTree(root);
             var num = alg.PathSum(tree, 22);
 
             IList<IList<int>> exp=new List<IList<int>>();
@@ -32,7 +33,7 @@ namespace Test._0101_0150
         public void TestCase02()
         {
             int?[] root = [1, 2, 3];
-            var tree = Utils.BuildTree(root);
+            var tree = TreeNode.BuildTree(root);
             var num = alg.PathSum(tree, 5);
 
             IList<IList<int>> exp = new List<IList<int>>();
@@ -44,7 +45,7 @@ namespace Test._0101_0150
         public void TestCase03()
         {
             int?[] root = [1, 2];
-            var tree = Utils.BuildTree(root);
+            var tree = TreeNode.BuildTree(root);
             var num = alg.PathSum(tree, 0);
 
             IList<IList<int>> exp = new List<IList<int>>();

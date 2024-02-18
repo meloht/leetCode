@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using leetCode.Model.BinaryTree;
 
 namespace Test._0201_0250
 {
@@ -16,7 +17,7 @@ namespace Test._0201_0250
         public void TestCase01()
         {
             int?[] root = [1, 2, 3, 4, 5, 6];
-            var tree = Utils.BuildTree(root);
+            var tree = TreeNode.BuildTree(root);
             int exp = 6;
             int res = alg.CountNodes(tree);
             Assert.AreEqual(exp, res);
@@ -25,7 +26,7 @@ namespace Test._0201_0250
         public void TestCase02()
         {
             int?[] root = [];
-            var tree = Utils.BuildTree(root);
+            var tree = TreeNode.BuildTree(root);
             int exp = 0;
             int res = alg.CountNodes(tree);
             Assert.AreEqual(exp, res);
@@ -35,7 +36,7 @@ namespace Test._0201_0250
         public void TestCase03()
         {
             int?[] root = [1];
-            var tree = Utils.BuildTree(root);
+            var tree = TreeNode.BuildTree(root);
             int exp = 1;
             int res = alg.CountNodes(tree);
             Assert.AreEqual(exp, res);

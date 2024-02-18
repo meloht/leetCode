@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using leetCode.Model.BinaryTree;
 
 namespace Test._0101_0150
 {
@@ -16,7 +17,7 @@ namespace Test._0101_0150
         public void TestCase01()
         {
             int?[] arr = [1, 2, 3];
-            var tree = Utils.BuildTree(arr);
+            var tree = TreeNode.BuildTree(arr);
             int res = alg.MaxPathSum(tree);
             Assert.AreEqual(6, res);
         }
@@ -25,7 +26,7 @@ namespace Test._0101_0150
         public void TestCase02()
         {
             int?[] arr = [-10, 9, 20, null, null, 15, 7];
-            var tree = Utils.BuildTree(arr);
+            var tree = TreeNode.BuildTree(arr);
             int res = alg.MaxPathSum(tree);
             Assert.AreEqual(42, res);
         }
@@ -34,7 +35,7 @@ namespace Test._0101_0150
         public void TestCase03()
         {
             int?[] arr = [1, -2, -3, 1, 3, -2, null, -1];
-            var tree = Utils.BuildTree(arr);
+            var tree = TreeNode.BuildTree(arr);
             int res = alg.MaxPathSum(tree);
             Assert.AreEqual(3, res);
         }
@@ -42,7 +43,7 @@ namespace Test._0101_0150
         public void TestCase04()
         {
             int?[] arr = [5, 4, 8, 11, null, 13, 4, 7, 2, null, null, null, 1];
-            var tree = Utils.BuildTree(arr);
+            var tree = TreeNode.BuildTree(arr);
             int res = alg.MaxPathSum(tree);
             Assert.AreEqual(48, res);
         }

@@ -1,4 +1,5 @@
 ﻿using leetCode._101_150;
+using leetCode.Model.BinaryTree;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace Test._0101_0150
 
             var tree = alg.BuildTree(preorder, inorder);
 
-            var res = Utils.GetTreeList(tree);
+            var res = TreeNode.GetTreeList(tree);
 
             bool bl = exp.SequenceEqual(res);
             Assert.IsTrue(bl);
@@ -39,7 +40,7 @@ namespace Test._0101_0150
 
             var tree = alg.BuildTree(preorder, inorder);
 
-            var res = Utils.GetTreeList(tree);
+            var res = TreeNode.GetTreeList(tree);
 
             bool bl = exp.SequenceEqual(res);
             Assert.IsTrue(bl);
@@ -55,7 +56,7 @@ namespace Test._0101_0150
 
             var tree = alg.BuildTree(preorder, inorder);
 
-            var res = Utils.GetTreeList(tree);
+            var res = TreeNode.GetTreeList(tree);
 
             bool bl = exp.SequenceEqual(res);
             Assert.IsTrue(bl);

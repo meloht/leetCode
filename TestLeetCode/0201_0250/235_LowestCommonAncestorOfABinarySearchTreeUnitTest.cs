@@ -1,4 +1,5 @@
 ﻿using leetCode._0201_0250;
+using leetCode.Model.BinaryTree;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,9 @@ namespace Test._0201_0250
         public void TestCase01()
         {
             int?[] root = [6, 2, 8, 0, 4, 7, 9, null, null, 3, 5];
-            var tree = Utils.BuildTree(root);
-            var p = Utils.GetTreeNodeByVal(2, tree);
-            var q = Utils.GetTreeNodeByVal(8, tree);
+            var tree = TreeNode.BuildTree(root);
+            var p = TreeNode.GetTreeNodeByVal(2, tree);
+            var q = TreeNode.GetTreeNodeByVal(8, tree);
             int exp = 6;
             var res = alg.LowestCommonAncestor(tree, p, q);
             Assert.AreEqual(exp, res.val);
@@ -28,9 +29,9 @@ namespace Test._0201_0250
         public void TestCase02()
         {
             int?[] root = [6, 2, 8, 0, 4, 7, 9, null, null, 3, 5];
-            var tree = Utils.BuildTree(root);
-            var p = Utils.GetTreeNodeByVal(2, tree);
-            var q = Utils.GetTreeNodeByVal(4, tree);
+            var tree = TreeNode.BuildTree(root);
+            var p = TreeNode.GetTreeNodeByVal(2, tree);
+            var q = TreeNode.GetTreeNodeByVal(4, tree);
             int exp = 2;
             var res = alg.LowestCommonAncestor(tree, p, q);
             Assert.AreEqual(exp, res.val);

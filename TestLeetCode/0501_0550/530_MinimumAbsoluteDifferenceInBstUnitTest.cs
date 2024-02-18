@@ -1,4 +1,5 @@
 ﻿using leetCode._0501_0550;
+using leetCode.Model.BinaryTree;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace Test._0501_0550
         public void TestCase01()
         {
             int?[] root = [4, 2, 6, 1, 3];
-            var tree = Utils.BuildTree(root);
+            var tree = TreeNode.BuildTree(root);
             int exp = 1;
             int res = alg.GetMinimumDifference(tree);
             Assert.AreEqual(exp, res);
@@ -26,7 +27,7 @@ namespace Test._0501_0550
         public void TestCase02()
         {
             int?[] root = [1, 0, 48, null, null, 12, 49];
-            var tree = Utils.BuildTree(root);
+            var tree = TreeNode.BuildTree(root);
             int exp = 1;
             int res = alg.GetMinimumDifference(tree);
             Assert.AreEqual(exp, res);
@@ -36,7 +37,7 @@ namespace Test._0501_0550
         public void TestCase03()
         {
             int?[] root = [236, 104, 701, null, 227, null, 911];
-            var tree = Utils.BuildTree(root);
+            var tree = TreeNode.BuildTree(root);
             int exp = 9;
             int res = alg.GetMinimumDifference(tree);
             Assert.AreEqual(exp, res);

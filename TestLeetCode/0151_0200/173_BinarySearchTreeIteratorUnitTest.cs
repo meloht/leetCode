@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using leetCode.Model.BinaryTree;
 
 namespace Test._0151_0200
 {
@@ -14,7 +15,7 @@ namespace Test._0151_0200
         public void TestCase01()
         {
             int?[] arr = [7, 3, 15, null, null, 9, 20];
-            var tree = Utils.BuildTree(arr);
+            var tree = TreeNode.BuildTree(arr);
             _173_BinarySearchTreeIteratorAlg.BSTIterator bSTIterator = new(tree);
             // 返回 3
             Assert.AreEqual(3, bSTIterator.Next());

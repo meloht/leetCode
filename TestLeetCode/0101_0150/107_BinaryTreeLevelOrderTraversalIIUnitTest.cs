@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using leetCode.Model.BinaryTree;
 
 namespace Test._0101_0150
 {
@@ -21,7 +22,7 @@ namespace Test._0101_0150
             exp.Add(new int[] { 9, 20 });
             exp.Add(new int[] { 3 });
           
-            var tree = Utils.BuildTree(root);
+            var tree = TreeNode.BuildTree(root);
             var res = alg.LevelOrderBottom(tree);
 
             bool bl = Utils.IsSameList(exp, res);
@@ -35,7 +36,7 @@ namespace Test._0101_0150
             List<IList<int>> exp = new List<IList<int>>();
             exp.Add(new int[] { 1 });
 
-            var tree = Utils.BuildTree(root);
+            var tree = TreeNode.BuildTree(root);
             var res = alg.LevelOrderBottom(tree);
 
             bool bl = Utils.IsSameList(exp, res);
@@ -48,7 +49,7 @@ namespace Test._0101_0150
             int?[] root = { };
             List<IList<int>> exp = new List<IList<int>>();
 
-            var tree = Utils.BuildTree(root);
+            var tree = TreeNode.BuildTree(root);
             var res = alg.LevelOrderBottom(tree);
 
             bool bl = Utils.IsSameList(exp, res);

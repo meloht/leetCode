@@ -1,4 +1,5 @@
 ﻿using leetCode._0101_0150;
+using leetCode.Model.BinaryTree;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace Test._0101_0150
         public void TestCase01()
         {
             int?[] root = [1, 2, 3];
-            var tree = Utils.BuildTree(root);
+            var tree = TreeNode.BuildTree(root);
             var num = alg.HasPathSum(tree, 5);
             Assert.AreEqual(false, num);
         }
@@ -25,7 +26,7 @@ namespace Test._0101_0150
         public void TestCase02()
         {
             int?[] root = [5, 4, 8, 11, null, 13, 4, 7, 2, null, null, null, 1];
-            var tree = Utils.BuildTree(root);
+            var tree = TreeNode.BuildTree(root);
             var num = alg.HasPathSum(tree, 22);
             Assert.AreEqual(true, num);
         }
@@ -34,7 +35,7 @@ namespace Test._0101_0150
         public void TestCase03()
         {
             int?[] root = [];
-            var tree = Utils.BuildTree(root);
+            var tree = TreeNode.BuildTree(root);
             var num = alg.HasPathSum(tree, 0);
             Assert.AreEqual(false, num);
         }

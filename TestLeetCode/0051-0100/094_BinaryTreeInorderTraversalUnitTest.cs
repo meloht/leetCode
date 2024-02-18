@@ -1,5 +1,6 @@
 ﻿using leetCode;
 using leetCode._51_100;
+using leetCode.Model.BinaryTree;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace Test._0051_0100
         public void TestCase01()
         {
             int?[] arr = { 1, null, 2, 3 };
-            TreeNode root = Utils.BuildBinaryTree(arr);
+            TreeNode root = TreeNode.BuildTree(arr);
 
             var res = alg.InorderTraversal(root);
             int[] exp = { 1, 3, 2 };
@@ -29,7 +30,7 @@ namespace Test._0051_0100
         public void TestCase02()
         {
             int?[] arr = { };
-            TreeNode root = Utils.BuildBinaryTree(arr);
+            TreeNode root = TreeNode.BuildTree(arr);
 
             var res = alg.InorderTraversal(root);
             int[] exp = { };
@@ -41,7 +42,7 @@ namespace Test._0051_0100
         public void TestCase03()
         {
             int?[] arr = { 1 };
-            TreeNode root = Utils.BuildBinaryTree(arr);
+            TreeNode root = TreeNode.BuildTree(arr);
 
             var res = alg.InorderTraversal(root);
             int[] exp = { 1 };

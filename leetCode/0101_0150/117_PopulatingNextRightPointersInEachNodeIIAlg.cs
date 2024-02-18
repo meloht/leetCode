@@ -3,22 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using leetCode.Model.ThreeTreeNode;
 
 namespace leetCode._0101_0150
 {
     public class _117_PopulatingNextRightPointersInEachNodeIIAlg
     {
-        public NodeThree Connect1(NodeThree root)
+        public Node Connect1(Node root)
         {
             if (root == null)
                 return root;
 
-            Queue<NodeThree> queue = new Queue<NodeThree>();
+            Queue<Node> queue = new Queue<Node>();
             queue.Enqueue(root);
             while (queue.Count > 0)
             {
                 int count = queue.Count;
-                NodeThree pre = null;
+                Node pre = null;
                 for (int i = 0; i < count; i++)
                 {
                     var node = queue.Dequeue();
@@ -56,7 +57,7 @@ namespace leetCode._0101_0150
             }
             return root;
         }
-        public NodeThree Connect2(NodeThree root)
+        public Node Connect2(Node root)
         {
             if (root == null)
             {
@@ -117,7 +118,7 @@ namespace leetCode._0101_0150
             return root;
         }
 
-        private NodeThree GetNext(NodeThree node)
+        private Node GetNext(Node node)
         {
             if (node == null)
             {
@@ -135,20 +136,20 @@ namespace leetCode._0101_0150
 
 
 
-        NodeThree last = null, nextStart = null;
+        Node last = null, nextStart = null;
 
-        public NodeThree Connect(NodeThree root)
+        public Node Connect(Node root)
         {
             if (root == null)
             {
                 return null;
             }
-            NodeThree start = root;
+            Node start = root;
             while (start != null)
             {
                 last = null;
                 nextStart = null;
-                for (NodeThree p = start; p != null; p = p.next)
+                for (Node p = start; p != null; p = p.next)
                 {
                     if (p.left != null)
                     {
@@ -164,7 +165,7 @@ namespace leetCode._0101_0150
             return root;
         }
 
-        public void Handle(NodeThree p)
+        public void Handle(Node p)
         {
             if (last != null)
             {

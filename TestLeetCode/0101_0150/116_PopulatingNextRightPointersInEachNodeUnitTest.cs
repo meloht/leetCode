@@ -1,5 +1,6 @@
 ﻿using leetCode;
 using leetCode._0101_0150;
+using leetCode.Model.ThreeTreeNode;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,11 +21,11 @@ namespace Test._0101_0150
 
             int?[] exp = [1, null, 2, 3, null, 4, 5, 6, 7, null];
 
-            NodeThree node = Utils.BuildNodeTree(root);
+            Node node = Node.BuildNodeTree(root);
            
             var nodeNew = alg.Connect(node);
 
-            var res = Utils.GetNodeList(nodeNew);
+            var res = Node.GetNodeList(nodeNew);
             bool bl = exp.SequenceEqual(res);
 
             Assert.IsTrue(bl);
@@ -36,11 +37,11 @@ namespace Test._0101_0150
 
             int?[] exp = [];
 
-            NodeThree node = Utils.BuildNodeTree(root);
+            Node node = Node.BuildNodeTree(root);
 
             var nodeNew = alg.Connect(node);
 
-            var res = Utils.GetNodeList(nodeNew);
+            var res = Node.GetNodeList(nodeNew);
             bool bl = exp.SequenceEqual(res);
 
             Assert.IsTrue(bl);
