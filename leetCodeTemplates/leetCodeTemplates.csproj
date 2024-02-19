@@ -15,6 +15,7 @@
     <Compile Include="..\leetCode\0651_0700\684_RedundantConnectionAlg.cs" Link="并查集\684_RedundantConnectionAlg.cs" />
     <Compile Include="..\leetCode\0751_0800\788_RotatedDigitsAlg.cs" Link="数位DP\788_RotatedDigitsAlg.cs" />
     <Compile Include="..\leetCode\0901_0950\902_NumbersAtMostNGivenDigitSetAlg.cs" Link="数位DP\902_NumbersAtMostNGivenDigitSetAlg.cs" />
+    <Compile Include="..\leetCode\0901_0950\947_MostStonesRemovedWithSameRowOrColumnAlg.cs" Link="并查集\947_MostStonesRemovedWithSameRowOrColumnAlg.cs" />
     <Compile Include="..\leetCode\0951_1000\0959_RegionsCutBySlashesAlg.cs" Link="并查集\0959_RegionsCutBySlashesAlg.cs" />
     <Compile Include="..\leetCode\0951_1000\0990_SatisfiabilityOfEqualityEquationsAlg.cs" Link="并查集\0990_SatisfiabilityOfEqualityEquationsAlg.cs" />
     <Compile Include="..\leetCode\1001_1050\1012_NumbersWithRepeatedDigitsAlg.cs" Link="数位DP\1012_NumbersWithRepeatedDigitsAlg.cs" />
