@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,71 +15,119 @@ namespace leetCode._0801_0850
             int n = grid[0].Length;
             int size = n * m;
             int[] res = new int[hits.Length];
+            UnionFind union = new UnionFind(size);
 
-            for (int i = 0; i < hits.Length; i++)
+            HashSet<int> hitMap = new HashSet<int>();
+
+            foreach (int[] item in hits)
             {
-                int[] p = hits[i];
-                int num = grid[p[0]][p[1]];
-                grid[p[0]][p[1]] = 0;
-                if (num == 0)
+                int i = item[0];
+                int j = item[1];
+                int index = n * i + j;
+                hitMap.Add(index);
+            }
+            List<int> points = new List<int>();
+            HashSet<int> heads = new HashSet<int>();
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
                 {
-                    continue;
-                }
-                UnionFind union = new UnionFind(size);
-
-                List<int[]> points = new List<int[]>();
-                List<int[]> heads = new List<int[]>();
-                for (int j = 0; j < m; j++)
-                {
-                    for (int k = 0; k < n; k++)
+                    if (grid[i][j] == 0)
                     {
-                        if (grid[j][k] == 1)
-                        {
-                            if (j == 0)
-                            {
-                                heads.Add(new[] { j, k });
-                            }
-                            else
-                            {
-                                points.Add(new int[] { j, k });
-                            }
+                        continue;
+                    }
 
-                            int index = n * j + k;
+                    int index = n * i + j;
+                    if (hitMap.Contains(index))
+                    {
+                        continue;
+                    }
+                    if (i == 0)
+                    {
+                        heads.Add(index);
+                    }
+                    else
+                    {
+                        points.Add(index);
+                    }
 
-                            if (j < m - 1 && grid[j + 1][k] == 1)
-                            {
-                                union.Union(index, (j + 1) * n + k);
-                            }
-                            if (k < n - 1 && grid[j][k + 1] == 1)
-                            {
-                                union.Union(index, j * n + k + 1);
-                            }
-                        }
+                    int next1 = (i + 1) * n + j;
+                    if (i < m - 1 && grid[i + 1][j] == 1 && !hitMap.Contains(next1))
+                    {
 
+                        union.Union(index, next1);
+                    }
+                    int next2 = i * n + j + 1;
+                    if (j < n - 1 && grid[i][j + 1] == 1 && !hitMap.Contains(next2))
+                    {
+                        union.Union(index, next2);
                     }
                 }
+            }
+
+            for (int k = hits.Length - 1; k >= 0; k--)
+            {
+                var item = hits[k];
+
                 HashSet<int> visited = new HashSet<int>();
-                foreach (var item in heads)
+                foreach (var pp in heads)
                 {
-                    int index = n * item[0] + item[1];
-                    var d = union.Find(index);
+                    var d = union.Find(pp);
                     visited.Add(d);
                 }
                 int count = 0;
-                foreach (int[] item in points)
+                foreach (var item1 in points)
                 {
-                    int index = n * item[0] + item[1];
-
-                    var d = union.Find(index);
-                    if (!visited.Contains(d))
+                    int root = union.Find(item1);
+                    if (!visited.Contains(root))
                     {
                         count++;
-                        grid[item[0]][item[1]] = 0;
                     }
-                  
                 }
-                res[i] = count;
+
+                res[k] = count;
+
+                int i = item[0];
+                int j = item[1];
+                if (grid[i][j] == 0)
+                {
+                    continue;
+                }
+                int index = n * i + j;
+                if (index < n)
+                {
+                    heads.Add(index);
+                }
+                else
+                {
+                    points.Add(index);
+                }
+                hitMap.Remove(index);
+
+                int next1 = (i + 1) * n + j;
+                if (i < m - 1 && grid[i + 1][j] == 1 && !hitMap.Contains(next1))
+                {
+
+                    union.Union(index, next1);
+                }
+                int next2 = i * n + j + 1;
+                if (j < n - 1 && grid[i][j + 1] == 1 && !hitMap.Contains(next2))
+                {
+                    union.Union(index, next2);
+                }
+                int next3 = (i - 1) * n + j;
+                if (i > 0 && grid[i - 1][j] == 1 && !hitMap.Contains(next3))
+                {
+
+                    union.Union(index, next3);
+                }
+                int next4 = i * n + j - 1;
+                if (j > 0 && grid[i][j - 1] == 1 && !hitMap.Contains(next4))
+                {
+                    union.Union(index, next4);
+                }
             }
+
 
             return res;
         }
@@ -135,6 +184,15 @@ namespace leetCode._0801_0850
                     parent[x] = Find(parent[x]);
                 }
                 return parent[x];
+            }
+
+            public bool IsConnect(int x, int y)
+            {
+                int rootx = Find(x);
+                int rooty = Find(y);
+                if (rootx == rooty)
+                    return true;
+                return false;
             }
         }
     }
