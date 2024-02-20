@@ -27,23 +27,24 @@ namespace leetCode._0801_0850
                 UnionFind union = new UnionFind(size);
 
                 List<int[]> points = new List<int[]>();
+                List<int[]> heads = new List<int[]>();
                 for (int j = 0; j < m; j++)
                 {
                     for (int k = 0; k < n; k++)
                     {
                         if (grid[j][k] == 1)
                         {
+                            if (j == 0)
+                            {
+                                heads.Add(new[] { j, k });
+                            }
+                            else
+                            {
+                                points.Add(new int[] { j, k });
+                            }
 
-                            points.Add(new int[] { j, k });
                             int index = n * j + k;
-                            if (j > 0 && grid[j - 1][k] == 1)
-                            {
-                                union.Union(index, (j - 1) * n + k);
-                            }
-                            if (k > 0 && grid[j][k - 1] == 1)
-                            {
-                                union.Union(index, j * n + k - 1);
-                            }
+
                             if (j < m - 1 && grid[j + 1][k] == 1)
                             {
                                 union.Union(index, (j + 1) * n + k);
@@ -56,16 +57,25 @@ namespace leetCode._0801_0850
 
                     }
                 }
-
+                HashSet<int> visited = new HashSet<int>();
+                foreach (var item in heads)
+                {
+                    int index = n * item[0] + item[1];
+                    var d = union.Find(index);
+                    visited.Add(d);
+                }
                 int count = 0;
                 foreach (int[] item in points)
                 {
                     int index = n * item[0] + item[1];
+
                     var d = union.Find(index);
-                    if (d >= m)
+                    if (!visited.Contains(d))
                     {
                         count++;
+                        grid[item[0]][item[1]] = 0;
                     }
+                  
                 }
                 res[i] = count;
             }

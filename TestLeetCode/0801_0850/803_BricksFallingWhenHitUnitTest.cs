@@ -34,5 +34,16 @@ namespace Test._0801_0850
         }
 
 
+        [TestMethod]
+        public void TestCase03()
+        {
+            int[][] grid = [
+                [1, 0, 1], 
+                [1, 1, 1]], hits = [[0, 0], [0, 2], [1, 1]];
+            int[] exp = [0, 3, 0];
+            int[] res = alg.HitBricks(grid, hits);
+            Assert.IsTrue(exp.SequenceEqual(res));
+        }
+
     }
 }
