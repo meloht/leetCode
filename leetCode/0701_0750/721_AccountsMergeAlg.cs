@@ -119,7 +119,6 @@ namespace leetCode._0701_0750
                 }
 
             }
-
             /// <summary>
             /// 路径压缩
             /// </summary>
@@ -132,9 +131,6 @@ namespace leetCode._0701_0750
                 }
                 return parent[x];
             }
-
-
-
         }
     }
 }
