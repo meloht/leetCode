@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics.Metrics;
 using System.Linq;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,142 +12,117 @@ namespace leetCode._0801_0850
 {
     public class _803_BricksFallingWhenHitAlg
     {
+        private int cols;
+        private int rows;
+        private static int[][] Directions = [[0, 1], [1, 0], [-1, 0], [0, -1]];
         public int[] HitBricks(int[][] grid, int[][] hits)
         {
-            int m = grid.Length;
-            int n = grid[0].Length;
-            int size = n * m;
-            int[] res = new int[hits.Length];
-            UnionFind union = new UnionFind(size);
+            this.rows = grid.Length;
+            this.cols = grid[0].Length;
 
-            HashSet<int> hitMap = new HashSet<int>();
+            int[,] copy = new int[rows, cols];
 
+            for (int i = 0; i < this.rows; i++)
+            {
+                for (int j = 0; j < this.cols; j++)
+                {
+                    copy[i, j] = grid[i][j];
+                }
+            }
             foreach (int[] item in hits)
             {
-                int i = item[0];
-                int j = item[1];
-                int index = n * i + j;
-                hitMap.Add(index);
+                copy[item[0], item[1]] = 0;
             }
-            List<int> points = new List<int>();
-            HashSet<int> heads = new HashSet<int>();
-            for (int i = 0; i < m; i++)
+
+            int size = rows * cols;
+
+            UnionFind union = new UnionFind(size + 1);
+            for (int i = 0; i < this.cols; i++)
             {
-                for (int j = 0; j < n; j++)
+                if (copy[0, i] == 1)
                 {
-                    if (grid[i][j] == 0)
+                    union.Union(i, size);
+                }
+            }
+
+            for (int i = 1; i < this.rows; i++)
+            {
+                for (int j = 0; j < this.cols; j++)
+                {
+                    if (copy[i, j] == 0)
                     {
                         continue;
                     }
-
-                    int index = n * i + j;
-                    if (hitMap.Contains(index))
+                    if (copy[i - 1, j] == 1)
                     {
-                        continue;
+                        union.Union(GetIndex(i - 1, j), GetIndex(i, j));
                     }
-                    if (i == 0)
+                    if (j > 0 && copy[i, j - 1] == 1)
                     {
-                        heads.Add(index);
-                    }
-                    else
-                    {
-                        points.Add(index);
-                    }
-
-                    int next1 = (i + 1) * n + j;
-                    if (i < m - 1 && grid[i + 1][j] == 1 && !hitMap.Contains(next1))
-                    {
-
-                        union.Union(index, next1);
-                    }
-                    int next2 = i * n + j + 1;
-                    if (j < n - 1 && grid[i][j + 1] == 1 && !hitMap.Contains(next2))
-                    {
-                        union.Union(index, next2);
+                        union.Union(GetIndex(i, j - 1), GetIndex(i, j));
                     }
                 }
             }
 
-            for (int k = hits.Length - 1; k >= 0; k--)
+            int[] res = new int[hits.Length];
+
+            for (int i = hits.Length - 1; i >= 0; i--)
             {
-                var item = hits[k];
-
-                HashSet<int> visited = new HashSet<int>();
-                foreach (var pp in heads)
-                {
-                    var d = union.Find(pp);
-                    visited.Add(d);
-                }
-                int count = 0;
-                foreach (var item1 in points)
-                {
-                    int root = union.Find(item1);
-                    if (!visited.Contains(root))
-                    {
-                        count++;
-                    }
-                }
-
-                res[k] = count;
-
-                int i = item[0];
-                int j = item[1];
-                if (grid[i][j] == 0)
-                {
+                int x = hits[i][0];
+                int y = hits[i][1];
+                if (grid[x][y] == 0)
                     continue;
-                }
-                int index = n * i + j;
-                if (index < n)
-                {
-                    heads.Add(index);
-                }
-                else
-                {
-                    points.Add(index);
-                }
-                hitMap.Remove(index);
 
-                int next1 = (i + 1) * n + j;
-                if (i < m - 1 && grid[i + 1][j] == 1 && !hitMap.Contains(next1))
+                int origin = union.GetSize(size);
+                if (x == 0)
                 {
+                    union.Union(y, size);
+                }
+                foreach (int[] item in Directions)
+                {
+                    int nx = item[0] + x;
+                    int ny = item[1] + y;
+                    if (IsInRange(nx, ny) && copy[nx, ny] == 1)
+                    {
+                        union.Union(GetIndex(nx, ny), GetIndex(x, y));
+                    }
+                }
 
-                    union.Union(index, next1);
-                }
-                int next2 = i * n + j + 1;
-                if (j < n - 1 && grid[i][j + 1] == 1 && !hitMap.Contains(next2))
-                {
-                    union.Union(index, next2);
-                }
-                int next3 = (i - 1) * n + j;
-                if (i > 0 && grid[i - 1][j] == 1 && !hitMap.Contains(next3))
-                {
+                int current = union.GetSize(size);
 
-                    union.Union(index, next3);
-                }
-                int next4 = i * n + j - 1;
-                if (j > 0 && grid[i][j - 1] == 1 && !hitMap.Contains(next4))
-                {
-                    union.Union(index, next4);
-                }
+                res[i] = Math.Max(0, current - origin - 1);
+                copy[x, y] = 1;
             }
-
 
             return res;
         }
 
+        private bool IsInRange(int x, int y)
+        {
+            return x >= 0 && x < rows && y >= 0 && y < cols;
+        }
+
+        private int GetIndex(int x, int y)
+        {
+            return x * cols + y;
+        }
 
         private class UnionFind
         {
             private int[] parent;
             private int[] ranks;
+            private int[] size;
+            private int count = 0;
             public UnionFind(int n)
             {
                 this.parent = new int[n];
                 this.ranks = new int[n];
-
+                this.size = new int[n];
+                this.count = n;
                 for (int i = 0; i < n; i++)
                 {
                     parent[i] = i;
+                    this.size[i] = 1;
                 }
             }
 
@@ -161,16 +139,20 @@ namespace leetCode._0801_0850
                 if (xRank < yRank)
                 {
                     this.parent[rootX] = rootY;
+                    this.size[rootY] += size[rootX];
                 }
                 else if (xRank > yRank)
                 {
                     this.parent[rootY] = rootX;
+                    this.size[rootX] += size[rootY];
                 }
                 else
                 {
                     parent[rootX] = rootY;
                     this.ranks[rootY]++;
+                    this.size[rootY] += size[rootX];
                 }
+                this.count--;
 
             }
             /// <summary>
@@ -184,6 +166,15 @@ namespace leetCode._0801_0850
                     parent[x] = Find(parent[x]);
                 }
                 return parent[x];
+            }
+            public int Count
+            {
+                get { return count; }
+            }
+            public int GetSize(int x)
+            {
+                int root = Find(x);
+                return size[root];
             }
 
             public bool IsConnect(int x, int y)
