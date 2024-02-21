@@ -15,6 +15,7 @@
     <Compile Include="..\leetCode\0651_0700\684_RedundantConnectionAlg.cs" Link="并查集\684_RedundantConnectionAlg.cs" />
     <Compile Include="..\leetCode\0701_0750\721_AccountsMergeAlg.cs" Link="并查集\721_AccountsMergeAlg.cs" />
     <Compile Include="..\leetCode\0751_0800\788_RotatedDigitsAlg.cs" Link="数位DP\788_RotatedDigitsAlg.cs" />
+    <Compile Include="..\leetCode\0801_0850\803_BricksFallingWhenHitAlg.cs" Link="并查集\803_BricksFallingWhenHitAlg.cs" />
     <Compile Include="..\leetCode\0901_0950\902_NumbersAtMostNGivenDigitSetAlg.cs" Link="数位DP\902_NumbersAtMostNGivenDigitSetAlg.cs" />
     <Compile Include="..\leetCode\0901_0950\947_MostStonesRemovedWithSameRowOrColumnAlg.cs" Link="并查集\947_MostStonesRemovedWithSameRowOrColumnAlg.cs" />
     <Compile Include="..\leetCode\0951_1000\0959_RegionsCutBySlashesAlg.cs" Link="并查集\0959_RegionsCutBySlashesAlg.cs" />
