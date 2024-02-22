@@ -214,5 +214,22 @@ namespace leetCode.Model.BinaryTree
                 PreOrder(root.right, result);
             }
         }
+        private static void PreOrderTree(TreeNode root, List<int> result)
+        {
+            if (root == null)
+            {
+                return;
+            }
+            result.Add(root.val);
+            PreOrderTree(root.left, result);
+            PreOrderTree(root.right, result);
+        }
+
+        public static int[] PreOrderList(TreeNode root)
+        {
+            List<int> result = new List<int>();
+            PreOrderTree(root, result);
+            return result.ToArray();
+        }
     }
 }
