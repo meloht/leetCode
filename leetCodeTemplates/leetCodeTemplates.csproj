@@ -24,6 +24,7 @@
     <Compile Include="..\leetCode\1201_1250\1202_SmallestStringWithSwapsAlg.cs" Link="并查集\1202_SmallestStringWithSwapsAlg.cs" />
     <Compile Include="..\leetCode\1301_1350\1319_NumberOfOperationsToMakeNetworkConnectedAlg.cs" Link="并查集\1319_NumberOfOperationsToMakeNetworkConnectedAlg.cs" />
     <Compile Include="..\leetCode\1351_1400\1397_FindAllGoodStringsAlg.cs" Link="数位DP\1397_FindAllGoodStringsAlg.cs" />
+    <Compile Include="..\leetCode\1551_1600\1579_RemoveMaxNumberOfEdgesToKeepGraphFullyTraversableAlg.cs" Link="并查集\1579_RemoveMaxNumberOfEdgesToKeepGraphFullyTraversableAlg.cs" />
     <Compile Include="..\leetCode\1601_1650\1631_PathWithMinimumEffortAlg.cs" Link="并查集\1631_PathWithMinimumEffortAlg.cs" />
     <Compile Include="..\leetCode\1701_1750\1742_MaximumNumberOfBallsInABoxAlg.cs" Link="数位DP\1742_MaximumNumberOfBallsInABoxAlg.cs" />
     <Compile Include="..\leetCode\2351_2400\2376_CountSpecialIntegersAlg.cs" Link="数位DP\2376_CountSpecialIntegersAlg.cs" />
