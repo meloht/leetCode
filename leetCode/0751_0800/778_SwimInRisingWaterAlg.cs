@@ -15,7 +15,8 @@ namespace leetCode._0751_0800
             n = grid.Length;
             int ans = 0;
             PriorityQueue<int[], int> priorityQueue = new PriorityQueue<int[], int>();
-
+            int begin = grid[0][0];
+            int end = grid[n - 1][n - 1];
             bool[,] visited = new bool[n, n];
             UnionFind union = new UnionFind(n * n);
             priorityQueue.Enqueue([0, 0, 0, 0], grid[0][0]);
@@ -40,7 +41,7 @@ namespace leetCode._0751_0800
                         priorityQueue.Enqueue([newRow, newCol, i, j], grid[newRow][newCol]);
                     }
                 }
-                if (union.IsConnect(grid[n - 1][n - 1], grid[0][0]))
+                if (union.IsConnect(begin, end))
                 {
                     return ans;
                 }
