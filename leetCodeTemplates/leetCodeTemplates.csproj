@@ -14,6 +14,7 @@
     <Compile Include="..\leetCode\0551_0600\600_NonNegativeIntegersWithoutConsecutiveOnesAlg.cs" Link="数位DP\600_NonNegativeIntegersWithoutConsecutiveOnesAlg.cs" />
     <Compile Include="..\leetCode\0651_0700\684_RedundantConnectionAlg.cs" Link="并查集\684_RedundantConnectionAlg.cs" />
     <Compile Include="..\leetCode\0701_0750\721_AccountsMergeAlg.cs" Link="并查集\721_AccountsMergeAlg.cs" />
+    <Compile Include="..\leetCode\0751_0800\778_SwimInRisingWaterAlg.cs" Link="并查集\778_SwimInRisingWaterAlg.cs" />
     <Compile Include="..\leetCode\0751_0800\788_RotatedDigitsAlg.cs" Link="数位DP\788_RotatedDigitsAlg.cs" />
     <Compile Include="..\leetCode\0801_0850\803_BricksFallingWhenHitAlg.cs" Link="并查集\803_BricksFallingWhenHitAlg.cs" />
     <Compile Include="..\leetCode\0901_0950\902_NumbersAtMostNGivenDigitSetAlg.cs" Link="数位DP\902_NumbersAtMostNGivenDigitSetAlg.cs" />
