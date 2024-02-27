@@ -1,4 +1,5 @@
-﻿using System;
+﻿using leetCode._1_50;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,8 @@ namespace leetCode._0851_0900
         public bool PossibleBipartition(int n, int[][] dislikes)
         {
             UnionFind union = new UnionFind(n + 1);
-            Dictionary<int, HashSet<int>> dict = new Dictionary<int, HashSet<int>>();
+
+            Dictionary<int, List<int>> dict = new Dictionary<int, List<int>>();
 
             foreach (var item in dislikes)
             {
@@ -21,21 +23,29 @@ namespace leetCode._0851_0900
                 }
                 else
                 {
-                    HashSet<int> set = new HashSet<int>();
-                    set.Add(item[1]);
-                    dict.Add(item[0], set);
+                    var list = new List<int>();
+                    list.Add(item[1]);
+                    dict.Add(item[0], list);
                 }
 
-            }
-            for (int i = 1; i <= n; i++)
-            {
-                for (int j = i + 1; j <= n; j++)
+                if (dict.ContainsKey(item[1]))
                 {
-                    if (dict.ContainsKey(i) && dict[i].Contains(j))
-                    {
-                        continue;
-                    }
-                    union.Union(i, j);
+                    dict[item[1]].Add(item[0]);
+                }
+                else
+                {
+                    var list = new List<int>();
+                    list.Add(item[0]);
+                    dict.Add(item[1], list);
+                }
+            }
+
+            foreach (var item in dict)
+            {
+                var ls = item.Value;
+                for (int i = 1; i < ls.Count; i++)
+                {
+                    union.Union(ls[i - 1], ls[i]);
                 }
             }
 
