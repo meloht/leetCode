@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace Test.InterviewQuestion
 {
     [TestClass]
-    public class NumberOf2sInRangeLcciUnitTest
+    public class _17_06_NumberOf2sInRangeLcciUnitTest
     {
-        NumberOf2sInRangeLcciAlg alg = new NumberOf2sInRangeLcciAlg();
+        _17_06_NumberOf2sInRangeLcciAlg alg = new _17_06_NumberOf2sInRangeLcciAlg();
 
         [TestMethod]
         public void TestCase01()

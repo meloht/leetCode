@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace leetCode.InterviewQuestion
 {
-    public class NumberOf2sInRangeLcciAlg
+    public class _17_06_NumberOf2sInRangeLcciAlg
     {
         int[,] dp;
         public int NumberOf2sInRange(int n)
