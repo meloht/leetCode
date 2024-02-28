@@ -12,26 +12,34 @@ namespace leetCode._1351_1400
         {
             UnionFind union = new UnionFind(n);
             int[] arr = new int[n];
-
+            int[] arrOut = new int[n];
             for (int i = 0; i < n; i++)
             {
                 int left = leftChild[i];
                 int right = rightChild[i];
                 if (left != -1)
                 {
+                    if (union.IsConnect(i, left))
+                        return false;
                     union.Union(i, left);
+
                     arr[left]++;
+                    if (arr[left]>1)
+                        return false;
+                    arrOut[i]++;
                 }
                 if (right != -1)
                 {
+                    if (union.IsConnect(i, right))
+                        return false;
                     union.Union(i, right);
                     arr[right]++;
+                    if (arr[right] > 1)
+                        return false;
+                    arrOut[i]++;
+                  
                 }
-            }
-
-            foreach (var item in arr)
-            {
-                if (item > 1)
+                if (arrOut[i] > 2)
                     return false;
             }
 
