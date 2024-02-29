@@ -34,7 +34,7 @@
     <Compile Include="..\leetCode\2801_2850\2801_CountSteppingNumbersInRangeAlg.cs" Link="数位DP\2801_CountSteppingNumbersInRangeAlg.cs" />
     <Compile Include="..\leetCode\2801_2850\2827_NumberOfBeautifulIntegersInTheRangeAlg.cs" Link="数位DP\2827_NumberOfBeautifulIntegersInTheRangeAlg.cs" />
     <Compile Include="..\leetCode\2901_3000\2999_CountTheNumberOfPowerfulIntegersAlg.cs" Link="数位DP\2999_CountTheNumberOfPowerfulIntegersAlg.cs" />
-    <Compile Include="..\leetCode\InterviewQuestion\17_06_2_NumberOf2sInRangeLcciAlg.cs" Link="数位DP\17_06_2_NumberOf2sInRangeLcciAlg.cs" />
+    <Compile Include="..\leetCode\InterviewQuestion\17_06_NumberOf2sInRangeLcciAlg.cs" Link="数位DP\17_06_NumberOf2sInRangeLcciAlg.cs" />
   </ItemGroup>
 
 
