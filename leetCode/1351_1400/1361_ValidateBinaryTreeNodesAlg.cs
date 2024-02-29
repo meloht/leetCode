@@ -24,7 +24,7 @@ namespace leetCode._1351_1400
                     union.Union(i, left);
 
                     arr[left]++;
-                    if (arr[left]>1)
+                    if (arr[left] > 1)
                         return false;
                     arrOut[i]++;
                 }
@@ -37,7 +37,7 @@ namespace leetCode._1351_1400
                     if (arr[right] > 1)
                         return false;
                     arrOut[i]++;
-                  
+
                 }
                 if (arrOut[i] > 2)
                     return false;
