@@ -30,9 +30,15 @@ namespace leetCode._1551_1600
                         int[] item = Directions[k];
                         int nx = i + item[0];
                         int ny = j + item[1];
+
                         if (IsInRange(nx, ny) && grid[nx][ny] == grid[i][j])
                         {
-                            union.Union(index, GetIndex(nx, ny));
+                            int nextIndex = GetIndex(nx, ny);
+                            if (union.IsConnect(index, nextIndex))
+                            {
+                                return true;
+                            }
+                            union.Union(index, nextIndex);
                         }
                     }
                 }
