@@ -8,49 +8,74 @@ namespace leetCode._0401_0450
 {
     public class _401_BinaryWatchAlg
     {
-        public IList<string> ReadBinaryWatch(int turnedOn)
+        public IList<string> ReadBinaryWatch1(int turnedOn)
         {
+            List<string> res = new List<string>();
             if (turnedOn > 8)
             {
-                List<string> res = new List<string>();
                 return res;
             }
-            HashSet<string> set = new HashSet<string>();
-            int[] h = [8, 4, 2, 1];
-            int[] m = [32, 16, 8, 4, 2, 1];
-            Dfs(h, m, 0, 0, 0, 0, turnedOn, set);
-            return set.ToList();
+
+            for (int i = 0; i < 12; i++)
+            {
+                for (int j = 0; j < 60; j++)
+                {
+                    int n1 = GetCount1(i);
+                    int n2 = GetCount1(j);
+                    if (n1 + n2 == turnedOn)
+                    {
+                        res.Add($"{i}:{j.ToString().PadLeft(2, '0')}");
+                    }
+                }
+            }
+            return res;
+        }
+        private int GetCount1(int num)
+        {
+            int count = 0;
+            while (num != 0)
+            {
+                num = num & (num - 1);
+                count++;
+            }
+            return count;
         }
 
-        private void Dfs(int[] h, int[] m, int i, int j, int numH, int numM, int count, HashSet<string> res)
+        public IList<string> ReadBinaryWatch(int turnedOn)
         {
-            if (i >= h.Length || j >= m.Length)
+            List<string> res = new List<string>();
+            if (turnedOn > 8)
             {
-                return;
+                return res;
             }
 
-            if (numH > 12 || numM > 59)
-            {
-                return;
-            }
+            int[] times = new int[10];
+            Dfs(times, 0, turnedOn, res);
 
+            return res;
+        }
+
+
+        private void Dfs(int[] times, int pos, int count, List<string> res)
+        {
             if (count == 0)
             {
-                res.Add($"{numH}:{numM.ToString().PadLeft(2, '0')}");
+                int hour = times[0] + 2 * times[1] + times[2] * 4 + times[3] * 8;
+                int minute = times[4] + times[5] * 2 + times[6] * 4 + times[7] * 8 + times[8] * 16 + times[9] * 32;
+                if (hour < 12 && minute < 60)
+                {
+                    res.Add($"{hour}:{minute.ToString().PadLeft(2, '0')}");
+                }
                 return;
             }
-            int n1 = numH + h[i];
-            Dfs(h, m, i + 1, j, numH, numM, count, res);
-            Dfs(h, m, i + 1, j, n1, numM, count - 1, res);
-          
 
-            int n2 = numM + m[j];
-            Dfs(h, m, i, j + 1, numH, numM, count, res);
-            Dfs(h, m, i, j + 1, numH, n2, count - 1, res);
 
-            Dfs(h, m, i + 1, j + 1, numH, numM, count, res);
-            Dfs(h, m, i + 1, j + 1, n1, n2, count - 2, res);
-           
+            for (int i = pos; i <= 10 - count; i++)
+            {
+                times[i]++;
+                Dfs(times, i + 1, count - 1, res);
+                times[i]--;
+            }
         }
     }
 }
