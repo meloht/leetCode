@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\leetCode\0001-0050\35_SearchInsertPositionAlg.cs" Link="二分查找\35_SearchInsertPositionAlg.cs" />
     <Compile Include="..\leetCode\0201-0250\233_NumberOfDigitOneAlg.cs" Link="数位DP\233_NumberOfDigitOneAlg.cs" />
     <Compile Include="..\leetCode\0351_0400\357_CountNumbersWithUniqueDigitsAlg.cs" Link="数位DP\357_CountNumbersWithUniqueDigitsAlg.cs" />
     <Compile Include="..\leetCode\0351_0400\399_EvaluateDivisionAlg.cs" Link="并查集\399_EvaluateDivisionAlg.cs" />

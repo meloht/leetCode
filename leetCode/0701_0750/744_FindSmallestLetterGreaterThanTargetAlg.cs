@@ -12,6 +12,9 @@ namespace leetCode._0701_0750
         {
             if (target >= letters[letters.Length - 1])
                 return letters[0];
+
+            if (target < letters[0])
+                return letters[0];
             int left = 0;
             int right = letters.Length - 1;
 
