@@ -10,10 +10,13 @@
     <Compile Include="..\leetCode\0201-0250\233_NumberOfDigitOneAlg.cs" Link="数位DP\233_NumberOfDigitOneAlg.cs" />
     <Compile Include="..\leetCode\0351_0400\357_CountNumbersWithUniqueDigitsAlg.cs" Link="数位DP\357_CountNumbersWithUniqueDigitsAlg.cs" />
     <Compile Include="..\leetCode\0351_0400\399_EvaluateDivisionAlg.cs" Link="并查集\399_EvaluateDivisionAlg.cs" />
+    <Compile Include="..\leetCode\0401_0450\441_ArrangingCoinsAlg.cs" Link="二分查找\441_ArrangingCoinsAlg.cs" />
     <Compile Include="..\leetCode\0501_0550\547_NumberOfProvincesAlg.cs" Link="并查集\547_NumberOfProvincesAlg.cs" />
     <Compile Include="..\leetCode\0551_0600\600_NonNegativeIntegersWithoutConsecutiveOnesAlg.cs" Link="数位DP\600_NonNegativeIntegersWithoutConsecutiveOnesAlg.cs" />
     <Compile Include="..\leetCode\0651_0700\684_RedundantConnectionAlg.cs" Link="并查集\684_RedundantConnectionAlg.cs" />
+    <Compile Include="..\leetCode\0701_0750\704_BinarySearchAlg.cs" Link="二分查找\704_BinarySearchAlg.cs" />
     <Compile Include="..\leetCode\0701_0750\721_AccountsMergeAlg.cs" Link="并查集\721_AccountsMergeAlg.cs" />
+    <Compile Include="..\leetCode\0701_0750\744_FindSmallestLetterGreaterThanTargetAlg.cs" Link="二分查找\744_FindSmallestLetterGreaterThanTargetAlg.cs" />
     <Compile Include="..\leetCode\0751_0800\778_SwimInRisingWaterAlg.cs" Link="并查集\778_SwimInRisingWaterAlg.cs" />
     <Compile Include="..\leetCode\0751_0800\788_RotatedDigitsAlg.cs" Link="数位DP\788_RotatedDigitsAlg.cs" />
     <Compile Include="..\leetCode\0801_0850\803_BricksFallingWhenHitAlg.cs" Link="并查集\803_BricksFallingWhenHitAlg.cs" />
@@ -35,6 +38,10 @@
     <Compile Include="..\leetCode\2801_2850\2827_NumberOfBeautifulIntegersInTheRangeAlg.cs" Link="数位DP\2827_NumberOfBeautifulIntegersInTheRangeAlg.cs" />
     <Compile Include="..\leetCode\2901_3000\2999_CountTheNumberOfPowerfulIntegersAlg.cs" Link="数位DP\2999_CountTheNumberOfPowerfulIntegersAlg.cs" />
     <Compile Include="..\leetCode\InterviewQuestion\17_06_NumberOf2sInRangeLcciAlg.cs" Link="数位DP\17_06_NumberOf2sInRangeLcciAlg.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="二分查找\" />
   </ItemGroup>
 
 
