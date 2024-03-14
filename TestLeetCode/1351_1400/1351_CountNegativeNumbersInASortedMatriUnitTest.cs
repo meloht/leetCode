@@ -50,5 +50,16 @@ namespace Test._1351_1400
             int res = alg.BinarySearch(nums);
             Assert.AreEqual(exp, res);
         }
+
+
+        [TestMethod]
+        public void TestCase05()
+        {
+       
+            int[] nums = [4, 2, 1, 1, 1, -1, -2];
+            int exp = 5;
+            int res = alg.BinarySearch(nums);
+            Assert.AreEqual(exp, res);
+        }
     }
 }
