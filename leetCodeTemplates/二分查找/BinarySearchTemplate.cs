@@ -112,5 +112,36 @@ namespace leetCodeTemplates.BinarySearch
         }
 
 
+        /// <summary>
+        /// 返回<=target 
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+
+        private int BinarySearch1(int[] nums, int target)
+        {
+            int low = 0, high = nums.Length - 1;
+            if (high < 0 || target > nums[high])
+            {
+                return high + 1;
+            }
+            while (low < high)
+            {
+                int mid = (high - low) / 2 + low;
+                int val = nums[mid];
+                if (val <= target)
+                {
+                    low = mid + 1;
+                }
+                else
+                {
+                    high = mid;
+                }
+            }
+            return low;
+        }
+
+
     }
 }
