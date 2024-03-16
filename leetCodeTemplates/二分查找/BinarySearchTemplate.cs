@@ -143,5 +143,24 @@ namespace leetCodeTemplates.BinarySearch
         }
 
 
+
+        public int BinarySearch11(int[] arr, int x)
+        {
+            int low = 0, high = arr.Length - 1;
+            while (low < high)
+            {
+                int mid = low + (high - low) / 2;
+                if (arr[mid] >= x)
+                {
+                    high = mid;
+                }
+                else
+                {
+                    low = mid + 1;
+                }
+            }
+            return low;
+        }
+
     }
 }
