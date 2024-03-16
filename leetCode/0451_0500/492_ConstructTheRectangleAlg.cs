@@ -10,7 +10,13 @@ namespace leetCode._0451_0500
     {
         public int[] ConstructRectangle(int area)
         {
-            return null;
+            int w = (int)Math.Sqrt(area);
+            while (area % w != 0)
+            {
+                --w;
+            }
+            return new int[] { area / w, w };
+
         }
     }
 }
