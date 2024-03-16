@@ -4,16 +4,17 @@ using System.Linq;
 using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
+using static leetCode._1101_1150._1146_SnapshotArrayAlg;
 
 namespace leetCode._1101_1150
 {
     public class _1146_SnapshotArrayAlg
     {
-        public class SnapshotArray
+        public class SnapshotArray1
         {
             List<int>[] list;
             int snapId = 0;
-            public SnapshotArray(int length)
+            public SnapshotArray1(int length)
             {
                 list = new List<int>[length];
                 for (int i = 0; i < length; i++)
@@ -28,7 +29,7 @@ namespace leetCode._1101_1150
             {
                 if (list[index] == null)
                 {
-                    list[index]=new List<int>();
+                    list[index] = new List<int>();
                 }
                 while (list[index].Count <= snapId)
                 {
@@ -56,6 +57,55 @@ namespace leetCode._1101_1150
                 }
             }
         }
-       
+
+
+        public class SnapshotArray
+        {
+
+            List<SortedList<int, int>> list = new List<SortedList<int, int>>();
+            int snapId = 0;
+            public SnapshotArray(int length)
+            {
+                for (int i = 0; i < length; i++)
+                {
+                    list.Add(new SortedList<int, int>());
+                    list[i].Add(snapId, 0);
+                }
+
+            }
+
+            public void Set(int index, int val)
+            {
+                var item = list[index];
+                if (item.ContainsKey(snapId))
+                {
+                    item[snapId] = val;
+                }
+                else
+                {
+                    item.Add(snapId, val);
+                }
+
+            }
+
+            public int Snap()
+            {
+                return snapId++;
+            }
+
+            public int Get(int index, int snap_id)
+            {
+                var item = list[index];
+
+                if (item.ContainsKey(snap_id))
+                {
+                    return item[snap_id];
+                }
+
+                var nums = item.FirstOrDefault(p => p.Key < snap_id);
+                
+                return nums.Value;
+            }
+        }
     }
 }

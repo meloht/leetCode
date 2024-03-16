@@ -1,5 +1,6 @@
 ﻿using leetCode._1101_1150;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,10 +29,33 @@ namespace Test._1101_1150
             snapshotArr.Set(0, 4);
             snapshotArr.Set(0, 16);
             snapshotArr.Set(0, 13);
-            Assert.AreEqual(snapshotArr.Snap(), 0);  
-          
+            Assert.AreEqual(snapshotArr.Snap(), 0);
+
             Assert.AreEqual(snapshotArr.Get(0, 0), 13);
             Assert.AreEqual(snapshotArr.Snap(), 1);
+        }
+
+        [TestMethod]
+        public void TestCase03()
+        {
+            SortedList<int, int> list=new SortedList<int, int>();
+            list.Add(1, 2);
+            list.Add(2, 3);
+            list.Add(3, 4);
+            list.Add(4, 5);
+
+           
+
+            _1146_SnapshotArrayAlg.SnapshotArray snapshotArr = new _1146_SnapshotArrayAlg.SnapshotArray(1);
+            Assert.AreEqual(snapshotArr.Snap(), 0);
+            Assert.AreEqual(snapshotArr.Snap(), 1);
+            snapshotArr.Set(0, 4);
+            Assert.AreEqual(snapshotArr.Snap(), 2);
+            Assert.AreEqual(snapshotArr.Get(0, 1), 0);
+            snapshotArr.Set(0, 12);
+            Assert.AreEqual(snapshotArr.Get(0, 1), 0);
+            Assert.AreEqual(snapshotArr.Snap(), 3);
+            Assert.AreEqual(snapshotArr.Get(0, 3), 12);
         }
     }
 }
