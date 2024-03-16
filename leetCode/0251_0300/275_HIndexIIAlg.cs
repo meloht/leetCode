@@ -39,5 +39,25 @@ namespace leetCode._0251_0300
             }
             return ans;
         }
+
+        public int HIndex1(int[] citations)
+        {
+            int n = citations.Length;
+            int left = 0, right = n - 1;
+            while (left <= right)
+            {
+                int mid = left + (right - left) / 2;
+                if (citations[mid] >= n - mid)
+                {
+                    right = mid - 1;
+                }
+                else
+                {
+                    left = mid + 1;
+                }
+            }
+            return n - left;
+        }
+
     }
 }
