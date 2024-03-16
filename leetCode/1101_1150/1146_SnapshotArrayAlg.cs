@@ -11,36 +11,51 @@ namespace leetCode._1101_1150
     {
         public class SnapshotArray
         {
-            List<int[]> arr = new List<int[]>();
+            List<int>[] list;
             int snapId = 0;
-            int[] nums;
-
             public SnapshotArray(int length)
             {
-                nums = new int[length];
+                list = new List<int>[length];
+                for (int i = 0; i < length; i++)
+                {
+                    list[i] = new List<int>();
+                    list[i].Add(0);
+                }
+
             }
 
             public void Set(int index, int val)
             {
-                nums[index] = val;
+                if (list[index] == null)
+                {
+                    list[index]=new List<int>();
+                }
+                while (list[index].Count <= snapId)
+                {
+                    list[index].Add(list[index].Last());
+                }
+                list[index][list[index].Count - 1] = val;
             }
 
             public int Snap()
             {
-                int id = snapId;
-                int[] nn = new int[nums.Length];
-                Array.Copy(nums, nn, nums.Length);
-                arr.Add(nn);
-
-                snapId++;
-                return id;
+                return snapId++;
             }
 
             public int Get(int index, int snap_id)
             {
-                int val = arr[snap_id][index];
-                return val;
+                List<int> item = list[index];
+
+                if (item.Count <= snap_id)
+                {
+                    return item.Last();
+                }
+                else
+                {
+                    return item[snap_id];
+                }
             }
         }
+       
     }
 }
