@@ -12,7 +12,7 @@ namespace leetCode._0351_0400
         public int MaxEnvelopes(int[][] envelopes)
         {
             Array.Sort(envelopes, MyCompare);
-          
+
             List<int> list = new List<int>();
             list.Add(envelopes[0][1]);
             for (int i = 1; i < envelopes.Length; i++)
@@ -30,12 +30,12 @@ namespace leetCode._0351_0400
             }
             return list.Count;
         }
-      
+
         private int BinarySearch(List<int> list, int t)
         {
             int left = 0;
             int right = list.Count - 1;
-            while (left < right)
+            while (left <= right)
             {
                 int mid = left + (right - left) / 2;
 
@@ -45,7 +45,7 @@ namespace leetCode._0351_0400
                 }
                 else
                 {
-                    right = mid;
+                    right = mid - 1;
                 }
             }
             return left;
