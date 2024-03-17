@@ -101,7 +101,17 @@ namespace TemplateTest
 
             int[] nums = [1, 2, 3, 4, 5, 5, 5, 5, 6, 7, 8, 9];
             int exp = 5;
-            int res = alg.BinarySearchRight(nums, 6);
+            int res = alg.BinarySearchLowerBound(nums, 6);
+            Assert.AreEqual(exp, res);
+        }
+
+        [TestMethod]
+        public void TestCase11()
+        {
+
+            int[] nums = [1, 2, 3, 4, 5, 5, 5, 5,  7, 8, 9];
+            int exp = 5;
+            int res = alg.BinarySearchLowerBound1(nums, 6);
             Assert.AreEqual(exp, res);
         }
     }

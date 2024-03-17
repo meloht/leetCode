@@ -142,25 +142,56 @@ namespace leetCodeTemplates.BinarySearch
             return low;
         }
 
+        /// <summary>
+        /// 返回最小满足num[i]>=target 的i， 如果不存在，返回len(nums)  循环结束后right+1 =left
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
 
-
-        public int BinarySearch11(int[] arr, int x)
+        public int BinarySearchLowerBound(int[] nums, int target)
         {
-            int low = 0, high = arr.Length - 1;
-            while (low < high)
+            int left = 0;
+            int right = nums.Length - 1;
+
+            while (left <= right)
             {
-                int mid = low + (high - low) / 2;
-                if (arr[mid] >= x)
+                int mid = (right - left) / 2 + left;
+
+                if (nums[mid] < target)
                 {
-                    high = mid;
+                    left = mid + 1;
                 }
                 else
                 {
-                    low = mid + 1;
+                    right = mid - 1;
                 }
             }
-            return low;
+            return nums[left];
         }
+
+        public int BinarySearchLowerBound1(int[] nums, int target)
+        {
+            int left = 0;
+            int right = nums.Length - 1;
+
+            while (left < right)
+            {
+                int mid = (right - left) / 2 + left;
+
+                if (nums[mid] < target)
+                {
+                    left = mid + 1;
+                }
+                else
+                {
+                    right = mid;
+                }
+            }
+            return nums[left];
+        }
+
+
 
     }
 }
