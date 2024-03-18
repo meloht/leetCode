@@ -11,97 +11,120 @@ namespace leetCode._0201_0250
     {
         int index = 0;
         char[] strNum;
-        public int Calculate(string s)
+        public int Calculate2(string s)
         {
             s = s.Trim();
             if (s.Length == 1)
                 return Convert.ToInt32(s);
-            strNum = s.ToCharArray();
+            strNum = s.Where(p => p != ' ').ToArray();
+            Stack<int> list = new Stack<int>();
 
-            List<string> list = new List<string>();
-            while (index < s.Length)
+            while (index < strNum.Length)
             {
-                if (s[index] == ' ')
+                if (strNum[index] == '+' || strNum[index]=='-')
                 {
-                    index++;
+                    int num = GetNum();
+                    list.Push(num);
                     continue;
                 }
-                if (char.IsDigit(s[index]))
+                else if (strNum[index] == '*' || strNum[index] == '/')
                 {
-                    var num = GetNumString();
-                    list.Add(num);
+                    int prev = list.Pop();
+                    char op = strNum[index];
+
+                    while (index < strNum.Length && (op == '*' || op == '/'))
+                    {
+                        index++;
+                        int num2 = GetNum(); 
+                        
+                        if (op == '*')
+                        {
+                            prev = prev * num2;
+                        }
+                        else
+                        {
+                            prev = prev / num2;
+                        }
+
+                        if (index < strNum.Length)
+                        {
+                            op = strNum[index];
+                        }
+                    }
+                    list.Push(prev);
                     continue;
                 }
                 else
                 {
-                    list.Add(strNum[index].ToString());
-                    index++;
+                    int num = GetNum();
+                    list.Push(num);
                 }
+
             }
 
-
-            int ans = Calc(0, 0, list);
-
-            return ans;
-        }
-        private int Calc(int num, int index, List<string> list)
-        {
-            if (index >= list.Count)
-                return num;
-            if (list[index] == "*")
-            {
-                index++;
-                int n = int.Parse(list[index]);
-                int res = n * num;
-                return Calc(res, index + 1, list);
-            }
-            else if (list[index] == "/")
-            {
-                index++;
-                int n = int.Parse(list[index]);
-                int res = num / n;
-                return Calc(res, index + 1, list);
-            }
-            else if (list[index] == "+")
-            {
-                index++;
-                int n = int.Parse(list[index]);
-                return num + Calc(n, index + 1, list);
-            }
-            else if(list[index] == "-")
-            {
-                index++;
-                int n = int.Parse(list[index]);
-                return num - Calc(n, index + 1, list);
-            }
-            else
-            {
-                int n = int.Parse(list[index]);
-                return n;
-            }
-
+            return list.Sum();
         }
 
-        private string GetNumString()
-        {
-            StringBuilder sb = new StringBuilder();
-            while (index < strNum.Length && char.IsDigit(strNum[index]))
-            {
-                sb.Append(strNum[index]);
-                index++;
-            }
-            return sb.ToString();
-        }
 
         private int GetNum()
         {
+            int op = 1;
+            if (strNum[index] == '+')
+            {
+                index++;
+            }
+            else if (strNum[index] == '-')
+            {
+                index++;
+                op = -1;
+            }
             int res = 0;
             while (index < strNum.Length && char.IsDigit(strNum[index]))
             {
                 res = res * 10 + strNum[index] - '0';
                 index++;
             }
-            return res;
+            return res * op;
         }
+
+
+        public int Calculate(string s)
+        {
+            Stack<int> stack = new Stack<int>();
+            char preSign = '+';
+            int num = 0;
+            int n = s.Length;
+            for (int i = 0; i < n; ++i)
+            {
+                if (char.IsDigit(s[i]))
+                {
+                    num = num * 10 + s[i] - '0';
+                }
+                if (!char.IsDigit(s[i]) && s[i] != ' ' || i == n - 1)
+                {
+                    switch (preSign)
+                    {
+                        case '+':
+                            stack.Push(num);
+                            break;
+                        case '-':
+                            stack.Push(-num);
+                            break;
+                        case '*':
+                            stack.Push(stack.Pop() * num);
+                            break;
+                        default:
+                            stack.Push(stack.Pop() / num);
+                            break;
+                    }
+                    preSign = s[i];
+                    num = 0;
+                }
+            }
+
+            return stack.Sum();
+        }
+
+
     }
 }

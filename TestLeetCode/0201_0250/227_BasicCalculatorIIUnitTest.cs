@@ -52,7 +52,16 @@ namespace Test._0201_0250
         public void TestCase05()
         {
             string s = "1-1+1";
-            int exp = 24;
+            int exp = 1;
+            int res = alg.Calculate(s);
+            Assert.AreEqual(exp, res);
+        }
+
+        [TestMethod]
+        public void TestCase06()
+        {
+            string s = " 3+4/-2 ";
+            int exp = 1;
             int res = alg.Calculate(s);
             Assert.AreEqual(exp, res);
         }
