@@ -65,5 +65,6 @@ namespace Test._0201_0250
             int res = alg.Calculate(s);
             Assert.AreEqual(exp, res);
         }
+
     }
 }

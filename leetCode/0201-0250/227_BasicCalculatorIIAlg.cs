@@ -11,7 +11,7 @@ namespace leetCode._0201_0250
     {
         int index = 0;
         char[] strNum;
-        public int Calculate2(string s)
+        public int Calculate(string s)
         {
             s = s.Trim();
             if (s.Length == 1)
@@ -88,7 +88,7 @@ namespace leetCode._0201_0250
         }
 
 
-        public int Calculate(string s)
+        public int Calculate1(string s)
         {
             Stack<int> stack = new Stack<int>();
             char preSign = '+';
