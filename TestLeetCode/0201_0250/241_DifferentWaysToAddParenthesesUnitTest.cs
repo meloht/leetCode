@@ -18,7 +18,8 @@ namespace Test._0201_0250
             string expression = "2-1-1";
             int[] exp = [0, 2];
             int[] res = alg.DiffWaysToCompute(expression).ToArray();
-            Assert.IsTrue(exp.SequenceEqual(res));
+            bool bl=Utils.IsSameArr(exp, res);
+            Assert.IsTrue(bl);
         }
 
         [TestMethod]
@@ -27,7 +28,8 @@ namespace Test._0201_0250
             string expression = "2*3-4*5";
             int[] exp = [-34, -14, -10, -10, 10];
             int[] res = alg.DiffWaysToCompute(expression).ToArray();
-            Assert.IsTrue(exp.SequenceEqual(res));
+            bool bl = Utils.IsSameArr(exp, res);
+            Assert.IsTrue(bl);
         }
     }
 }
