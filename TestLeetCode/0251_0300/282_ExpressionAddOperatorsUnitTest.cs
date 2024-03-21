@@ -73,5 +73,18 @@ namespace Test._0251_0300
             Assert.IsTrue(bl);
 
         }
+
+        [TestMethod]
+        public void TestCase06()
+        {
+            string num = "2147483648";
+            int target = -2147483648;
+            
+            string[] exp = [];
+            string[] res = alg.AddOperators(num, target).ToArray();
+            bool bl = Utils.IsSameArr(exp, res);
+            Assert.IsTrue(bl);
+
+        }
     }
 }
