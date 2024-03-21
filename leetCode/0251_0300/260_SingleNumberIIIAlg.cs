@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace leetCode._0201_0250
+namespace leetCode._0251_0300
 {
     public class _260_SingleNumberIIIAlg
     {

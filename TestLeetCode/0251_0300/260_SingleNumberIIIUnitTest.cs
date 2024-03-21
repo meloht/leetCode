@@ -1,11 +1,11 @@
-﻿using leetCode._0201_0250;
+﻿using leetCode._0251_0300;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Test._0201_0250
+namespace Test._0251_0300
 {
     [TestClass]
     public class _260_SingleNumberIIIUnitTest
