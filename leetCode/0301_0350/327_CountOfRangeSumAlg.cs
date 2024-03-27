@@ -8,74 +8,83 @@ namespace leetCode._0301_0350
 {
     public class _327_CountOfRangeSumAlg
     {
+
         public int CountRangeSum(int[] nums, int lower, int upper)
         {
-            var resultList = new List<int>();
-
-            Discretization(nums);
-
-            Init(nums.Length + 5);
-
-            for (int i = nums.Length - 1; i >= 0; --i)
+            long s = 0;
+            long[] sum = new long[nums.Length + 1];
+            for (int i = 0; i < nums.Length; ++i)
             {
-                var id = GetId(nums[i]);
-                resultList.Add(Query(id - 1));
-                Update(id);
+                s += nums[i];
+                sum[i + 1] = s;
             }
-
-            resultList.Reverse();
-
-            return 0;
+            return countRangeSumRecursive(sum, lower, upper, 0, sum.Length - 1);
         }
 
-
-        private int[] c;
-
-        private int[] a;
-
-        private void Init(int length)
+        public int countRangeSumRecursive(long[] sum, int lower, int upper, int left, int right)
         {
-            c = new int[length];
-            Array.Fill(c, 0);
-        }
-
-        private int LowBit(int x)
-        {
-            return x & (-x);
-        }
-
-        private void Update(int pos)
-        {
-            while (pos < c.Length)
+            if (left == right)
             {
-                c[pos] += 1;
-                pos += LowBit(pos);
+                return 0;
             }
-        }
-
-        private int Query(int pos)
-        {
-            int ret = 0;
-            while (pos > 0)
+            else
             {
-                ret += c[pos];
-                pos -= LowBit(pos);
+                int mid = (left + right) / 2;
+                int n1 = countRangeSumRecursive(sum, lower, upper, left, mid);
+                int n2 = countRangeSumRecursive(sum, lower, upper, mid + 1, right);
+                int ret = n1 + n2;
+
+                // 首先统计下标对的数量
+                int i = left;
+                int l = mid + 1;
+                int r = mid + 1;
+                while (i <= mid)
+                {
+                    while (l <= right && sum[l] - sum[i] < lower)
+                    {
+                        l++;
+                    }
+                    while (r <= right && sum[r] - sum[i] <= upper)
+                    {
+                        r++;
+                    }
+                    ret += r - l;
+                    i++;
+                }
+
+                // 随后合并两个排序数组
+                long[] sorted = new long[right - left + 1];
+                int p1 = left, p2 = mid + 1;
+                int p = 0;
+                while (p1 <= mid || p2 <= right)
+                {
+                    if (p1 > mid)
+                    {
+                        sorted[p++] = sum[p2++];
+                    }
+                    else if (p2 > right)
+                    {
+                        sorted[p++] = sum[p1++];
+                    }
+                    else
+                    {
+                        if (sum[p1] < sum[p2])
+                        {
+                            sorted[p++] = sum[p1++];
+                        }
+                        else
+                        {
+                            sorted[p++] = sum[p2++];
+                        }
+                    }
+                }
+                for (int j = 0; j < sorted.Length; j++)
+                {
+                    sum[left + j] = sorted[j];
+                }
+                return ret;
             }
-
-            return ret;
         }
 
-        private void Discretization(int[] nums)
-        {
-            a = (int[])nums.Clone();
-            var hashSet = new HashSet<int>(a);
-            a = hashSet.ToArray();
-            Array.Sort(a);
-        }
-
-        private int GetId(int x)
-        {
-            return Array.BinarySearch(a, x) + 1;
-        }
     }
 }
