@@ -37,7 +37,7 @@ namespace Test._2201_2250
         {
             string nums = File.ReadAllText(@"TestData/2201_2250/2246/parent.txt");
             string s = File.ReadAllText(@"TestData/2201_2250/2246/s.txt");
-
+          
          
             int[] parent = nums.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(p => int.Parse(p)).ToArray();
 
@@ -45,5 +45,6 @@ namespace Test._2201_2250
             int res = alg.LongestPath(parent, s);
             Assert.AreEqual(exp, res);
         }
+
     }
 }
