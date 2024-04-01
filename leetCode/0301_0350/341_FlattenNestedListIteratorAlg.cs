@@ -10,64 +10,44 @@ namespace leetCode._0301_0350
     {
         public class NestedIterator
         {
-            Stack<NodeData> stack = new Stack<NodeData>();
-            IList<NestedInteger> _nestedList;
+            Stack<NestedInteger> stack;
+
             public NestedIterator(IList<NestedInteger> nestedList)
             {
-                _nestedList = nestedList;
-                stack.Push(new NodeData(_nestedList, 0));
+                stack = new Stack<NestedInteger>();
+                for (int i = nestedList.Count - 1; i >= 0; i--)
+                {
+                    stack.Push(nestedList[i]);
+                }
+
             }
 
             public bool HasNext()
             {
-                if (stack.Count > 0)
+                while (stack.Count > 0)
                 {
-                    return true;
+                    if (stack.Peek().IsInteger())
+                    {
+                        return true;
+                    }
+                    var item = stack.Pop();
+                    var ls = item.GetList();
+                    for (int i = ls.Count - 1; i >= 0; i--)
+                    {
+                        stack.Push(ls[i]);
+                    }
                 }
                 return false;
             }
 
             public int Next()
             {
-                var item = stack.Peek();
-                var next = item.Data[item.Index];
-                if (next.IsInteger())
-                {
-                    if (item.Index == item.Data.Count - 1)
-                    {
-                        stack.Pop();
-                    }
-                    else
-                    {
-                        item.Index++;
-                    }
-
-                    return next.GetInteger();
-                }
-                else
-                {
-                    while (next.IsInteger() == false)
-                    {
-                        stack.Push(new NodeData(next.GetList(), 1));
-                        next = next.GetList()[0];
-                    }
-
-                    return next.GetInteger();
-                }
+                var num = stack.Pop().GetInteger();
+                return num;
             }
         }
 
-        public class NodeData
-        {
-            public IList<NestedInteger> Data;
-            public int Index;
 
-            public NodeData(IList<NestedInteger> item, int i)
-            {
-                Data = item;
-                Index = i;
-            }
-        }
 
         public interface NestedInteger
         {
@@ -89,7 +69,7 @@ namespace leetCode._0301_0350
         public class NestedIntegerImpl : NestedInteger
         {
             private int num;
-            private List<NestedInteger> list;
+            private List<NestedInteger> list = new List<NestedInteger>();
             private bool isNum = false;
 
             public NestedIntegerImpl(int n)
@@ -108,7 +88,7 @@ namespace leetCode._0301_0350
                 list = new List<NestedInteger>(ns.Length);
                 foreach (var item in ns)
                 {
-                    list.Add(new NestedIntegerImpl(item, false));
+                    list.Add(new NestedIntegerImpl(item, true));
                 }
             }
             public int GetInteger()
@@ -124,6 +104,16 @@ namespace leetCode._0301_0350
             public bool IsInteger()
             {
                 return isNum;
+            }
+
+            public override string ToString()
+            {
+                if (list != null)
+                {
+                    string s = string.Join(",", list);
+                    return s;
+                }
+                return num.ToString();
             }
 
             public static NestedInteger Build(int num)

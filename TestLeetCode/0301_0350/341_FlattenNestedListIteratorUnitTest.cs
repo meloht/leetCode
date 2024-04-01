@@ -29,7 +29,44 @@ namespace Test._0301_0350
             Assert.IsTrue(exp.SequenceEqual(res.ToArray()));
         }
 
-       
+
+        [TestMethod]
+        public void TestCase02()
+        {
+            IList<NestedInteger> nestedList = new List<NestedInteger>();
+            nestedList.Add(NestedIntegerImpl.Build([]));
+            nestedList.Add(NestedIntegerImpl.Build(3));
+   
+            _341_FlattenNestedListIteratorAlg.NestedIterator alg = new NestedIterator(nestedList);
+            int[] exp = [3];
+            List<int> res = new List<int>();
+            while (alg.HasNext())
+            {
+                res.Add(alg.Next());
+            }
+
+            Assert.IsTrue(exp.SequenceEqual(res.ToArray()));
+        }
+
+        [TestMethod]
+        public void TestCase03()
+        {
+            IList<NestedInteger> nestedList = new List<NestedInteger>();
+            nestedList.Add(NestedIntegerImpl.Build(3));
+            nestedList.Add(NestedIntegerImpl.Build([]));
+
+            _341_FlattenNestedListIteratorAlg.NestedIterator alg = new NestedIterator(nestedList);
+            int[] exp = [3];
+            List<int> res = new List<int>();
+            while (alg.HasNext())
+            {
+                res.Add(alg.Next());
+            }
+
+            Assert.IsTrue(exp.SequenceEqual(res.ToArray()));
+        }
+
+
 
 
 
