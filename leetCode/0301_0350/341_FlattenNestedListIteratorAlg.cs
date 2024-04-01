@@ -10,12 +10,12 @@ namespace leetCode._0301_0350
     {
         public class NestedIterator
         {
-            Stack<Tuple<NestedInteger, int>> stack = new Stack<Tuple<NestedInteger, int>>();
+            Stack<NodeData> stack = new Stack<NodeData>();
             IList<NestedInteger> _nestedList;
             public NestedIterator(IList<NestedInteger> nestedList)
             {
                 _nestedList = nestedList;
-                stack.Push(new Tuple<NestedInteger, int>(_nestedList[0], 0));
+                stack.Push(new NodeData(_nestedList, 0));
             }
 
             public bool HasNext()
@@ -29,15 +29,43 @@ namespace leetCode._0301_0350
 
             public int Next()
             {
-                var item=stack.Peek();
-                if (item.Item1.IsInteger()) 
+                var item = stack.Peek();
+                var next = item.Data[item.Index];
+                if (next.IsInteger())
                 {
-                    stack.Pop();
-                  
-                    return item.Item1.GetInteger();
+                    if (item.Index == item.Data.Count - 1)
+                    {
+                        stack.Pop();
+                    }
+                    else
+                    {
+                        item.Index++;
+                    }
+
+                    return next.GetInteger();
                 }
-                   
-                return 0;
+                else
+                {
+                    while (next.IsInteger() == false)
+                    {
+                        stack.Push(new NodeData(next.GetList(), 1));
+                        next = next.GetList()[0];
+                    }
+
+                    return next.GetInteger();
+                }
+            }
+        }
+
+        public class NodeData
+        {
+            public IList<NestedInteger> Data;
+            public int Index;
+
+            public NodeData(IList<NestedInteger> item, int i)
+            {
+                Data = item;
+                Index = i;
             }
         }
 
