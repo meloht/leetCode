@@ -10,7 +10,7 @@ namespace leetCode._0301_0350
     {
         int[][] rec;
         int[] val;
-        public int MaxCoins(int[] nums)
+        public int MaxCoins1(int[] nums)
         {
             int len = nums.Length;
             val = new int[len + 2];
@@ -48,6 +48,32 @@ namespace leetCode._0301_0350
                 rec[left][right] = Math.Max(rec[left][right], sum);
             }
             return rec[left][right];
+        }
+
+        public int MaxCoins(int[] nums)
+        {
+            int n = nums.Length;
+            int[,] rec = new int[n + 2, n + 2];
+            int[] val = new int[n + 2];
+            val[0] = val[n + 1] = 1;
+            for (int i = 1; i <= n; i++)
+            {
+                val[i] = nums[i - 1];
+            }
+            for (int i = n - 1; i >= 0; i--)
+            {
+                for (int j = i + 2; j <= n + 1; j++)
+                {
+                    for (int k = i + 1; k < j; k++)
+                    {
+                        int sum = val[i] * val[k] * val[j];
+                        sum += rec[i, k] + rec[k, j];
+                        rec[i, j] = Math.Max(rec[i, j], sum);
+                    }
+                }
+            }
+            return rec[0, n + 1];
+
         }
     }
 }
