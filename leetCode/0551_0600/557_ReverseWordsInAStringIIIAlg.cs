@@ -8,7 +8,7 @@ namespace leetCode._0551_0600
 {
     public class _557_ReverseWordsInAStringIIIAlg
     {
-        public string ReverseWords(string s)
+        public string ReverseWords1(string s)
         {
             s = " " + s;
             char[] arr = s.ToCharArray();
@@ -47,7 +47,7 @@ namespace leetCode._0551_0600
             }
         }
 
-        public string ReverseWords1(string s)
+        public string ReverseWords(string s)
         {
             StringBuilder ret = new StringBuilder();
             int length = s.Length;
