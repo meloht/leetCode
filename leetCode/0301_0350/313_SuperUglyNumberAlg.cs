@@ -10,6 +10,10 @@ namespace leetCode._0301_0350
     {
         public int NthSuperUglyNumber(int n, int[] primes)
         {
+            if (n == 1)
+                return 1;
+            int[] dp=new int[n+1];
+           
             return 0;
         }
     }
