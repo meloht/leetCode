@@ -10,7 +10,7 @@ namespace leetCode._0501_0550
     {
         public int FindLUSlength(string a, string b)
         {
-            if(a!=b)
+            if (a != b)
                 return Math.Max(a.Length, b.Length);
             return -1;
         }
