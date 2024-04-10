@@ -10,47 +10,27 @@ namespace leetCode._0551_0600
 {
     public class _572_SubtreeOfAnotherTreeAlg
     {
-        TreeNode _subRoot;
         public bool IsSubtree(TreeNode root, TreeNode subRoot)
         {
-            _subRoot = subRoot;
-
             return Dfs(root, subRoot);
         }
         private bool Dfs(TreeNode root, TreeNode subRoot)
         {
             if (root == null)
-            {
-                if (subRoot == null)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                if (subRoot == null)
-                    return false;
-            }
+                return false;
 
-            var tree = subRoot;
-            if (root.val != subRoot.val)
-            {
-                tree = _subRoot;
-                bool l = Dfs(root.left, tree);
-                bool r = Dfs(root.right, tree);
-                return l || r;
-            }
-            else
-            {
-                bool l = Dfs(root.left, tree.left);
-                bool r = Dfs(root.right, tree.right);
-                return l && r;
-            }
+            return Check(root, subRoot) || Dfs(root.left, subRoot) || Dfs(root.right, subRoot);
 
+        }
+
+        private bool Check(TreeNode root, TreeNode subRoot)
+        {
+            if (root == null && subRoot == null)
+                return true;
+            if (root == null || subRoot == null || root.val != subRoot.val)
+                return false;
+
+            return Check(root.left, subRoot.left) && Check(root.right, subRoot.right);
         }
     }
 }
