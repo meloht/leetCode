@@ -13,16 +13,7 @@ namespace leetCode._0701_0750
             List<int> numbers = new List<int>();
             for (int i = left; i <= right; i++)
             {
-                var list = GetNum(i);
-                bool bl = true;
-                foreach (var item in list)
-                {
-                    if (item==0||i % item != 0)
-                    {
-                        bl = false;
-                        break;
-                    }
-                }
+                bool bl = GetNum(i);
                 if (bl)
                 {
                     numbers.Add(i);
@@ -31,22 +22,22 @@ namespace leetCode._0701_0750
             return numbers;
         }
 
-        private List<int> GetNum(int num)
+        private bool GetNum(int num)
         {
-            List<int> list = new List<int>();
             if (num == 0)
             {
-                list.Add(0);
-                return list;
+                return false;
             }
             int n = num;
             while (n > 0)
             {
-                list.Add(n % 10);
+                int nn = n % 10;
+                if (nn == 0 || num % nn != 0)
+                    return false;
                 n = n / 10;
             }
-           
-            return list;
+
+            return true;
         }
     }
 }
