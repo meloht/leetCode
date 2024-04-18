@@ -18,7 +18,7 @@ namespace Test._0801_0850
             char c = 'e';
             int[] exp = [3, 2, 1, 0, 1, 0, 0, 1, 2, 2, 1, 0];
             int[] res = alg.ShortestToChar(s, c);
-            Assert.AreEqual(exp, res);
+            Assert.IsTrue(exp.SequenceEqual(res));
         }
 
         [TestMethod]
@@ -28,7 +28,17 @@ namespace Test._0801_0850
             char c = 'b';
             int[] exp = [3, 2, 1, 0];
             int[] res = alg.ShortestToChar(s, c);
-            Assert.AreEqual(exp, res);
+            Assert.IsTrue(exp.SequenceEqual(res));
+        }
+
+        [TestMethod]
+        public void TestCase03()
+        {
+            string s = "aaba";
+            char c = 'b';
+            int[] exp = [2, 1, 0, 1];
+            int[] res = alg.ShortestToChar(s, c);
+            Assert.IsTrue(exp.SequenceEqual(res));
         }
     }
 }
