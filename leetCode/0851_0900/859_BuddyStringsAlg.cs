@@ -30,11 +30,12 @@ namespace leetCode._0851_0900
                     {
                         num++;
                     }
+                    if (num > 2)
+                    {
+                        return false;
+                    }
                 }
-                if (num > 2)
-                {
-                    return false;
-                }
+               
                 return true;
             }
             return false;
