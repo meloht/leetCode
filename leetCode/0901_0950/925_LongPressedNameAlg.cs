@@ -79,7 +79,7 @@ namespace leetCode._0901_0950
         }
 
 
-        public bool isLongPressedName(string name, string typed)
+        public bool IsLongPressedName(string name, string typed)
         {
             int i = 0, j = 0;
             while (j < typed.Length)
