@@ -16,7 +16,17 @@ namespace leetCode
         {
             return b != 0 ? gcd(b, a % b) : a;
         }
+        public int Gcd(int x, int y)
+        {
+            return x == 0 ? y : Gcd(y % x, x);
+        }
 
+        /// <summary>
+        /// 最大公约数
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
         public static int GCD(int a, int b)
         {
             while (b != 0)

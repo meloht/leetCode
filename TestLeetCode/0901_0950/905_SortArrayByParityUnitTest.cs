@@ -1,11 +1,12 @@
 ﻿using leetCode._0851_0900;
+using leetCode._0901_0950;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Test._0851_0900
+namespace Test._0901_0950
 {
     [TestClass]
     public class _905_SortArrayByParityUnitTest
