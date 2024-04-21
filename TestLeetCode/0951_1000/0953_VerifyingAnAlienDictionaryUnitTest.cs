@@ -1,16 +1,17 @@
 ﻿using leetCode._0901_0950;
+using leetCode._0951_1000;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Test._0901_0950
+namespace Test._0951_1000
 {
     [TestClass]
-    public class _953_VerifyingAnAlienDictionaryUnitTest
+    public class _0953_VerifyingAnAlienDictionaryUnitTest
     {
-        _953_VerifyingAnAlienDictionaryAlg alg = new _953_VerifyingAnAlienDictionaryAlg();
+        _0953_VerifyingAnAlienDictionaryAlg alg = new _0953_VerifyingAnAlienDictionaryAlg();
 
         [TestMethod]
         public void TestCase01()

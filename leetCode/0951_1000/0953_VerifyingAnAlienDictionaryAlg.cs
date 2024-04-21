@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace leetCode._0901_0950
+namespace leetCode._0951_1000
 {
-    public class _953_VerifyingAnAlienDictionaryAlg
+    public class _0953_VerifyingAnAlienDictionaryAlg
     {
         public bool IsAlienSorted(string[] words, string order)
         {
