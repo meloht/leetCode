@@ -10,10 +10,10 @@ namespace leetCode._0951_1000
     {
         public bool IsAlienSorted(string[] words, string order)
         {
-            Dictionary<char, int> dict = new Dictionary<char, int>();
+            int[] dict = new int[26];
             for (int i = 0; i < order.Length; i++)
             {
-                dict.Add(order[i], i);
+                dict[order[i] - 'a'] = i;
             }
 
             for (int i = 1; i < words.Length; i++)
@@ -22,8 +22,8 @@ namespace leetCode._0951_1000
                 bool bl = false;
                 for (int j = 0; j < len; j++)
                 {
-                    int prev = dict[words[i - 1][j]];
-                    int curr = dict[words[i][j]];
+                    int prev = dict[words[i - 1][j] - 'a'];
+                    int curr = dict[words[i][j] - 'a'];
                     if (prev > curr)
                     {
                         return false;
