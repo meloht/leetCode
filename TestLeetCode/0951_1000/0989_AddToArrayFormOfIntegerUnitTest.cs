@@ -39,7 +39,7 @@ namespace Test._0951_1000
         {
             int[] num = [2, 1, 5];
             int k = 806;
-            int[] exp = [4, 5, 5];
+            int[] exp = [1, 0, 2, 1];
             int[] res = alg.AddToArrayForm(num, k).ToArray();
             Assert.IsTrue(exp.SequenceEqual(res));
 
