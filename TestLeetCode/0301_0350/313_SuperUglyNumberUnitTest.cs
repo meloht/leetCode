@@ -31,5 +31,15 @@ namespace Test._0301_0350
             int res = alg.NthSuperUglyNumber(n, primes);
             Assert.AreEqual(exp, res);
         }
+
+        [TestMethod]
+        public void TestCase03()
+        {
+            int n = 15;
+            int[] primes = [3, 5, 7, 11, 19, 23, 29, 41, 43, 47];
+            int exp = 35;
+            int res = alg.NthSuperUglyNumber(n, primes);
+            Assert.AreEqual(exp, res);
+        }
     }
 }

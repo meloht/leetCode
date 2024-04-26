@@ -12,9 +12,29 @@ namespace leetCode._0301_0350
         {
             if (n == 1)
                 return 1;
-            int[] dp=new int[n+1];
-           
-            return 0;
+
+            long[] dp = new long[n + 1];
+            dp[1] = 1;
+            int[] arr = new int[primes.Length];
+            long[] nums = new long[primes.Length];
+            Array.Fill(nums, 1);
+          
+
+            for (int i = 1; i <= n; i++)
+            {
+                long minNum = nums.Min();
+                dp[i] = minNum;
+                for (int j = 0; j < arr.Length; j++)
+                {
+                    if (nums[j] == minNum)
+                    {
+                        arr[j]++;
+                        nums[j] = dp[arr[j]] * primes[j];
+                    }
+                }
+
+            }
+            return (int)dp[n];
         }
     }
 }
