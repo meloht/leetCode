@@ -11,29 +11,38 @@ namespace leetCode._0301_0350
         public string RemoveDuplicateLetters(string s)
         {
             int[] arr = new int[26];
-            List<int> list = new List<int>();
+            bool[] used = new bool[26];
             foreach (var item in s)
             {
                 int i = item - 'a';
                 arr[i]++;
-                if (arr[i] > 1)
-                {
-                    list.Add(i);
-                }
-            }
-            list.Sort();
 
+            }
+            StringBuilder sb = new StringBuilder();
             for (int i = 0; i < s.Length; i++)
             {
-                int k = s[i] - 'a';
-                if (arr[k] > 1)
+                int index = s[i] - 'a';
+                if (used[index] == false)
                 {
-                    
+                    while (sb.Length > 0 && sb[sb.Length - 1] > s[i])
+                    {
+                        if (arr[sb[sb.Length - 1] - 'a'] > 0)
+                        {
+                            used[sb[sb.Length - 1] - 'a'] = false;
+                            sb.Remove(sb.Length - 1, 1);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    used[index] = true;
+                    sb.Append(s[i]);
                 }
+                arr[index]--;
             }
 
-
-            return "";
+            return sb.ToString();
         }
     }
 }
