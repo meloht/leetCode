@@ -26,7 +26,7 @@ namespace Test._0301_0350
         public void TestCase02()
         {
             int[] nums1 = [6, 7], nums2 = [6, 0, 4];
-            int k = 3;
+            int k = 5;
             int[] exp = [6, 7, 6, 0, 4];
             int[] res = alg.MaxNumber(nums1, nums2, k);
             Assert.IsTrue(exp.SequenceEqual(res));
