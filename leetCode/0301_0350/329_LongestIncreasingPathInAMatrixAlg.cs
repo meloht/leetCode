@@ -9,39 +9,29 @@ namespace leetCode._0301_0350
     public class _329_LongestIncreasingPathInAMatrixAlg
     {
         int[][] dir = [[0, 1], [0, -1], [1, 0], [-1, 0]];
-        int ans = 0;
+
         public int LongestIncreasingPath(int[][] matrix)
         {
-          
             int m = matrix.Length;
             int n = matrix[0].Length;
-           
+            int ans = 0;
+            int[,] memo = new int[m, n];
             for (int i = 0; i < m; i++)
             {
                 for (int j = 0; j < n; j++)
                 {
-
-                    bool[,] vis = new bool[m, n];
-                    Dfs(matrix, -1, 0, vis, i, j);
+                    ans = Math.Max(ans, Dfs(matrix, memo, i, j));
                 }
             }
             return ans;
         }
-        private void Dfs(int[][] matrix, int prev,int len, bool[,] vis, int i, int j)
+        private int Dfs(int[][] matrix, int[,] memo, int i, int j)
         {
-            if (InRange(i, j, matrix) == false)
-            {
-                return;
-            }
-            if (vis[i, j])
-                return;
-            if (matrix[i][j] <= prev)
-                return;
-            vis[i, j] = true;
+            if (memo[i, j] != 0)
+                return memo[i, j];
 
-          
-            len++;
-            ans = Math.Max(ans, len);
+            memo[i, j]++;
+
             foreach (var item in dir)
             {
                 int x = i + item[0];
@@ -50,10 +40,14 @@ namespace leetCode._0301_0350
                 {
                     continue;
                 }
-                Dfs(matrix, matrix[i][j], len, vis, x, y);
+                if (matrix[x][y] > matrix[i][j])
+                {
+                    memo[i, j] = Math.Max(Dfs(matrix, memo, x, y) + 1, memo[i, j]);
+                }
+
             }
 
-            vis[i, j] = false;
+            return memo[i, j];
 
         }
         private bool InRange(int i, int j, int[][] matrix)
