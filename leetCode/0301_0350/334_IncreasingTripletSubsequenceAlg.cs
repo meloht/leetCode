@@ -10,19 +10,26 @@ namespace leetCode._0301_0350
     {
         public bool IncreasingTriplet(int[] nums)
         {
-            for (int i = 0; i < nums.Length - 2; i++)
-            {
-                for (int j = i + 1; j < nums.Length - 1; j++)
-                {
-                    if (nums[j] <= nums[i])
-                        continue;
+            if (nums.Length < 3)
+                return false;
+            int first = nums[0];
+            int second = int.MaxValue;
 
-                    for (int k = j + 1; k < nums.Length; k++)
-                    {
-                        if (nums[k] > nums[j])
-                            return true;
-                    }
+            for (int i = 1; i < nums.Length; i++)
+            {
+                if (nums[i] > second)
+                {
+                    return true;
                 }
+                else if (nums[i] > first)
+                {
+                    second = nums[i];
+                }
+                else
+                {
+                    first = nums[i];
+                }
+
             }
             return false;
         }
