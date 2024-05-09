@@ -61,7 +61,6 @@ namespace leetCode._0301_0350
                     if (curr.Children[ch - 'a'] == null)
                     {
                         break;
-
                     }
                     curr = curr.Children[ch - 'a'];
                 }
