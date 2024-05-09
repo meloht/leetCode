@@ -10,7 +10,7 @@ namespace leetCode._0301_0350
     {
         public IList<IList<int>> PalindromePairs(string[] words)
         {
-
+            
             return null;
         }
     }
