@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace leetCode._2901_3000
+namespace leetCode._2901_2950
 {
     public class _2923_FindChampionIAlg
     {

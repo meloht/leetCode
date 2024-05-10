@@ -1,4 +1,4 @@
-﻿using leetCode._2901_3000;
+﻿using leetCode._2951_3000;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Test._2901_3000
+namespace Test._2951_3000
 {
     [TestClass]
     public class _2999_CountTheNumberOfPowerfulIntegersUnitTest

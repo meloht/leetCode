@@ -1,11 +1,11 @@
-﻿using leetCode._2901_3000;
+﻿using leetCode._2901_2950;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Test._2901_3000
+namespace Test._2901_2950
 {
     [TestClass]
     public class _2908_MinimumSumOfMountainTripletsIUnitTest
