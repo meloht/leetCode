@@ -34,5 +34,30 @@ namespace Test._0351_0400
             int res = alg.KthSmallest(matrix, k);
             Assert.AreEqual(exp, res);
         }
+
+        [TestMethod]
+        public void TestCase03()
+        {
+            int[][] matrix = [
+                [1, 2], 
+                [3, 3]];
+            int k = 2;
+            int exp = 2;
+            int res = alg.KthSmallest(matrix, k);
+            Assert.AreEqual(exp, res);
+        }
+
+        [TestMethod]
+        public void TestCase04()
+        {
+            int[][] matrix = [
+                [1, 3, 5],
+                [6, 7, 12],
+                [11, 14, 14]];
+            int k = 3;
+            int exp = 5;
+            int res = alg.KthSmallest(matrix, k);
+            Assert.AreEqual(exp, res);
+        }
     }
 }
