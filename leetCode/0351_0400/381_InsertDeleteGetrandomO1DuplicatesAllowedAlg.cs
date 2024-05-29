@@ -11,7 +11,7 @@ namespace leetCode._0351_0400
         public class RandomizedCollection
         {
             Random random = new Random();
-            Dictionary<int, List<int>> dict = new Dictionary<int, List<int>>();
+            Dictionary<int, HashSet<int>> dict = new Dictionary<int, HashSet<int>>();
             List<int> list = new List<int>();
             public RandomizedCollection()
             {
@@ -39,22 +39,23 @@ namespace leetCode._0351_0400
                 if (dict.ContainsKey(val))
                 {
                     var listIndex = dict[val];
-                    int index = listIndex[listIndex.Count - 1];
+                    int index = listIndex.First();
+                    int lastNum = list[list.Count - 1];
+                    list[index] = lastNum;
+                    dict[val].Remove(index);
 
-                    list[index] = list[list.Count - 1];
-
-                    var listNum = dict[list[index]];
-                    listNum[listNum.Count - 1] = index;
-                    listNum.Sort();
-
-                    list.RemoveAt(list.Count - 1);
-
-                    dict[val].RemoveAt(listIndex.Count - 1);
+                    var listNum = dict[lastNum];
+                    listNum.Remove(list.Count - 1);
+                    if (index < list.Count - 1)
+                    {
+                        listNum.Add(index);
+                    }
+                  
                     if (dict[val].Count == 0)
                     {
                         dict.Remove(val);
                     }
-
+                    list.RemoveAt(list.Count - 1);
                     return true;
                 }
 

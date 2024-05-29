@@ -75,5 +75,26 @@ namespace Test._0351_0400
 
 
         }
+
+        [TestMethod]
+        public void TestCase05()
+        {
+            RandomizedCollection collection = new RandomizedCollection();
+            collection.Insert(1);
+            collection.Insert(1);
+            collection.Insert(2);
+            collection.Insert(2);
+            collection.Insert(2);
+
+            collection.Remove(1);
+            collection.Remove(1);
+            collection.Remove(2);
+            collection.Insert(1);
+            collection.Remove(2);
+
+            collection.GetRandom();
+
+
+        }
     }
 }
