@@ -26,7 +26,7 @@ namespace Test._3001_3050
         public void TestCase02()
         {
             int[] nums = [3, 2, 6, 1, 4];
-            int exp = 2;
+            int exp = 1;
             int res = alg.MaxOperations(nums);
             Assert.AreEqual(exp, res);
         }
