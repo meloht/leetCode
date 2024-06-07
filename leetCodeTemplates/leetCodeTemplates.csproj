@@ -35,11 +35,12 @@
     <Compile Include="..\leetCode\1551_1600\1579_RemoveMaxNumberOfEdgesToKeepGraphFullyTraversableAlg.cs" Link="并查集\1579_RemoveMaxNumberOfEdgesToKeepGraphFullyTraversableAlg.cs" />
     <Compile Include="..\leetCode\1601_1650\1631_PathWithMinimumEffortAlg.cs" Link="并查集\1631_PathWithMinimumEffortAlg.cs" />
     <Compile Include="..\leetCode\1701_1750\1742_MaximumNumberOfBallsInABoxAlg.cs" Link="数位DP\1742_MaximumNumberOfBallsInABoxAlg.cs" />
+	<Compile Include="..\leetCode\2951_3000\2999_CountTheNumberOfPowerfulIntegersAlg.cs" Link="数位DP\2999_CountTheNumberOfPowerfulIntegersAlg.cs" />
     <Compile Include="..\leetCode\2351_2400\2376_CountSpecialIntegersAlg.cs" Link="数位DP\2376_CountSpecialIntegersAlg.cs" />
     <Compile Include="..\leetCode\2701_2750\2719_CountOfIntegersAlg.cs" Link="数位DP\2719_CountOfIntegersAlg.cs" />
     <Compile Include="..\leetCode\2801_2850\2801_CountSteppingNumbersInRangeAlg.cs" Link="数位DP\2801_CountSteppingNumbersInRangeAlg.cs" />
     <Compile Include="..\leetCode\2801_2850\2827_NumberOfBeautifulIntegersInTheRangeAlg.cs" Link="数位DP\2827_NumberOfBeautifulIntegersInTheRangeAlg.cs" />
-    <Compile Include="..\leetCode\2901_3000\2999_CountTheNumberOfPowerfulIntegersAlg.cs" Link="数位DP\2999_CountTheNumberOfPowerfulIntegersAlg.cs" />
+    <Compile Include="..\leetCode\3051_3100\3072_DistributeElementsIntoTwoArraysIIAlg.cs" Link="树状数组\3072_DistributeElementsIntoTwoArraysIIAlg.cs" />
     <Compile Include="..\leetCode\InterviewQuestion\17_06_NumberOf2sInRangeLcciAlg.cs" Link="数位DP\17_06_NumberOf2sInRangeLcciAlg.cs" />
   </ItemGroup>
 
