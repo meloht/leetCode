@@ -24,7 +24,7 @@ namespace leetCode._0401_0450
 
             for (int i = 1; i < n; i++)
             {
-                for (int j = i-1; j >=0; j--)
+                for (int j = i - 1; j >= 0; j--)
                 {
                     int k = stones[i] - stones[j];
                     if (k > j + 1)
@@ -40,7 +40,7 @@ namespace leetCode._0401_0450
             }
             return false;
         }
-       
+
 
     }
 }
