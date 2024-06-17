@@ -144,16 +144,27 @@ namespace leetCode._0401_0450
                 ans++;
                 numCnt++;
             }
+            int num = lowDec + numDec + upDec;
             if (len < 6)
             {
-                ans += 6 - len;
+                int n = 6 - len;
+                if (n >= num)
+                {
+                    num = 0;
+                }
+                else
+                {
+                    num -= n;
+                   
+                }
+                ans += n;
             }
             else if (len > 20)
             {
                 ans += len - 20;
             }
 
-            ans += (lowDec + numDec + upDec);
+            ans += num;
 
 
             return ans;
