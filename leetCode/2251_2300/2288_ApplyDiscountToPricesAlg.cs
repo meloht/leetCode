@@ -49,7 +49,7 @@ namespace leetCode._2251_2300
                     i = idx;
                     num = num - num * (d / 100);
                     num = Math.Round(num, 2);
-                    sb.Append(num.ToString("0.00"));
+                    sb.Append(num.ToString("F"));
                 }
             }
             return sb.ToString();
