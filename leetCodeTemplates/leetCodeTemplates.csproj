@@ -13,6 +13,7 @@
     <Compile Include="..\leetCode\0301_0350\307_RangeSumQueryMutableAlg.cs" Link="线段树\307_RangeSumQueryMutableAlg.cs" />
     <Compile Include="..\leetCode\0351_0400\357_CountNumbersWithUniqueDigitsAlg.cs" Link="数位DP\357_CountNumbersWithUniqueDigitsAlg.cs" />
     <Compile Include="..\leetCode\0351_0400\399_EvaluateDivisionAlg.cs" Link="并查集\399_EvaluateDivisionAlg.cs" />
+    <Compile Include="..\leetCode\0401_0450\421_MaximumXorOfTwoNumbersInAnArrayAlg.cs" Link="位运算\421_MaximumXorOfTwoNumbersInAnArrayAlg.cs" />
     <Compile Include="..\leetCode\0401_0450\441_ArrangingCoinsAlg.cs" Link="二分查找\441_ArrangingCoinsAlg.cs" />
     <Compile Include="..\leetCode\0501_0550\547_NumberOfProvincesAlg.cs" Link="并查集\547_NumberOfProvincesAlg.cs" />
     <Compile Include="..\leetCode\0551_0600\600_NonNegativeIntegersWithoutConsecutiveOnesAlg.cs" Link="数位DP\600_NonNegativeIntegersWithoutConsecutiveOnesAlg.cs" />
