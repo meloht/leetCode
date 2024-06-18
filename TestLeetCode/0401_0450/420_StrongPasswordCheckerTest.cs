@@ -66,5 +66,33 @@ namespace Test._0401_0450
             Assert.AreEqual(exp, res);
         }
 
+        [TestMethod]
+        public void TestCase07()
+        {
+            string password = "1111111111";
+            int exp = 3;
+            int res = alg.StrongPasswordChecker(password);
+            Assert.AreEqual(exp, res);
+        }
+
+        [TestMethod]
+        public void TestCase08()
+        {
+            string password = "bbaaaaaaaaaaaaaaacccccc";
+            int exp = 8;
+            int res = alg.StrongPasswordChecker(password);
+            Assert.AreEqual(exp, res);
+        }
+
+        [TestMethod]
+        public void TestCase09()
+        {
+            string password = "aaaaAAAAAA000000123456";
+            int exp = 5;
+            int res = alg.StrongPasswordChecker(password);
+            Assert.AreEqual(exp, res);
+        }
+
+
     }
 }
