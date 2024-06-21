@@ -41,9 +41,10 @@ namespace leetCode._0401_0450
             {
                 if (dict.ContainsKey(key))
                 {
-                    dict[key].Count--;
-                    Update(dict[key]);
-                    if (dict[key].Count <= 0)
+                    var node = dict[key];
+                    node.Count--;
+                    Update(node);
+                    if (node.Count <= 0)
                     {
                         dict.Remove(key);
                     }
@@ -54,7 +55,7 @@ namespace leetCode._0401_0450
 
             public string GetMaxKey()
             {
-                if (head !=null)
+                if (head != null)
                 {
                     return head.Key;
                 }
@@ -63,7 +64,7 @@ namespace leetCode._0401_0450
 
             public string GetMinKey()
             {
-                if (end!=null)
+                if (end != null)
                 {
                     return end.Key;
                 }
@@ -99,11 +100,17 @@ namespace leetCode._0401_0450
                         if (node.Prev == null)
                         {
                             head = null;
+                            end = null;
+                        }
+                        else
+                        {
+                            node.Prev.Next = null;
                         }
                     }
                     else if (node.Prev == null)
                     {
                         head = node.Next;
+                        node.Prev = null;
                     }
                     else
                     {
@@ -112,35 +119,68 @@ namespace leetCode._0401_0450
                     }
                     return;
                 }
-                while (node.Prev != null && node.Count > node.Prev.Count)
-                {
-                    var tempPre = node.Prev.Prev;
-                    var tempNext = node.Next;
 
-                    if (tempPre == null)
+                NodeData nodeCurr = node;
+                while (nodeCurr.Prev != null && nodeCurr.Count > nodeCurr.Prev.Count)
+                {
+                    var PreNode = nodeCurr.Prev;
+                    var nextNode = nodeCurr.Next;
+                    if (PreNode.Prev == null)
                     {
-                        head = node;
+                        head = nodeCurr;
                     }
-                    node.Next = node.Prev;
-                    node.Prev = tempPre;
-                    node.Prev.Next = tempNext;
-                    node.Prev.Prev = node;
+                    var pre = PreNode.Prev;
+                    if (pre != null)
+                    {
+                        pre.Next = nodeCurr;
+                    }
+                    nodeCurr.Prev = pre;
+                    PreNode.Prev = nodeCurr;
+                    nodeCurr.Next = PreNode;
+
+                    PreNode.Next = nextNode;
+                    if (nextNode != null)
+                    {
+                        nextNode.Prev = PreNode;
+                    }
+                    else
+                    {
+                        end = PreNode;
+                    }
+                   
+
                 }
 
-                while (node.Next != null && node.Count < node.Next.Count)
+                nodeCurr = node;
+                while (nodeCurr.Next != null && nodeCurr.Count < nodeCurr.Next.Count)
                 {
-                    var tempNext = node.Next.Next;
-                    var tempPre = node.Prev;
+                    var PreNode = nodeCurr.Prev;
+                    var nextNode = nodeCurr.Next;
 
-                    if (tempNext == null)
+
+                    if (nextNode.Next == null)
                     {
-                        end = node;
+                        end = nodeCurr;
                     }
-                    node.Next.Next = node;
-                    node.Next.Prev = tempPre;
+                    var next = nextNode.Next;
 
-                    node.Next = tempNext;
-                    node.Prev = node.Next;
+                    nextNode.Prev = PreNode;
+                    if (PreNode != null)
+                    {
+                        PreNode.Next = nextNode;
+                    }
+                    else
+                    {
+                        head = nextNode;
+                    }
+                    
+                    nextNode.Next = nodeCurr;
+                    nodeCurr.Prev = nextNode;
+                    nodeCurr.Next = next;
+                    if (next != null)
+                    {
+                        next.Prev = nodeCurr;
+                    }
 
                 }
 
@@ -162,6 +202,10 @@ namespace leetCode._0401_0450
                 Key = val;
             }
 
+            public override string ToString()
+            {
+                return $"{Key} {Count}";
+            }
 
         }
     }
