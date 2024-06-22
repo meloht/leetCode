@@ -31,5 +31,35 @@ namespace Test._2651_2700
             string res = alg.SmallestBeautifulString(s, k);
             Assert.AreEqual(exp, res);
         }
+
+        [TestMethod]
+        public void TestMethod3()
+        {
+            string s = "ced";
+            int k = 6;
+            string exp = "cef";
+            string res = alg.SmallestBeautifulString(s, k);
+            Assert.AreEqual(exp, res);
+        }
+
+        [TestMethod]
+        public void TestMethod4()
+        {
+            string s = "abdc";
+            int k = 4;
+            string exp = "acba";
+            string res = alg.SmallestBeautifulString(s, k);
+            Assert.AreEqual(exp, res);
+        }
+
+        [TestMethod]
+        public void TestMethod5()
+        {
+            string s = "dbcdb";
+            int k = 4;
+            string exp = "dcabc";
+            string res = alg.SmallestBeautifulString(s, k);
+            Assert.AreEqual(exp, res);
+        }
     }
 }
