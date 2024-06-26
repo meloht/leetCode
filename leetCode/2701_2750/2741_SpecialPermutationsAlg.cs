@@ -30,7 +30,7 @@ namespace leetCode._2701_2750
             return (int)(ans % 1_000_000_007);
 
         }
-        private long Dfs(int s,int i, int[] nums, long[][] memo)
+        private long Dfs(int s, int i, int[] nums, long[][] memo)
         {
             if (s == 0)
                 return 1;
@@ -41,12 +41,14 @@ namespace leetCode._2701_2750
             long res = 0;
             for (int j = 0; j < nums.Length; j++)
             {
-                if ((s >> j & 1) > 0 && (nums[i] % nums[j] == 0) || (nums[j] % nums[i] == 0))
+                if ((s >> j & 1) > 0 && (nums[i] % nums[j] == 0 || nums[j] % nums[i] == 0))
                 {
                     res += Dfs(s ^ (1 << j), j, nums, memo);
                 }
+
+
             }
-            memo[s][i]=res;
+            memo[s][i] = res;
             return res;
         }
     }
