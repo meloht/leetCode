@@ -12,67 +12,42 @@ namespace leetCode._2701_2750
         int Mod = 1_000_000_007;
         public int SpecialPerm(int[] nums)
         {
-            Dictionary<int, HashSet<int>> dict = new Dictionary<int, HashSet<int>>();
-            HashSet<int> sets = new HashSet<int>();
-
-            int ans = 0;
-
-            for (int i = 0; i < nums.Length; i++)
+            int n = nums.Length;
+            int u = (1 << n) - 1;
+            long[][] memo = new long[u][];
+            for (long i = 0; i < u; i++)
             {
-                HashSet<int> set = new HashSet<int>();
-                for (int j = 0; j < nums.Length; j++)
-                {
-                    if (i == j)
-                    {
-                        continue;
-                    }
-                    if (nums[i] % nums[j] == 0)
-                    {
-                        set.Add(j);
-                    }
-                    else if (nums[j] % nums[i] == 0)
-                    {
-                        set.Add(j);
-                    }
-                }
-                dict.Add(i, set);
-            }
-            int[][] dp = new int[nums.Length + 1][];
-            for (int i = 0; i < nums.Length + 1; i++)
-            {
-                dp[i] = new int[nums.Length];
-                Array.Fill(dp[i], -1);
-            }
-            for (int i = 0; i < nums.Length; i++)
-            {
-                sets.Add(i);
-                ans = (ans + Dfs(i,  sets, dict, dp) % Mod) % Mod;
-                sets.Remove(i);
+                memo[i] = new long[n];
+                Array.Fill(memo[i], -1);
             }
 
 
-            return ans;
+            long ans = 0;
+            for (int i = 0; i < n; i++)
+            {
+                ans += Dfs(u ^ (1 << i), i, nums, memo);
+            }
+            return (int)(ans % 1_000_000_007);
+
         }
-        private int Dfs(int pre,  HashSet<int> sets, Dictionary<int, HashSet<int>> dict, int[][] dp)
+        private long Dfs(int s,int i, int[] nums, long[][] memo)
         {
-            if (sets.Count == dict.Count)
+            if (s == 0)
                 return 1;
 
-            if (dp[sets.Count][pre] != -1)
-                return dp[sets.Count][pre];
-            int ans = 0;
-            var list = dict[pre];
-            foreach (var item in list)
-            {
-                if (sets.Contains(item))
-                    continue;
-                sets.Add(item);
+            if (memo[s][i] != -1)
+                return memo[s][i];
 
-                ans = (ans + Dfs(item, sets, dict, dp) % Mod) % Mod;
-                sets.Remove(item);
+            long res = 0;
+            for (int j = 0; j < nums.Length; j++)
+            {
+                if ((s >> j & 1) > 0 && (nums[i] % nums[j] == 0) || (nums[j] % nums[i] == 0))
+                {
+                    res += Dfs(s ^ (1 << j), j, nums, memo);
+                }
             }
-            dp[sets.Count][pre] = ans;
-            return ans;
+            memo[s][i]=res;
+            return res;
         }
     }
 }
