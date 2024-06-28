@@ -18,7 +18,7 @@ namespace leetCode._2701_2750
             {
                 int c = cost[i];
                 int t = time[i] + 1;
-                for (int j = n; j >0; j--)
+                for (int j = n; j > 0; j--)
                 {
                     f[j] = Math.Min(f[j], f[Math.Max(j - t, 0)] + c);
                 }
