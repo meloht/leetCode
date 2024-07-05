@@ -10,20 +10,9 @@ namespace leetCode._0451_0500
     {
         public string FrequencySort(string s)
         {
-            char[] chars = s.ToCharArray();
-            var dict = chars.GroupBy(p => p).OrderByDescending(p => p.Count()).Select(p => new Tuple<char, int>(p.Key, p.Count()));
+            var res = string.Join("", s.GroupBy(p => p).OrderByDescending(p => p.Count()).Select(p => "".PadLeft(p.Count(), p.Key)));
 
-            StringBuilder sb = new StringBuilder();
-
-            foreach (var item in dict)
-            {
-                for (int i = 0; i < item.Item2; i++)
-                {
-                    sb.Append(item.Item1);
-                }
-            }
-
-            return sb.ToString();
+            return res;
         }
     }
 }
