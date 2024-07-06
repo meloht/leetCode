@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace leetCodeTemplates.货仓选址_中位数_
 {
-    internal class Class1
+    internal class Template
     {
+
+
     }
 }
