@@ -18,6 +18,7 @@
     <Compile Include="..\leetCode\0401_0450\440_KThSmallestInLexicographicalOrderAlg.cs" Link="字典序\440_KThSmallestInLexicographicalOrderAlg.cs" />
     <Compile Include="..\leetCode\0401_0450\441_ArrangingCoinsAlg.cs" Link="二分查找\441_ArrangingCoinsAlg.cs" />
     <Compile Include="..\leetCode\0451_0500\456_132PatternAlg.cs" Link="单调栈\456_132PatternAlg.cs" />
+    <Compile Include="..\leetCode\0451_0500\457_CircularArrayLoopAlg.cs" Link="双指针\457_CircularArrayLoopAlg.cs" />
     <Compile Include="..\leetCode\0501_0550\547_NumberOfProvincesAlg.cs" Link="并查集\547_NumberOfProvincesAlg.cs" />
     <Compile Include="..\leetCode\0551_0600\600_NonNegativeIntegersWithoutConsecutiveOnesAlg.cs" Link="数位DP\600_NonNegativeIntegersWithoutConsecutiveOnesAlg.cs" />
     <Compile Include="..\leetCode\0651_0700\684_RedundantConnectionAlg.cs" Link="并查集\684_RedundantConnectionAlg.cs" />
