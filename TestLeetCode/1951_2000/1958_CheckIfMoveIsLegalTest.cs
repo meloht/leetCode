@@ -33,5 +33,16 @@ namespace Test._1951_2000
             bool res = alg.CheckMove(board, rMove, cMove, color);
             Assert.AreEqual(exp, res);
         }
+
+        [TestMethod]
+        public void TestCase03()
+        {
+            char[][] board = [['B', 'B', 'B', '.', 'W', 'W', 'B', 'W'], ['B', 'B', '.', 'B', '.', 'B', 'B', 'B'], ['.', 'W', '.', '.', 'B', '.', 'B', 'W'], ['B', 'W', '.', 'W', 'B', '.', 'B', '.'], ['B', 'W', 'W', 'B', 'W', '.', 'B', 'B'], ['.', '.', 'W', '.', '.', 'W', '.', '.'], ['W', '.', 'W', 'B', '.', 'W', 'W', 'B'], ['B', 'B', 'W', 'W', 'B', 'W', '.', '.']];
+            int rMove = 5, cMove = 6;
+            char color = 'B';
+            bool exp = true;
+            bool res = alg.CheckMove(board, rMove, cMove, color);
+            Assert.AreEqual(exp, res);
+        }
     }
 }
