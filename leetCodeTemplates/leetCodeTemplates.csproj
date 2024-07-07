@@ -17,6 +17,7 @@
     <Compile Include="..\leetCode\0401_0450\421_MaximumXorOfTwoNumbersInAnArrayAlg.cs" Link="位运算\421_MaximumXorOfTwoNumbersInAnArrayAlg.cs" />
     <Compile Include="..\leetCode\0401_0450\440_KThSmallestInLexicographicalOrderAlg.cs" Link="字典序\440_KThSmallestInLexicographicalOrderAlg.cs" />
     <Compile Include="..\leetCode\0401_0450\441_ArrangingCoinsAlg.cs" Link="二分查找\441_ArrangingCoinsAlg.cs" />
+    <Compile Include="..\leetCode\0451_0500\456_132PatternAlg.cs" Link="单调栈\456_132PatternAlg.cs" />
     <Compile Include="..\leetCode\0501_0550\547_NumberOfProvincesAlg.cs" Link="并查集\547_NumberOfProvincesAlg.cs" />
     <Compile Include="..\leetCode\0551_0600\600_NonNegativeIntegersWithoutConsecutiveOnesAlg.cs" Link="数位DP\600_NonNegativeIntegersWithoutConsecutiveOnesAlg.cs" />
     <Compile Include="..\leetCode\0651_0700\684_RedundantConnectionAlg.cs" Link="并查集\684_RedundantConnectionAlg.cs" />
@@ -46,6 +47,7 @@
     <Compile Include="..\leetCode\3051_3100\3072_DistributeElementsIntoTwoArraysIIAlg.cs" Link="树状数组\3072_DistributeElementsIntoTwoArraysIIAlg.cs" />
     <Compile Include="..\leetCode\3051_3100\3086_MinimumMovesToPickKOnesAlg.cs" Link="货仓选址%28中位数%29\3086_MinimumMovesToPickKOnesAlg.cs" />
     <Compile Include="..\leetCode\InterviewQuestion\17_06_NumberOf2sInRangeLcciAlg.cs" Link="数位DP\17_06_NumberOf2sInRangeLcciAlg.cs" />
+    <Compile Include="..\leetCode\WeeklyContest\0401\Alg_04.cs" Link="位运算\bitset\Alg_04.cs" />
   </ItemGroup>
 
 
