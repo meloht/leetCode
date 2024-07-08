@@ -9,34 +9,59 @@
 
   <ItemGroup>
     <Compile Include="..\leetCode\0001-0050\35_SearchInsertPositionAlg.cs" Link="二分查找\35_SearchInsertPositionAlg.cs" />
+    <Compile Include="..\leetCode\0101_0150\146_LRUCacheAlg.cs" Link="设计\146_LRUCacheAlg.cs" />
+    <Compile Include="..\leetCode\0151_0200\155_MinStackAlg.cs" Link="设计\155_MinStackAlg.cs" />
+    <Compile Include="..\leetCode\0151_0200\173_BinarySearchTreeIteratorAlg.cs" Link="设计\173_BinarySearchTreeIteratorAlg.cs" />
+    <Compile Include="..\leetCode\0201-0250\208_ImplementTriePrefixTreeAlg.cs" Link="设计\208_ImplementTriePrefixTreeAlg.cs" />
+    <Compile Include="..\leetCode\0201-0250\211_DesignAddAndSearchWordsDataStructureAlg.cs" Link="设计\211_DesignAddAndSearchWordsDataStructureAlg.cs" />
+    <Compile Include="..\leetCode\0201-0250\225_ImplementStackUsingQueuesAlg.cs" Link="设计\225_ImplementStackUsingQueuesAlg.cs" />
+    <Compile Include="..\leetCode\0201-0250\232_ImplementQueueUsingStacksAlg.cs" Link="设计\232_ImplementQueueUsingStacksAlg.cs" />
     <Compile Include="..\leetCode\0201-0250\233_NumberOfDigitOneAlg.cs" Link="数位DP\233_NumberOfDigitOneAlg.cs" />
+    <Compile Include="..\leetCode\0251_0300\284_PeekingIteratorAlg.cs" Link="设计\284_PeekingIteratorAlg.cs" />
     <Compile Include="..\leetCode\0251_0300\292_NimGameAlg.cs" Link="数学\博弈\292_NimGameAlg.cs" />
-    <Compile Include="..\leetCode\0301_0350\307_RangeSumQueryMutableAlg.cs" Link="线段树\307_RangeSumQueryMutableAlg.cs" />
+    <Compile Include="..\leetCode\0251_0300\295_FindMedianFromDataStreamAlg.cs" Link="设计\295_FindMedianFromDataStreamAlg.cs" />
+    <Compile Include="..\leetCode\0251_0300\297_SerializeAndDeserializeBinaryTreeAlg.cs" Link="设计\297_SerializeAndDeserializeBinaryTreeAlg.cs" />
+    <Compile Include="..\leetCode\0301_0350\303_RangeSumQueryImmutableAlg.cs" Link="设计\303_RangeSumQueryImmutableAlg.cs" />
+    <Compile Include="..\leetCode\0301_0350\304_RangeSumQuery2dImmutableAlg.cs" Link="设计\304_RangeSumQuery2dImmutableAlg.cs" />
+    <Compile Include="..\leetCode\0301_0350\307_RangeSumQueryMutableAlg.cs" Link="设计\307_RangeSumQueryMutableAlg.cs" />
+    <Compile Include="..\leetCode\0301_0350\341_FlattenNestedListIteratorAlg.cs" Link="设计\341_FlattenNestedListIteratorAlg.cs" />
+    <Compile Include="..\leetCode\0351_0400\352_DataStreamAsDisjointIntervalsAlg.cs" Link="设计\352_DataStreamAsDisjointIntervalsAlg.cs" />
+    <Compile Include="..\leetCode\0351_0400\355_DesignTwitterAlg.cs" Link="设计\355_DesignTwitterAlg.cs" />
     <Compile Include="..\leetCode\0351_0400\357_CountNumbersWithUniqueDigitsAlg.cs" Link="数位DP\357_CountNumbersWithUniqueDigitsAlg.cs" />
     <Compile Include="..\leetCode\0351_0400\375_GuessNumberHigherOrLowerIIAlg.cs" Link="数学\博弈\375_GuessNumberHigherOrLowerIIAlg.cs" />
+    <Compile Include="..\leetCode\0351_0400\380_InsertDeleteGetrandomO1Alg.cs" Link="设计\380_InsertDeleteGetrandomO1Alg.cs" />
+    <Compile Include="..\leetCode\0351_0400\381_InsertDeleteGetrandomO1DuplicatesAllowedAlg.cs" Link="设计\381_InsertDeleteGetrandomO1DuplicatesAllowedAlg.cs" />
     <Compile Include="..\leetCode\0351_0400\386_LexicographicalNumbersAlg.cs" Link="字典序\386_LexicographicalNumbersAlg.cs" />
     <Compile Include="..\leetCode\0351_0400\399_EvaluateDivisionAlg.cs" Link="并查集\399_EvaluateDivisionAlg.cs" />
     <Compile Include="..\leetCode\0401_0450\421_MaximumXorOfTwoNumbersInAnArrayAlg.cs" Link="位运算\421_MaximumXorOfTwoNumbersInAnArrayAlg.cs" />
+    <Compile Include="..\leetCode\0401_0450\432_AllOoneDataStructureAlg.cs" Link="设计\432_AllOoneDataStructureAlg.cs" />
     <Compile Include="..\leetCode\0401_0450\440_KThSmallestInLexicographicalOrderAlg.cs" Link="字典序\440_KThSmallestInLexicographicalOrderAlg.cs" />
     <Compile Include="..\leetCode\0401_0450\441_ArrangingCoinsAlg.cs" Link="二分查找\441_ArrangingCoinsAlg.cs" />
+    <Compile Include="..\leetCode\0401_0450\449_SerializeAndDeserializeBstAlg.cs" Link="设计\449_SerializeAndDeserializeBstAlg.cs" />
     <Compile Include="..\leetCode\0451_0500\456_132PatternAlg.cs" Link="单调栈\456_132PatternAlg.cs" />
     <Compile Include="..\leetCode\0451_0500\457_CircularArrayLoopAlg.cs" Link="双指针\457_CircularArrayLoopAlg.cs" />
     <Compile Include="..\leetCode\0451_0500\458_PoorPigsAlg.cs" Link="数学\458_PoorPigsAlg.cs" />
     <Compile Include="..\leetCode\0501_0550\547_NumberOfProvincesAlg.cs" Link="并查集\547_NumberOfProvincesAlg.cs" />
     <Compile Include="..\leetCode\0551_0600\600_NonNegativeIntegersWithoutConsecutiveOnesAlg.cs" Link="数位DP\600_NonNegativeIntegersWithoutConsecutiveOnesAlg.cs" />
     <Compile Include="..\leetCode\0651_0700\684_RedundantConnectionAlg.cs" Link="并查集\684_RedundantConnectionAlg.cs" />
+    <Compile Include="..\leetCode\0701_0750\703_KthLargestElementInAStreamAlg.cs" Link="设计\703_KthLargestElementInAStreamAlg.cs" />
     <Compile Include="..\leetCode\0701_0750\704_BinarySearchAlg.cs" Link="二分查找\704_BinarySearchAlg.cs" />
+    <Compile Include="..\leetCode\0701_0750\705_DesignHashsetAlg.cs" Link="设计\705_DesignHashsetAlg.cs" />
+    <Compile Include="..\leetCode\0701_0750\706_DesignHashmapAlg.cs" Link="设计\706_DesignHashmapAlg.cs" />
     <Compile Include="..\leetCode\0701_0750\721_AccountsMergeAlg.cs" Link="并查集\721_AccountsMergeAlg.cs" />
     <Compile Include="..\leetCode\0701_0750\744_FindSmallestLetterGreaterThanTargetAlg.cs" Link="二分查找\744_FindSmallestLetterGreaterThanTargetAlg.cs" />
     <Compile Include="..\leetCode\0751_0800\778_SwimInRisingWaterAlg.cs" Link="并查集\778_SwimInRisingWaterAlg.cs" />
     <Compile Include="..\leetCode\0751_0800\788_RotatedDigitsAlg.cs" Link="数位DP\788_RotatedDigitsAlg.cs" />
     <Compile Include="..\leetCode\0801_0850\803_BricksFallingWhenHitAlg.cs" Link="并查集\803_BricksFallingWhenHitAlg.cs" />
     <Compile Include="..\leetCode\0901_0950\902_NumbersAtMostNGivenDigitSetAlg.cs" Link="数位DP\902_NumbersAtMostNGivenDigitSetAlg.cs" />
+    <Compile Include="..\leetCode\0901_0950\933_NumberOfRecentCallsAlg.cs" Link="设计\933_NumberOfRecentCallsAlg.cs" />
     <Compile Include="..\leetCode\0901_0950\947_MostStonesRemovedWithSameRowOrColumnAlg.cs" Link="并查集\947_MostStonesRemovedWithSameRowOrColumnAlg.cs" />
     <Compile Include="..\leetCode\0951_1000\0959_RegionsCutBySlashesAlg.cs" Link="并查集\0959_RegionsCutBySlashesAlg.cs" />
+    <Compile Include="..\leetCode\0951_1000\0981_TimeBasedKeyValueStoreAlg.cs" Link="设计\0981_TimeBasedKeyValueStoreAlg.cs" />
     <Compile Include="..\leetCode\0951_1000\0990_SatisfiabilityOfEqualityEquationsAlg.cs" Link="并查集\0990_SatisfiabilityOfEqualityEquationsAlg.cs" />
     <Compile Include="..\leetCode\1001_1050\1012_NumbersWithRepeatedDigitsAlg.cs" Link="数位DP\1012_NumbersWithRepeatedDigitsAlg.cs" />
     <Compile Include="..\leetCode\1001_1050\1025_DivisorGameAlg.cs" Link="数学\博弈\1025_DivisorGameAlg.cs" />
+    <Compile Include="..\leetCode\1101_1150\1146_SnapshotArrayAlg.cs" Link="设计\1146_SnapshotArrayAlg.cs" />
     <Compile Include="..\leetCode\1201_1250\1202_SmallestStringWithSwapsAlg.cs" Link="并查集\1202_SmallestStringWithSwapsAlg.cs" />
     <Compile Include="..\leetCode\1251_1300\1254_NumberOfClosedIslandsAlg.cs" Link="并查集\1254_NumberOfClosedIslandsAlg.cs" />
     <Compile Include="..\leetCode\1301_1350\1319_NumberOfOperationsToMakeNetworkConnectedAlg.cs" Link="并查集\1319_NumberOfOperationsToMakeNetworkConnectedAlg.cs" />
