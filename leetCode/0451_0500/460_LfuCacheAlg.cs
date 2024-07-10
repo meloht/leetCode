@@ -26,6 +26,10 @@ namespace leetCode._0451_0500
 
             public int Get(int key)
             {
+                if (Capacity == 0)
+                {
+                    return -1;
+                }
                 if (dict.ContainsKey(key))
                 {
                     var node = dict[key];
@@ -37,19 +41,22 @@ namespace leetCode._0451_0500
 
             public void Put(int key, int value)
             {
+                if (Capacity == 0)
+                {
+                    return;
+                }
                 if (dict.Count == this.Capacity && !dict.ContainsKey(key))
                 {
-                    if (countLink.Last != null)
+                    if (countLink.Count > 0)
                     {
-                        if (countLink.Last.Value.Last != null)
+                        if (countLink.Last.Value.Count > 0)
                         {
-                            var last = countLink.Last.Value.Last;
-                            countLink.Last.Value.RemoveLast();
+                            var last = countLink.Last.Value.First;
+                            countLink.Last.Value.RemoveFirst();
                             dict.Remove(last.Value.Key);
 
                             if (countLink.Last.Value.Count == 0)
                             {
-                                var last1 = countLink.Last;
                                 countLink.RemoveLast();
                                 dictCount.Remove(last.Value.Count);
                             }
@@ -86,13 +93,9 @@ namespace leetCode._0451_0500
 
             private void AddCount(LinkedListNode<Data> node, int key)
             {
-                var link = dictCount[node.Value.Count];
+                LinkedListNode<LinkedList<Data>> link = dictCount[node.Value.Count];
                 link.Value.Remove(node);
-                if (link.Value.Count == 0)
-                {
-                    dictCount.Remove(node.Value.Count);
-                    countLink.Remove(link);
-                }
+                int num = node.Value.Count;
                 node.Value.Count++;
                 if (dictCount.ContainsKey(node.Value.Count))
                 {
@@ -103,11 +106,17 @@ namespace leetCode._0451_0500
                 else
                 {
                     LinkedList<Data> nodeList = new LinkedList<Data>();
-                    var newNode = nodeList.AddLast(node.Value);
+                    LinkedListNode<Data> newNode = nodeList.AddLast(node.Value);
                     dict[key] = newNode;
 
-                    var link1 = countLink.AddFirst(nodeList);
+                    LinkedListNode<LinkedList<Data>> link1 = countLink.AddBefore(link,nodeList);
                     dictCount.Add(node.Value.Count, link1);
+                }
+               
+                if (link.Value.Count == 0)
+                {
+                    dictCount.Remove(num);
+                    countLink.Remove(link);
                 }
             }
         }
@@ -118,6 +127,8 @@ namespace leetCode._0451_0500
             public int Count { get; set; }
             public int Val { get; set; }
         }
+
+
         //public class Node
         //{
         //    public Node Prev { get; set; }

@@ -26,7 +26,7 @@ namespace Test._0451_0500
             res = lfu.Get(3);      // 返回 3
             Assert.AreEqual(3, res); // cache=[3,1], cnt(3)=2, cnt(1)=2
 
-            lfu.Put(4, 4);   // 去除键 1 ，1 和 3 的 cnt 相同，但 1 最久未使用
+            lfu.Put(4, 4);   // 1去除键 1 ， 和 3 的 cnt 相同，但 1 最久未使用
                              // cache=[4,3], cnt(4)=1, cnt(3)=2
             res = lfu.Get(1);      // 返回 -1（未找到）
             Assert.AreEqual(-1, res);
