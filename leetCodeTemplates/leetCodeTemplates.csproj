@@ -14,6 +14,7 @@
     <Compile Include="..\leetCode\0151_0200\173_BinarySearchTreeIteratorAlg.cs" Link="设计\173_BinarySearchTreeIteratorAlg.cs" />
     <Compile Include="..\leetCode\0201-0250\208_ImplementTriePrefixTreeAlg.cs" Link="设计\208_ImplementTriePrefixTreeAlg.cs" />
     <Compile Include="..\leetCode\0201-0250\211_DesignAddAndSearchWordsDataStructureAlg.cs" Link="设计\211_DesignAddAndSearchWordsDataStructureAlg.cs" />
+    <Compile Include="..\leetCode\0201-0250\215_KthLargestElementInAnArrayAlg.cs" Link="排序\快速选择\215_KthLargestElementInAnArrayAlg.cs" />
     <Compile Include="..\leetCode\0201-0250\225_ImplementStackUsingQueuesAlg.cs" Link="设计\225_ImplementStackUsingQueuesAlg.cs" />
     <Compile Include="..\leetCode\0201-0250\232_ImplementQueueUsingStacksAlg.cs" Link="设计\232_ImplementQueueUsingStacksAlg.cs" />
     <Compile Include="..\leetCode\0201-0250\233_NumberOfDigitOneAlg.cs" Link="数位DP\233_NumberOfDigitOneAlg.cs" />
