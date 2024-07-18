@@ -82,6 +82,7 @@
     <Compile Include="..\leetCode\2801_2850\2827_NumberOfBeautifulIntegersInTheRangeAlg.cs" Link="数位DP\2827_NumberOfBeautifulIntegersInTheRangeAlg.cs" />
     <Compile Include="..\leetCode\3051_3100\3072_DistributeElementsIntoTwoArraysIIAlg.cs" Link="树状数组\3072_DistributeElementsIntoTwoArraysIIAlg.cs" />
     <Compile Include="..\leetCode\3051_3100\3086_MinimumMovesToPickKOnesAlg.cs" Link="货仓选址%28中位数%29\3086_MinimumMovesToPickKOnesAlg.cs" />
+    <Compile Include="..\leetCode\3101_3150\3112_MinimumTimeToVisitDisappearingNodesAlg.cs" Link="图\Dijkstra\3112_MinimumTimeToVisitDisappearingNodesAlg.cs" />
     <Compile Include="..\leetCode\InterviewQuestion\17_06_NumberOf2sInRangeLcciAlg.cs" Link="数位DP\17_06_NumberOf2sInRangeLcciAlg.cs" />
     <Compile Include="..\leetCode\WeeklyContest\0401\Alg_04.cs" Link="位运算\bitset\Alg_04.cs" />
   </ItemGroup>
