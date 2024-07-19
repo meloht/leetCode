@@ -35,6 +35,27 @@ namespace leetCode._3051_3100
             return -1;
         }
 
+        public int MinimumLevels1(int[] possible)
+        {
+            int n = possible.Length;
+            int tot = 0;
+            foreach (int x in possible)
+            {
+                tot += x == 1 ? 1 : -1;
+            }
+            int pre = 0;
+            for (int i = 0; i < n - 1; i++)
+            {
+                pre += possible[i] == 1 ? 1 : -1;
+                if (2 * pre > tot)
+                {
+                    return i + 1;
+                }
+            }
+            return -1;
+        }
+
+
 
     }
 }
