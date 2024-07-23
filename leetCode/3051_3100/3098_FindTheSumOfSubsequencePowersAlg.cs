@@ -9,30 +9,33 @@ namespace leetCode._3051_3100
     public class _3098_FindTheSumOfSubsequencePowersAlg
     {
         const int MOD = 1000000007;
-        private int[] nums;
-        public int SumOfPowers(int[] nums, int k)
+        private int[] nums = new int[1];
+        public int SumOfPowers(int[] nums1, int k)
         {
-            this.nums = nums;
+            this.nums = nums1;
             int n = nums.Length;
             Array.Sort(nums);
-            int ans = 0;
+            long ans = 0;
             Dictionary<int, int>[,] memo = new Dictionary<int, int>[n + 1, k + 1];
             for (int i = k - 1; i < n; i++)
             {
-
                 var dict = Dfs(i, k, memo);
-                foreach (var item in dict)
+                foreach ((int diff, int cnt) in dict)
                 {
-                    ans = (ans + (item.Key * item.Value) % MOD) % MOD;
+                    long nn = cnt % MOD;
+                    ans = (ans + (diff * nn) % MOD) % MOD;
                 }
             }
-            return ans;
+            return (int)ans;
         }
 
         private Dictionary<int, int> Dfs(int root, int length, Dictionary<int, int>[,] memo)
         {
             if (memo[root, length] != null)
+            {
                 return memo[root, length];
+            }
+
             Dictionary<int, int> cnt = new Dictionary<int, int>();
             if (length == 2)
             {
@@ -41,7 +44,7 @@ namespace leetCode._3051_3100
                     int diff = nums[root] - nums[i];
                     if (cnt.ContainsKey(diff))
                     {
-                        cnt[diff]++;
+                        cnt[diff] = (cnt[diff] + 1) % MOD;
                     }
                     else
                     {
@@ -56,29 +59,29 @@ namespace leetCode._3051_3100
                     int diff = nums[root] - nums[i];
                     var dict = Dfs(i, length - 1, memo);
 
-                    foreach (var item in dict)
+                    foreach ((int lastDiff, int lastCnt) in dict)
                     {
-                        if (item.Key < diff)
+                        if (lastDiff < diff)
                         {
 
-                            if (cnt.ContainsKey(item.Key))
+                            if (cnt.ContainsKey(lastDiff))
                             {
-                                cnt[item.Key] += item.Value;
+                                cnt[lastDiff] = (lastCnt + cnt[lastDiff]) % MOD;
                             }
                             else
                             {
-                                cnt.Add(item.Key, item.Value);
+                                cnt.Add(lastDiff, lastCnt);
                             }
                         }
                         else
                         {
                             if (cnt.ContainsKey(diff))
                             {
-                                cnt[diff] += item.Value;
+                                cnt[diff] = (cnt[diff] + lastCnt) % MOD;
                             }
                             else
                             {
-                                cnt.Add(diff, item.Value);
+                                cnt.Add(diff, lastCnt);
                             }
                         }
                     }
