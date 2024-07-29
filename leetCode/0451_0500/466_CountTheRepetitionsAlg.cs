@@ -10,35 +10,55 @@ namespace leetCode._0451_0500
     {
         public int GetMaxRepetitions(string s1, int n1, string s2, int n2)
         {
-            int[] arr1 = GetChar(s1, n1);
-            int[] arr2 = GetChar(s2, n2);
-            int ans = int.MinValue;
-            for (int i = 0; i < 26; i++)
+            int ans = 0;
+            int len1 = s1.Length;
+            int len2 = s2.Length;
+            if (len2 * n2 > len1 * n1)
             {
-                int cnt2 = arr2[i];
-                if (cnt2 == 0)
+                return ans;
+            }
+            int idx1 = 0;
+            int idx2 = 0;
+            Dictionary<int, int[]> dict = new Dictionary<int, int[]>();
+            while (idx1 / len1 < n1)
+            {
+                if (idx1 % len1 == len1 - 1)
                 {
-                    continue;
+                    int key = idx2 % len2;
+                    if (dict.ContainsKey(key))
+                    {
+                        int[] nums = dict[key];
+                        int preIndex1 = nums[0];
+                        int preIndex2 = nums[1];
+
+                        int cycleLen = idx1 / len1 - preIndex1 / len1;
+                        int cycleNum = (n1 - 1 - idx1 / len1) / cycleLen;
+                        int cycle2Num = idx2 / len2 - preIndex2 / len2;
+
+                        idx1 += cycleNum * cycleLen * len1;
+                        ans += cycle2Num * cycleNum;
+                    }
+                    else
+                    {
+
+                        dict.Add(key, [idx1, idx2]);
+                    }
+
                 }
-                int cnt1 = arr1[i];
-                int max = cnt1 / cnt2;
-                ans = Math.Max(ans, max);
+                if (s1[idx1 % len1] == s2[idx2 % len2])
+                {
+                    if (idx2 % len2 == len2 - 1)
+                    {
+                        ans += 1;
+                    }
+                    idx2++;
+                }
+                idx1++;
             }
-            return ans;
+
+
+            return ans / n2;
         }
-        private int[] GetChar(string s, int n)
-        {
-            int[] arr = new int[26];
-            for (int i = 0; i < s.Length; i++)
-            {
-                int idx = s[i] - 'a';
-                arr[idx]++;
-            }
-            for (int i = 0; i < 26; i++)
-            {
-                arr[i] = arr[i] * n;
-            }
-            return arr;
-        }
+
     }
 }
