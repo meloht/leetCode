@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Test._0451_0500
 {
+    [TestClass]
     public class _467_UniqueSubstringsInWraparoundStringTest
     {
         _467_UniqueSubstringsInWraparoundStringAlg alg = new _467_UniqueSubstringsInWraparoundStringAlg();

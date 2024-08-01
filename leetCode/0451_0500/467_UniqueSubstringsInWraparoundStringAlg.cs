@@ -10,8 +10,9 @@ namespace leetCode._0451_0500
     {
         public int FindSubstringInWraproundString(string s)
         {
+            int ans = 0;
 
-            return 0;
+            return ans;
         }
     }
 }
