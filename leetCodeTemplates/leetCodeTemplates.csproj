@@ -12,7 +12,7 @@
     <Compile Include="..\leetCode\0101_0150\146_LRUCacheAlg.cs" Link="设计\146_LRUCacheAlg.cs" />
     <Compile Include="..\leetCode\0151_0200\155_MinStackAlg.cs" Link="设计\155_MinStackAlg.cs" />
     <Compile Include="..\leetCode\0151_0200\173_BinarySearchTreeIteratorAlg.cs" Link="设计\173_BinarySearchTreeIteratorAlg.cs" />
-    <Compile Include="..\leetCode\0201-0250\208_ImplementTriePrefixTreeAlg.cs" Link="设计\208_ImplementTriePrefixTreeAlg.cs" />
+    <Compile Include="..\leetCode\0201-0250\208_ImplementTriePrefixTreeAlg.cs" Link="字典树\208_ImplementTriePrefixTreeAlg.cs" />
     <Compile Include="..\leetCode\0201-0250\211_DesignAddAndSearchWordsDataStructureAlg.cs" Link="设计\211_DesignAddAndSearchWordsDataStructureAlg.cs" />
     <Compile Include="..\leetCode\0201-0250\215_KthLargestElementInAnArrayAlg.cs" Link="排序\快速选择\215_KthLargestElementInAnArrayAlg.cs" />
     <Compile Include="..\leetCode\0201-0250\225_ImplementStackUsingQueuesAlg.cs" Link="设计\225_ImplementStackUsingQueuesAlg.cs" />
