@@ -17,21 +17,26 @@ namespace leetCode._0451_0500
             trie = new Trie();
 
             set = new HashSet<string>(words);
+            int min = int.MaxValue;
             foreach (var w in words)
             {
                 trie.Insert(w);
+                min = Math.Min(min, w.Length);
             }
+
             List<string> result = new List<string>();
             foreach (var w in words)
             {
-                for (int i = 1; i < w.Length; i++)
+                int[,] dp = new int[w.Length + 2, w.Length + 2];
+                for (int i = min; i < w.Length; i++)
                 {
                     string sub = w.Substring(0, i);
                     if (!set.Contains(sub))
                         continue;
-                    if (Dfs(w, i, 1))
+                    if (Dfs(w, i, 1, dp))
                     {
                         result.Add(w);
+                        break;
                     }
                 }
             }
@@ -39,28 +44,39 @@ namespace leetCode._0451_0500
             return result;
         }
 
-        private bool Dfs(string s, int idx, int len)
+
+        private bool Dfs(string s, int idx, int len, int[,] dp)
         {
             if (len + idx > s.Length)
                 return false;
+            if (dp[idx, len] != 0)
+                return dp[idx, len] == 1;
             string sub = s.Substring(idx, len);
             var node = trie.StartsWith(sub);
+
             if (node == null || node.Prefix == 0)
             {
+                dp[idx, len] = 2;
                 return false;
             }
+
             if (set.Contains(sub) && node.Count > 0)
             {
                 if (len + idx == s.Length)
                     return true;
-                bool bl= Dfs(s, idx + len, 1);
-                if (bl == false)
+                bool bl = Dfs(s, idx + len, 1, dp);
+                if (bl)
                 {
-                    return Dfs(s, idx, len + 1);
+                    dp[idx, len] = 1;
+                    return true;
                 }
+                bl = Dfs(s, idx, len + 1, dp);
+                dp[idx, len] = bl ? 1 : 2;
                 return bl;
             }
-            return Dfs(s, idx, len + 1);
+            bool res = Dfs(s, idx, len + 1, dp);
+            dp[idx, len] = res ? 1 : 2;
+            return res;
 
         }
 
