@@ -1,4 +1,5 @@
-﻿using System;
+﻿using leetCode._0301_0350;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,83 +10,136 @@ namespace leetCode._0451_0500
 {
     public class _472_ConcatenatedWordsAlg
     {
+        Trie trie = null;
+        HashSet<string> set = null;
         public IList<string> FindAllConcatenatedWordsInADict(string[] words)
         {
-            Dictionary<int, List<string>> dict = new Dictionary<int, List<string>>();
-            foreach (string word in words)
+            trie = new Trie();
+
+            set = new HashSet<string>(words);
+            foreach (var w in words)
             {
-                if (dict.ContainsKey(word.Length))
+                trie.Insert(w);
+            }
+            List<string> result = new List<string>();
+            foreach (var w in words)
+            {
+                for (int i = 1; i < w.Length; i++)
                 {
-                    dict[word.Length].Add(word);
-                }
-                else
-                {
-                    dict.Add(word.Length, [word]);
+                    string sub = w.Substring(0, i);
+                    if (!set.Contains(sub))
+                        continue;
+                    if (Dfs(w, i, 1))
+                    {
+                        result.Add(w);
+                    }
                 }
             }
 
-            var list = dict.Keys.ToList();
-            list.Sort();
-
-
-
-
-
-            return null;
+            return result;
         }
 
-        class Trie
+        private bool Dfs(string s, int idx, int len)
         {
-            private Trie[] children;
-            private bool isEnd;
+            if (len + idx > s.Length)
+                return false;
+            string sub = s.Substring(idx, len);
+            var node = trie.StartsWith(sub);
+            if (node == null || node.Prefix == 0)
+            {
+                return false;
+            }
+            if (set.Contains(sub) && node.Count > 0)
+            {
+                if (len + idx == s.Length)
+                    return true;
+                bool bl= Dfs(s, idx + len, 1);
+                if (bl == false)
+                {
+                    return Dfs(s, idx, len + 1);
+                }
+                return bl;
+            }
+            return Dfs(s, idx, len + 1);
 
+        }
+
+        public class Trie
+        {
+            TrieNode root;
             public Trie()
             {
-                children = new Trie[26];
-                isEnd = false;
+                root = new TrieNode();
             }
 
             public void Insert(string word)
             {
-                Trie node = this;
-                for (int i = 0; i < word.Length; i++)
+                TrieNode node = root;
+                if (word.Length == 0)
+                    return;
+
+                char[] ch = word.ToCharArray();
+                for (int i = 0; i < ch.Length; i++)
                 {
-                    char ch = word[i];
-                    int index = ch - 'a';
-                    if (node.children[index] == null)
+                    int index = ch[i] - 'a';
+                    if (node.NextNode[index] == null)
                     {
-                        node.children[index] = new Trie();
+                        node.NextNode[index] = new TrieNode();
                     }
-                    node = node.children[index];
+                    node = node.NextNode[index];
+                    node.Prefix++;
                 }
-                node.isEnd = true;
+                node.Count++;
+
             }
 
             public bool Search(string word)
             {
-                Trie node = SearchPrefix(word);
-                return node != null && node.isEnd;
-            }
-
-            public bool StartsWith(string prefix)
-            {
-                return SearchPrefix(prefix) != null;
-            }
-
-            private Trie SearchPrefix(string prefix)
-            {
-                Trie node = this;
-                for (int i = 0; i < prefix.Length; i++)
+                if (word.Length == 0)
+                    return false;
+                TrieNode node = root;
+                char[] ch = word.ToCharArray();
+                for (int i = 0; i < ch.Length; i++)
                 {
-                    char ch = prefix[i];
-                    int index = ch - 'a';
-                    if (node.children[index] == null)
-                    {
-                        return null;
-                    }
-                    node = node.children[index];
+                    int index = ch[i] - 'a';
+                    if (node.NextNode[index] == null)
+                        return false;
+                    node = node.NextNode[index];
                 }
+
+                if (node.Count > 0)
+                    return true;
+                return false;
+            }
+
+            public TrieNode StartsWith(string prefix)
+            {
+                if (prefix.Length == 0)
+                    return null;
+
+                TrieNode node = root;
+                char[] ch = prefix.ToCharArray();
+                for (int i = 0; i < ch.Length; i++)
+                {
+                    int index = ch[i] - 'a';
+                    if (node.NextNode[index] == null)
+                        return null;
+                    node = node.NextNode[index];
+                }
+
                 return node;
+            }
+        }
+
+        public class TrieNode
+        {
+            public int Count;
+            public int Prefix;
+            public TrieNode[] NextNode = new TrieNode[26];
+
+            public override string ToString()
+            {
+                return $"{Count},{Prefix}";
             }
         }
 

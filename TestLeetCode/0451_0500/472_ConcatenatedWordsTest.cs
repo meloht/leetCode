@@ -29,5 +29,14 @@ namespace Test._0451_0500
             string[] res = alg.FindAllConcatenatedWordsInADict(words).ToArray();
             Assert.IsTrue(exp.SequenceEqual(res));
         }
+
+        [TestMethod]
+        public void TestCase03()
+        {
+            string[] words = ["a", "b", "ab", "abc"];
+            string[] exp = ["ab"];
+            string[] res = alg.FindAllConcatenatedWordsInADict(words).ToArray();
+            Assert.IsTrue(exp.SequenceEqual(res));
+        }
     }
 }
