@@ -10,6 +10,15 @@ namespace leetCode._0451_0500
     {
         public bool Makesquare(int[] matchsticks)
         {
+            long sum = 0L;
+            foreach (var item in matchsticks)
+            {
+                sum+= item;
+            }
+            if (sum % 4 > 0)
+                return false;
+
+
             return false;
         }
     }
