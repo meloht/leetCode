@@ -10,15 +10,32 @@ namespace leetCode._0451_0500
     {
         public bool Makesquare(int[] matchsticks)
         {
-            long sum = 0L;
-            foreach (var item in matchsticks)
-            {
-                sum+= item;
-            }
+            int sum = matchsticks.Sum();
+
             if (sum % 4 > 0)
                 return false;
 
+            Array.Sort(matchsticks, (x, y) => y.CompareTo(x));
 
+            int[] edges = new int[4];
+
+            return Dfs(0, matchsticks, edges, sum / 4);
+        }
+
+        private bool Dfs(int index, int[] matchsticks, int[] edges, int len)
+        {
+            if (index == matchsticks.Length)
+                return true;
+
+            for (int i = 0; i < edges.Length; i++)
+            {
+                edges[i] += matchsticks[index];
+                if (edges[i] <= len && Dfs(index + 1, matchsticks, edges, len))
+                {
+                    return true;
+                }
+                edges[i] -= matchsticks[index];
+            }
             return false;
         }
     }
