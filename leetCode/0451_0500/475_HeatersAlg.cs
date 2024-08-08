@@ -62,8 +62,14 @@ namespace leetCode._0451_0500
 
             while (idx < arr.Length)
             {
+                if (arr[idx] - arr[idx - 1] == 1)
+                {
+                    idx++;
+                    continue;
+                }
                 int begin = arr[idx - 1] + 1;
                 int end = arr[idx] - 1;
+                 
                 for (int i = begin, j = end; i < j; i++, j--)
                 {
                     int d1 = list[i].Val - list[arr[idx - 1]].Val;
