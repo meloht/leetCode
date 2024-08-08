@@ -33,22 +33,6 @@ namespace leetCode._0451_0500
             }
             int ans = int.MinValue;
 
-            if (arr.Length == 1)
-            {
-                if (arr[0] == list.Count - 1)
-                {
-                    ans = list[arr[0]].Val - list[0].Val;
-                }
-                else if (arr[0] == 0)
-                {
-                    ans = list[list.Count - 1].Val - list[arr[0]].Val;
-                }
-                else
-                {
-                    ans = Math.Max(list[arr[0]].Val - list[0].Val, list[list.Count - 1].Val - list[arr[0]].Val);
-                }
-                return ans;
-            }
             if (arr[0] > 0)
             {
                 ans = list[arr[0]].Val - list[0].Val;
@@ -63,31 +47,29 @@ namespace leetCode._0451_0500
 
             while (idx < arr.Length)
             {
-                if (arr[idx] - arr[idx - 1] == 1)
+                if (arr[idx] - arr[idx - 1] > 1)
                 {
-                    idx++;
-                    continue;
-                }
-                int begin = arr[idx - 1] + 1;
-                int end = arr[idx] - 1;
-                int d = 0;
-                for (int i = begin, j = end; i <= j;)
-                {
-                    int d1 = list[i].Val - list[arr[idx - 1]].Val;
-                    int d2 = list[arr[idx]].Val - list[j].Val;
-                    if (d1 < d2)
+                    int begin = arr[idx - 1] + 1;
+                    int end = arr[idx] - 1;
+                    int d = 0;
+                    for (int i = begin, j = end; i <= j;)
                     {
-                        i++;
-                        d= d1;
+                        int d1 = list[i].Val - list[arr[idx - 1]].Val;
+                        int d2 = list[arr[idx]].Val - list[j].Val;
+                        if (d1 < d2)
+                        {
+                            i++;
+                            d = d1;
+                        }
+                        else
+                        {
+                            d = d2;
+                            j--;
+                        }
                     }
-                    else
-                    {
-                        d = d2;
-                        j--;
-                    }
+                    ans = Math.Max(ans, d);
                 }
-                ans = Math.Max(ans, d);
-               
+
                 idx++;
             }
 
