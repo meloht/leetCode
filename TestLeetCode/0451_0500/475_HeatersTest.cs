@@ -38,5 +38,31 @@ namespace Test._0451_0500
             int res = alg.FindRadius(houses, heaters);
             Assert.AreEqual(exp, res);
         }
+
+        [TestMethod]
+        public void TestCase04()
+        {
+            int[] houses = [1, 2, 3], heaters = [1, 2, 3];
+            int exp = 0;
+            int res = alg.FindRadius(houses, heaters);
+            Assert.AreEqual(exp, res);
+        }
+
+        [TestMethod]
+        public void TestCase05()
+        {
+            int[] houses = [1, 2, 3, 5, 15], heaters = [2, 30];
+            int exp = 13;
+            int res = alg.FindRadius(houses, heaters);
+            Assert.AreEqual(exp, res);
+        }
+        [TestMethod]
+        public void TestCase06()
+        {
+            int[] houses = [1, 1, 1, 1, 1, 1, 999, 999, 999, 999, 999], heaters = [499, 500, 501];
+            int exp = 498;
+            int res = alg.FindRadius(houses, heaters);
+            Assert.AreEqual(exp, res);
+        }
     }
 }
