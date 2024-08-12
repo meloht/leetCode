@@ -12,6 +12,7 @@ namespace leetCode._0651_0700
         {
 
             TrieNode root = new TrieNode();
+            HashSet<int> keys = new HashSet<int>();
             public MagicDictionary()
             {
 
@@ -22,11 +23,13 @@ namespace leetCode._0651_0700
                 foreach (var item in dictionary)
                 {
                     Insert(item);
-
+                    keys.Add(item.Length);
                 }
             }
             public bool Search(string searchWord)
             {
+                if(keys.Contains(searchWord.Length)==false)
+                    return false;
                 return DFS(searchWord, root, 0, false);
             }
 
