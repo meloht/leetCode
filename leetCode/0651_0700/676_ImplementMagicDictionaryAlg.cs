@@ -28,7 +28,7 @@ namespace leetCode._0651_0700
 
             public bool Search(string searchWord)
             {
-                if(!set.Contains(searchWord.Length))
+                if (!set.Contains(searchWord.Length))
                     return false;
                 bool bl = this.trie.Search(searchWord);
                 if (bl)
@@ -95,34 +95,30 @@ namespace leetCode._0651_0700
                 for (int i = 0; i < ch.Length; i++)
                 {
                     int index = ch[i] - 'a';
+                    for (int j = 0; j < node.Count; j++)
+                    {
+                        if (j == index)
+                            continue;
+                        if (node.NextNode[index] == null)
+                            continue;
+                        if (i != ch.Length - 1 && Search(word.Substring(i + 1)))
+                        {
+                            return true;
+                        }
+                        if (i == ch.Length - 1)
+                            return true;
+
+                    }
                     if (node.NextNode[index] == null)
                         return false;
                     node = node.NextNode[index];
                 }
 
-                if (node.Count > 0)
-                    return true;
+              
                 return false;
             }
 
-            public bool SearchWord(string word, TrieNode perent)
-            {
-                if (word.Length == 0)
-                    return false;
-                TrieNode node = perent;
-                char[] ch = word.ToCharArray();
-                for (int i = 0; i < ch.Length; i++)
-                {
-                    int index = ch[i] - 'a';
-                    if (node.NextNode[index] == null)
-                        return false;
-                    node = node.NextNode[index];
-                }
-
-                if (node.Count > 0)
-                    return true;
-                return false;
-            }
+          
         }
 
         public class TrieNode
