@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace leetCode._3101_3150
+namespace leetCode._3151_4000
 {
     public class _3151_SpecialArrayIAlg
     {
