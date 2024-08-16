@@ -38,5 +38,14 @@ namespace Test._3101_3150
             int res = alg.MinimumValueSum(nums, andValues);
             Assert.AreEqual(exp, res);
         }
+
+        [TestMethod]
+        public void TestCase04()
+        {
+            int[] nums = [1, 3, 2, 4, 7, 5, 3], andValues = [0, 5, 3];
+            int exp = 12;
+            int res = alg.MinimumValueSum(nums, andValues);
+            Assert.AreEqual(exp, res);
+        }
     }
 }
