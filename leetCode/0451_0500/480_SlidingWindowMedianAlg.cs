@@ -8,39 +8,7 @@ namespace leetCode._0451_0500
 {
     public class _480_SlidingWindowMedianAlg
     {
-        public double[] MedianSlidingWindow(int[] nums, int k)
-        {
-            double[] result = new double[nums.Length - k + 1];
-
-            SortedList<int, int> sortList = new SortedList<int, int>();
-
-            int idx = 0;
-            int left = k / 2;
-            int right = k - left;
-            for (int i = 0, j = 0; i < nums.Length; i++)
-            {
-                sortList.Add(nums[i], nums[i]);
-
-                if (sortList.Count > k)
-                {
-                    sortList.Remove(nums[j++]);
-                }
-                if (sortList.Count == k)
-                {
-                    if (left == right)
-                    {
-                        double ans = ((double)sortList[left - 1] + (double)sortList[left]) / 2;
-                        result[idx++] = ans;
-                    }
-                    else
-                    {
-                        result[idx++] = (double)sortList.GetKeyAtIndex(left);
-                    }
-                }
-            }
-
-            return result;
-        }
+       
 
         PriorityQueue<int, int> queueLeft = new PriorityQueue<int, int>(Comparer<int>.Create((x, y) => y.CompareTo(x)));
 
@@ -49,7 +17,7 @@ namespace leetCode._0451_0500
         private int leftCount;
         private int rightCount;
 
-        public double[] MedianSlidingWindow2(int[] nums, int k)
+        public double[] MedianSlidingWindow(int[] nums, int k)
         {
             double[] result = new double[nums.Length - k + 1];
 
