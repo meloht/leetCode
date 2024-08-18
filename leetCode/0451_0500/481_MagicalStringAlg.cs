@@ -8,7 +8,7 @@ namespace leetCode._0451_0500
 {
     public class _481_MagicalStringAlg
     {
-        public int MagicalString(int n)
+        public int MagicalString1(int n)
         {
             int[] s = new int[n + 2];
             s[0] = 1; s[1] = s[2] = 2;
@@ -25,5 +25,39 @@ namespace leetCode._0451_0500
 
 
         }
+
+        public int MagicalString(int n)
+        {
+            if (n < 4)
+            {
+                return 1;
+            }
+            int[] s = new int[n];
+            s[0] = 1;
+            s[1] = 2;
+            s[2] = 2;
+            int res = 1;
+            int i = 2;
+            int j = 3;
+            while (j < n)
+            {
+                int size = s[i];
+                int num = 3 - (s[j - 1] );
+                while (size > 0 && j < n)
+                {
+                    s[j] = num;
+                    if (num == 1)
+                    {
+                        ++res;
+                    }
+                    ++j;
+                    --size;
+                }
+                ++i;
+            }
+            return res;
+        }
+
+
     }
 }
