@@ -10,7 +10,15 @@ namespace leetCode._3101_3150
     {
         public long MinEnd(int n, int x)
         {
-            return 0;
+            n--;
+            long ans = x;
+            int j = 0;
+            for (long t = ~x, lb=0; (n >> (int)j) > 0; t ^= lb)
+            {
+                lb = t & -t;
+                ans |= (long)(n >> j++ & 1) * lb;
+            }
+            return ans;
         }
     }
 }
