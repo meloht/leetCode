@@ -10,52 +10,34 @@ namespace leetCode._0451_0500
     {
         public bool PredictTheWinner(int[] nums)
         {
-            int a = 0;
-            int b = 0;
-            bool flag = true;
-            for (int i = 0, j = nums.Length - 1; i < j; )
-            {
-                if (flag)
-                {
-                    if (nums[i] > nums[j])
-                    {
-                        a += nums[i];
-                        i++;
-                    }
-                    else
-                    {
-                        a += nums[j];
-                        j--;
-                    }
-                    if (i == j)
-                    {
-                        b += nums[i];
-                        break;
-                    }
-                }
-                else
-                {
-                    if (nums[i] > nums[j])
-                    {
-                        b += nums[i];
-                        i++;
-                    }
-                    else
-                    {
-                        b += nums[j];
-                        j--;
-                    }
-                    if (i == j)
-                    {
-                        a += nums[i];
-                        break;
-                    }
-                }
-                flag = !flag;
-            }
-            
+            return Dfs(nums, 0, nums.Length - 1, 0, 0, true);
+        }
 
-            return a > b || a == b;
+        private bool Dfs(int[] nums, int i, int j, int a, int b, bool flag)
+        {
+            if (i > j)
+            {
+                return a >= b;
+            }
+            if (flag)
+            {
+                bool bl = Dfs(nums, i + 1, j, a + nums[i], b, false);
+                if (bl)
+                {
+                    return true;
+                }
+                return Dfs(nums, i, j - 1, a + nums[j], b, false);
+            }
+            else
+            {
+                bool bl = Dfs(nums, i + 1, j, a, b + nums[i], true);
+                if (!bl)
+                {
+                    return false;
+                }
+                return Dfs(nums, i, j - 1, a, b + nums[j], true);
+            }
+
         }
     }
 }
