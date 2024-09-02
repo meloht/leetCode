@@ -73,6 +73,7 @@
     <Compile Include="..\leetCode\1651_1700\1690_StoneGameVIIAlg.cs" Link="数学\博弈\1690_StoneGameVIIAlg.cs" />
     <Compile Include="..\leetCode\1701_1750\1742_MaximumNumberOfBallsInABoxAlg.cs" Link="数位DP\1742_MaximumNumberOfBallsInABoxAlg.cs" />
     <Compile Include="..\leetCode\1951_2000\1958_CheckIfMoveIsLegalAlg.cs" Link="矩阵\1958_CheckIfMoveIsLegalAlg.cs" />
+    <Compile Include="..\leetCode\2051_2100\2024_MaximizeTheConfusionOfAnExamAlg.cs" Link="滑动窗口\2024_MaximizeTheConfusionOfAnExamAlg.cs" />
     <Compile Include="..\leetCode\2101_2150\2101_DetonateTheMaximumBombsAlg.cs" Link="图\2101_DetonateTheMaximumBombsAlg.cs" />
     <Compile Include="..\leetCode\2951_3000\2959_NumberOfPossibleSetsOfClosingBranchesAlg.cs" Link="图\2959_NumberOfPossibleSetsOfClosingBranchesAlg.cs" />
     <Compile Include="..\leetCode\2951_3000\2970_CountTheNumberOfIncremovableSubarraysIAlg.cs" Link="双指针\2970_CountTheNumberOfIncremovableSubarraysIAlg.cs" />
