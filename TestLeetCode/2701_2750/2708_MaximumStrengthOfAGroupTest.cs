@@ -29,5 +29,15 @@ namespace Test._2701_2750
             long res = alg.MaxStrength(nums);
             Assert.AreEqual(exp, res);
         }
+
+        [TestMethod]
+        public void TestCase03()
+        {
+
+            int[] nums = [2, 2, 7, 0, -4, 9, 4];
+            long exp = 1008;
+            long res = alg.MaxStrength(nums);
+            Assert.AreEqual(exp, res);
+        }
     }
 }
