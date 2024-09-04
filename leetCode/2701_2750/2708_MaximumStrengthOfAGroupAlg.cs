@@ -11,7 +11,7 @@ namespace leetCode._2701_2750
 
 
 
-        public long MaxStrength1(int[] nums)
+        public long MaxStrength(int[] nums)
         {
             long mn = nums[0];
             long mx = mn;
