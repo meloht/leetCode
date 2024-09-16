@@ -20,29 +20,43 @@ namespace leetCode._0451_0500
                 nums[i] = mat[n][m];
                 if (flag)
                 {
-                    n--;
-                    m++;
-
-                    if (n < 0 || m > mat[0].Length - 1)
+                    if (n == 0 && m < mat[0].Length - 1)
                     {
                         flag = false;
-                        n = Math.Max(n, 0);
-                        m = Math.Min(m, mat[0].Length - 1);
+                        m++;
+
+                    }
+                    else if (m == mat[0].Length - 1 && n >= 0)
+                    {
+                        flag = false;
+                        n++;
+                    }
+                    else
+                    {
+                        n--;
+                        m++;
                     }
 
                 }
                 else
                 {
-                    n++;
-                    m--;
 
-                    if (n > mat.Length - 1 || m < 0)
+                    if (n == mat.Length - 1 && m >= 0)
                     {
                         flag = true;
-                        n = Math.Min(n, mat.Length - 1);
-                        m = Math.Max(m, 0);
+                        m++;
                     }
-                    
+                    else if (n < mat.Length - 1 && m == 0)
+                    {
+                        flag = true;
+                        n++;
+                    }
+                    else
+                    {
+                        n++;
+                        m--;
+                    }
+
                 }
 
             }
