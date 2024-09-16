@@ -23,18 +23,18 @@ namespace leetCode._0501_0550
                     list.Add(item.Key);
                 }
             }
-            return list.ToArray(); 
+            return list.ToArray();
         }
         private int Dfs(TreeNode root)
         {
             if (root == null)
                 return 0;
-            
-            int sum = root.val+ Dfs(root.left) + Dfs(root.right);
+
+            int sum = root.val + Dfs(root.left) + Dfs(root.right);
             if (dict.ContainsKey(sum))
             {
                 dict[sum]++;
-                max=Math.Max(max, dict[sum]);
+                max = Math.Max(max, dict[sum]);
             }
             else
             {
