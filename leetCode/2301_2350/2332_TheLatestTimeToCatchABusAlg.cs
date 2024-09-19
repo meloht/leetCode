@@ -13,26 +13,28 @@ namespace leetCode._2301_2350
             Array.Sort(buses);
             Array.Sort(passengers);
 
-            int max = buses[buses.Length - 1];
+            int pos = 0;
+            int space = 0;
 
-            for (int i = passengers.Length - 1; i >= 0; i--)
+            foreach (int arrive in buses)
             {
-                if (passengers[i] > max)
+                space = capacity;
+                while (space > 0 && pos < passengers.Length && passengers[pos] <= arrive)
                 {
-                    continue;
-                }
-                if (i == passengers.Length - 1 && passengers[i] < max)
-                {
-                    return passengers[i] + 1;
-                }
-
-                if (i < passengers.Length - 1 && passengers[i + 1] - passengers[i] > 1)
-                {
-                    return passengers[i] + 1;
+                    space--;
+                    pos++;
                 }
             }
 
-            return passengers[0] - 1;
+            pos--;
+            int lastCatchTime = space > 0 ? buses[buses.Length - 1] : passengers[pos];
+            while (pos >= 0 && passengers[pos] == lastCatchTime)
+            {
+                pos--;
+                lastCatchTime--;
+            }
+
+            return lastCatchTime;
         }
     }
 }
