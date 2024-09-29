@@ -18,11 +18,12 @@ namespace leetCode._2251_2300
 
             public int[] Gather(int k, int maxRow)
             {
-
+                return null;
             }
 
             public bool Scatter(int k, int maxRow)
             {
+                return false;
 
             }
         }
