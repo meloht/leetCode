@@ -41,8 +41,10 @@ namespace leetCode._3201_3250
         public List<string> ValidStrings2(int n)
         {
             List<string> res = new List<string>();
-            int mask = (1 << n) - 1;
-            for (int i = 0; i < 1 << n; i++)
+            int len = 1 << n;
+            int mask = len - 1;
+           
+            for (int i = 0; i < len; i++)
             {
                 int t = mask ^ i;
                 if (((t >> 1) & t) == 0)
