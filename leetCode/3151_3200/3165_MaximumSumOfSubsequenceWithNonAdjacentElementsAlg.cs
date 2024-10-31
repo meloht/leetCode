@@ -10,7 +10,6 @@ namespace leetCode._3151_3200
     {
         public int MaximumSumSubsequence(int[] nums, int[][] queries)
         {
-
             int n = nums.Length;
             // 4 个数分别保存 f00, f01, f10, f11
             long[][] t = new long[2 << (32 - int.LeadingZeroCount(n))][];
