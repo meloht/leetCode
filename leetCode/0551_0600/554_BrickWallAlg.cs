@@ -29,8 +29,6 @@ namespace leetCode._0551_0600
                 }
 
             }
-
-
             int ans = wall.Count;
             if (dict.Count > 0)
             {
