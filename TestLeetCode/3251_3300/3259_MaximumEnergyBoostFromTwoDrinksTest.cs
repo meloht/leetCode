@@ -1,11 +1,11 @@
-﻿using leetCode._3201_3250;
+﻿using leetCode._3251_3300;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Test._3201_3250
+namespace Test._3251_3300
 {
     [TestClass]
     public class _3259_MaximumEnergyBoostFromTwoDrinksTest

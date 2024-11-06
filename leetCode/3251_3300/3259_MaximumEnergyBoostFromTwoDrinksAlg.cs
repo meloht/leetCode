@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace leetCode._3201_3250
+namespace leetCode._3251_3300
 {
     public class _3259_MaximumEnergyBoostFromTwoDrinksAlg
     {
