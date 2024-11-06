@@ -18,7 +18,7 @@ namespace Test._3251_3300
             int[] nums = [1, 2, 3, 4, 3, 2, 5];
             int k = 3;
             int[] exp = [3, 4, -1, -1, -1];
-            int[] res=alg.ResultsArray(nums, k);
+            int[] res = alg.ResultsArray(nums, k);
             Assert.IsTrue(exp.SequenceEqual(res));
 
         }
@@ -40,6 +40,27 @@ namespace Test._3251_3300
             int[] nums = [3, 2, 3, 2, 3, 2];
             int k = 2;
             int[] exp = [-1, 3, -1, 3, -1];
+            int[] res = alg.ResultsArray(nums, k);
+            Assert.IsTrue(exp.SequenceEqual(res));
+
+        }
+        [TestMethod]
+        public void TestCase04()
+        {
+            int[] nums = [1];
+            int k = 1;
+            int[] exp = [1];
+            int[] res = alg.ResultsArray(nums, k);
+            Assert.IsTrue(exp.SequenceEqual(res));
+
+        }
+
+        [TestMethod]
+        public void TestCase05()
+        {
+            int[] nums = [1, 4];
+            int k = 1;
+            int[] exp = [1, 4];
             int[] res = alg.ResultsArray(nums, k);
             Assert.IsTrue(exp.SequenceEqual(res));
 
