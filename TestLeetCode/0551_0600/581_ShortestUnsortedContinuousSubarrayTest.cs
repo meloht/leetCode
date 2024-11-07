@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace Test._0551_0600
 {
     [TestClass]
-    public class _518_ShortestUnsortedContinuousSubarrayTest
+    public class _581_ShortestUnsortedContinuousSubarrayTest
     {
-        _518_ShortestUnsortedContinuousSubarrayAlg alg = new _518_ShortestUnsortedContinuousSubarrayAlg();
+        _581_ShortestUnsortedContinuousSubarrayAlg alg = new _581_ShortestUnsortedContinuousSubarrayAlg();
 
         [TestMethod]
         public void TestCase01()
@@ -35,6 +35,15 @@ namespace Test._0551_0600
         {
             int[] nums = [1];
             int exp = 0;
+            int res = alg.FindUnsortedSubarray(nums);
+            Assert.AreEqual(exp, res);
+        }
+
+        [TestMethod]
+        public void TestCase04()
+        {
+            int[] nums = [1, 3, 2, 4, 5];
+            int exp = 2;
             int res = alg.FindUnsortedSubarray(nums);
             Assert.AreEqual(exp, res);
         }
