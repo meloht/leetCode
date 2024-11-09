@@ -13,7 +13,6 @@ namespace leetCode._0551_0600
 
             List<int> list = new List<int>(nums);
             list.Sort();
-            int begin = 0;
             int end = nums.Length - 1;
             for (int i = 0, j = end; i < j;)
             {
