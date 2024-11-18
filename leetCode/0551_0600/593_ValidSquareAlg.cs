@@ -10,37 +10,59 @@ namespace leetCode._0551_0600
     {
         public bool ValidSquare(int[] p1, int[] p2, int[] p3, int[] p4)
         {
-           
-            int[][] arr = new int[4][];
-            arr[0] = p1;
-            arr[1] = p2;
-            arr[2] = p3;
-            arr[3] = p4;
-            Array.Sort(arr, (x, y) => x[0].CompareTo(y[0]));
-
-            if (arr[0][0] != arr[1][0])
+            if (p1[0] == p2[0] && p1[1] == p2[1])
+            {
                 return false;
-            if (arr[2][0] != arr[3][0])
+            }
+            if (Help(p1, p2, p3, p4))
+            {
+                return true;
+            }
+            if (p1[0] == p3[0] && p1[1] == p3[1])
+            {
                 return false;
-
-            
-
-            Array.Sort(arr, (x, y) => x[1].CompareTo(y[1]));
-
-            if (arr[0][1] != arr[1][1])
+            }
+            if (Help(p1, p3, p2, p4))
+            {
+                return true;
+            }
+            if (p1[0] == p4[0] && p1[1] == p4[1])
+            {
                 return false;
-            if (arr[2][1] != arr[3][1])
-                return false;
-
-
-
+            }
+            if (Help(p1, p4, p2, p3))
+            {
+                return true;
+            }
             return false;
         }
-        private long Dis(int[] p1, int[] p2)
+
+        public bool Help(int[] p1, int[] p2, int[] p3, int[] p4)
         {
-            long x = p1[0] - p2[0];
-            long y = p1[1] - p2[1];
-            return x * x + y * y;
+            int[] v1 = { p1[0] - p2[0], p1[1] - p2[1] };
+            int[] v2 = { p3[0] - p4[0], p3[1] - p4[1] };
+            if (CheckMidPoint(p1, p2, p3, p4) && CheckLength(v1, v2) && CalCos(v1, v2))
+            {
+                return true;
+            }
+            return false;
         }
+
+        public bool CheckLength(int[] v1, int[] v2)
+        {
+            return (v1[0] * v1[0] + v1[1] * v1[1]) == (v2[0] * v2[0] + v2[1] * v2[1]);
+        }
+
+        public bool CheckMidPoint(int[] p1, int[] p2, int[] p3, int[] p4)
+        {
+            return (p1[0] + p2[0]) == (p3[0] + p4[0]) && (p1[1] + p2[1]) == (p3[1] + p4[1]);
+        }
+
+        public bool CalCos(int[] v1, int[] v2)
+        {
+            return (v1[0] * v2[0] + v1[1] * v2[1]) == 0;
+        }
+
+        
     }
 }
