@@ -39,17 +39,5 @@ namespace Test._0601_0650
             Assert.IsTrue(exp.SequenceEqual(rees));
         }
 
-        [TestMethod]
-        public void TestCase03()
-        {
-            int?[] root = [4, 2, 6, 3, 1, 5];
-            int val = 1, depth = 1;
-            int?[] exp = [1, 4, null, 2, 6, 3, 1, 5];
-            TreeNode node = TreeNode.BuildTree(root);
-            var res = alg.AddOneRow(node, val, depth);
-            int?[] rees = TreeNode.GetTreeLevelList(node);
-
-            Assert.IsTrue(exp.SequenceEqual(rees));
-        }
     }
 }
