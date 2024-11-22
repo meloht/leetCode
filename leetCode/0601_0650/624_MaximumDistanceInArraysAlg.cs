@@ -77,5 +77,24 @@ namespace leetCode._0601_0650
             }
             return min;
         }
+
+        public int MaxDistance1(IList<IList<int>> arrays)
+        {
+            int res = 0;
+            int n = arrays.Count;
+            int min_val = arrays[0][0];
+            int max_val = arrays[0][arrays[0].Count-1];
+            for (int i = 1; i < arrays.Count; i++)
+            {
+                n = arrays[i].Count;
+                res = Math.Max(res, Math.Max(Math.Abs(arrays[i][n-1] - min_val),
+                                             Math.Abs(max_val - arrays[i][0])));
+                min_val = Math.Min(min_val, arrays[i][0]);
+                max_val = Math.Max(max_val, arrays[i][n - 1]);
+            }
+            return res;
+        }
+
+
     }
 }
