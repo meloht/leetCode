@@ -37,5 +37,21 @@ namespace leetCode._3201_3250
             }
             return ans;
         }
+
+        public int NumberOfAlternatingGroups1(int[] colors)
+        {
+            int n = colors.Length;
+            int res = 0;
+            for (int i = 0; i < n; i++)
+            {
+                if (colors[i] != colors[(i - 1 + n) % n] && colors[i] != colors[(i + 1) % n])
+                {
+                    res += 1;
+                }
+            }
+            return res;
+        }
+
+
     }
 }
