@@ -1,0 +1,2 @@
+﻿select ttt.customer_id from (select customer_id,count(*) as num from (select customer_id, product_key from Customer group by customer_id,product_key) tt group by customer_id) ttt
+where ttt.num=(select count(*) from Product)
