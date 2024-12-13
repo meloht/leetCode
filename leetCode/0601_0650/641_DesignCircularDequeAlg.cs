@@ -10,50 +10,75 @@ namespace leetCode._0601_0650
     {
         public class MyCircularDeque
         {
-
+            LinkedList<int> list;
+            int size;
+            int actualSize;
             public MyCircularDeque(int k)
             {
+                size = k;
+                actualSize = 0;
+                list = new LinkedList<int>();
 
             }
 
             public bool InsertFront(int value)
             {
-                return false;
+                if (actualSize == size)
+                    return false;
+                actualSize++;
+                list.AddFirst(value);
+                return true;
             }
 
             public bool InsertLast(int value)
             {
-                return false;
+                if (actualSize == size)
+                    return false;
+                actualSize++;
+                list.AddLast(value);
+                return true;
             }
 
             public bool DeleteFront()
             {
-                return false;
+                if (actualSize == 0)
+                    return false;
+                actualSize--;
+                list.RemoveFirst();
+                return true;
             }
 
             public bool DeleteLast()
             {
-                return false;
+                if (actualSize == 0)
+                    return false;
+                actualSize--;
+                list.RemoveLast();
+                return true;
             }
 
             public int GetFront()
             {
-                return 0;
+                if (actualSize == 0)
+                    return -1;
+                return list.First.Value;
             }
 
             public int GetRear()
             {
-                return 0;
+                if (actualSize == 0)
+                    return -1;
+                return list.Last.Value;
             }
 
             public bool IsEmpty()
             {
-                return false;
+                return actualSize==0;
             }
 
             public bool IsFull()
             {
-                return false;
+                return actualSize==size;
             }
         }
     }
