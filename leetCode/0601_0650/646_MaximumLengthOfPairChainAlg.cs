@@ -26,8 +26,10 @@ namespace leetCode._0601_0650
    
             if (pairs[i][1] < pairs[i][0])
             {
-                Dfs(i-1,i,pairs)+1
+               // Dfs(i-1,i,pairs)+1
             }
+
+            return 0;
         }
     }
 }
