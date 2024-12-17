@@ -18,7 +18,7 @@ namespace Test._3251_3300
             string s = "10101";
             int k = 1;
             int exp = 12;
-            int res = alg.CountKConstraintSubstrings(s, 1);
+            int res = alg.CountKConstraintSubstrings(s, k);
             Assert.AreEqual(exp, res);
 
         }
@@ -29,7 +29,7 @@ namespace Test._3251_3300
             string s = "1010101";
             int k = 2;
             int exp = 25;
-            int res = alg.CountKConstraintSubstrings(s, 1);
+            int res = alg.CountKConstraintSubstrings(s, k);
             Assert.AreEqual(exp, res);
         }
 
@@ -39,7 +39,7 @@ namespace Test._3251_3300
             string s = "11111";
             int k = 1;
             int exp = 15;
-            int res = alg.CountKConstraintSubstrings(s, 1);
+            int res = alg.CountKConstraintSubstrings(s, k);
             Assert.AreEqual(exp, res);
         }
     }
