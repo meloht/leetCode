@@ -29,5 +29,22 @@ namespace Test._0601_0650
             string res = alg.PredictPartyVictory(senate);
             Assert.AreEqual(res, exp);
         }
+        [TestMethod]
+        public void TestCase03()
+        {
+            string senate = "RRR";
+            string exp = "Radiant";
+            string res = alg.PredictPartyVictory(senate);
+            Assert.AreEqual(res, exp);
+        }
+
+        [TestMethod]
+        public void TestCase04()
+        {
+            string senate = "DR";
+            string exp = "Dire";
+            string res = alg.PredictPartyVictory(senate);
+            Assert.AreEqual(res, exp);
+        }
     }
 }
