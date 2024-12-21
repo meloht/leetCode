@@ -22,7 +22,7 @@ namespace Test._0651_0700
             var trees = alg.FindDuplicateSubtrees(tree);
             int?[][] exp = [[2, 4], [4]];
             int?[][] res = TreeNode.GetTreeLevelLists(trees).ToArray();
-            Assert.IsTrue(Utils.IsSameArr(exp, res));
+            Assert.IsTrue(Utils.IsSame(exp, res));
 
         }
 
@@ -34,7 +34,7 @@ namespace Test._0651_0700
             var trees = alg.FindDuplicateSubtrees(tree);
             int?[][] exp = [[1]];
             int?[][] res = TreeNode.GetTreeLevelLists(trees).ToArray();
-            Assert.IsTrue(Utils.IsSameArr(exp, res));
+            Assert.IsTrue(Utils.IsSame(exp, res));
 
         }
 
@@ -46,7 +46,7 @@ namespace Test._0651_0700
             var trees = alg.FindDuplicateSubtrees(tree);
             int?[][] exp = [[2, 3], [3]];
             int?[][] res = TreeNode.GetTreeLevelLists(trees).ToArray();
-            Assert.IsTrue(Utils.IsSameArr(exp, res));
+            Assert.IsTrue(Utils.IsSame(exp, res));
 
         }
     }
