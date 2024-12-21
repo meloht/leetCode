@@ -149,6 +149,21 @@ namespace leetCode.Model.BinaryTree
 
         }
 
+        public static List<int?[]> GetTreeLevelLists(IList<TreeNode> roots)
+        {
+            List<int?[]> list = new List<int?[]>();
+            if (roots == null || roots.Count == 0)
+                return list;
+
+            foreach (var item in roots)
+            {
+                var res = GetTreeLevelList(item);
+                list.Add(res);
+            }
+
+            return list;
+        }
+
         /// <summary>
         /// 先序遍历
         /// </summary>
