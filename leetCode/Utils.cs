@@ -97,6 +97,25 @@ namespace leetCode
             return sb.ToString();
         }
 
+        /// <summary>
+        /// 十进制转二进制
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static string Binary(int x)
+        {
+            string s = string.Empty;
+            while (x != 0)
+            {
+                s = s + (x & 1);
+                x >>= 1;
+            }
+            char[] charArray = s.ToCharArray();
+            Array.Reverse(charArray);
+            return new string(charArray);
+        }
+
+
 
     }
 }
