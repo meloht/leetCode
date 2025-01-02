@@ -24,28 +24,35 @@ namespace leetCode._0701_0750
                     return true;
                 }
 
-                if (startTime >= booked.Max()[1] || endTime <= booked.Min()[0])
+                if (startTime >= booked.Max[1] || endTime <= booked.Min[0])
                 {
                     booked.Add([startTime, endTime]);
                     return true;
                 }
 
-                var right = booked.GetViewBetween([endTime, 0], [int.MaxValue, 0]).Min;
-                var left = booked.GetViewBetween([0, 0], [endTime, 0]).Max;
+                var right = booked.GetViewBetween([startTime, 0], [int.MaxValue, 0]).Min;
+                var left = booked.GetViewBetween([0, 0], [startTime, 0]).Max;
 
-                if (left != null && left[1] <= startTime)
+                if (left != null && right != null)
                 {
-                    if (right == null || right[0] >= endTime)
+                    if (left[1] <= startTime && right[0] >= endTime)
                     {
                         booked.Add([startTime, endTime]);
                         return true;
                     }
 
                 }
-
-                else
+                else if (left != null)
                 {
-                    if (right != null && right[0] >= endTime)
+                    if (left[1] <= startTime)
+                    {
+                        booked.Add([startTime, endTime]);
+                        return true;
+                    }
+                }
+                else if (right != null)
+                {
+                    if (right[0] >= endTime)
                     {
                         booked.Add([startTime, endTime]);
                         return true;

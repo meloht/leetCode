@@ -18,5 +18,17 @@ namespace Test._0701_0750
             Assert.IsFalse(myCalendar.Book(15, 25)); // return False ，这个日程安排不能添加到日历中，因为时间 15 已经被另一个日程安排预订了。
             Assert.IsTrue(myCalendar.Book(20, 30)); // return True ，这个日程安排可以添加到日历中，因为第一个日程安排预订的每个时间都小于 20 ，且不包含时间 20 。
         }
+
+        [TestMethod]
+        public void TestCase02()
+        {
+            MyCalendar myCalendar = new MyCalendar();
+            Assert.AreEqual(true,myCalendar.Book(20, 29)); 
+            Assert.AreEqual(false,myCalendar.Book(13, 22)); 
+            Assert.AreEqual(true, myCalendar.Book(44, 50));
+            Assert.AreEqual(true, myCalendar.Book(1, 7));
+            Assert.AreEqual(false, myCalendar.Book(2, 10));
+            Assert.AreEqual(true, myCalendar.Book(14, 20));
+        }
     }
 }
