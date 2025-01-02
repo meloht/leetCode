@@ -30,7 +30,7 @@ namespace leetCode._0701_0750
                     return true;
                 }
 
-                var right = booked.GetViewBetween([startTime, 0], [int.MaxValue, 0]).Min;
+                var right = booked.GetViewBetween([startTime + 1, 0], [int.MaxValue, 0]).Min;
                 var left = booked.GetViewBetween([0, 0], [startTime, 0]).Max;
 
                 if (left != null && right != null)
