@@ -9,7 +9,7 @@ namespace leetCodeTemplates.线段树
     public class SegmentTreeTemplate
     {
         /// <summary>
-        /// 线段数+懒标记
+        /// 线段树+懒标记
         /// </summary>
         public class NumArray
         {

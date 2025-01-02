@@ -26,8 +26,5 @@ namespace leetCode._0601_0650
             return ans;
         }
 
-
-
-       
     }
 }
