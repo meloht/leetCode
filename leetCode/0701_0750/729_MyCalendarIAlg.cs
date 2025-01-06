@@ -66,5 +66,41 @@ namespace leetCode._0701_0750
         }
 
 
+        public class MyCalendar1
+        {
+            private List<(int, int)> bookings;
+
+            public MyCalendar1()
+            {
+                bookings = new List<(int, int)>();
+            }
+
+            public bool Book(int startTime, int endTime)
+            {
+                var left = 0;
+                var right = bookings.Count - 1;
+                while (left <= right)
+                {
+                    var mid = left + (right - left) / 2;
+                    var (bookStart, bookEnd) = bookings[mid];
+                    if (bookStart < endTime && bookEnd > startTime)
+                    {
+                        return false;
+                    }
+                    if (bookStart >= endTime)
+                    {
+                        right = mid - 1;
+                    }
+                    else
+                    {
+                        left = mid + 1;
+                    }
+                }
+                bookings.Insert(left, (startTime, endTime));
+                return true;
+            }
+        }
+
+
     }
 }
