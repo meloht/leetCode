@@ -31,5 +31,15 @@ namespace Test._0651_0700
             int[] res = alg.MaxSumOfThreeSubarrays(nums, k);
             Assert.IsTrue(exp.SequenceEqual(res));
         }
+
+        [TestMethod]
+        public void TestCase03()
+        {
+            int[] nums = [7, 13, 20, 19, 19, 2, 10, 1, 1, 19];
+            int k = 3;
+            int[] exp = [1, 4, 7];
+            int[] res = alg.MaxSumOfThreeSubarrays(nums, k);
+            Assert.IsTrue(exp.SequenceEqual(res));
+        }
     }
 }
