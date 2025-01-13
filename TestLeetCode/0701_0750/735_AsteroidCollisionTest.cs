@@ -38,5 +38,14 @@ namespace Test._0701_0750
             int[] res = alg.AsteroidCollision(asteroids);
             Assert.IsTrue(exp.SequenceEqual(res));
         }
+
+        [TestMethod]
+        public void TestCase04()
+        {
+            int[] asteroids = [1, -2, -2, -2];
+            int[] exp = [-2, -2, -2];
+            int[] res = alg.AsteroidCollision(asteroids);
+            Assert.IsTrue(exp.SequenceEqual(res));
+        }
     }
 }
