@@ -41,5 +41,15 @@ namespace Test._0751_0800
             int res = alg.OpenLock(deadends, target);
             Assert.AreEqual(exp, res);
         }
+
+        [TestMethod]
+        public void TestCase04()
+        {
+            string[] deadends = ["0201", "0101", "0102", "1212", "2002"];
+            string target = "0000";
+            int exp = 0;
+            int res = alg.OpenLock(deadends, target);
+            Assert.AreEqual(exp, res);
+        }
     }
 }
