@@ -10,8 +10,6 @@ namespace leetCode._0751_0800
 {
     public class _756_PyramidTransitionMatrixAlg
     {
-
-
         int[,] T;
         HashSet<long> seen;
 
@@ -65,7 +63,7 @@ namespace leetCode._0751_0800
             }
         }
 
-        public bool PyramidTransition1(string bottom, IList<string> allowed)
+        public bool PyramidTransition(string bottom, IList<string> allowed)
         {
             HashSet<char>[,] nexts = new HashSet<char>[6, 6];
             for (int i = 0; i < 6; i++)
