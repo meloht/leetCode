@@ -30,5 +30,15 @@ namespace Test._0751_0800
             int res = alg.OrderOfLargestPlusSign(n, mines);
             Assert.AreEqual(exp, res);
         }
+
+        [TestMethod]
+        public void TestCase03()
+        {
+            int n = 2;
+            int[][] mines = [[0, 0], [0, 1], [1, 0]];
+            int exp = 1;
+            int res = alg.OrderOfLargestPlusSign(n, mines);
+            Assert.AreEqual(exp, res);
+        }
     }
 }
