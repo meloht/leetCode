@@ -8,7 +8,7 @@ namespace leetCode._0751_0800
 {
     public class _767_ReorganizeStringAlg
     {
-        public string ReorganizeString(string s)
+        public string ReorganizeString1(string s)
         {
             if (s.Length == 1)
                 return s;
@@ -103,6 +103,57 @@ namespace leetCode._0751_0800
             }
             return sb.ToString();
 
+        }
+
+        public string ReorganizeString(string s)
+        {
+            if (s.Length == 1)
+                return s;
+            int n = s.Length;
+            int[] arr = new int[26];
+            int max = 0;
+            int maxIdx = 0;
+            foreach (var ch in s)
+            {
+                int idx = ch - 'a';
+                arr[idx]++;
+                if (arr[idx] > (n + 1) / 2)
+                    return "";
+
+                if (arr[idx] > max)
+                {
+                    maxIdx = idx;
+                    max = arr[idx];
+                }
+            }
+
+            char[] ans = new char[n];
+            int i = 0;
+            for (; arr[maxIdx] > 0; arr[maxIdx]--)
+            {
+                ans[i] = (char)(maxIdx + 'a');
+                i += 2;
+                if (i >= n)
+                {
+                    i = 1;
+                }
+            }
+
+            for (int j = 0; j < 26; j++)
+            {
+                for (; arr[j] > 0; arr[j]--)
+                {
+                    ans[i] = (char)(j + 'a');
+                    i += 2;
+                    if (i >= n)
+                    {
+                        i = 1;
+                    }
+                }
+            }
+
+
+            return new string(ans);
         }
     }
 }
