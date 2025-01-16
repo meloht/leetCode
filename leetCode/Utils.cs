@@ -114,7 +114,24 @@ namespace leetCode
             Array.Reverse(charArray);
             return new string(charArray);
         }
+        public static string Binary2(int decimalNumber)
+        {
+            // 如果输入为0，直接返回 "0"
+            if (decimalNumber == 0)
+                return "0";
 
+            string binaryNumber = string.Empty;
+
+            // 进行除2取余法转换
+            while (decimalNumber > 0)
+            {
+                int remainder = decimalNumber % 2;
+                binaryNumber = remainder + binaryNumber;
+                decimalNumber /= 2;
+            }
+
+            return binaryNumber;
+        }
 
 
     }
