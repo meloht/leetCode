@@ -16,11 +16,11 @@ namespace leetCode._3201_3250
             for (int i = 0; i < n; i++)
             {
                 if (nums[i] == k)
-                { 
+                {
                     count++;
                 }
-                
-                for (int j = i - 1; j >= 0 && (nums[j] & nums[i])!=nums[j]; j--)
+
+                for (int j = i - 1; j >= 0 && (nums[j] & nums[i]) != nums[j]; j--)
                 {
                     if (nums[j] == k)
                     {
@@ -38,6 +38,6 @@ namespace leetCode._3201_3250
             return ans;
         }
 
-       
+
     }
 }
