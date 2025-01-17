@@ -32,6 +32,33 @@ namespace leetCode._3051_3100
 
         public int MinimumSubarrayLength(int[] nums, int k)
         {
+            int ans = int.MaxValue;
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] >= k)
+                {
+                    return 1;
+
+                }
+
+                for (int j = i - 1; j >= 0 && (nums[j] | nums[i]) != nums[j]; j--)
+                {
+                    nums[j] |= nums[i];
+                    if (nums[j] >= k)
+                    {
+                        ans = Math.Min(ans, i - j + 1);
+                        if (ans == 1)
+                            return 1;
+                    }
+                }
+            }
+
+            return ans == int.MaxValue ? -1 : ans;
+        }
+
+        public int MinimumSubarrayLength2(int[] nums, int k)
+        {
             int[] dict = new int[50];
 
             int ans = int.MaxValue;
