@@ -57,5 +57,29 @@ namespace leetCode._0751_0800
 
             return true;
         }
+
+        public bool CanTransform1(string start, string end)
+        {
+            if (start.Replace("X", "") != end.Replace("X", ""))
+                return false;
+
+
+            for (int i = 0, j = 0; i < start.Length; i++)
+            {
+                if (start[i] == 'X')
+                    continue;
+                while (end[j] == 'X')
+                {
+                    j++;
+                }
+                if (i != j && (start[i] == 'L') != (i > j))
+                {
+                    return false;
+                }
+                j++;
+            }
+
+            return true;
+        }
     }
 }
