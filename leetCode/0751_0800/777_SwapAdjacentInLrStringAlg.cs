@@ -8,7 +8,7 @@ namespace leetCode._0751_0800
 {
     public class _777_SwapAdjacentInLrStringAlg
     {
-        public bool CanTransform1(string start, string end)
+        public bool CanTransform(string start, string end)
         {
             if (start.Length != end.Length)
             {
