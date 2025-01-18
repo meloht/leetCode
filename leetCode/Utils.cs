@@ -134,5 +134,77 @@ namespace leetCode
         }
 
 
+        /// <summary>
+        /// 求长度为k的子序列
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        public List<List<int>> FindSubsequencesOfLengthK(int[] nums, int k)
+        {
+            List<List<int>> result = new List<List<int>>();
+            int n = nums.Length;
+            if (k < 0 || k > n)
+            {
+                return result;
+            }
+            int[] indices = new int[k];
+            for (int i = 0; i < k; i++)
+            {
+                indices[i] = i;
+            }
+            while (true)
+            {
+                List<int> subSeq = new List<int>();
+                foreach (int index in indices)
+                {
+                    subSeq.Add(nums[index]);
+                }
+                result.Add(subSeq);
+                int i;
+                for (i = k - 1; i >= 0 && indices[i] == n - k + i; i--) ;
+                if (i < 0)
+                {
+                    break;
+                }
+                indices[i]++;
+                for (int j = i + 1; j < k; j++)
+                {
+                    indices[j] = indices[j - 1] + 1;
+                }
+            }
+            return result;
+        }
+        /// <summary>
+        ///  求长度为k的子序列
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        public List<List<int>> GenerateSubsequences(int[] arr, int k)
+        {
+            var result = new List<List<int>>();
+            Backtrack(arr, k, 0, new List<int>(), result);
+            return result;
+        }
+
+        static void Backtrack(int[] arr, int k, int start, List<int> path, List<List<int>> result)
+        {
+            // If the current path's length is k, add it to the result
+            if (path.Count == k)
+            {
+                result.Add(new List<int>(path));
+                return;
+            }
+            // Explore further elements to add to the path
+            for (int i = start; i < arr.Length; i++)
+            {
+                path.Add(arr[i]);
+                Backtrack(arr, k, i + 1, path, result);
+                path.RemoveAt(path.Count - 1); // backtrack, remove the last element
+            }
+        }
+
+
     }
 }
