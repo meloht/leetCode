@@ -15,7 +15,7 @@ namespace Test._2201_2250
         [TestMethod]
         public void TestCase01()
         {
-            int[][] piles = [[1, 100, 3], [7, 8, 9]];
+            IList<IList<int>> piles = [[1, 100, 3], [7, 8, 9]];
             int k = 2;
             int exp = 101;
             int res = alg.MaxValueOfCoins(piles, k);
@@ -25,7 +25,7 @@ namespace Test._2201_2250
         [TestMethod]
         public void TestCase02()
         {
-            int[][] piles = [[100], [100], [100], [100], [100], [100], [1, 1, 1, 1, 1, 1, 700]];
+            IList<IList<int>> piles = [[100], [100], [100], [100], [100], [100], [1, 1, 1, 1, 1, 1, 700]];
             int k = 7;
             int exp = 706;
             int res = alg.MaxValueOfCoins(piles, k);
