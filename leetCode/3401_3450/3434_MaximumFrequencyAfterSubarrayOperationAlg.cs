@@ -8,7 +8,7 @@ namespace leetCode._3401_3450
 {
     public class _3434_MaximumFrequencyAfterSubarrayOperationAlg
     {
-        public int MaxFrequency(int[] nums, int k)
+        public int MaxFrequency2(int[] nums, int k)
         {
             int ans = 0;
             int total = 0;
@@ -70,6 +70,52 @@ namespace leetCode._3401_3450
             }
 
             return ans;
+        }
+
+        public int MaxFrequency(int[] nums, int k)
+        {
+            int total = 0;
+            HashSet<int> set = new HashSet<int>();
+            foreach (int num in nums)
+            {
+                if (num == k)
+                {
+                    total++;
+                }
+                else
+                {
+                    set.Add(num);
+                }
+                
+            }
+
+            int maxContribution = 0;
+
+            foreach (int a in set)
+            {
+                int currentMax = 0, max = 0;
+                foreach (int num in nums)
+                {
+                    if (num == a)
+                    {
+                        max++;
+                    }
+                    else if (num == k)
+                    {
+                        max--;
+                    }
+                  
+                    currentMax = Math.Max(currentMax, max);
+                    if (max < 0)
+                    {
+                        max = 0;
+                    }
+
+                }
+                maxContribution = Math.Max(maxContribution, currentMax);
+            }
+
+            return Math.Max(total + maxContribution, 0);
         }
 
     }
