@@ -256,5 +256,91 @@ namespace leetCode._1_50
 
         }
 
+
+        public IList<IList<int>> CombinationSum23(int[] candidates, int target)
+        {
+            Array.Sort(candidates);
+            IList<IList<int>> result = new List<IList<int>>();
+            Backtrack(candidates, target, 0, new List<int>(), result);
+            return result;
+        }
+
+        private void Backtrack(int[] candidates, int target, int start, List<int> path, IList<IList<int>> result)
+        {
+            if (target == 0)
+            {
+                result.Add(new List<int>(path));
+                return;
+            }
+
+            for (int i = start; i < candidates.Length; i++)
+            {
+                // 跳过同一层中的重复元素
+                if (i > start && candidates[i] == candidates[i - 1])
+                {
+                    continue;
+                }
+                // 剪枝：当前元素已大于剩余目标值
+                if (candidates[i] > target)
+                {
+                    break;
+                }
+                path.Add(candidates[i]);
+                Backtrack(candidates, target - candidates[i], i + 1, path, result);
+                path.RemoveAt(path.Count - 1);
+            }
+        }
+
+
+        private List<KeyValuePair<int, int>> freq = new List<KeyValuePair<int, int>>();
+        private List<IList<int>> ans = new List<IList<int>>();
+        private List<int> sequence = new List<int>();
+
+        private void Dfs(int pos, int rest)
+        {
+            if (rest == 0)
+            {
+                ans.Add(new List<int>(sequence));
+                return;
+            }
+            if (pos == freq.Count || rest < freq[pos].Key)
+            {
+                return;
+            }
+
+            Dfs(pos + 1, rest);
+
+            int most = Math.Min(rest / freq[pos].Key, freq[pos].Value);
+            for (int i = 1; i <= most; ++i)
+            {
+                sequence.Add(freq[pos].Key);
+                Dfs(pos + 1, rest - i * freq[pos].Key);
+            }
+            for (int i = 1; i <= most; ++i)
+            {
+                sequence.RemoveAt(sequence.Count - 1);
+            }
+        }
+
+        public IList<IList<int>> CombinationSum222(int[] candidates, int target)
+        {
+            Array.Sort(candidates);
+            foreach (int num in candidates)
+            {
+                if (freq.Count == 0 || num != freq[freq.Count - 1].Key)
+                {
+                    freq.Add(new KeyValuePair<int, int>(num, 1));
+                }
+                else
+                {
+                    freq[freq.Count - 1] = new KeyValuePair<int, int>(num, freq[freq.Count - 1].Value + 1);
+                }
+            }
+            Dfs(0, target);
+            return ans;
+        }
+
+
+
     }
 }
