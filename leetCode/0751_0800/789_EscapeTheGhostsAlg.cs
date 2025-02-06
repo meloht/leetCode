@@ -10,17 +10,16 @@ namespace leetCode._0751_0800
     {
         public bool EscapeGhosts(int[][] ghosts, int[] target)
         {
-
+            int dis = Math.Abs(target[0]) + Math.Abs(target[1]);
             int min = int.MaxValue;
             foreach (var ghost in ghosts)
             {
                 min = Math.Min(min, Math.Abs(ghost[0] - target[0]) + Math.Abs(ghost[1] - target[1]));
+                if (dis >= min)
+                    return false;
             }
 
-            int dis = Math.Abs(target[0]) + Math.Abs(target[1]);
-
-
-            return dis < min;
+            return true;
         }
     }
 }
