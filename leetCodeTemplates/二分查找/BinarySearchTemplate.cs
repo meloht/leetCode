@@ -193,5 +193,58 @@ namespace leetCodeTemplates.BinarySearch
 
 
 
+        /// <summary>
+        /// 大于target的最小值
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        private int LeftBinarySearch(List<int> list, int target)
+        {
+            int left = 0;
+            int right = list.Count - 1;
+            int ans = 0;
+            while (left <= right)
+            {
+                int mid = left + (right - left) / 2;
+                if (list[mid] <= target)
+                {
+                    left = mid + 1;
+                }
+                else
+                {
+                    ans = mid;
+                    right = mid - 1;
+                }
+            }
+            return ans;
+        }
+        /// <summary>
+        /// 小于target的最大值
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        private int RightBinarySearch(List<int> list, int target)
+        {
+            int left = 0;
+            int right = list.Count - 1;
+            int ans = 0;
+            while (left <= right)
+            {
+                int mid = left + (right - left) / 2;
+                if (list[mid] < target)
+                {
+                    ans = mid;
+                    left = mid + 1;
+                }
+                else
+                {
+                    right = mid - 1;
+                }
+            }
+            return ans;
+        }
+
     }
 }
