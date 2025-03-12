@@ -57,51 +57,32 @@ namespace leetCode._3301_3350
         }
 
 
-        public int CountOfSubstrings(string word, int k)
+        public long CountOfSubstrings(string word, int k)
         {
             var n1 = GetCount(word, k);
             var n2 = GetCount(word, k + 1);
-            return (int)(n1 - n2);
+            return n1 - n2;
         }
         private long GetCount(string word, int k)
         {
             long ans = 0;
             int[] map = new int[26];
+            int n = word.Length;
 
-
-            for (int i = 0, j = 0;  i < word.Length; i++)
+            for (int i = 0, j = 0; i < n; i++)
             {
-                if (i > 0)
+                while (j < n && !GetVowelCount(map, k))
                 {
-                    map[word[i - 1] - 'a']--;
+                    map[word[j] - 'a']++;
+                    j++;
+                }
+                if (GetVowelCount(map, k))
+                {
+                    ans += n - j + 1;
                 }
 
-                if (j < word.Length)
-                {
-                    for (; j < word.Length; j++)
-                    {
-                        map[word[j] - 'a']++;
+                map[word[i] - 'a']--;
 
-                        if (GetVowelCount(map, k))
-                        {
-                            ans += word.Length - j;
-                            break;
-                        }
-                    }
-                }
-                else
-                {
-                    if (GetVowelCount(map, k))
-                    {
-                        ans++;
-
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-              
             }
             return ans;
         }

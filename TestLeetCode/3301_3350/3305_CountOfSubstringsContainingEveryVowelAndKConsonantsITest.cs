@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,8 +18,8 @@ namespace Test._3301_3350
         {
             string word = "aeioqq";
             int k = 1;
-            int exp = 0;
-            int res = alg.CountOfSubstrings(word, k);
+            long exp = 0;
+            long res = alg.CountOfSubstrings(word, k);
             Assert.AreEqual(exp, res);
         }
 
@@ -27,8 +28,8 @@ namespace Test._3301_3350
         {
             string word = "aeiou";
             int k = 0;
-            int exp = 1;
-            int res = alg.CountOfSubstrings(word, k);
+            long exp = 1;
+            long res = alg.CountOfSubstrings(word, k);
             Assert.AreEqual(exp, res);
         }
 
@@ -37,8 +38,8 @@ namespace Test._3301_3350
         {
             string word = "ieaouqqieaouqq";
             int k = 1;
-            int exp = 3;
-            int res = alg.CountOfSubstrings(word, k);
+            long exp = 3;
+            long res = alg.CountOfSubstrings(word, k);
             Assert.AreEqual(exp, res);
         }
     }
