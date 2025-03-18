@@ -18,22 +18,21 @@ namespace leetCode._0801_0850
             {
                 if (set.Contains(node.val))
                 {
-                    bl = true;
+                    if (!bl)
+                    {
+                        bl = true;
+                        ans++;
+                    }
+                 
                 }
                 else
                 {
-                    if (bl)
-                    {
-                        ans++;
-                    }
+
                     bl = false;
                 }
                 node = node.next;
             }
-            if (bl)
-            {
-                ans++;
-            }
+           
 
             return ans;
         }
