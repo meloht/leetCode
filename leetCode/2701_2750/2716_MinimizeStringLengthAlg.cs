@@ -10,12 +10,12 @@ namespace leetCode._2701_2750
     {
         public int MinimizedStringLength(string s)
         {
-            HashSet<char> set = new HashSet<char>();
+            int[] map = new int[26];
             foreach (var item in s)
             {
-                set.Add(item);
+                map[item - 'a'] = 1;
             }
-            return set.Count;
+            return map.Count(p => p == 1);
         }
 
     }
