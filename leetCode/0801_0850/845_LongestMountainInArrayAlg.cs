@@ -9,7 +9,7 @@ namespace leetCode._0801_0850
 {
     public class _845_LongestMountainInArrayAlg
     {
-        public int LongestMountain(int[] arr)
+        public int LongestMountain1(int[] arr)
         {
             int ans = 0;
             List<int> top = new List<int>();
@@ -52,6 +52,35 @@ namespace leetCode._0801_0850
 
             return ans;
 
+        }
+
+        public int LongestMountain(int[] arr)
+        {
+            int ans = 0;
+            int n = arr.Length, up = 1, down = 0;
+            for (int i = 1; i < n; ++i)
+            {
+                if (arr[i] == arr[i - 1])
+                {
+                    up = 1;
+                    down = 0;
+                }
+                else if (arr[i] > arr[i - 1])
+                {
+                    if (down != 0)
+                        up = 1;
+                    ++up;
+                    down = 0;
+                }
+                else
+                {
+                    if (up == 1)
+                        continue;
+                    ++down;
+                    ans = Math.Max(ans, up + down);
+                }
+            }
+            return ans;
         }
     }
 }
