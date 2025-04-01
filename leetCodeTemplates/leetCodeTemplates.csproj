@@ -95,6 +95,10 @@
     <Compile Include="..\leetCode\WeeklyContest\0401\Alg_04.cs" Link="位运算\bitset\Alg_04.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\leetCode\leetCode.csproj" />
+  </ItemGroup>
+
 
 
 </Project>
