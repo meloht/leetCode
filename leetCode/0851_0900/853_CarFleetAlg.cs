@@ -8,7 +8,7 @@ namespace leetCode._0851_0900
 {
     public class _853_CarFleetAlg
     {
-        public int CarFleet1(int target, int[] position, int[] speed)
+        public int CarFleet(int target, int[] position, int[] speed)
         {
             int n = position.Length;
 
@@ -24,23 +24,12 @@ namespace leetCode._0851_0900
             for (int i = 0; i < n; i++)
             {
                 var item = arr[i];
-                if (stack.Count == 0)
+              
+                while (stack.Count > 0 && stack.Peek().Time <= item.Time)
                 {
-                    stack.Push(item);
-                    continue;
+                    stack.Pop();
                 }
-                if (stack.Peek().Time > item.Time)
-                {
-                    stack.Push(item);
-                }
-                else
-                {
-                    while (stack.Count > 0 && stack.Peek().Time <= item.Time)
-                    {
-                        stack.Pop();
-                    }
-                    stack.Push(item);
-                }
+                stack.Push(item);
             }
 
             return stack.Count;
@@ -59,7 +48,7 @@ namespace leetCode._0851_0900
         }
 
 
-        public int CarFleet(int target, int[] position, int[] speed)
+        public int CarFleet1(int target, int[] position, int[] speed)
         {
             int n=position.Length;
             int[] idx=new int[n];
