@@ -8,7 +8,7 @@ namespace leetCode._0851_0900
 {
     public class _853_CarFleetAlg
     {
-        public int CarFleet(int target, int[] position, int[] speed)
+        public int CarFleet1(int target, int[] position, int[] speed)
         {
             int n = position.Length;
 
@@ -56,6 +56,31 @@ namespace leetCode._0851_0900
                 Position = p;
                 Time = time;
             }
+        }
+
+
+        public int CarFleet(int target, int[] position, int[] speed)
+        {
+            int n=position.Length;
+            int[] idx=new int[n];
+            for (int i = 0; i < n; i++)
+            {
+                idx[i] = i;
+            }
+            Array.Sort(idx, (x, y) => position[y].CompareTo(position[x]));
+            int ans = 0;
+            double prevTime = 0;
+            foreach (var item in idx)
+            {
+                double time = (double)(target - position[item])/speed[item];
+                if (time > prevTime)
+                {
+                    prevTime = time;
+                    ans++;
+                }
+            }
+
+            return ans;
         }
     }
 }
