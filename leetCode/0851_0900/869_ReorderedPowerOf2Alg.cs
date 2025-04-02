@@ -22,9 +22,6 @@ namespace leetCode._0851_0900
                     return true;
                 num = num * 2;
             }
-
-
-
             return false;
         }
 
