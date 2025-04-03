@@ -70,7 +70,7 @@ namespace leetCode._0851_0900
             int res = 0;
             for (int i = 0; i < n; i++)
             {
-                int num1 = arr[i];
+
                 for (int j = i - 1; j >= 0 && arr[j] * 2 > arr[i]; j--)
                 {
                     int nn = arr[i] - arr[j];
@@ -82,6 +82,7 @@ namespace leetCode._0851_0900
                         res = Math.Max(res, dp[j, i]);
                     }
                 }
+
             }
 
             return res;
