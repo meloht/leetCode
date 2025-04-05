@@ -22,7 +22,7 @@ namespace leetCode._0851_0900
 
             mat[count++] = [rStart, cStart];
 
-            if(total==1)
+            if (total == 1)
                 return mat;
 
             for (int k = 1; k < n; k += 2)
