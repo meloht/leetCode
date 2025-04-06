@@ -9,62 +9,64 @@ namespace leetCode._0351_0400
 {
     public class _368_LargestDivisibleSubsetAlg
     {
-        int[] ans = [];
-        public IList<int> LargestDivisibleSubset1(int[] nums)
+        public IList<int> LargestDivisibleSubset(int[] nums)
         {
             if (nums.Length < 2)
                 return nums;
             Array.Sort(nums);
-          
+
+            int n = nums.Length;
+            int[] memo = new int[n];
+            int[] from = new int[n];
+            Array.Fill(from, -1);
+            int maxf = 0;
+            int maxi = 0;
+
             for (int i = 0; i < nums.Length; i++)
             {
-                List<int> list = new List<int>();
-                list.Add(nums[i]);
-                Dfs(nums, nums[i], i + 1, list);
+                int f = Dfs(nums, i, memo, from);
+                if (f > maxf)
+                {
+                    maxf = f;
+                    maxi = i;
+                }
+              
             }
-            if (ans.Length == 0)
+            List<int> ans = new List<int>();
+            for (int i = maxi; i >=0; i = from[i])
             {
-                return [nums[0]];
+                ans.Add(nums[i]);
             }
             return ans;
         }
 
-        private void Dfs(int[] nums, int prev, int index, List<int> list)
-        {
-            if (index == nums.Length)
-            {
-                if (list.Count > 1)
-                {
-                    if (ans == null)
-                    {
-                        ans = list.ToArray();
-                    }
-                    else
-                    {
-                        if (ans.Length < list.Count)
-                        {
-                            ans = list.ToArray();
-                        }
-                    }
-                }
-                return;
-            }
 
-            if (nums[index] % prev == 0)
+
+        private int Dfs(int[] nums, int i, int[] memo, int[] from)
+        {
+            if (memo[i] > 0)
+                return memo[i];
+
+            int res = 0;
+            for (int j = 0; j < i; j++)
             {
-                list.Add(nums[index]);
-                Dfs(nums, nums[index], index + 1, list);
-                list.Remove(nums[index]);
-                Dfs(nums, prev, index + 1, list);
+                if (nums[i] % nums[j] != 0)
+                    continue;
+
+                int f = Dfs(nums, j, memo, from);
+                if (f > res)
+                {
+                    res = f;
+                    from[i] = j;
+                }
             }
-            else
-            {
-                Dfs(nums, prev, index + 1, list);
-            }
+            return memo[i] = res + 1;
 
         }
 
-        public IList<int> LargestDivisibleSubset(int[] nums)
+
+
+        public IList<int> LargestDivisibleSubset2(int[] nums)
         {
             int len = nums.Length;
             Array.Sort(nums);
