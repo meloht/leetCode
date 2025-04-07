@@ -48,13 +48,13 @@ namespace leetCode._0851_0900
         }
 
 
-        public int[][] SpiralMatrixIII(int rows, int cols, int rStart, int cStart)
+        public int[][] SpiralMatrixIII2(int rows, int cols, int rStart, int cStart)
         {
             int total = rows * cols;
             int[][] mat = new int[total][];
             int count = 0;
             mat[count++] = [rStart, cStart];
-            int bottom = rStart ;
+            int bottom = rStart;
             int top = rStart;
             int left = cStart;
             int right = cStart;
@@ -66,7 +66,7 @@ namespace leetCode._0851_0900
             {
                 ii++;
                 right++;
-                for (; ii <= right; )
+                for (; ii <= right;)
                 {
                     if (ii >= 0 && ii < cols && jj >= 0 && jj < rows)
                     {
@@ -76,7 +76,7 @@ namespace leetCode._0851_0900
 
                         count++;
                     }
-                    if (ii >= right) 
+                    if (ii >= right)
                     {
                         break;
                     }
@@ -84,7 +84,7 @@ namespace leetCode._0851_0900
                 }
                 jj++;
                 bottom++;
-                for (; jj <= bottom; )
+                for (; jj <= bottom;)
                 {
                     if (jj >= 0 && jj < rows && ii >= 0 && ii < cols)
                     {
@@ -120,7 +120,7 @@ namespace leetCode._0851_0900
                 }
                 jj--;
                 top--;
-                for (; jj >= top; )
+                for (; jj >= top;)
                 {
                     if (jj >= 0 && jj < rows && ii >= 0 && ii < cols)
                     {
@@ -142,6 +142,38 @@ namespace leetCode._0851_0900
             return mat;
         }
 
+
+        public int[][] SpiralMatrixIII(int rows, int cols, int rStart, int cStart)
+        {
+            int total = rows * cols;
+            int[][] mat = new int[total][];
+            int count = 0;
+            mat[count++] = [rStart, cStart];
+            int step = 0;
+            int dir = 0;
+            int[][] directions = [[-1, 0], [0, 1], [1, 0], [0, -1]];
+            while (count < total)
+            {
+                dir = (dir + 1) % 4;
+                if ((dir & 1) == 1)
+                {
+                    step++;
+                }
+
+                for (int i = 0; i < step; i++)
+                {
+                    rStart += directions[dir][0];
+                    cStart += directions[dir][1];
+
+                    if (rStart >= 0 && rStart < rows && cStart >= 0 && cStart < cols)
+                    {
+                        mat[count++] = [rStart, cStart];
+
+                    }
+                }
+            }
+            return mat;
+        }
 
     }
 }
