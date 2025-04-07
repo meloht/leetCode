@@ -9,7 +9,7 @@ namespace leetCode._0851_0900
     public class _885_SpiralMatrixIIIAlg
     {
 
-        public int[][] SpiralMatrixIII(int rows, int cols, int rStart, int cStart)
+        public int[][] SpiralMatrixIII1(int rows, int cols, int rStart, int cStart)
         {
             int total = rows * cols;
             int[][] mat = new int[total][];
@@ -44,6 +44,101 @@ namespace leetCode._0851_0900
                     }
                 }
             }
+            return mat;
+        }
+
+
+        public int[][] SpiralMatrixIII(int rows, int cols, int rStart, int cStart)
+        {
+            int total = rows * cols;
+            int[][] mat = new int[total][];
+            int count = 0;
+            mat[count++] = [rStart, cStart];
+            int bottom = rStart ;
+            int top = rStart;
+            int left = cStart;
+            int right = cStart;
+
+            int ii = cStart;
+            int jj = rStart;
+
+            while (count < total)
+            {
+                ii++;
+                right++;
+                for (; ii <= right; )
+                {
+                    if (ii >= 0 && ii < cols && jj >= 0 && jj < rows)
+                    {
+                        mat[count] = [jj, ii];
+                        if (count == total)
+                            return mat;
+
+                        count++;
+                    }
+                    if (ii >= right) 
+                    {
+                        break;
+                    }
+                    ii++;
+                }
+                jj++;
+                bottom++;
+                for (; jj <= bottom; )
+                {
+                    if (jj >= 0 && jj < rows && ii >= 0 && ii < cols)
+                    {
+                        mat[count] = [jj, ii];
+                        if (count == total)
+                            return mat;
+
+                        count++;
+                    }
+                    if (jj >= bottom)
+                    {
+                        break;
+                    }
+                    jj++;
+                }
+                ii--;
+                left--;
+                for (; ii >= left;)
+                {
+                    if (ii >= 0 && ii < cols && jj >= 0 && jj < rows)
+                    {
+                        mat[count] = [jj, ii];
+                        if (count == total)
+                            return mat;
+
+                        count++;
+                    }
+                    if (ii <= left)
+                    {
+                        break;
+                    }
+                    ii--;
+                }
+                jj--;
+                top--;
+                for (; jj >= top; )
+                {
+                    if (jj >= 0 && jj < rows && ii >= 0 && ii < cols)
+                    {
+                        mat[count] = [jj, ii];
+                        if (count == total)
+                            return mat;
+
+                        count++;
+                    }
+
+                    if (jj <= top)
+                    {
+                        break;
+                    }
+                    jj--;
+                }
+            }
+
             return mat;
         }
 

@@ -246,5 +246,103 @@ namespace leetCodeTemplates.BinarySearch
             return ans;
         }
 
+        /// <summary>
+        /// 通过调整二分查找条件，记录最后一次满足 nums[mid] <= target 的位置。
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public int FindLastLessOrEqual(int[] nums, int target)
+        {
+            int left = 0;
+            int right = nums.Length - 1;
+            int result = -1;
+            while (left <= right)
+            {
+                int mid = left + (right - left) / 2;
+                if (nums[mid] <= target)
+                {
+                    result = mid;    // 记录候选位置
+                    left = mid + 1;  // 继续向右查找更靠后的可能值
+                }
+                else
+                {
+                    right = mid - 1; // 中间值过大，向左缩小范围
+                }
+            }
+            return result;
+        }
+        /// <summary>
+        /// UpperBound 函数（第一个大于目标值的位置），其减一即为最后一个小于等于的位置。
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public int UpperBound(int[] nums, int target)
+        {
+            int left = 0, right = nums.Length;
+            while (left < right)
+            {
+                int mid = left + (right - left) / 2;
+                if (nums[mid] <= target)
+                {
+                    left = mid + 1;
+                }
+                else
+                {
+                    right = mid;
+                }
+            }
+            return left; // 返回第一个大于target的位置
+        }
+
+        // 通过UpperBound计算最后一个<=target的位置
+        public int FindLastLessOrEqual11(int[] nums, int target)
+        {
+            int upper = UpperBound(nums, target);
+            return upper - 1; // 第一个大于的位置减一即为最后一个<=的位置
+        }
+
+        // 实现 low bound，返回第一个不小于 target 的元素的索引
+        public static int LowerBound11(int[] arr, int target)
+        {
+            int left = 0;
+            int right = arr.Length;
+
+            while (left < right)
+            {
+                int mid = left + (right - left) / 2;
+                if (arr[mid] < target)
+                {
+                    left = mid + 1;
+                }
+                else
+                {
+                    right = mid;
+                }
+            }
+            return left;
+        }
+
+        // 实现 upper bound，返回第一个大于 target 的元素的索引
+        public static int UpperBound11(int[] arr, int target)
+        {
+            int left = 0;
+            int right = arr.Length;
+
+            while (left < right)
+            {
+                int mid = left + (right - left) / 2;
+                if (arr[mid] <= target)
+                {
+                    left = mid + 1;
+                }
+                else
+                {
+                    right = mid;
+                }
+            }
+            return left;
+        }
     }
 }
