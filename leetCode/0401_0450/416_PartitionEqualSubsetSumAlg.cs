@@ -54,6 +54,7 @@ namespace leetCode._0401_0450
 
 
 
+
         public bool CanPartition2(int[] nums)
         {
             if (nums.Length < 2)
@@ -98,5 +99,73 @@ namespace leetCode._0401_0450
 
             return dp[nums.Length - 1, target];
         }
+
+
+        public bool CanPartition3(int[] nums)
+        {
+            if (nums.Length < 2)
+                return false;
+
+            int t = 0;
+            int max = 0;
+            foreach (var item in nums)
+            {
+                t += item;
+                max = Math.Max(max, item);
+            }
+
+            if (t % 2 > 0)
+                return false;
+            int target = t / 2;
+
+            if (max > target)
+                return false;
+            if (nums.Any(p => p == target))
+                return true;
+
+
+            Dictionary<int, bool>[] dp = new Dictionary<int, bool>[nums.Length];
+
+            return Dfs(nums, 0, 0, target, dp);
+        }
+
+
+        public bool Dfs(int[] nums, int idx, int val, int target, Dictionary<int, bool>[] dp)
+        {
+            if (val == target)
+                return true;
+            if (idx == nums.Length || val > target)
+            {
+                return false;
+            }
+
+            if (dp[idx] != null && dp[idx].ContainsKey(val))
+            {
+                return dp[idx][val];
+            }
+
+            bool ans = Dfs(nums, idx + 1, val + nums[idx], target, dp)
+                || Dfs(nums, idx + 1, val, target, dp);
+
+            if (dp[idx] == null)
+            {
+                dp[idx] = new Dictionary<int, bool>();
+            }
+            if (!dp[idx].ContainsKey(val))
+            {
+                dp[idx].Add(val, ans);
+            }
+            else
+            {
+                dp[idx][val] = ans;
+            }
+
+            if (ans)
+                return true;
+
+            return false;
+
+        }
+
     }
 }

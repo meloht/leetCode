@@ -57,5 +57,14 @@ namespace Test._0401_0450
             bool res = alg.CanPartition(nums);
             Assert.AreEqual(exp, res);
         }
+
+        [TestMethod]
+        public void TestCase06()
+        {
+            int[] nums = [3, 3, 3, 4, 5];
+            bool exp = true;
+            bool res = alg.CanPartition(nums);
+            Assert.AreEqual(exp, res);
+        }
     }
 }
