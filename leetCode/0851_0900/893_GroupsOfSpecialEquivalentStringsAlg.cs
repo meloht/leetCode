@@ -35,5 +35,22 @@ namespace leetCode._0851_0900
 
             return set.Count;
         }
+
+        public int NumSpecialEquivGroups1(string[] words)
+        {
+            HashSet<string> set = new HashSet<string>();
+
+            foreach (var item in words)
+            {
+                char[] count = new char[52];
+                for (int i = 0; i < item.Length; i++)
+                {
+                    count[item[i] - 'a' + 26 * (i % 2)]++;
+                }
+                set.Add(new string(count));
+            }
+
+            return set.Count;
+        }
     }
 }
