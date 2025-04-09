@@ -17,7 +17,7 @@ namespace leetCode._0851_0900
                 nums = encoding;
             }
 
-            public int Next(int n)
+            public int Next1(int n)
             {
                 for (int i = idx; i < nums.Length; i += 2)
                 {
@@ -36,6 +36,25 @@ namespace leetCode._0851_0900
                     {
                         n -= count;
                         nums[i] = 0;
+                    }
+                }
+                return -1;
+            }
+
+            public int Next(int n)
+            {
+                while (idx < nums.Length)
+                {
+                    if (nums[idx] >= n)
+                    {
+                        nums[idx] = nums[idx] - n;
+                        
+                        return nums[idx + 1];
+                    }
+                    else
+                    {
+                        n -= nums[idx];
+                        idx += 2;
                     }
                 }
                 return -1;
