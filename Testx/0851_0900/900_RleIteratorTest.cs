@@ -10,7 +10,7 @@ namespace Testx._0851_0900
 {
     public class _900_RleIteratorTest
     {
-        _900_RleIteratorAlg alg = new _900_RleIteratorAlg();
+       
 
         [Fact]
         public void Test01()
