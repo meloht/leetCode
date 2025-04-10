@@ -20,7 +20,7 @@ namespace leetCode._0901_0950
                 while (stack.Count > 1 && arr[stack.Peek()] >= x)
                 {
                     int i = stack.Pop();
-                    ans += (long)arr[i] * (i - stack.Peek()) * (r - i);
+                    ans += ((long)arr[i] * (i - stack.Peek()) * (r - i))%Mod;
                 }
                 stack.Push(r);
             }
