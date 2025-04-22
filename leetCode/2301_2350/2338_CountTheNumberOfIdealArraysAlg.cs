@@ -70,8 +70,6 @@ namespace leetCode._2301_2350
                     mul = mul * C[n + e - 1, e] % Mod;
                 }
                 ans += mul;
-
-
             }
 
             return (int)(ans % Mod);
