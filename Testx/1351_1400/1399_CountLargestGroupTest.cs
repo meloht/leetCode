@@ -12,7 +12,7 @@ namespace Testx._1351_1400
         _1399_CountLargestGroupAlg alg = new _1399_CountLargestGroupAlg();
 
         [Fact]
-        public void Test01()
+        public void Test1()
         {
             int n = 13;
             int exp = 4;
@@ -21,7 +21,7 @@ namespace Testx._1351_1400
         }
 
         [Fact]
-        public void Test02()
+        public void Test2()
         {
             int n = 2;
             int exp = 2;
