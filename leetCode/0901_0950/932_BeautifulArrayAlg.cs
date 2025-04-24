@@ -17,12 +17,12 @@ namespace leetCode._0901_0950
 
         private int[] Fun(int n)
         {
-            if (memo.ContainsKey(n)) 
+            if (memo.ContainsKey(n))
             {
                 return memo[n];
             }
 
-            int[] ans=new int[n];
+            int[] ans = new int[n];
             if (n == 1)
             {
                 ans[0] = 1;
@@ -30,7 +30,7 @@ namespace leetCode._0901_0950
             else
             {
                 int t = 0;
-                int[] arr=Fun((n+1)/2);
+                int[] arr = Fun((n + 1) / 2);
                 foreach (var item in arr)
                 {
                     ans[t++] = 2 * item - 1;
@@ -38,7 +38,7 @@ namespace leetCode._0901_0950
                 int[] arr2 = Fun(n / 2);
                 foreach (var item in arr2)
                 {
-                    ans[t++] = 2 * item ;
+                    ans[t++] = 2 * item;
                 }
             }
 
