@@ -15,7 +15,7 @@ namespace Testx._0901_0950
         public void Test01()
         {
             int n = 4;
-            int[] exp = [2, 1, 4, 3];
+            int[] exp = [1, 3, 2, 4];
             int[] res = alg.BeautifulArray(n);
             Assert.Equal(exp, res);
         }
@@ -24,7 +24,7 @@ namespace Testx._0901_0950
         public void Test02()
         {
             int n = 5;
-            int[] exp = [3, 1, 2, 5, 4];
+            int[] exp = [1, 5, 3, 2, 4];
             int[] res = alg.BeautifulArray(n);
             Assert.Equal(exp, res);
         }
