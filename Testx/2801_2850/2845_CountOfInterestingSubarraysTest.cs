@@ -17,7 +17,7 @@ namespace Testx._2801_2850
             int[] nums = [3, 2, 4];
             int modulo = 2, k = 1;
             long exp = 3;
-            long res=alg.CountInterestingSubarrays(nums, modulo, k);
+            long res = alg.CountInterestingSubarrays(nums, modulo, k);
             Assert.Equal(exp, res);
         }
 
