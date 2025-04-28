@@ -15,8 +15,34 @@ namespace leetCode
 
             //GenerateCombinations(numbers, n, r);
 
-          
+
+            string s = "Let's take code contest";
+            Console.WriteLine(s);
+            Console.WriteLine(ReverseWords(s));
         }
+
+        public static string ReverseWords(string s)
+        {
+            char[] chars = s.ToCharArray();
+
+            for (int i = 0, j = 0; i < s.Length; i++)
+            {
+                if (s[i] == ' ' || i == s.Length - 1)
+                {
+                    for (int k = j, m = i - 1; k < m; k++, m--)
+                    {
+                        char ch = chars[m];
+                        chars[m] = chars[k];
+                        chars[k] = ch;
+                    }
+                    j = i + 1;
+                }
+
+            }
+            return new string(chars);
+        }
+
+
         static int Factorial(int n)
         {
             if (n <= 1)
@@ -54,6 +80,6 @@ namespace leetCode
         }
 
 
-      
+
     }
 }
