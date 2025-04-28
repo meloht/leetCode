@@ -10,8 +10,19 @@ namespace leetCode._2301_2350
     {
         public long CountSubarrays(int[] nums, long k)
         {
-
-            return 0;
+            long sum = 0;
+            long ans = 0;
+            for (int i = 0, j = 0; i < nums.Length; i++)
+            {
+                sum += nums[i];
+                while (sum * (i - j + 1) >= k)
+                {
+                    sum -= nums[j];
+                    j++;
+                }
+                ans += i - j + 1;
+            }
+            return ans;
         }
     }
 }
