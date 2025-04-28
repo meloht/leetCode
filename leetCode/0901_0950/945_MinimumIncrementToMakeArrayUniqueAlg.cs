@@ -46,7 +46,7 @@ namespace leetCode._0901_0950
             int[] dict = new int[max + 1];
             foreach (int item in nums)
             {
-                dict[item]++; ;
+                dict[item]++; 
             }
             int ans = 0;
             int last = -1;
