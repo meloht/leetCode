@@ -8,7 +8,7 @@ namespace leetCode._0901_0950
 {
     public class _949_LargestTimeForGivenDigitsAlg
     {
-        public string LargestTimeFromDigits(int[] arr)
+        public string LargestTimeFromDigits1(int[] arr)
         {
             int num5 = 0;
             int num2 = 0;
@@ -90,7 +90,41 @@ namespace leetCode._0901_0950
         }
 
 
+        public string LargestTimeFromDigits(int[] arr)
+        {
+            int ans = -1;
+           
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    if (i == j)
+                        continue;
+                    for (int k = 0; k < 4; k++)
+                    {
+                        if (k != i && k != j)
+                        {
+                            int last = 6 - i - j - k;
 
+                            int hours = 10 * arr[i] + arr[j];
+                            int mins = 10 * arr[k] + arr[last];
+
+                            if (hours < 24 && mins < 60)
+                            {
+                                ans = Math.Max(ans, hours * 60 + mins);
+                            }
+                        }
+
+                    }
+                }
+            }
+
+            if (ans == -1)
+                return "";
+
+            return $"{(ans / 60).ToString().PadLeft(2,'0')}:{(ans % 60).ToString().PadLeft(2,'0')}";
+
+        }
 
 
 
