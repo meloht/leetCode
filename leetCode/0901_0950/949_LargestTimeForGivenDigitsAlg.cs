@@ -122,7 +122,7 @@ namespace leetCode._0901_0950
             if (ans == -1)
                 return "";
 
-            return $"{(ans / 60).ToString().PadLeft(2,'0')}:{(ans % 60).ToString().PadLeft(2,'0')}";
+            return $"{(ans / 60).ToString("D2")}:{(ans % 60).ToString("D2")}";
 
         }
 
