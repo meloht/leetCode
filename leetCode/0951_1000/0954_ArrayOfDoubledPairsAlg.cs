@@ -46,8 +46,6 @@ namespace leetCode._0951_1000
                 {
                     if (dict[item] > 0)
                         return false;
-
-                    dict.Add(2 * item, -dict[item]);
                 }
             }
 
