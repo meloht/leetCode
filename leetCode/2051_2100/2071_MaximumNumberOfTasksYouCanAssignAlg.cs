@@ -15,7 +15,6 @@ namespace leetCode._2051_2100
 
             int left = 0;
             int mn = Math.Min(tasks.Length, workers.Length);
-
             int[] validTasks = new int[mn];
             int right = mn + 1;
 
