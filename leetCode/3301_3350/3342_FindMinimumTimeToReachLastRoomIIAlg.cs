@@ -22,14 +22,18 @@ namespace leetCode._3301_3350
                 Array.Fill(dis[i], int.MaxValue);
             }
             dis[0][0] = 0;
-
+            bool[,] v = new bool[n, m];
             PriorityQueue<int[], int> pq = new PriorityQueue<int[], int>(Comparer<int>.Create((x, y) => x - y));
             pq.Enqueue([0, 0, 0], 0);
 
-            while (true)
+            while (pq.Count > 0)
             {
                 int[] p = pq.Dequeue();
                 int d = p[0], i = p[1], j = p[2];
+                if (v[i, j])
+                {
+                    continue;
+                }
                 if (i == n - 1 && j == m - 1)
                 {
                     return d;
@@ -38,6 +42,7 @@ namespace leetCode._3301_3350
                 {
                     continue;
                 }
+                v[i, j] = true;
                 int time = (i + j) % 2 + 1;
                 foreach (int[] item in DIRS)
                 {
@@ -55,6 +60,7 @@ namespace leetCode._3301_3350
                 }
 
             }
+            return dis[n - 1][m - 1];
 
         }
     }
