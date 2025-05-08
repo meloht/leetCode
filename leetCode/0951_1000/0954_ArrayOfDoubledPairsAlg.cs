@@ -22,39 +22,34 @@ namespace leetCode._0951_1000
                     dict.Add(i, 1);
                 }
             }
-            int cnt = 0;
-            Array.Sort(arr);
-            foreach (var item in arr)
+            if (dict.ContainsKey(0) && dict[0] % 2 != 0)
             {
-                int nn = item * 2;
-               
-                if (dict.ContainsKey(nn))
-                {
-                    cnt++;
+                return false;
+            }
 
-                    if (dict.ContainsKey(item))
+            var list = dict.Keys.ToArray();
+            Array.Sort(list, (x, y) => Math.Abs(x) - Math.Abs(y));
+
+            foreach (var item in list)
+            {
+
+                if (dict.ContainsKey(item * 2))
+                {
+                    if (dict[item * 2] < dict[item])
                     {
-                        dict[item]--;
-                        if (dict[item] <= 0)
-                        {
-                            dict.Remove(item);
-                        }
+                        return false;
                     }
-                    if (dict.ContainsKey(nn))
-                    {
-                        dict[nn]--;
-                        if (dict[nn] <= 0)
-                        {
-                            dict.Remove(nn);
-                        }
-                    }
+                    dict[item * 2] -= dict[item];
 
                 }
+                else
+                {
+                    if (dict[item] > 0)
+                        return false;
+                }
             }
-            if (cnt >= arr.Length / 2)
-                return true;
 
-            return false;
+            return true;
         }
     }
 }
