@@ -37,8 +37,6 @@ namespace leetCode._0951_1000
                     dict.Add(state, n);
                 }
 
-
-
                 if (n >= 1)
                 {
                     n--;
