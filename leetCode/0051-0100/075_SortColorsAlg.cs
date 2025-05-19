@@ -41,7 +41,7 @@ namespace leetCode._51_100
                 nums[i] = 2;
             }
         }
-        public void SortColors(int[] nums)
+        public void SortColors3(int[] nums)
         {
             Node node = new Node();
             for (int i = 0; i < nums.Length; i++)
@@ -89,6 +89,27 @@ namespace leetCode._51_100
             public int a = 0;
             public int b = 0;
             public int c = 0;
+        }
+
+
+        public void SortColors(int[] nums)
+        {
+            int p0 = 0;
+            int p1 = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                int x = nums[i];
+                nums[i] = 2;
+                if (x <= 1)
+                {
+                    nums[p1++] = 1;
+                }
+                if (x == 0)
+                {
+                    nums[p0++] = 0;
+                }
+            }
+
         }
     }
 }
