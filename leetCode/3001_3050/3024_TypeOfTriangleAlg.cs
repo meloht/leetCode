@@ -15,11 +15,13 @@ namespace leetCode._3001_3050
             {
                 return "none";
             }
-            int cnt = nums.Distinct().Count();
-            if (cnt == 1)
+
+            if (nums[0] == nums[2])
                 return "equilateral";
-            else if (cnt == 2)
+            else if (nums[0] == nums[1] || nums[1] == nums[2])
                 return "isosceles";
+           
+
             return "scalene";
         }
     }
