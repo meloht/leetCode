@@ -10,21 +10,13 @@ namespace leetCode._0951_1000
     {
         public string[] Spellchecker(string[] wordlist, string[] queries)
         {
-            Dictionary<string, List<int>> dict1 = new Dictionary<string, List<int>>();
+            HashSet<string> dict1 = new HashSet<string>();
             Dictionary<string, List<int>> dict2 = new Dictionary<string, List<int>>();
             Dictionary<string, List<int>> dict3 = new Dictionary<string, List<int>>();
 
             for (int i = 0; i < wordlist.Length; i++)
             {
-               
-                if (dict1.ContainsKey(wordlist[i]))
-                {
-                    dict1[wordlist[i]].Add(i);
-                }
-                else
-                {
-                    dict1.Add(wordlist[i], [i]);
-                }
+                dict1.Add(wordlist[i]);
                 string word = wordlist[i].ToLower();
                 if (dict2.ContainsKey(word))
                 {
@@ -50,9 +42,9 @@ namespace leetCode._0951_1000
             for (int i = 0; i < queries.Length; i++)
             {
                 string item = queries[i];
-                if (dict1.ContainsKey(item))
+                if (dict1.Contains(item))
                 {
-                    ans[i] = wordlist[dict1[item][0]];
+                    ans[i] = item;
 
                     continue;
                 }
