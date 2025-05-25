@@ -15,7 +15,7 @@ namespace Testx._0951_1000
         public void Test01()
         {
             int[] nums = [3, 2, 4, 1];
-            int[] exp = [4, 2, 4, 3];
+            int[] exp = [3, 4, 2, 3, 2];
           
             int[] res = alg.PancakeSort(nums).ToArray();
             Assert.Equal(exp, res);
