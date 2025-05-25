@@ -10,7 +10,7 @@ namespace leetCode._0951_1000
     {
         public int[] NumsSameConsecDiff(int n, int k)
         {
-
+         
 
             return null;
         }
