@@ -9,7 +9,7 @@ namespace Testx._1851_1900
 {
     public class _1857_LargestColorValueInADirectedGraphTest
     {
-        _1857_LargestColorValueInADirectedGraphAlg alg=new _1857_LargestColorValueInADirectedGraphAlg()'
+        _1857_LargestColorValueInADirectedGraphAlg alg = new _1857_LargestColorValueInADirectedGraphAlg();
 
         [Fact]
         public void Test01()
