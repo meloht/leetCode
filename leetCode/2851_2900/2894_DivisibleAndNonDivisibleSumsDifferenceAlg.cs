@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace leetCode._0951_1000
+namespace leetCode._2851_2900
 {
     public class _2894_DivisibleAndNonDivisibleSumsDifferenceAlg
     {
@@ -25,7 +25,7 @@ namespace leetCode._0951_1000
                 }
             }
 
-            return num1-num2;
+            return num1 - num2;
         }
 
         public int DifferenceOfSums1(int n, int m)
