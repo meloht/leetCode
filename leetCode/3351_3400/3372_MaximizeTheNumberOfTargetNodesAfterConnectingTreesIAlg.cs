@@ -25,9 +25,9 @@ namespace leetCode._3351_3400
 
         private int GetMax(List<int>[] arr, int k)
         {
-            int ans = 0;
             if (k == 0)
-                return ans;
+                return 0;
+            int ans = 0;
             for (int i = 0; i < arr.Length; i++)
             {
                 ans = Math.Max(ans, GetMax(arr, i, k - 1));
