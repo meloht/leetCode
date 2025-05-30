@@ -24,7 +24,7 @@ namespace leetCode._0951_1000
                 return;
             }
 
-            string ch = s+ char.ToString((char)(root.val + 'a'));
+            string ch = s + char.ToString((char)(root.val + 'a'));
             if (root.left == null && root.right == null)
             {
                 if (ans == null)
@@ -61,7 +61,7 @@ namespace leetCode._0951_1000
             Dfs(root.left, ch);
             Dfs(root.right, ch);
 
-           
+
         }
 
 
