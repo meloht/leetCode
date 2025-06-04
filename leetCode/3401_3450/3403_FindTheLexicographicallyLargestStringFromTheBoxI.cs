@@ -39,9 +39,75 @@ namespace leetCode._3401_3450
 
 
         }
-
-
         public string AnswerString(string word, int numFriends)
+        {
+            if (numFriends == 1)
+            {
+                return word;
+            }
+            int n = word.Length;
+            char ch = 'a';
+            foreach (var item in word)
+            {
+                if (item > ch)
+                {
+                    ch = item;
+                }
+            }
+            int len = n - numFriends + 1;
+            int start = -1;
+            int end = 0;
+
+            List<int> list = new List<int>();
+            for (int i = 0; i < n; i++)
+            {
+                if (word[i] == ch)
+                {
+                    list.Add(i);
+                }
+            }
+            foreach (int i in list)
+            {
+                int d = Math.Min(i + len, n);
+                if (start == -1)
+                {
+                    start = i;
+                    end = d;
+                }
+                else
+                {
+                    int res = -1;
+                    for (int j = i, k = start; j < d && k < end; j++, k++)
+                    {
+                        if (word[j] > word[k])
+                        {
+                            start = i;
+                            end = d;
+                            res = 1;
+                            break;
+                        }
+                        else if (word[j] == word[k])
+                        {
+                            res = 0;
+                        }
+                        else
+                        {
+                            res = -1;
+                            break;
+                        }
+                    }
+                    if (res == 0&&(end-start)<(d-i))
+                    {
+                        start = i;
+                        end = d;
+                    }
+                }
+
+            }
+            return word.Substring(start, end - start);
+        }
+
+        public string AnswerString2(string word, int numFriends)
         {
             if (numFriends == 1)
             {
