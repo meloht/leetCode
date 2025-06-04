@@ -40,6 +40,7 @@ namespace leetCode._3401_3450
 
         }
 
+
         public string AnswerString(string word, int numFriends)
         {
             if (numFriends == 1)
