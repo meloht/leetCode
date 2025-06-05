@@ -53,5 +53,52 @@ namespace leetCode._1001_1050
             root.right = myBuildTree(preorder, inorder, preorder_left + size_left_subtree + 1, preorder_right, inorder_root + 1, inorder_right);
             return root;
         }
+
+
+        private int index = 0;
+        private int[] preorder;
+        private int len;
+
+        /**
+         * 深度优先遍历，遍历的时候把左右边界的值传下去
+         *
+         * @param preorder
+         * @return
+         */
+        public TreeNode BstFromPreorder1(int[] preorder)
+        {
+            this.preorder = preorder;
+            this.len = preorder.Length;
+            return dfs(int.MinValue, int.MaxValue);
+        }
+
+        /**
+         * 通过下限和上限来控制指针移动的范围
+         *
+         * @param lowerBound
+         * @param upperBound
+         * @return
+         */
+        private TreeNode dfs(int lowerBound, int upperBound)
+        {
+            // 所有的元素都已经添加到了二叉树中
+            if (index == len)
+            {
+                return null;
+            }
+
+            int cur = preorder[index];
+            if (cur < lowerBound || cur > upperBound)
+            {
+                return null;
+            }
+
+            index++;
+            TreeNode root = new TreeNode(cur);
+            root.left = dfs(lowerBound, cur);
+            root.right = dfs(cur, upperBound);
+            return root;
+        }
+
     }
 }
