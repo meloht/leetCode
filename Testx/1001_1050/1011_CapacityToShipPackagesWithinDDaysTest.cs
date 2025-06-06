@@ -40,5 +40,15 @@ namespace Testx._1001_1050
             int res = alg.ShipWithinDays(weights, days);
             Assert.Equal(exp, res);
         }
+
+        [Fact]
+        public void Test04()
+        {
+            int[] weights = [70, 259, 379, 369, 287, 145, 259, 29, 150, 410, 493, 121, 184, 92, 79, 168, 269, 209, 139, 437];
+            int days = 20;
+            int exp = 493;
+            int res = alg.ShipWithinDays(weights, days);
+            Assert.Equal(exp, res);
+        }
     }
 }
