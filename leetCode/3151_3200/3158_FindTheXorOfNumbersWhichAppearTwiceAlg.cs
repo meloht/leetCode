@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace leetCode._3151_4000
+namespace leetCode._3151_3200
 {
     public class _3158_FindTheXorOfNumbersWhichAppearTwiceAlg
     {

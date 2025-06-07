@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace leetCode._3151_4000
+namespace leetCode._3151_3200
 {
     public class _3193_CountTheNumberOfInversionsAlg
     {

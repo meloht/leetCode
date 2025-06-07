@@ -1,11 +1,11 @@
-﻿using leetCode._3151_4000;
+﻿using leetCode._3151_3200;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Test._3151_4000
+namespace Test._3151_3200
 {
     [TestClass]
     public class _3171_FindSubarrayWithBitwiseOrClosestToKTest
