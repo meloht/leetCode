@@ -30,7 +30,7 @@ namespace leetCode._1001_1050
                 node = node.next;
                 idx++;
             }
-            return ans.ToArray();
+            return ans;
         }
 
         private int GetLen(ListNode head)
