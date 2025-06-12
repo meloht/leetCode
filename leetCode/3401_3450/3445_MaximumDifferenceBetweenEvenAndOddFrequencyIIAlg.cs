@@ -10,35 +10,42 @@ namespace leetCode._3401_3450
     {
         public int MaxDifference(string s, int k)
         {
-            int[] arr = new int[5];
-            int ans = int.MinValue;
-            for (int i = 0, j = 0; i < s.Length; i++)
+            int inf = int.MaxValue / 2;
+
+            int ans = -inf;
+
+            for (int i = 0; i < 5; i++)
             {
-                arr[s[i] - '0']++;
-                if (i - j + 1> k)
+                for (int j = 0; j < 5; j++)
                 {
-                    arr[s[j] - '0']--;
-                }
-                int n1 = 0;
-                int n2 = int.MaxValue;
-                foreach (var item in arr)
-                {
-                    if (item > 0)
+                    if (i == j)
                     {
-                        if (item % 2 == 0)
-                        {
-                            n2 = Math.Min(item, n2);
-                        }
-                        else
-                        {
-                            n1 = Math.Max(item, n1);
-                        }
+                        continue;
 
                     }
+
+                    int[] curr = new int[5];
+                    int[] pre = new int[5];
+                    int[][] mins = [[inf, inf], [inf, inf]];
+                    int left = 0;
+                    for (int m = 0; m < s.Length; m++)
+                    {
+                        curr[s[m] - '0']++;
+                        int r = m + 1;
+
+                        while (r - left >= k && curr[i] > pre[i] && curr[j] > pre[j])
+                        {
+                            int p = pre[i] & 1;
+                            int q = pre[j] & 1;
+                            mins[p][q] = Math.Min(mins[p][q], pre[i] - pre[j]);
+                            pre[s[left] - '0']++;
+                            left++;
+                        }
+                        ans = Math.Max(ans, curr[i] - curr[j] - mins[curr[i] & 1 ^ 1][curr[j] & 1]);
+                    }
                 }
-                n2 = n2 == int.MaxValue ? 0 : n2;
-                ans = Math.Max(ans, n1 - n2);
             }
+
             return ans;
         }
     }
