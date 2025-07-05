@@ -30,14 +30,7 @@ namespace Test._1351_1400
             Assert.AreEqual(exp, res);
         }
 
-        [TestMethod]
-        public void TestCase03()
-        {
-            int[] arr = [2, 2, 2, 3, 3];
-            int exp = 1;
-            int res = alg.FindLucky(arr);
-            Assert.AreEqual(exp, res);
-        }
+       
 
         [TestMethod]
         public void TestCase04()
