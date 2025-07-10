@@ -23,8 +23,6 @@ namespace leetCode._3401_3450
                 s -= get(i - k, eventTime, startTime, endTime);
             }
             return ans;
-
-
         }
         private int get(int i, int eventTime, int[] startTime, int[] endTime)
         {
