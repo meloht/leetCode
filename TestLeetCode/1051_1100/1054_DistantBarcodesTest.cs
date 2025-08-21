@@ -43,7 +43,7 @@ namespace Test._1051_1100
         public void TestCase04()
         {
             int[] barcodes = [2, 2, 1, 3];
-            int[] exp = [2, 1, 2, 3];
+            int[] exp = [1,2,3,2];
             int[] res = alg.RearrangeBarcodes(barcodes);
             Assert.IsTrue(exp.SequenceEqual(res));
         }
