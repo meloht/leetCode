@@ -10,7 +10,24 @@ namespace leetCode._1101_1150
     {
         public int[] MaxDepthAfterSplit(string seq)
         {
-            return null;
+            int d = 0;
+            int length = seq.Length;
+            int[] ans = new int[length];
+            for (int i = 0; i < length; i++)
+            {
+                if (seq[i] == '(')
+                {
+                    ++d;
+                    ans[i] = d % 2;
+                }
+                else
+                {
+                    ans[i] = d % 2;
+                    --d;
+                }
+            }
+            return ans;
+
         }
     }
 }

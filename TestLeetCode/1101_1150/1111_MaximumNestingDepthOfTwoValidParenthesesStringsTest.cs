@@ -17,7 +17,7 @@ namespace Test._1101_1150
         public void TestCase01()
         {
             string seq = "(()())";
-            int[] exp = [0, 1, 1, 1, 1, 0];
+            int[] exp = [1, 0, 0, 0, 0, 1];
             int[] res = alg.MaxDepthAfterSplit(seq);
             Assert.IsTrue(exp.SequenceEqual(res));
         }
@@ -26,7 +26,7 @@ namespace Test._1101_1150
         public void TestCase02()
         {
             string seq = "()(())()";
-            int[] exp = [0, 0, 0, 1, 1, 0, 1, 1];
+            int[] exp = [1, 1, 1, 0, 0, 1, 1, 1];
             int[] res = alg.MaxDepthAfterSplit(seq);
             Assert.IsTrue(exp.SequenceEqual(res));
         }
