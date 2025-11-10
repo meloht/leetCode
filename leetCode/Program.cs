@@ -15,27 +15,14 @@ namespace leetCode
             //int n = numbers.Length;
 
             //GenerateCombinations(numbers, n, r);
-            Test02();
+          
 
            // string s = "Let's take code contest";
            // Console.WriteLine(s);
            // Console.WriteLine(ReverseWords(s));
         }
 
-        public static void Test02()
-        {
-            _1116_PrintZeroEvenOddAlg.ZeroEvenOdd tt = new _1116_PrintZeroEvenOddAlg.ZeroEvenOdd(5);
-
-            Task.Run(() => { tt.Zero(PrintT); });
-            Task.Run(() => { tt.Even(PrintT); });
-            Task.Run(() => { tt.Odd(PrintT); });
-            Task.WaitAll();
-        }
-
-        public static void PrintT(int n)
-        {
-            Console.Write(n);
-        }
+      
 
         public static string ReverseWords(string s)
         {
