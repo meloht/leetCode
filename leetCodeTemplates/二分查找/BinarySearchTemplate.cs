@@ -203,7 +203,7 @@ namespace leetCodeTemplates.BinarySearch
         {
             int left = 0;
             int right = list.Count - 1;
-            int ans = 0;
+            int ans = list.Count;
             while (left <= right)
             {
                 int mid = left + (right - left) / 2;
