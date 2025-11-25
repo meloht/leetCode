@@ -1,0 +1,31 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace leetCode._1201_1250
+{
+    public class _1218_LongestArithmeticSubsequenceOfGivenDifferenceAlg
+    {
+        public int LongestSubsequence(int[] arr, int difference)
+        {
+            int ans = 0;
+            Dictionary<int, int> dp = new Dictionary<int, int>();
+            foreach (int v in arr)
+            {
+                int prev = dp.ContainsKey(v - difference) ? dp[v - difference] : 0;
+                if (dp.ContainsKey(v))
+                {
+                    dp[v] = prev + 1;
+                }
+                else
+                {
+                    dp.Add(v, prev + 1);
+                }
+                ans = Math.Max(ans, dp[v]);
+            }
+            return ans;
+        }
+    }
+}
