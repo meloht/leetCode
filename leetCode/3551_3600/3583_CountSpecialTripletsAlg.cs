@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace leetCode._3551_3560
+namespace leetCode._3551_3600
 {
     public class _3583_CountSpecialTripletsAlg
     {

@@ -1,11 +1,11 @@
-﻿using leetCode._3551_3560;
+﻿using leetCode._3551_3600;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Testx._3551_3560
+namespace Testx._3551_3600
 {
     public class _3583_CountSpecialTripletsTest
     {
