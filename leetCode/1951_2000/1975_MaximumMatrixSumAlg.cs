@@ -33,8 +33,6 @@ namespace leetCode._1951_2000
                 total -= mn * 2; // 给绝对值最小的数添加负号
             }
             return total;
-
-
         }
     }
 }
