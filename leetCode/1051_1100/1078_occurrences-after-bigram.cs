@@ -13,9 +13,9 @@ namespace leetCode._1051_1100
 
             string[] arr = text.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
-            for (int i = 0; i < arr.Length-2; i++)
+            for (int i = 0; i < arr.Length - 2; i++)
             {
-                string s1=arr[i];
+                string s1 = arr[i];
                 string s2 = arr[i + 1];
                 string s3 = arr[i + 2];
                 if (s1 == first && s2 == second)
