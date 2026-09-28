@@ -8,9 +8,8 @@ namespace leetCode._1251_1300
     {
         public int SmallestDivisor(int[] nums, int threshold)
         {
-            Array.Sort(nums);
             int left = 1;
-            int right = nums[nums.Length - 1];
+            int right = nums.Max();
             int ans = 0;
             while (left <= right)
             {
