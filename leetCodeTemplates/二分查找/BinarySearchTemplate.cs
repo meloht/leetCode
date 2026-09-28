@@ -32,6 +32,140 @@ namespace leetCodeTemplates.BinarySearch
 
             return -1;
         }
+        /// <summary>
+        /// 大于target的最小值
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public static int UpperBound1(int[] nums, int target)
+        {
+            int left = 0;
+            int right = nums.Length - 1;
+
+            int ans = -1;
+
+            while (left <= right)
+            {
+                int mid = left + (right - left) / 2;
+
+                if (nums[mid] > target)
+                {
+                    // nums[mid] 是一个候选答案
+                    ans = mid;
+
+                    // 继续向左找更小的
+                    right = mid - 1;
+                }
+                else
+                {
+                    // nums[mid] <= target
+                    // 答案一定在右边
+                    left = mid + 1;
+                }
+            }
+
+            return ans;
+        }
+        /// <summary>
+        /// 大于target的最小值
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public static int UpperBound(int[] nums, int target)
+        {
+            int left = 0;
+            int right = nums.Length;
+
+            while (left < right)
+            {
+                int mid = left + (right - left) / 2;
+
+                if (nums[mid] <= target)
+                {
+                    // mid 不符合，继续往右找
+                    left = mid + 1;
+                }
+                else
+                {
+                    // nums[mid] > target
+                    // 可能就是答案，继续往左找更小的
+                    right = mid;
+                }
+            }
+
+            // left == nums.Length 表示不存在 > target 的值
+            return left;
+        }
+        /// <summary>
+        /// 小于target的最大值 right = nums.Length，左闭右开 [left, right)
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public static int LowerValue(int[] nums, int target)
+        {
+            int left = 0;
+            int right = nums.Length;
+
+            while (left < right)
+            {
+                int mid = left + (right - left) / 2;
+
+                if (nums[mid] < target)
+                {
+                    // nums[mid] 符合条件
+                    // 但是可能右边还有更大的
+                    left = mid + 1;
+                }
+                else
+                {
+                    // nums[mid] >= target
+                    // mid 以及右边都不符合
+                    right = mid;
+                }
+            }
+
+            // left 是第一个 >= target 的位置
+            // 所以答案是 left - 1
+            return left > 0 ? left - 1 : -1;
+        }
+        /// <summary>
+        /// 小于target的最大值 left <= right，左右都是有效下标
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public static int LowerValue2(int[] nums, int target)
+        {
+            int left = 0;
+            int right = nums.Length - 1;
+
+            int ans = -1;
+
+            while (left <= right)
+            {
+                int mid = left + (right - left) / 2;
+
+                if (nums[mid] < target)
+                {
+                    // nums[mid] 符合条件
+                    ans = mid;
+
+                    // 继续往右找更大的
+                    left = mid + 1;
+                }
+                else
+                {
+                    // nums[mid] >= target
+                    // 往左找
+                    right = mid - 1;
+                }
+            }
+
+            return ans;
+        }
 
         /// <summary>
         /// 大于target
@@ -219,6 +353,7 @@ namespace leetCodeTemplates.BinarySearch
             }
             return ans;
         }
+
         /// <summary>
         /// 小于target的最大值
         /// </summary>
