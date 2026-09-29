@@ -46,7 +46,7 @@ namespace Test._1251_1300
         {
             string s = "abcde";
             int maxLetters = 2, minSize = 3, maxSize = 3;
-            int exp = 3;
+            int exp = 0;
             int res = alg.MaxFreq(s, maxLetters, minSize, maxSize);
             Assert.AreEqual(exp, res);
         }
